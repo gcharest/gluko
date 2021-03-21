@@ -1,17 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
-    <Calculator />
+    <h1>Facteur glucidique</h1>
+    <p>Cette page contiendra l'outil de calcul des facteurs glucidiques des recettes.</p>
   </div>
 </template>
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import Calculator from "@/components/Calculator.vue";
-
-@Options({
-  components: {
-    Calculator
-  }
-})
-export default class About extends Vue {}
-</script>
