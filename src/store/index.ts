@@ -33,7 +33,7 @@ export type Store = Omit<
     payload: P,
     options?: CommitOptions
   ): ReturnType<Mutations[K]>;
-}/* & {
+}; /* & {
   dispatch<K extends keyof Actions>(
     key: K,
     payload?: Parameters<Actions[K]>[1],
@@ -42,5 +42,5 @@ export type Store = Omit<
 } & {
   getters: {
     [K in keyof Getters]: ReturnType<Getters[K]>;
-  };*/
-};
+  };
+};*/
