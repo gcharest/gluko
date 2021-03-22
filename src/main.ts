@@ -6,8 +6,17 @@ import router from "@/router";
 import { store } from "@/store/index";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import en from "@/locale/en-ca.json";
+import fr from "@/locale/fr-ca.json";
 
-const i18n = createI18n({});
+const i18n = createI18n({
+  locale: "fr-CA",
+  fallbackLocale: "fr-CA",
+  messages: {
+    "en-CA": en,
+    "fr-CA": fr
+  }
+});
 
 createApp(App)
   .use(store)

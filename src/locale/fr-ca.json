@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "recipe": "Recette"
+  },
+  "calculator": {
+    "title": "Calculatrice de glucides de base",
+    "notice": "Cette calculatrice est offert à titre indicatif seulement. Veuillez vous assurer de contre vérifier les calculs. Aucune garantie d'exactitude n'est offerte."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "home": "Home",
+    "recipe": "Recipes"
+  },
+  "calculator": {
+    "title": "Basic Glucids Calculator",
+    "notice": "This calculator is provided for informational purposes only. Please be sure to double check the calculations. No guarantee of accuracy is offered."
+  }
+}
