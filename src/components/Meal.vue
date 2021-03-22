@@ -1,0 +1,20 @@
+<template>
+  <div>
+    <table>
+      <tr>
+        <th>
+          Nom
+        </th>
+        <th>
+          Facteur
+        </th>
+        <th>
+          Quantité
+        </th>
+        <th>
+          Sous-total
+        </th>
+      </tr>
+    </table>
+  </div>
+</template>
