@@ -6,8 +6,8 @@ import {
   createLogger
 } from "vuex";
 
-import { State, state } from "./state";
-import { Mutations, mutations } from "./mutations";
+import { State, state } from "@/store/state";
+import { Mutations, mutations } from "@/store/mutations";
 //import { Actions, actions } from "./actions";
 //import { Getters, getters } from "./getters";
 
