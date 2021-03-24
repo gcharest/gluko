@@ -1,10 +1,20 @@
 {
   "navigation": {
     "home": "Home",
-    "recipe": "Recipes"
+    "recipe": "Recipes",
+    "skipToContent": "Skip to main content",
+    "mainNavigation": "Main navigation"
   },
   "calculator": {
     "title": "Basic Glucids Calculator",
     "notice": "This calculator is provided for informational purposes only. Please be sure to double check the calculations. No guarantee of accuracy is offered."
+  },
+  "meal": {
+    "tableHeader": {
+      "nutrient": "Nutrient",
+      "factor": "Factor",
+      "quantity": "Quantity",
+      "subtotal": "Subtotal"
+    }
   }
 }

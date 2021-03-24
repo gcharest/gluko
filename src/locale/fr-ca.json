@@ -1,10 +1,20 @@
 {
   "navigation": {
     "home": "Accueil",
-    "recipe": "Recette"
+    "recipe": "Recette",
+    "skipToContent": "Aller au contenu principal",
+    "mainNavigation": "Navigation principale"
   },
   "calculator": {
     "title": "Calculatrice de glucides de base",
     "notice": "Cette calculatrice est offert à titre indicatif seulement. Veuillez vous assurer de contre vérifier les calculs. Aucune garantie d'exactitude n'est offerte."
+  },
+  "meal": {
+    "tableHeader": {
+      "nutrient": "Aliment",
+      "factor": "Facteur",
+      "quantity": "Quantité",
+      "subtotal": "Sous-total"
+    }
   }
 }
