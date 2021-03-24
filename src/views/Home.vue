@@ -2,16 +2,19 @@
   <div class="home">
     <h1>Calcul des glucides</h1>
     <Calculator />
+    <Meal />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import Calculator from "@/components/Calculator.vue"; // @ is an alias to /src
+import Calculator from "@/components/Calculator.vue";
+import Meal from "@/components/Meal.vue";
 
 @Options({
   components: {
-    Calculator
+    Calculator,
+    Meal
   }
 })
 export default class Home extends Vue {}
