@@ -5,6 +5,11 @@
     "skipToContent": "Aller au contenu principal",
     "mainNavigation": "Navigation principale"
   },
+  "home": {},
+  "about": {
+    "title": "À propos",
+    "content": "Cet outil a été conçu pour faciliter le calcul des glucides pour les repas. Néanmoins, l'information utilisée pour le calcul des glucides provient de différentes sources et l'ensemble des données et informations trouvées dans l'outil ne peut donc être utilisé qu'à titre de référence. Aucune garantie d'exactitude n'est donnée pour quiconque désire utiliser cet outil."
+  },
   "calculator": {
     "title": "Calculatrice de glucides de base",
     "notice": "Cette calculatrice est offert à titre indicatif seulement. Veuillez vous assurer de contre vérifier les calculs. Aucune garantie d'exactitude n'est offerte."
