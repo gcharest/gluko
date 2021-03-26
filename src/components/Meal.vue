@@ -18,12 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>123</td>
-          <td>125</td>
-          <td>456</td>
-          <td>4465</td>
-        </tr>
+        <tr></tr>
       </tbody>
     </table>
   </div>
