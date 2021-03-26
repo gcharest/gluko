@@ -31,7 +31,7 @@
           </li>
           <li class="nav-item">
             <router-link to="/about" class="nav-link"
-              >{{ $t("navigation.recipe") }}
+              >{{ $t("about.title") }}
             </router-link>
           </li>
         </ul>
