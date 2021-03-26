@@ -1,0 +1,11 @@
+{
+  "profiles": [
+    {
+      "id": 1,
+      "name": "default",
+      "meals": [],
+      "editing": false
+    }
+  ],
+  "loading": false
+}
