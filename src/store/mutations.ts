@@ -39,7 +39,7 @@ export type Mutations = {
   [MutationType.CreateMeal](
     state: State,
     value: {
-      profileID: number;
+      profileId: number;
       meal: Meal;
     }
   ): void;
@@ -136,7 +136,7 @@ export const mutations: MutationTree<State> & Mutations = {
   },
   [MutationType.CreateMeal](state, value) {
     const profileIndex = state.profiles.findIndex(
-      element => element.id === value.profileID
+      element => element.id === value.profileId
     );
     if (profileIndex === -1) {
       return;
