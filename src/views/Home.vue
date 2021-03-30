@@ -2,19 +2,19 @@
   <div class="home">
     <h1>Calcul des glucides</h1>
     <Calculator />
-    <Meal />
+    <MealList />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import Calculator from "@/components/Calculator.vue";
-import Meal from "@/components/Meal.vue";
+import MealList from "@/components/MealList.vue";
 
 @Options({
   components: {
     Calculator,
-    Meal
+    MealList
   }
 })
 export default class Home extends Vue {}
