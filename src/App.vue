@@ -42,3 +42,18 @@
     <router-view />
   </main>
 </template>
+<script lang="ts">
+import { defineComponent, onMounted, computed } from "vue";
+import { useStore } from "@/store";
+import { ActionTypes } from "@/store/actions";
+
+export default defineComponent({
+  setup() {
+    const store = useStore();
+    onMounted(() => store.dispatch(ActionTypes.SetProfileItems));
+    //const state = computed(() => store.state);
+    const profileCount = computed(() => store.getters.totalProfilesCount);
+    return { profileCount };
+  }
+});
+</script>
