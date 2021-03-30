@@ -30,7 +30,6 @@ import { useStore } from "@/store/index";
 export default defineComponent({
   setup() {
     const store = useStore();
-    //const state = computed(() => store.state);
     const profileCount = computed(() => store.getters.totalProfilesCount);
     return { profileCount };
   }
