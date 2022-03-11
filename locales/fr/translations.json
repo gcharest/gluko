@@ -1,0 +1,14 @@
+{
+  "navigation": {
+    "skipToContent": "Aller au contenu"
+  },
+  "home": "Glucides",
+  "about": "À propos",
+  "Calculateur": "Calculateur",
+  "message": "Total des glucides",
+  "Nom de l'aliment": "Aliment",
+  "Quantité": "Quantité",
+  "Facteur": "Facteur",
+  "Ajouter un aliment": "Ajouter un aliment",
+  "Reset": "Réinitialiser"
+}

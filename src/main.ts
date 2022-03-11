@@ -1,26 +1,30 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
 import { createI18n } from "vue-i18n";
-import App from "./App.vue";
-import "./registerServiceWorker";
-import router from "@/router";
-import { store } from "@/store/index";
-// import "marked";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import en from "@/locale/en-ca.json";
-import fr from "@/locale/fr-ca.json";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
+import en from "../locales/en/translations.json";
+import fr from "../locales/fr/translations.json";
+
+import App from "./App.vue";
+import router from "./router";
 
 const i18n = createI18n({
-  locale: "fr-CA",
-  fallbackLocale: "fr-CA",
   messages: {
-    "en-CA": en,
-    "fr-CA": fr
-  }
+    en: en,
+    fr: fr,
+  },
+  locale: "fr",
+  fallbackLocale: "fr",
+  resolveWithKeyValue: true,
+  fallbackWarn: false,
 });
+const pinia = createPinia();
+const app = createApp(App);
+app.use(pinia);
+app.use(router);
+app.use(i18n);
 
-createApp(App)
-  .use(store)
-  .use(router)
-  .use(i18n)
-  .mount("#app");
+app.mount("#app");

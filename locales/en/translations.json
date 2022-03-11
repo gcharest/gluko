@@ -1,0 +1,14 @@
+{
+  "navigation": {
+    "skipToContent": "Skip to content"
+  },
+  "home": "Carbs",
+  "about": "About",
+  "Calculateur": "Counter",
+  "message": "Total count of carbs",
+  "Nom de l'aliment": "Nutrient",
+  "Quantité": "Quantity",
+  "Facteur": "Factor",
+  "Ajouter un aliment": "Add a nutrient",
+  "Reset": "Reset"
+}
