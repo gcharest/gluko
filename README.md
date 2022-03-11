@@ -1,6 +1,16 @@
 # gluko
 
-This template should help get you started developing with Vue 3 in Vite.
+Application web visant à faciliter le calcul des glucides pour les repas, spécifiquement pour les personnes atteintes de diabète de type 1.
+
+Fonctionnalités visées:
+
+- calcule la somme des glucides dans un repas
+- sauvegarde le repas pour consultation ultérieure
+- liste les repas sauvegardés
+- crée un nouveau repas à partir d'une copie d'un repas sauvegardé
+- liste les repas sauvegardés par profile d'utilisateur
+
+L'application utilise Vue 3 ainsi que Pinia pour gérer l'état.
 
 ## Recommended IDE Setup
 
