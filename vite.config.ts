@@ -12,5 +12,6 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  base: "/gluko/",
+  //Custom base URL
+  base: process.env.BASE_URL,
 });
