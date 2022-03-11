@@ -13,5 +13,5 @@ export default defineConfig({
     },
   },
   //Custom base URL
-  base: process.env.BASE_URL,
+  base: "gluko",
 });
