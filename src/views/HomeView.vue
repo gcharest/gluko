@@ -31,7 +31,7 @@ const store = useMealStore();
             inputmode="decimal"
             class="form-control"
             v-model="nutrient.quantity"
-            :placeholder="nutrient.quantity.toStrieng()"
+            :placeholder="nutrient.quantity.toString()"
             :id="'nutrientQuantity' + index"
           />
           <label :for="'nutrientQuantity' + index">{{ $t("Quantité") }}</label>
