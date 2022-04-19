@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useMealStore } from "@/stores/meal";
-// const props = defineProps({});
 const store = useMealStore();
 </script>
 
@@ -39,7 +38,6 @@ const store = useMealStore();
         <div class="col form-floating mb-3">
           <input
             type="text"
-            inputmode="decimal"
             class="form-control"
             v-model="nutrient.factor"
             :placeholder="nutrient.factor.toString()"
