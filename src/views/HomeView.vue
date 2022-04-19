@@ -27,7 +27,6 @@ const store = useMealStore();
         <div class="col form-floating mb-3">
           <input
             type="text"
-            inputmode="decimal"
             class="form-control"
             v-model="nutrient.quantity"
             :placeholder="nutrient.quantity.toString()"
