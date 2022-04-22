@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useMealStore } from "@/stores/meal";
-// const props = defineProps({});
 const store = useMealStore();
 </script>
 
