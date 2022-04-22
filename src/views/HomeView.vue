@@ -20,6 +20,7 @@ const store = useMealStore();
             v-model.lazy="nutrient.name"
             :placeholder="nutrient.name"
             :id="'nutrientName' + index"
+            onclick="select()"
           />
           <label class="text-dark" :for="'nutrientName' + index">{{
             $t("Nom de l'aliment")
@@ -28,22 +29,24 @@ const store = useMealStore();
         <div class="col form-floating mb-3">
           <input
             type="text"
-            inputmode="decimal"
+            inputmode="numeric"
             class="form-control"
             v-model="nutrient.quantity"
             :placeholder="nutrient.quantity.toString()"
             :id="'nutrientQuantity' + index"
+            onclick="select()"
           />
           <label :for="'nutrientQuantity' + index">{{ $t("Quantité") }}</label>
         </div>
         <div class="col form-floating mb-3">
           <input
             type="text"
-            inputmode="decimal"
+            inputmode="numeric"
             class="form-control"
             v-model="nutrient.factor"
             :placeholder="nutrient.factor.toString()"
             :id="'nutrientFactor' + index"
+            onclick="select()"
           />
           <label :for="'nutrientFactor' + index">{{ $t("Facteur") }}</label>
         </div>

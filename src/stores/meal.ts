@@ -11,7 +11,7 @@ export const useMealStore = defineStore({
   id: "meal",
   state: () => ({
     nutrients: useSessionStorage("nutrients", [
-      { name: "default", quantity: 0, factor: 0 },
+      { name: "", quantity: 0, factor: 0 },
     ]),
   }),
   getters: {
