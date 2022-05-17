@@ -44,6 +44,7 @@ const store = useMealStore();
           onclick="select()"
         />
         <label :for="'nutrientFactor' + index">{{ $t("Facteur") }}</label>
+        <p class="text-light">{{ nutrient.quantity * nutrient.factor }} g</p>
       </div>
       <div class="col">
         <button
@@ -79,7 +80,7 @@ const store = useMealStore();
     <div class="row">
       <div class="col mt-3">
         <h2 class="text-light">
-          {{ $t("message") }}: {{ Math.round(store.mealCarbs * 100) / 100 }}
+          {{ $t("message") }}: {{ Math.round(store.mealCarbs * 100) / 100 }} g
         </h2>
       </div>
     </div>
