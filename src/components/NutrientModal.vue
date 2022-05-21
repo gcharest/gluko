@@ -3,13 +3,21 @@ import { useMealStore } from "@/stores/meal";
 import { ref, Teleport } from "vue";
 const props = defineProps({
   nutrientName: { type: String, required: true },
-  nutrientID: { type: Number, required: true },
+  nutrientIndex: { type: Number, required: true },
 });
 const store = useMealStore();
-const nutrient = ref(
+let nutrient = ref(
   store.nutrients.find((nutrient) => nutrient.name === props.nutrientName)
 );
-const modalId = () => "modal" + props.nutrientID.toString();
+if (nutrient.value === undefined) {
+  nutrient.value = {
+    id: Number.parseInt(crypto.randomUUID()),
+    name: "",
+    quantity: 0,
+    factor: 0,
+  };
+}
+const modalId = () => "modal" + props.nutrientIndex.toString();
 const modalIdTarget = "#" + modalId();
 const modalLabel = "modalLabel" + modalId();
 </script>
@@ -47,20 +55,50 @@ const modalLabel = "modalLabel" + modalId();
               ></button>
             </div>
             <div class="modal-body">
-              <div class="row g-3">
+              <div class="row g-3" v-if="nutrient?.name !== undefined">
                 <div class="col form-floating">
                   <input
                     type="text"
                     class="form-control text-black"
-                    v-if="nutrient?.name !== undefined"
                     v-model.lazy="nutrient.name"
                     :placeholder="nutrient.name"
-                    :id="'nutrientName' + nutrientID"
+                    :id="'nutrientName' + nutrientIndex"
                     onclick="select()"
                   />
-                  <label class="text-dark" :for="'nutrientName' + nutrientID">{{
-                    $t("Nom de l'aliment")
+                  <label
+                    class="text-dark"
+                    :for="'nutrientName' + nutrientIndex"
+                    >{{ $t("Nom de l'aliment") }}</label
+                  >
+                </div>
+                <div class="col form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="nutrient.quantity"
+                    :placeholder="nutrient.quantity.toString()"
+                    :id="'nutrientQuantity' + nutrientIndex"
+                    onclick="select()"
+                  />
+                  <label :for="'nutrientQuantity' + nutrientIndex">{{
+                    $t("Quantité")
                   }}</label>
+                </div>
+                <div class="col form-floating mb-3 lg">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="nutrient.factor"
+                    :placeholder="nutrient.factor.toString()"
+                    :id="'nutrientFactor' + nutrientIndex"
+                    onclick="select()"
+                  />
+                  <label :for="'nutrientFactor' + nutrientIndex">{{
+                    $t("Facteur")
+                  }}</label>
+                  <p class="text-light">
+                    {{ nutrient.quantity * nutrient.factor }} g
+                  </p>
                 </div>
               </div>
             </div>
