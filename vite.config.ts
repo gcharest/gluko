@@ -14,4 +14,7 @@ export default defineConfig({
   },
   //Custom base URL
   base: "/gluko/",
+  test: {
+    globals: true,
+  },
 });

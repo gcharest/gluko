@@ -20,6 +20,7 @@ const i18n = createI18n({
   fallbackLocale: "fr",
   resolveWithKeyValue: true,
   fallbackWarn: false,
+  globalInjection: true,
 });
 const pinia = createPinia();
 const app = createApp(App);
