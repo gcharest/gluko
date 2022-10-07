@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BaseFooter from "@/components/BaseFooter.vue";
 import { RouterLink, RouterView } from "vue-router";
 </script>
 
@@ -38,4 +39,5 @@ import { RouterLink, RouterView } from "vue-router";
   </header>
 
   <RouterView />
+  <BaseFooter></BaseFooter>
 </template>

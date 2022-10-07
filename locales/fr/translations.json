@@ -10,5 +10,11 @@
   "Quantité": "Quantité",
   "Facteur": "Facteur",
   "Ajouter un aliment": "Ajouter un aliment",
-  "Reset": "Réinitialiser"
+  "Reset": "Réinitialiser",
+  "Submit": "Soumettre",
+  "Subtotal": "Sous-total",
+  "Nutrient": "Aliment",
+  "Modify": "Modifier",
+  "Close": "Fermer",
+  "Save Changes": "Sauvegarder"
 }
