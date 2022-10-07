@@ -23,7 +23,7 @@ const generateUUID = () => {
         <div class="row gx-5">
           <div class="col-8">
             <p>{{ $t("Subtotal") }}:</p>
-            <p>{{ nutrient.quantity * nutrient.factor }} g</p>
+            <p>{{ (nutrient.quantity * nutrient.factor).toFixed(2) }} g</p>
           </div>
           <div class="col-4 text-end">
             <div class="row">
@@ -52,7 +52,7 @@ const generateUUID = () => {
       <div class="row">
         <div class="card-body">
           <h2 class="card-title text-light">
-            {{ $t("message") }}: {{ Math.round(store.mealCarbs * 100) / 100 }} g
+            {{ $t("message") }}: {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
           </h2>
         </div>
       </div>
