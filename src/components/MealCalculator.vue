@@ -9,35 +9,38 @@ const generateUUID = () => {
 
 <template>
   <div v-for="(nutrient, index) in store.nutrients" :key="nutrient.name">
-    <div class="card border-light mb-3 w-80 translate-middle-x start-50">
-      <div class="card-header">
+    <div
+      class="card bg-dark border-light mb-3 w-80 translate-middle-x start-50"
+    >
+      <div class="card-header text-light border-light">
         {{
           nutrient.name === ""
             ? $t("Nutrient") + " " + (index + 1)
             : nutrient.name
         }}
       </div>
-      <div class="card-body">
+      <div class="card-body text-light">
         <div class="row gx-5">
-          <div class="col">
-            <p>
-              {{ $t("Subtotal") }}: {{ nutrient.quantity * nutrient.factor }} g
-            </p>
+          <div class="col-8">
+            <p>{{ $t("Subtotal") }}:</p>
+            <p>{{ nutrient.quantity * nutrient.factor }} g</p>
           </div>
-          <div class="col text-end">
-            <div>
+          <div class="col-4 text-end">
+            <div class="row">
               <NutrientModal
                 v-bind:nutrient-name="nutrient.name"
                 :nutrient-index="index"
               ></NutrientModal>
-              <button
-                v-if="store.nutrients.length > 1"
-                type="button"
-                class="btn btn-secondary p-lg-2 lg-3 m-2 mx-3"
-                @click="store.removeNutrient(index)"
-              >
-                <i class="bi bi-trash3-fill"></i>
-              </button>
+              <div class="row">
+                <button
+                  v-if="store.nutrients.length > 1"
+                  type="button"
+                  class="btn btn-secondary p-lg-2 lg-3 m-2 mx-3"
+                  @click="store.removeNutrient(index)"
+                >
+                  <i class="bi bi-trash3-fill"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
