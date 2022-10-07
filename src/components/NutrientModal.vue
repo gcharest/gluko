@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useMealStore } from "@/stores/meal";
-import { ref, Teleport } from "vue";
+import { ref } from "vue";
 const props = defineProps({
-  nutrientName: { type: String, required: true },
+  nutrientName: { type: String, required: false },
   nutrientIndex: { type: Number, required: true },
 });
 const store = useMealStore();
@@ -17,17 +17,21 @@ if (nutrient.value === undefined) {
     factor: 0,
   };
 }
+let name = "";
+let quantity = 0;
+let factor = 0;
 const modalId = () => "modal" + props.nutrientIndex.toString();
 const modalIdTarget = "#" + modalId();
 const modalLabel = "modalLabel" + modalId();
+const saveNutrient = (name: string, quantity: number, factor: number) => {};
 </script>
 
 <script lang></script>
 <template>
-  <div>
+  <div class="row">
     <button
       type="button"
-      class="btn btn-primary"
+      class="btn btn-primary p-lg-2 lg-3 m-2 mx-3"
       data-bs-toggle="modal"
       :data-bs-target="modalIdTarget"
     >
@@ -60,7 +64,7 @@ const modalLabel = "modalLabel" + modalId();
                   <input
                     type="text"
                     class="form-control text-black"
-                    v-model.lazy="nutrient.name"
+                    v-model.lazy="name"
                     :placeholder="nutrient.name"
                     :id="'nutrientName' + nutrientIndex"
                     onclick="select()"
@@ -108,10 +112,10 @@ const modalLabel = "modalLabel" + modalId();
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
-                Close
+                {{ $t("Close") }}
               </button>
               <button type="button" class="btn btn-primary">
-                Save changes
+                {{ $t("Save Changes") }}
               </button>
             </div>
           </div>
