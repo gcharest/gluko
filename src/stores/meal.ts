@@ -1,24 +1,19 @@
 import { defineStore } from "pinia";
 import { useSessionStorage } from "@vueuse/core";
 
-interface Nutrient {
+export interface Nutrient {
   id: number;
   name: string;
   quantity: number;
   factor: number;
 }
 
+type Nutrients = Array<Nutrient>;
+
 export const useMealStore = defineStore({
   id: "meal",
   state: () => ({
-    nutrients: useSessionStorage("nutrients", [
-      {
-        id: Number.parseInt(crypto.randomUUID()),
-        name: "Aliment 1",
-        quantity: 0,
-        factor: 0,
-      },
-    ]),
+    nutrients: useSessionStorage("nutrients", [] as Nutrients),
   }),
   getters: {
     getAllNutrients(): Nutrient[] {
