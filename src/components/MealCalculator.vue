@@ -1,9 +1,19 @@
 <script setup lang="ts">
 import NutrientModal from "./NutrientModal.vue";
+// import NewNutrientModal from "./NewNutrientModal.vue";
 import { useMealStore } from "@/stores/meal";
 const store = useMealStore();
 const generateUUID = () => {
   return Number.parseInt(crypto.randomUUID());
+};
+
+const addNewNutrient = () => {
+  store.addNutrient({
+    id: generateUUID(),
+    name: "Aliment " + (store.nutrients.length + 1),
+    quantity: 0,
+    factor: 0,
+  });
 };
 </script>
 
@@ -52,7 +62,8 @@ const generateUUID = () => {
       <div class="row">
         <div class="card-body">
           <h2 class="card-title text-light">
-            {{ $t("message") }}: {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
+            {{ $t("message") }}:
+            {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
           </h2>
         </div>
       </div>
@@ -61,14 +72,7 @@ const generateUUID = () => {
         <button
           type="button"
           class="btn btn-primary m-2"
-          @click="
-            store.addNutrient({
-              id: generateUUID(),
-              name: 'Aliment ' + (store.nutrients.length + 1),
-              quantity: 0,
-              factor: 0,
-            })
-          "
+          @click="addNewNutrient()"
         >
           {{ $t("Ajouter un aliment") }}
         </button>
