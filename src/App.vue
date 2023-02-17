@@ -39,5 +39,5 @@ import { RouterLink, RouterView } from "vue-router";
   </header>
 
   <RouterView />
-  <BaseFooter></BaseFooter>
+  <BaseFooter />
 </template>
