@@ -65,7 +65,7 @@ const resetNutrient = () => {
                   <input
                     type="text"
                     class="form-control text-black"
-                    v-model.lazy="localNutrient.name"
+                    v-model="localNutrient.name"
                     :placeholder="localNutrient.name"
                     :id="'nutrientName' + props.index"
                     onclick="select()"
@@ -80,7 +80,7 @@ const resetNutrient = () => {
                   <input
                     type="text"
                     class="form-control"
-                    v-model.lazy="localNutrient.quantity"
+                    v-model="localNutrient.quantity"
                     :placeholder="localNutrient.quantity.toString()"
                     :id="'nutrientQuantity' + props.index"
                     onclick="select()"
@@ -93,7 +93,7 @@ const resetNutrient = () => {
                   <input
                     type="number"
                     class="form-control"
-                    v-model.lazy="localNutrient.factor"
+                    v-model="localNutrient.factor"
                     :placeholder="localNutrient.factor.toString()"
                     :id="'nutrientFactor' + props.index"
                     onclick="select()"
