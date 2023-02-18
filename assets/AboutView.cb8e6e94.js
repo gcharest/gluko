@@ -1,1 +1,0 @@
-import{_ as a,o as s,c,a as t,t as o}from"./index.024f1198.js";const i={},n={class:"about container"},r={class:"text-light"},l=t("p",{class:"text-light"}," Cette application a pour objectif de faciliter le calcul des glucides. ",-1);function _(e,d){return s(),c("main",n,[t("h1",r,o(e.$t("about")),1),l])}var u=a(i,[["render",_]]);export{u as default};
