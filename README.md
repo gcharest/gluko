@@ -5,6 +5,7 @@ Application web visant à faciliter le calcul des glucides pour les repas, spéc
 Fonctionnalités visées:
 
 - calcule la somme des glucides dans un repas
+- modifie le nutriment sélectionné
 - sauvegarde le repas pour consultation ultérieure
 - liste les repas sauvegardés
 - crée un nouveau repas à partir d'une copie d'un repas sauvegardé
