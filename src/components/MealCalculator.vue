@@ -1,58 +1,41 @@
 <script setup lang="ts">
-import NutrientModal from "./NutrientModal.vue";
+// import NutrientModal from "./NutrientModal.vue";
+import NutrientListItem from "./NutrientListItem.vue";
 import { useMealStore } from "@/stores/meal";
 const store = useMealStore();
 const generateUUID = () => {
   return Number.parseInt(crypto.randomUUID());
 };
+const saveNutrient = (
+  id: number,
+  name: string,
+  quantity: number,
+  factor: number
+) => {
+  store.updateNutrient({
+    id: id,
+    name: name,
+    quantity: quantity,
+    factor: factor,
+  });
+};
 </script>
 
 <template>
   <div v-for="(nutrient, index) in store.nutrients" :key="nutrient.name">
-    <div
-      class="card bg-dark border-light mb-3 w-80 translate-middle-x start-50"
-    >
-      <div class="card-header text-light border-light">
-        {{
-          nutrient.name === ""
-            ? $t("Nutrient") + " " + (index + 1)
-            : nutrient.name
-        }}
-      </div>
-      <div class="card-body text-light">
-        <div class="row gx-5">
-          <div class="col-8">
-            <p>{{ $t("Subtotal") }}:</p>
-            <p>{{ (nutrient.quantity * nutrient.factor).toFixed(2) }} g</p>
-          </div>
-          <div class="col-4 text-end">
-            <div class="row">
-              <NutrientModal
-                v-bind:nutrient-name="nutrient.name"
-                :nutrient-index="index"
-              ></NutrientModal>
-              <div class="row">
-                <button
-                  v-if="store.nutrients.length > 1"
-                  type="button"
-                  class="btn btn-secondary p-lg-2 lg-3 m-2 mx-3"
-                  @click="store.removeNutrient(index)"
-                >
-                  <i class="bi bi-trash3-fill"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <NutrientListItem
+      :nutrient="nutrient"
+      :index="index"
+      :saveNutrient="saveNutrient"
+    />
   </div>
   <form class="position-sticky bottom-0">
     <div class="card bg-dark border-2 border-light p-2">
       <div class="row">
         <div class="card-body">
           <h2 class="card-title text-light">
-            {{ $t("message") }}: {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
+            {{ $t("message") }}:
+            {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
           </h2>
         </div>
       </div>
