@@ -1,20 +1,14 @@
 {
   "files": [],
-  "include": ["*.json"],
   "references": [
+    {
+      "path": "./tsconfig.config.json"
+    },
     {
       "path": "./tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.vite-config.json"
-    },
-    {
       "path": "./tsconfig.vitest.json"
     }
-  ],
-  "compilerOptions": {
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "types": ["vitest/globals"]
-  }
+  ]
 }

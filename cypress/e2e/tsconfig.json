@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["./integration/**/*", "./support/**/*", "../tests/e2e/specs/add_nutrient.spec.ts"],
+  "include": ["./**/*", "../support/**/*"],
   "compilerOptions": {
     "isolatedModules": false,
     "target": "es5",
