@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
 import { useSessionStorage } from "@vueuse/core";
 
-export interface Nutrient {
+export type Nutrient = {
   id: number;
   name: string;
   quantity: number;
   factor: number;
-}
+};
 
 type Nutrients = Array<Nutrient>;
 
@@ -36,6 +36,11 @@ export const useMealStore = defineStore({
     removeNutrient(index: number) {
       this.nutrients.splice(index, 1);
     },
+    updateNutrient(nutrient: Nutrient) {
+      const index = this.nutrients.findIndex((n) => n.id === nutrient.id);
+      this.nutrients.splice(index, 1, nutrient);
+    },
+
     resetMeal() {
       this.nutrients = [
         {
