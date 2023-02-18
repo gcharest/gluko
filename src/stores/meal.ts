@@ -45,7 +45,7 @@ export const useMealStore = defineStore({
       this.nutrients = [
         {
           id: Number.parseInt(crypto.randomUUID()),
-          name: "",
+          name: "Aliment 1",
           quantity: 0,
           factor: 0,
         },

@@ -12,21 +12,23 @@ const props = defineProps({
   <div class="card bg-dark border-light mb-3 w-80 translate-middle-x start-50">
     <div class="card-header text-light border-light">
       {{
-        nutrient.name === ""
+        props.nutrient.name === ""
           ? $t("Nutrient") + " " + (props.index + 1)
-          : nutrient.name
+          : props.nutrient.name
       }}
     </div>
     <div class="card-body text-light">
       <div class="row gx-5">
         <div class="col-8">
           <p>{{ $t("Subtotal") }}:</p>
-          <p>{{ (nutrient.quantity * nutrient.factor).toFixed(2) }} g</p>
+          <p>
+            {{ (props.nutrient.quantity * props.nutrient.factor).toFixed(2) }} g
+          </p>
         </div>
         <div class="col-4 text-end">
           <div class="row">
             <NutrientModal
-              v-bind:nutrient-name="nutrient.name"
+              v-bind:nutrient-name="props.nutrient.name"
               :nutrient="props.nutrient"
               :index="props.index"
               :saveNutrient="props.saveNutrient"
@@ -36,7 +38,7 @@ const props = defineProps({
                 v-if="store.nutrients.length > 1"
                 type="button"
                 class="btn btn-secondary p-lg-2 lg-3 m-2 mx-3"
-                @click="store.removeNutrient(index)"
+                @click="store.removeNutrient(props.index)"
               >
                 <i class="bi bi-trash3-fill"></i>
               </button>
