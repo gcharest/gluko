@@ -27,6 +27,11 @@ import { RouterLink, RouterView } from "vue-router";
             <li class="nav-item">
               <RouterLink class="nav-link" to="/">{{ $t("home") }}</RouterLink>
             </li>
+            <li>
+              <RouterLink class="nav-link" to="/carb-factor">{{
+                $t("carbFactor")
+              }}</RouterLink>
+            </li>
             <li class="nav-item">
               <RouterLink class="nav-link" to="/about">{{
                 $t("about")
