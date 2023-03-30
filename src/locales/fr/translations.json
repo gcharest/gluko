@@ -5,7 +5,7 @@
   "home": "Glucides",
   "about": "À propos",
   "carbFactor": "Facteur glucidique",
-  "Calculateur": "Calculateur",
+  "Calculateur": "Calculateur de glucides",
   "message": "Total des glucides",
   "Nom de l'aliment": "Aliment",
   "Quantité": "Quantité",
@@ -18,5 +18,11 @@
   "Modify": "Modifier",
   "Close": "Fermer",
   "Save Changes": "Sauvegarder",
-  "Search a nutrient": "Chercher un aliment"
+  "Search a nutrient": "Chercher un aliment",
+  "Results": "Résultats",
+  "Experimental": "Expérimental",
+  "Experiment Notice": "Ce projet est à l'étape expérimentale. Les données que vous y trouverez sont susceptibles d'être erronées. Veuillez consulter un professionnel de la santé avant de prendre des décisions basées sur les informations que vous trouverez ici.",
+  "Display Notice": "Afficher la notice",
+  "Notice": "Avis",
+  "No results": "Aucun résultat"
 }

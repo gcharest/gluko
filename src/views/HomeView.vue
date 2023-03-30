@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import MealCalculator from "../components/MealCalculator.vue";
+import MealCalculator from "@/components/MealCalculator.vue";
 </script>
 
 <template>
   <main class="flex-shrink-0">
-    <div class="container">
+    <div class="container text-light">
       <h1 class="text-light">{{ $t("Calculateur") }}</h1>
-      <MealCalculator></MealCalculator>
+      <p>{{ $t("Experimental") }}</p>
+      <MealCalculator />
     </div>
   </main>
 </template>
