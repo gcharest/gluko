@@ -6,7 +6,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/<REPO>/",
+  base: "/gluko/",
   plugins: [vue(), VitePWA({ registerType: "autoUpdate" })],
   resolve: {
     alias: {
