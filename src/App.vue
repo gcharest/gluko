@@ -42,7 +42,6 @@ import { RouterLink, RouterView } from "vue-router";
       </div>
     </nav>
   </header>
-
   <RouterView />
   <BaseFooter />
 </template>
