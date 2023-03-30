@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import NutrientModal from "./NutrientModal.vue";
 import NutrientListItem from "./NutrientListItem.vue";
 import { useMealStore } from "@/stores/meal";
 const store = useMealStore();

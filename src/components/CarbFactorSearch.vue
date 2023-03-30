@@ -29,8 +29,8 @@ const searchResults = computed(() => {
 <template>
   <main>
     <div class="container">
-      <h1 class="text-light">{{ $t("Search a nutrient") }}</h1>
-      <div class="row">
+      <h2>{{ $t("Search a nutrient") }}</h2>
+      <div class="row text-light">
         <div class="col-6 col-md-6">
           <input
             type="text"
@@ -40,8 +40,11 @@ const searchResults = computed(() => {
           />
         </div>
         <div>
-          <h2 class="text-light">Résultats</h2>
-          <ul class="list-group bg-dark" v-if="searchResults !== undefined">
+          <h2>{{ $t("Results") }}</h2>
+          <ul
+            class="list-group bg-dark"
+            v-if="searchResults !== undefined && searchResults.length > 0"
+          >
             <li
               class="list-group-item"
               v-for="result in searchResults.slice(0, 30)"
@@ -58,6 +61,9 @@ const searchResults = computed(() => {
                 </div>
               </div>
             </li>
+          </ul>
+          <ul class="list-group bg-dark" v-else>
+            <li class="list-group-item">{{ $t("No results") }}</li>
           </ul>
         </div>
       </div>
