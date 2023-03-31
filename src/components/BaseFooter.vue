@@ -48,7 +48,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <span class="text-light">Gluko © Guillaume Charest 2021-2022</span>
+          <span class="text-light">Gluko © Guillaume Charest 2021-2023</span>
         </div>
       </div>
     </div>
