@@ -72,7 +72,7 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
                   {{
                     result.item.FctGluc !== null
                       ? result.item.FctGluc.toFixed(2)
-                      : 0
+                      : (result.item["205"] / 100).toFixed(2)
                   }}
                 </p>
               </div>
