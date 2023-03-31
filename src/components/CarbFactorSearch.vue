@@ -11,7 +11,7 @@ onBeforeMount(() => {
 });
 const search = ref("");
 const options = {
-  keys: ["FoodDescriptionF"],
+  keys: ["FoodDescriptionF", "FoodDescription"],
   location: 0,
   distance: 200,
   threshold: 0.4,
@@ -28,7 +28,7 @@ const searchResults = computed(() => {
     <div class="container">
       <h2>{{ $t("Search a nutrient") }}</h2>
       <div class="row text-light">
-        <div class="col-6 col-md-6">
+        <div class="col">
           <input
             type="text"
             class="form-control"
@@ -48,7 +48,12 @@ const searchResults = computed(() => {
               :key="result.refIndex"
             >
               <div class="row">
-                <div class="col-8">{{ result.item.FoodDescriptionF }}</div>
+                <div class="col-8" v-if="$i18n.locale === 'fr'">
+                  {{ result.item.FoodDescriptionF }}
+                </div>
+                <div class="col-8" v-else>
+                  {{ result.item.FoodDescription }}
+                </div>
                 <div class="col-4">
                   {{
                     result.item.FctGluc !== null

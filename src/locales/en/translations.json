@@ -1,10 +1,18 @@
 {
   "navigation": {
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "toggleLanguage": "Français"
   },
   "home": "Carbs",
   "carbFactor": "Carb Factor",
   "about": "About",
+  "aboutText": {
+    "para1": "This web application aims to help calculate the amount of carbohydrates in a meal.",
+    "para2": "The carb counter tool offer the user the ability to add a list of nutrients and their respective quantities. The user can then calculate the total amount of carbohydrates in the meal.",
+    "para3": "The search tool allows the user to search for a nutrient and see the amount of carbohydrates in it. The user can then add the nutrient to the list of nutrients in the carb counter tool. The data used to calculate the amount of carbohydrates in a nutrient is based on the ",
+    "CNF": "Canadian Nutrient File",
+    "url": "https://food-nutrition.canada.ca/cnf-fce/?lang=eng"
+  },
   "Calculateur": "Carbs Counter",
   "message": "Total count of carbs",
   "Nom de l'aliment": "Nutrient",

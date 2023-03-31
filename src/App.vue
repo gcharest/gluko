@@ -39,6 +39,18 @@ import { RouterLink, RouterView } from "vue-router";
                 $t("about")
               }}</RouterLink>
             </li>
+            <li class="nav-item">
+              <button
+                class="btn btn-outline-light"
+                @click="
+                  $i18n.locale === 'fr'
+                    ? ($i18n.locale = 'en')
+                    : ($i18n.locale = 'fr')
+                "
+              >
+                {{ $t("navigation.toggleLanguage") }}
+              </button>
+            </li>
           </ul>
         </div>
       </div>

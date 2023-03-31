@@ -1,9 +1,18 @@
 {
   "navigation": {
-    "skipToContent": "Aller au contenu"
+    "skipToContent": "Aller au contenu",
+    "toggleLanguage": "English"
   },
   "home": "Glucides",
   "about": "À propos",
+  "aboutText":{
+
+   "para1": "Cette application a pour objectif de faciliter le calcul des glucides.",
+   "para2": "Le calculateur de glucides permet d'ajouter des aliments dans une liste, d'indiquer la quantité en gramme ainsi que le facteur glucidique. Le calculateur de glucides affichera le total des glucides de la liste d'aliments saisis.",
+   "para3": "L'outil de recherche du facteur glucidique permet de rechercher un aliment et d'obtenir le facteur glucidique de cet aliment. Le facteur glucidique est le nombre de glucides par gramme d'aliment. Les données utilisées pour ce calcul provient du ",
+   "CNF": "Fichier canadien sur les éléments nutritifs (FCÉN)",
+   "url": "https://food-nutrition.canada.ca/cnf-fce/?lang=fre"
+  },
   "carbFactor": "Facteur glucidique",
   "Calculateur": "Calculateur de glucides",
   "message": "Total des glucides",
