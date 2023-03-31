@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import { onBeforeMount } from "vue";
 import NutrientListItem from "./NutrientListItem.vue";
 import { useMealStore } from "@/stores/meal";
 const store = useMealStore();
-const generateUUID = () => {
-  return Number.parseInt(crypto.randomUUID());
-};
+onBeforeMount(() => {
+  if (store.nutrients.length === 0) {
+    store.$reset();
+  }
+});
 const saveNutrient = (
-  id: number,
+  id: string,
   name: string,
   quantity: number,
   factor: number
@@ -16,6 +19,15 @@ const saveNutrient = (
     name: name,
     quantity: quantity,
     factor: factor,
+  });
+};
+const addNutrient = () => {
+  const id = crypto.randomUUID();
+  store.addNutrient({
+    id: id,
+    name: "Aliment " + (store.nutrients.length + 1),
+    quantity: 0,
+    factor: 0,
   });
 };
 </script>
@@ -43,21 +55,14 @@ const saveNutrient = (
         <button
           type="button"
           class="btn btn-primary m-2"
-          @click="
-            store.addNutrient({
-              id: generateUUID(),
-              name: 'Aliment ' + (store.nutrients.length + 1),
-              quantity: 0,
-              factor: 0,
-            })
-          "
+          @click="addNutrient()"
         >
           {{ $t("Ajouter un aliment") }}
         </button>
         <button
           type="button"
           class="btn btn-secondary m-2"
-          @click="store.resetMeal"
+          @click="store.$reset"
         >
           {{ $t("Reset") }}
         </button>
