@@ -4,60 +4,62 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <header>
-    <a class="visually-hidden-focusable" href="#content">
-      {{ $t("navigation.skipToContent") }}
-    </a>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Gluko</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarMain"
-          aria-controls="navbarMain"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarMain">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <RouterLink class="nav-link" to="/">{{
-                $t("Calculateur")
-              }}</RouterLink>
-            </li>
-            <li>
-              <RouterLink class="nav-link" to="/carb-factor">{{
-                $t("carbFactor")
-              }}</RouterLink>
-            </li>
-            <li class="nav-item">
-              <RouterLink class="nav-link" to="/about">{{
-                $t("about")
-              }}</RouterLink>
-            </li>
-            <li class="nav-item">
-              <button
-                class="btn btn-outline-light"
-                @click="
-                  $i18n.locale === 'fr'
-                    ? ($i18n.locale = 'en')
-                    : ($i18n.locale = 'fr')
-                "
-              >
-                {{ $t("navigation.toggleLanguage") }}
-              </button>
-            </li>
-          </ul>
+  <Teleport to="body">
+    <header>
+      <a class="visually-hidden-focusable" href="#content">
+        {{ $t("navigation.skipToContent") }}
+      </a>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Gluko</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMain"
+            aria-controls="navbarMain"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <RouterLink class="nav-link" to="/">{{
+                  $t("Calculateur")
+                }}</RouterLink>
+              </li>
+              <li>
+                <RouterLink class="nav-link" to="/carb-factor">{{
+                  $t("carbFactor")
+                }}</RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink class="nav-link" to="/about">{{
+                  $t("about")
+                }}</RouterLink>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-outline-light"
+                  @click="
+                    $i18n.locale === 'fr'
+                      ? ($i18n.locale = 'en')
+                      : ($i18n.locale = 'fr')
+                  "
+                >
+                  {{ $t("navigation.toggleLanguage") }}
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-  </header>
-  <main class="flex-shrink-0" id="content">
-    <RouterView />
-  </main>
-  <BaseFooter />
+      </nav>
+    </header>
+    <main class="flex-shrink-0" id="content">
+      <RouterView />
+    </main>
+    <BaseFooter />
+  </Teleport>
 </template>
