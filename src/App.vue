@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
   <Teleport to="body">
-    <header>
+    <header class="border-bottom border-secondary">
       <a class="visually-hidden-focusable" href="#content">
         {{ $t("navigation.skipToContent") }}
       </a>
@@ -40,19 +40,20 @@ import { RouterLink, RouterView } from "vue-router";
                   $t("about")
                 }}</RouterLink>
               </li>
-              <li class="nav-item">
-                <button
-                  class="btn btn-outline-light"
-                  @click="
-                    $i18n.locale === 'fr'
-                      ? ($i18n.locale = 'en')
-                      : ($i18n.locale = 'fr')
-                  "
-                >
-                  {{ $t("navigation.toggleLanguage") }}
-                </button>
-              </li>
+              <li class="nav-item"></li>
             </ul>
+            <div class="d-flex">
+              <button
+                class="btn btn-secondary"
+                @click="
+                  $i18n.locale === 'fr'
+                    ? ($i18n.locale = 'en')
+                    : ($i18n.locale = 'fr')
+                "
+              >
+                {{ $t("navigation.toggleLanguage") }}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
