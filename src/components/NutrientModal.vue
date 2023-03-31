@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useMealStore } from "@/stores/meal";
+// import { computed } from "@vue/reactivity";
 import { ref } from "vue";
-// import type { Ref } from "vue";
 const props = defineProps({
   nutrientName: { type: String, required: true },
   index: { type: Number, required: true },
@@ -27,10 +27,9 @@ const modalLabel = () => {
 const saveNutrient = () => {
   store.updateNutrient(localNutrient.value);
 };
-const resetNutrient = () => {
-  localNutrient.value = props.nutrient.value;
-  // store.updateNutrient(localNutrient.value);
-};
+// const resetNutrient = computed(() => {
+//   localNutrient.value = props.nutrient.value;
+// });
 </script>
 
 <script lang></script>
@@ -112,7 +111,6 @@ const resetNutrient = () => {
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
-                @click="resetNutrient()"
               >
                 {{ $t("Close") }}
               </button>
