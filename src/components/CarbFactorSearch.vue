@@ -1,18 +1,9 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
-import { ref, computed, onUnmounted, onBeforeMount } from "vue";
-import type { Ref } from "vue";
-import { useNutrientsFileStore } from "@/stores/nutrientsFile";
-const store = useNutrientsFileStore();
-
-onBeforeMount(async () => {
-  store.initialize();
-});
-onUnmounted(() => {
-  store.reset();
-});
-
-const search: Ref<string> = ref("");
+import { ref, computed } from "vue";
+import { useNutrientFileStoreSetup } from "@/stores/nutrientsFile";
+const store = useNutrientFileStoreSetup();
+const search = ref("");
 const options = {
   keys: ["FoodDescriptionF"],
   location: 0,
@@ -21,7 +12,7 @@ const options = {
   isCaseSensitive: false,
   includeMatches: true,
 };
-const fuse = new Fuse(store.getAllNutrients, options);
+const fuse = new Fuse(store.nutrientsFile, options);
 const searchResults = computed(() => {
   return fuse.search(search.value);
 });
@@ -47,7 +38,7 @@ const searchResults = computed(() => {
           >
             <li
               class="list-group-item"
-              v-for="result in searchResults.slice(0, 30)"
+              v-for="result in searchResults.slice(0, 50)"
               :key="result.refIndex"
             >
               <div class="row">

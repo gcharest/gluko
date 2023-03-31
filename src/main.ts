@@ -10,6 +10,8 @@ import router from "./router";
 
 import en from "./locales/en/translations.json";
 import fr from "./locales/fr/translations.json";
+import { useNutrientFileStoreSetup } from "./stores/nutrientsFile";
+import dataset from "@/components/data/canadian_nutrient_file.json";
 
 const i18n = createI18n({
   messages: {
@@ -28,3 +30,6 @@ app.use(router);
 app.use(i18n);
 
 app.mount("#app");
+
+const store = useNutrientFileStoreSetup();
+store.$state.nutrientsFile = dataset;

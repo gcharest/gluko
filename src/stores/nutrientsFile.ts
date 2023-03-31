@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import { useSessionStorage } from "@vueuse/core";
-import dataset from "@/components/data/canadian_nutrient_file.json";
 
-export type nutrientData = {
+export interface NutrientFile {
   FoodID: number;
   FoodCode: number;
   FoodGroupID: number;
@@ -16,26 +15,20 @@ export type nutrientData = {
   FoodGroupName: string;
   FoodGroupNameF: string;
   FctGluc: number | null;
-};
+}
 
-type nutrientDataList = Array<nutrientData>;
+export const useNutrientFileStoreSetup = defineStore("nutrientsFile", () => {
+  const nutrientsFile = useSessionStorage(
+    "nutrientsFile",
+    [] as NutrientFile[]
+  );
 
-export const useNutrientsFileStore = defineStore({
-  id: "nutrientsFile",
-  state: () => ({
-    nutrientsFile: useSessionStorage("nutrientsFile", [] as nutrientDataList),
-  }),
-  getters: {
-    getAllNutrients(): nutrientData[] {
-      return this.nutrientsFile;
-    },
-  },
-  actions: {
-    initialize() {
-      this.nutrientsFile = dataset;
-    },
-    reset() {
-      this.nutrientsFile = [];
-    },
-  },
+  function $reset() {
+    nutrientsFile.value = [];
+  }
+
+  return {
+    nutrientsFile,
+    $reset,
+  };
 });
