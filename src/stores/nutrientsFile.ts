@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useSessionStorage } from "@vueuse/core";
+import dataset from "@/components/data/canadian_nutrient_file.json";
 
 export interface NutrientFile {
   FoodID: number;
@@ -24,7 +25,7 @@ export const useNutrientFileStoreSetup = defineStore("nutrientsFile", () => {
   );
 
   function $reset() {
-    nutrientsFile.value = [];
+    nutrientsFile.value = dataset;
   }
 
   return {

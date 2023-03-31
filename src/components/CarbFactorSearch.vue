@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
-import { ref, computed } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
 import { useNutrientFileStoreSetup } from "@/stores/nutrientsFile";
+
 const store = useNutrientFileStoreSetup();
+onBeforeMount(() => {
+  if (store.nutrientsFile.length === 0) {
+    store.$reset();
+  }
+});
 const search = ref("");
 const options = {
   keys: ["FoodDescriptionF"],
