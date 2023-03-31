@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import { onBeforeMount } from "vue";
 import NutrientListItem from "./NutrientListItem.vue";
 import { useMealStore } from "@/stores/meal";
 const store = useMealStore();
+onBeforeMount(() => {
+  if (store.nutrients.length === 0) {
+    store.$reset();
+  }
+});
 const saveNutrient = (
   id: string,
   name: string,
