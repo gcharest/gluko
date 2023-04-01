@@ -58,7 +58,7 @@ import { RouterLink, RouterView } from "vue-router";
         </div>
       </nav>
     </header>
-    <main class="flex-shrink-0" id="content">
+    <main class="flex-shrink-0 mt-3" id="content">
       <RouterView />
     </main>
     <BaseFooter />

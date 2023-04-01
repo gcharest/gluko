@@ -50,24 +50,24 @@ function cancelNutrientChanges() {
       aria-hidden="true"
     >
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-dark text-light">
           <div class="modal-header">
             <div class="modal-title display-6">
               {{ currentNutrient.name }}
             </div>
           </div>
           <div class="modal-body">
-            <div class="row g-3">
+            <div class="row">
               <div class="col form-floating">
                 <input
                   type="text"
-                  class="form-control text-black"
+                  class="form-control text-light bg-dark"
                   v-model="currentNutrient.name"
                   :placeholder="currentNutrient.name"
                   id="nutrient-name"
                   onclick="select()"
                 />
-                <label class="text-dark" for="nutrient-name">{{
+                <label class="text-light" for="nutrient-name">{{
                   $t("Nom de l'aliment")
                 }}</label>
               </div>
@@ -76,7 +76,7 @@ function cancelNutrientChanges() {
                   type="number"
                   pattern="[0-9]*"
                   inputmode="decimal"
-                  class="form-control"
+                  class="form-control text-light bg-dark"
                   v-model="currentNutrient.quantity"
                   :placeholder="
                     currentNutrient.quantity
@@ -86,14 +86,14 @@ function cancelNutrientChanges() {
                   id="nutrient-quantity"
                   onclick="select()"
                 />
-                <label for="nutrient-quantity">{{ $t("Quantité") }}</label>
+                <label class="text-light" for="nutrient-quantity">{{ $t("Quantité") }}</label>
               </div>
               <div class="col form-floating mb-3 lg">
                 <input
                   type="number"
                   pattern="[0-9]*"
                   inputmode="decimal"
-                  class="form-control"
+                  class="form-control text-light bg-dark"
                   v-model="currentNutrient.factor"
                   :placeholder="
                     currentNutrient.quantity
@@ -104,9 +104,6 @@ function cancelNutrientChanges() {
                   onclick="select()"
                 />
                 <label for="nutrient-factor">{{ $t("Facteur") }}</label>
-                <p class="text-light">
-                  {{ currentNutrient.quantity * currentNutrient.factor }} g
-                </p>
               </div>
             </div>
             <hr />

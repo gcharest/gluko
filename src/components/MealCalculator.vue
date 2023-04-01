@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, watch, type Ref } from "vue";
+import { onBeforeMount, ref, type Ref } from "vue";
 import NutrientListItem from "./NutrientListItem.vue";
 import NutrientModal from "./NutrientModal.vue";
 import { useMealStore, type Nutrient } from "@/stores/meal";
