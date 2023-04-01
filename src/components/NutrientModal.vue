@@ -54,9 +54,9 @@ const saveNutrient = () => {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" :id="modalLabel()">
+              <div class="modal-title display-6" :id="modalLabel()">
                 {{ localNutrient.name }}
-              </h5>
+              </div>
             </div>
             <div class="modal-body">
               <div class="row g-3" v-if="localNutrient.name !== undefined">
