@@ -77,7 +77,9 @@ const saveNutrient = () => {
                 </div>
                 <div class="col form-floating mb-3">
                   <input
-                    type="text"
+                    type="number"
+                    pattern="[0-9]*"
+                    inputmode="decimal"
                     class="form-control"
                     v-model="localNutrient.quantity"
                     :placeholder="localNutrient.quantity.toString()"
@@ -91,6 +93,8 @@ const saveNutrient = () => {
                 <div class="col form-floating mb-3 lg">
                   <input
                     type="number"
+                    pattern="[0-9]*"
+                    inputmode="decimal"
                     class="form-control"
                     v-model="localNutrient.factor"
                     :placeholder="localNutrient.factor.toString()"
