@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import BaseFooter from "@/components/BaseFooter.vue";
-import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
-const darkMode = ref(true);
+import { userSessionStore } from "./stores/session";
+const store = userSessionStore();
 </script>
 
 <template>
@@ -13,7 +13,11 @@ const darkMode = ref(true);
       </a>
       <nav
         class="navbar navbar-expand-md"
-        :class="darkMode ? ' navbar-dark bg-dark' : 'navbar-light bg-light'"
+        :class="
+          store.userSession.darkMode
+            ? ' navbar-dark bg-dark'
+            : 'navbar-light bg-light'
+        "
       >
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Gluko</a>
@@ -50,16 +54,26 @@ const darkMode = ref(true);
             <div class="d-flex">
               <button
                 class="btn me-2"
-                @click="darkMode = !darkMode"
+                @click="store.toggleDarkMode"
                 :class="
-                  darkMode ? 'text-light border-light' : 'text-dark border-dark'
+                  store.userSession.darkMode
+                    ? 'text-light border-light'
+                    : 'text-dark border-dark'
                 "
               >
                 <span
                   class="bi"
-                  :class="darkMode ? 'bi-toggle-on ' : 'bi-toggle-off'"
+                  :class="
+                    store.userSession.darkMode
+                      ? 'bi-toggle-on '
+                      : 'bi-toggle-off'
+                  "
                 >
-                  <i :class="darkMode ? 'bi bi-sun' : 'bi bi-moon'"></i>
+                  <i
+                    :class="
+                      store.userSession.darkMode ? 'bi bi-sun' : 'bi bi-moon'
+                    "
+                  ></i>
                 </span>
               </button>
               <button
