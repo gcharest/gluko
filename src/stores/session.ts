@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useLocalStorage, useSessionStorage } from "@vueuse/core";
+import { useSessionStorage } from "@vueuse/core";
 
 export type userSession = {
   dismissedExperimentNotice: boolean;
