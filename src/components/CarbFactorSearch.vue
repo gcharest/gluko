@@ -59,7 +59,7 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
                   }}</span>
                   <span v-else>{{ result.item.FoodDescription }}</span>
                   <a
-                    :href="cnfLink(result.item.FoodID, $i18n.locale)"
+                    :href="cnfLink(result.item.FoodCode, $i18n.locale)"
                     target="_blank"
                     class="link-primary small"
                   >
