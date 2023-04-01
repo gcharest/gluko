@@ -16,18 +16,36 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
     locale === "fr" ? "fre" : "eng"
   }`;
 });
+// Function that is triggered when the button-search-nutrient button is clicked, updating the search value with the current value of the input form searchInput
+const updateSearch = () => {
+  search.value = (
+    document.getElementById("searchInput") as HTMLInputElement
+  ).value;
+};
 </script>
 <template>
   <div class="container">
     <h2>{{ $t("Search a nutrient") }}</h2>
     <div class="row text-light">
       <div class="col">
-        <input
-          type="text"
-          class="form-control"
-          :placeholder="$t('Search a nutrient')"
-          v-model.lazy="search"
-        />
+        <div class="input-group mb-3">
+          <button
+            class="btn btn-outline-secondary bg-light text-dark"
+            type="button"
+            id="button-search-nutrient"
+            aria-label="Search"
+            @click="updateSearch"
+          >
+            <i class="bi bi-search" /> {{ $t("Search") }}
+          </button>
+          <input
+            type="text"
+            class="form-control"
+            :placeholder="$t('Search a nutrient')"
+            v-model.lazy="search"
+            id="searchInput"
+          />
+        </div>
       </div>
       <div>
         <h2>
