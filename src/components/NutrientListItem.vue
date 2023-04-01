@@ -19,10 +19,26 @@ const removeNutrient = () => {
     <div class="card-body text-light">
       <div class="row gx-5">
         <div class="col-md-8">
-          <p>{{ $t("Subtotal") }}:</p>
-          <p>
-            {{ (props.nutrient.quantity * props.nutrient.factor).toFixed(2) }} g
-          </p>
+          <div class="row">
+            <div class="col-6 col-md-4">
+              <p>{{ $t("Quantité") }}:</p>
+              <p>{{ props.nutrient.quantity }} g</p>
+            </div>
+            <div class="col-6 col-md-4">
+              <p>{{ $t("Facteur") }}:</p>
+              <p>{{ props.nutrient.factor }}</p>
+            </div>
+            <hr />
+            <div class="col-6 col-md-4">
+              <p>{{ $t("Subtotal") }}:</p>
+              <p>
+                {{
+                  (props.nutrient.quantity * props.nutrient.factor).toFixed(2)
+                }}
+                g
+              </p>
+            </div>
+          </div>
         </div>
         <div class="col-md-4 text-end">
           <div class="row">

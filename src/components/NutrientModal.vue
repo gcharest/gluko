@@ -109,6 +109,19 @@ function cancelNutrientChanges() {
                 </p>
               </div>
             </div>
+            <hr />
+            <div class="row">
+              <div class="col">
+                <p>
+                  {{ $t("Subtotal") }} :
+                  {{
+                    (currentNutrient.quantity * currentNutrient.factor).toFixed(
+                      2
+                    )
+                  }}
+                </p>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button
