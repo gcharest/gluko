@@ -1,135 +1,135 @@
 <script setup lang="ts">
+import { defineEmits, ref, type PropType, type Ref, watch } from "vue";
+import type { Nutrient } from "@/stores/meal";
 import { useMealStore } from "@/stores/meal";
-// import { computed } from "@vue/reactivity";
-import { ref } from "vue";
+const mealStore = useMealStore();
 const props = defineProps({
-  nutrientName: { type: String, required: true },
-  index: { type: Number, required: true },
-  nutrient: { type: Object, required: true },
-  saveNutrient: { type: Function, required: true },
+  nutrient: { type: Object as PropType<Nutrient>, required: true },
 });
-const store = useMealStore();
+const emit = defineEmits(["cancelNutrientChanges"]);
 
-let localNutrient = ref({
-  id: props.nutrient.id,
-  name: props.nutrient.name,
-  quantity: props.nutrient.quantity,
-  factor: props.nutrient.factor,
+const currentNutrient: Ref<Nutrient> = ref({
+  id: "",
+  name: "",
+  quantity: 0,
+  factor: 0,
 });
-const modalId = () => "modal" + props.index.toString();
-const modalIdTarget = () => {
-  return "#" + modalId();
-};
-const modalLabel = () => {
-  return "modalLabel" + modalId();
-};
 
-const saveNutrient = () => {
-  store.updateNutrient(localNutrient.value);
-};
-// const resetNutrient = computed(() => {
-//   localNutrient.value = props.nutrient.value;
-// });
+if (props.nutrient !== undefined) {
+  currentNutrient.value = JSON.parse(JSON.stringify(props.nutrient));
+}
+
+watch(
+  () => props.nutrient,
+  (newVal) => {
+    currentNutrient.value = JSON.parse(JSON.stringify(newVal));
+  }
+);
+
+function resetCurrentNutrient() {
+  currentNutrient.value = JSON.parse(JSON.stringify(props.nutrient));
+}
+
+function saveNutrient() {
+  mealStore.updateNutrient(currentNutrient.value);
+}
+
+function cancelNutrientChanges() {
+  resetCurrentNutrient();
+  emit("cancelNutrientChanges");
+}
 </script>
 
-<script lang></script>
 <template>
-  <div class="row">
-    <button
-      type="button"
-      class="btn btn-primary p-lg-2 lg-3 m-2 mx-3"
-      data-bs-toggle="modal"
-      :data-bs-target="modalIdTarget()"
+  <Teleport to="body">
+    <div
+      class="modal modal-fullscreen-md-down fade"
+      id="nutrient-modal"
+      tabindex="-1"
+      aria-labelledby="nutrient-modal"
+      aria-hidden="true"
     >
-      {{ $t("Modify") }}
-    </button>
-    <Teleport to="body">
-      <div
-        class="modal modal-fullscreen-md-down fade"
-        :id="modalId()"
-        tabindex="-1"
-        :aria-labelledby="modalLabel()"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="modal-title display-6" :id="modalLabel()">
-                {{ localNutrient.name }}
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title display-6">
+              {{ currentNutrient.name }}
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col form-floating">
+                <input
+                  type="text"
+                  class="form-control text-black"
+                  v-model="currentNutrient.name"
+                  :placeholder="currentNutrient.name"
+                  id="nutrient-name"
+                  onclick="select()"
+                />
+                <label class="text-dark" for="nutrient-name">{{
+                  $t("Nom de l'aliment")
+                }}</label>
+              </div>
+              <div class="col form-floating mb-3">
+                <input
+                  type="number"
+                  pattern="[0-9]*"
+                  inputmode="decimal"
+                  class="form-control"
+                  v-model="currentNutrient.quantity"
+                  :placeholder="
+                    currentNutrient.quantity
+                      ? currentNutrient.quantity.toString()
+                      : '0'
+                  "
+                  id="nutrient-quantity"
+                  onclick="select()"
+                />
+                <label for="nutrient-quantity">{{ $t("Quantité") }}</label>
+              </div>
+              <div class="col form-floating mb-3 lg">
+                <input
+                  type="number"
+                  pattern="[0-9]*"
+                  inputmode="decimal"
+                  class="form-control"
+                  v-model="currentNutrient.factor"
+                  :placeholder="
+                    currentNutrient.quantity
+                      ? currentNutrient.quantity.toString()
+                      : '0'
+                  "
+                  id="nutrient-factor"
+                  onclick="select()"
+                />
+                <label for="nutrient-factor">{{ $t("Facteur") }}</label>
+                <p class="text-light">
+                  {{ currentNutrient.quantity * currentNutrient.factor }} g
+                </p>
               </div>
             </div>
-            <div class="modal-body">
-              <div class="row g-3" v-if="localNutrient.name !== undefined">
-                <div class="col form-floating">
-                  <input
-                    type="text"
-                    class="form-control text-black"
-                    v-model="localNutrient.name"
-                    :placeholder="localNutrient.name"
-                    :id="'nutrientName' + props.index"
-                    onclick="select()"
-                  />
-                  <label
-                    class="text-dark"
-                    :for="'nutrientName' + props.index"
-                    >{{ $t("Nom de l'aliment") }}</label
-                  >
-                </div>
-                <div class="col form-floating mb-3">
-                  <input
-                    type="number"
-                    pattern="[0-9]*"
-                    inputmode="decimal"
-                    class="form-control"
-                    v-model="localNutrient.quantity"
-                    :placeholder="localNutrient.quantity.toString()"
-                    :id="'nutrientQuantity' + props.index"
-                    onclick="select()"
-                  />
-                  <label :for="'nutrientQuantity' + props.index">{{
-                    $t("Quantité")
-                  }}</label>
-                </div>
-                <div class="col form-floating mb-3 lg">
-                  <input
-                    type="number"
-                    pattern="[0-9]*"
-                    inputmode="decimal"
-                    class="form-control"
-                    v-model="localNutrient.factor"
-                    :placeholder="localNutrient.factor.toString()"
-                    :id="'nutrientFactor' + props.index"
-                    onclick="select()"
-                  />
-                  <label :for="'nutrientFactor' + props.index">{{
-                    $t("Facteur")
-                  }}</label>
-                  <p class="text-light">
-                    {{ localNutrient.quantity * localNutrient.factor }} g
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                {{ $t("Close") }}
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-dismiss="modal"
-                @click="saveNutrient()"
-              >
-                {{ $t("Save Changes") }}
-              </button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click="cancelNutrientChanges"
+            >
+              {{ $t("Close") }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              @click="saveNutrient()"
+            >
+              {{ $t("Save Changes") }}
+            </button>
           </div>
         </div>
       </div>
-    </Teleport>
-  </div>
+    </div>
+  </Teleport>
 </template>

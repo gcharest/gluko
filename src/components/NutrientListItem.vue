@@ -1,43 +1,46 @@
 <script setup lang="ts">
-import NutrientModal from "./NutrientModal.vue";
-import { useMealStore } from "@/stores/meal";
-const store = useMealStore();
-defineProps({
-  nutrient: { type: Object, required: true },
-  index: { type: Number, required: true },
-  saveNutrient: { type: Function, required: true },
+import type { PropType } from "vue";
+import { useMealStore, type Nutrient } from "@/stores/meal";
+const mealStore = useMealStore();
+const props = defineProps({
+  nutrient: { type: Object as PropType<Nutrient>, required: true },
 });
-defineEmits(["removeNutrient"]);
+const emit = defineEmits(["modifyCurrentNutrient"]);
+
+const removeNutrient = () => {
+  mealStore.removeNutrient(props.nutrient);
+};
 </script>
 <template>
   <div class="card bg-dark border-light mb-3 w-80 translate-middle-x start-50">
     <div class="card-header text-light border-light">
-      {{
-        nutrient.name === ""
-          ? $t("Nutrient") + " " + (index + 1)
-          : nutrient.name
-      }}
+      {{ props.nutrient.name === "" ? $t("Nutrient") : props.nutrient.name }}
     </div>
     <div class="card-body text-light">
       <div class="row gx-5">
-        <div class="col-8">
+        <div class="col-md-8">
           <p>{{ $t("Subtotal") }}:</p>
-          <p>{{ (nutrient.quantity * nutrient.factor).toFixed(2) }} g</p>
+          <p>
+            {{ (props.nutrient.quantity * props.nutrient.factor).toFixed(2) }} g
+          </p>
         </div>
-        <div class="col-4 text-end">
+        <div class="col-md-4 text-end">
           <div class="row">
-            <NutrientModal
-              v-bind:nutrient-name="nutrient.name"
-              :nutrient="nutrient"
-              :index="index"
-              :saveNutrient="saveNutrient"
-            ></NutrientModal>
             <div class="row">
               <button
-                v-if="store.nutrients.length > 1"
+                type="button"
+                class="btn btn-primary p-lg-2 lg-3 m-2 mx-3"
+                @click="emit('modifyCurrentNutrient', props.nutrient.id)"
+              >
+                {{ $t("Modify") }}
+              </button>
+            </div>
+            <div class="row">
+              <button
+                v-if="mealStore.mealNutrients.length > 1"
                 type="button"
                 class="btn btn-secondary p-lg-2 lg-3 m-2 mx-3"
-                @click="store.removeNutrient(index)"
+                @click="removeNutrient"
               >
                 <i class="bi bi-trash3-fill"></i>
               </button>

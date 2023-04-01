@@ -39,7 +39,27 @@ export const useMealStore = defineStore("mealStore", () => {
     mealNutrients.value.push(nutrient);
   }
 
-  function removeNutrient(index: number) {
+  function addEmptyNutrient() {
+    const uuid = getUUID();
+    mealNutrients.value.push({
+      id: uuid,
+      name: "Aliment",
+      quantity: 0,
+      factor: 0,
+    });
+  }
+
+  function removeNutrient(nutrient: Nutrient) {
+    const index = mealNutrients.value.findIndex((n) => n.id === nutrient.id);
+    mealNutrients.value.splice(index, 1);
+  }
+
+  function removeNutrientByID(id: string) {
+    const index = mealNutrients.value.findIndex((n) => n.id === id);
+    mealNutrients.value.splice(index, 1);
+  }
+
+  function removeNutrientByIndex(index: number) {
     mealNutrients.value.splice(index, 1);
   }
 
@@ -61,12 +81,15 @@ export const useMealStore = defineStore("mealStore", () => {
   }
 
   return {
-    nutrients: mealNutrients,
+    mealNutrients,
     getMealNutrientByID,
     nutrientEmpty,
     mealCarbs,
     addNutrient,
+    addEmptyNutrient,
     removeNutrient,
+    removeNutrientByID,
+    removeNutrientByIndex,
     updateNutrient,
     $reset,
   };
