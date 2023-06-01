@@ -34,5 +34,7 @@
   "Experiment Notice": "Ce projet est à l'étape expérimentale. Les données que vous y trouverez sont susceptibles d'être erronées. Veuillez consulter un professionnel de la santé avant de prendre des décisions basées sur les informations que vous trouverez ici.",
   "Display Notice": "Afficher la notice",
   "Notice": "Avis",
-  "No results": "Aucun résultat"
+  "No results": "Aucun résultat",
+  "Not Found": "Erreur 404",
+  "Page not found": "La page n'a pas été trouvée"
 }

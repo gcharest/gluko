@@ -32,5 +32,7 @@
   "Experiment Notice": "This project is in the experimental stage. The information you see here may be inaccurate. Please consult a health care professional before making any decisions based on the information you find here.",
   "Display Notice": "Display Notice",
   "Notice": "Notice",
-  "No results": "No results"
+  "No results": "No results",
+  "Not Found": "Error 404",
+  "Page not found": "The page you are looking for does not exist."
 }
