@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import BaseFooter from "@/components/BaseFooter.vue";
 import { RouterLink, RouterView } from "vue-router";
+import { Collapse } from "bootstrap";
+
+const collapseNavbar = () => {
+  const navbarMain = document.getElementById("navbarMain");
+  if (navbarMain) {
+    const collapse = new Collapse(navbarMain);
+    return collapse;
+  }
+};
 </script>
 
 <template>
@@ -26,19 +35,25 @@ import { RouterLink, RouterView } from "vue-router";
           <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <RouterLink class="nav-link" to="/">{{
+                <RouterLink class="nav-link" to="/" @click="collapseNavbar">{{
                   $t("Calculateur")
                 }}</RouterLink>
               </li>
               <li>
-                <RouterLink class="nav-link" to="/carb-factor">{{
-                  $t("carbFactor")
-                }}</RouterLink>
+                <RouterLink
+                  class="nav-link"
+                  to="/carb-factor"
+                  @click="collapseNavbar"
+                  >{{ $t("carbFactor") }}</RouterLink
+                >
               </li>
               <li class="nav-item">
-                <RouterLink class="nav-link" to="/about">{{
-                  $t("about")
-                }}</RouterLink>
+                <RouterLink
+                  class="nav-link"
+                  to="/about"
+                  @click="collapseNavbar"
+                  >{{ $t("about") }}</RouterLink
+                >
               </li>
               <li class="nav-item"></li>
             </ul>
