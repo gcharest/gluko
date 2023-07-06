@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, ref, type PropType, type Ref, watch } from "vue";
+import { ref, type PropType, type Ref, watch } from "vue";
 import type { Nutrient } from "@/stores/meal";
 import { useMealStore } from "@/stores/meal";
 const mealStore = useMealStore();
@@ -86,7 +86,9 @@ function cancelNutrientChanges() {
                   id="nutrient-quantity"
                   onclick="select()"
                 />
-                <label class="text-light" for="nutrient-quantity">{{ $t("Quantité") }}</label>
+                <label class="text-light" for="nutrient-quantity">{{
+                  $t("Quantité")
+                }}</label>
               </div>
               <div class="col form-floating mb-3 lg">
                 <input
