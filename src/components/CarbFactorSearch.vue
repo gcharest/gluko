@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useNutrientFileStore } from '@/stores/nutrientsFile'
 const store = useNutrientFileStore()
 onMounted(() => {

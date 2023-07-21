@@ -27,6 +27,7 @@
     "vue-router": "^4.2.2"
   },
   "devDependencies": {
+    "@pinia/testing": "^0.1.2",
     "@playwright/test": "^1.35.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@tsconfig/node18": "^2.0.1",
