@@ -1,81 +1,79 @@
 <script setup lang="ts">
-import BaseFooter from "@/components/BaseFooter.vue";
-import { RouterLink, RouterView } from "vue-router";
-import { Collapse } from "bootstrap";
-
-const collapseNavbar = () => {
-  const navbarMain = document.getElementById("navbarMain");
-  if (navbarMain) {
-    const collapse = new Collapse(navbarMain);
-    return collapse;
-  }
-};
+import { RouterView } from 'vue-router'
+import BaseNavigationBar from '@/components/BaseNavigationBar.vue'
+import ReloadPrompt from '@/components/ReloadPrompt.vue'
 </script>
 
 <template>
   <Teleport to="body">
-    <header class="border-bottom border-secondary">
-      <a class="visually-hidden-focusable" href="#content">
-        {{ $t("navigation.skipToContent") }}
-      </a>
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Gluko</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarMain"
-            aria-controls="navbarMain"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarMain">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <RouterLink class="nav-link" to="/" @click="collapseNavbar">{{
-                  $t("Calculateur")
-                }}</RouterLink>
-              </li>
-              <li>
-                <RouterLink
-                  class="nav-link"
-                  to="/carb-factor"
-                  @click="collapseNavbar"
-                  >{{ $t("carbFactor") }}</RouterLink
-                >
-              </li>
-              <li class="nav-item">
-                <RouterLink
-                  class="nav-link"
-                  to="/about"
-                  @click="collapseNavbar"
-                  >{{ $t("about") }}</RouterLink
-                >
-              </li>
-              <li class="nav-item"></li>
-            </ul>
-            <div class="d-flex">
-              <button
-                class="btn btn-secondary"
-                @click="
-                  $i18n.locale === 'fr'
-                    ? ($i18n.locale = 'en')
-                    : ($i18n.locale = 'fr')
-                "
-              >
-                {{ $t("navigation.toggleLanguage") }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <BaseNavigationBar />
     <main class="flex-shrink-0 mt-3" id="content">
       <RouterView />
     </main>
-    <BaseFooter />
   </Teleport>
+  <ReloadPrompt />
 </template>
+
+<style scoped>
+header {
+  line-height: 1.5;
+  max-height: 100vh;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+nav {
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+nav a.router-link-exact-active {
+  color: var(--color-text);
+}
+
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
+}
+
+nav a:first-of-type {
+  border: 0;
+}
+
+@media (min-width: 1024px) {
+  header {
+    display: flex;
+    place-items: center;
+    padding-right: calc(var(--section-gap) / 2);
+  }
+
+  .logo {
+    margin: 0 2rem 0 0;
+  }
+
+  header .wrapper {
+    display: flex;
+    place-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  nav {
+    text-align: left;
+    margin-left: -1rem;
+    font-size: 1rem;
+
+    padding: 1rem 0;
+    margin-top: 1rem;
+  }
+}
+</style>

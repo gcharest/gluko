@@ -10,7 +10,7 @@
             data-bs-toggle="modal"
             data-bs-target="#experiment"
           >
-            {{ $t("Display Notice") }}
+            {{ $t('Display Notice') }}
           </button>
           <Teleport to="body">
             <div
@@ -22,23 +22,19 @@
               <div class="modal-dialog bg-light">
                 <div class="modal-header">
                   <h5 class="modal-title" id="experimentLabel">
-                    {{ $t("Notice") }}
+                    {{ $t('Notice') }}
                   </h5>
                 </div>
                 <div class="modal-body">
                   <div class="row">
                     <div class="col">
-                      <p>{{ $t("Experiment Notice") }}</p>
+                      <p>{{ $t('Experiment Notice') }}</p>
                     </div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
-                    {{ $t("Close") }}
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    {{ $t('Close') }}
                   </button>
                 </div>
               </div>

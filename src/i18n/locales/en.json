@@ -3,6 +3,12 @@
     "skipToContent": "Skip to content",
     "toggleLanguage": "Français"
   },
+  "reloadPrompt": {
+    "offlineReady": "App ready to work offline",
+    "newContentAvailable": "New content available, click on reload button to update.",
+    "reload": "Reload",
+    "close": "Close"
+  },
   "home": "Carbs",
   "carbFactor": "Carb Factor",
   "about": "About",
@@ -23,6 +29,7 @@
   "Submit": "Submit",
   "Subtotal": "Subtotal",
   "Nutrient": "Nutrient",
+  "Modify": "Modify",
   "Close": "Close",
   "Save Changes": "Save Changes",
   "Search a nutrient": "Search a nutrient",

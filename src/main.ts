@@ -1,35 +1,17 @@
-import { createApp } from "vue";
-import { createPinia } from "pinia";
-import { createI18n } from "vue-i18n";
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import './assets/scss/styles.scss'
+import 'bootstrap'
 
-import App from "./App.vue";
-import router from "./router";
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
-import en from "./locales/en/translations.json";
-import fr from "./locales/fr/translations.json";
-import { useNutrientFileStore } from "./stores/nutrientsFile";
-import dataset from "@/components/data/canadian_nutrient_file.json";
+import App from './App.vue'
+import router from './router'
+import i18n from './i18n/index'
 
-const i18n = createI18n({
-  messages: {
-    en: en,
-    fr: fr,
-  },
-  locale: "fr",
-  fallbackLocale: "fr",
-  fallbackWarn: false,
-});
+const app = createApp(App)
 
-const app = createApp(App);
+app.use(createPinia())
+app.use(router)
+app.use(i18n)
 
-app.use(createPinia());
-app.use(router);
-app.use(i18n);
-
-app.mount("#app");
-
-const store = useNutrientFileStore();
-store.$state.nutrientsFile = dataset;
+app.mount('#app')

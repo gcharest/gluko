@@ -1,30 +1,30 @@
-import { defineStore } from "pinia";
-import { useLocalStorage } from "@vueuse/core";
+import { defineStore } from 'pinia'
+import { useLocalStorage } from '@vueuse/core'
 
 export type userSession = {
-  dismissedExperimentNotice: boolean;
-};
+  dismissedExperimentNotice: boolean
+}
 
 export const userSessionStore = defineStore({
-  id: "userSession",
+  id: 'userSession',
   state: () => ({
-    userSession: useLocalStorage("userSession", {} as userSession),
+    userSession: useLocalStorage('userSession', {} as userSession)
   }),
   getters: {
     getUserSession(): userSession {
-      return this.userSession;
-    },
+      return this.userSession
+    }
   },
   actions: {
     initialize() {
       this.userSession = {
-        dismissedExperimentNotice: false,
-      };
+        dismissedExperimentNotice: false
+      }
     },
     reset() {
       this.userSession = {
-        dismissedExperimentNotice: false,
-      };
-    },
-  },
-});
+        dismissedExperimentNotice: false
+      }
+    }
+  }
+})
