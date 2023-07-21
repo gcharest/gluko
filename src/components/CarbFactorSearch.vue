@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed, onBeforeMount } from 'vue'
+import { ref, computed, onBeforeMount, onMounted } from 'vue'
 import { useNutrientFileStore } from '@/stores/nutrientsFile'
 const store = useNutrientFileStore()
-onBeforeMount(() => {
+onMounted(() => {
   if (store.nutrientsFile.length === 0) {
     store.$reset()
   }
