@@ -3,9 +3,9 @@ import MealCalculator from '@/components/MealCalculator.vue'
 </script>
 
 <template>
-  <div class="container text-light">
-    <h1 class="text-light">{{ $t('Calculateur') }}</h1>
-    <p>{{ $t('Experimental') }}</p>
+  <div class="container">
+    <h1 class="">{{ $t('calculateur') }}</h1>
+    <p>{{ $t('experimental') }}</p>
     <MealCalculator />
   </div>
 </template>

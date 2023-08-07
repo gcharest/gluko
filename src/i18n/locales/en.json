@@ -1,7 +1,18 @@
 {
+  "locale": {
+    "en": "English",
+    "fr": "French",
+    "toggleLanguage": "Change Language"
+  },
   "navigation": {
     "skipToContent": "Skip to content",
-    "toggleLanguage": "Français"
+    "mainNavigation": "Main navigation"
+  },
+  "themeToggler": {
+    "toggleTheme": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "auto": "Auto"
   },
   "reloadPrompt": {
     "offlineReady": "App ready to work offline",
@@ -10,7 +21,7 @@
     "close": "Close"
   },
   "home": "Carbs",
-  "carbFactor": "Carb Factor",
+  "carb-factor": "Carb Factor",
   "about": "About",
   "aboutText": {
     "para1": "This web application aims to help calculate the amount of carbohydrates in a meal.",
@@ -19,8 +30,9 @@
     "CNF": "Canadian Nutrient File",
     "url": "https://food-nutrition.canada.ca/cnf-fce/?lang=eng"
   },
-  "Calculateur": "Carbs Counter",
+  "calculateur": "Carbs Counter",
   "message": "Total count of carbs",
+  "mealNutrientLength": "Number of nutrients in the meal",
   "Nom de l'aliment": "Nutrient",
   "Quantité": "Quantity",
   "Facteur": "Factor",
@@ -35,7 +47,7 @@
   "Search a nutrient": "Search a nutrient",
   "Search": "Search",
   "Results": "Results",
-  "Experimental": "Experimental",
+  "experimental": "Experimental",
   "Experiment Notice": "This project is in the experimental stage. The information you see here may be inaccurate. Please consult a health care professional before making any decisions based on the information you find here.",
   "Display Notice": "Display Notice",
   "Notice": "Notice",

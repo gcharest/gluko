@@ -24,11 +24,11 @@ const updateSearch = () => {
 <template>
   <div class="container">
     <h2>{{ $t('Search a nutrient') }}</h2>
-    <div class="row text-light">
+    <div class="row">
       <div class="col">
         <div class="input-group mb-3">
           <button
-            class="btn btn-outline-secondary bg-light text-dark"
+            class="btn btn-outline-secondary"
             type="button"
             id="button-search-nutrient"
             aria-label="Search"
@@ -50,10 +50,7 @@ const updateSearch = () => {
           {{ $t('Results')
           }}<span v-if="searchResults.length > 0"> ({{ searchResults.length }})</span>
         </h2>
-        <ul
-          class="list-group bg-dark"
-          v-if="searchResults !== undefined && searchResults.length > 0"
-        >
+        <ul class="list-group" v-if="searchResults !== undefined && searchResults.length > 0">
           <li class="list-group-item">
             <div class="row">
               <div class="col-8 display-6">{{ $t('Nutrient') }}</div>
@@ -87,7 +84,7 @@ const updateSearch = () => {
             </div>
           </li>
         </ul>
-        <ul class="list-group bg-dark" v-else>
+        <ul class="list-group" v-else>
           <li class="list-group-item">{{ $t('No results') }}</li>
         </ul>
       </div>

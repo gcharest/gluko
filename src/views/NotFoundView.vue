@@ -2,9 +2,9 @@
 //Setup a Not Found (404) view
 </script>
 <template>
-  <div class="container text-light">
-    <h1 class="text-light">{{ $t('Not Found') }}</h1>
-    <p class="text-light">{{ $t('Experimental') }}</p>
-    <p class="text-light">{{ $t('Page not found') }}</p>
+  <div class="container">
+    <h1 class="">{{ $t('Not Found') }}</h1>
+    <p class="">{{ $t('experimental') }}</p>
+    <p class="">{{ $t('Page not found') }}</p>
   </div>
 </template>

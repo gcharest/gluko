@@ -1,7 +1,18 @@
 {
+  "locale": {
+    "en": "Anglais",
+    "fr": "Français",
+    "toggleLanguage": "Changer la langue"
+  },
   "navigation": {
     "skipToContent": "Aller au contenu",
-    "toggleLanguage": "English"
+    "mainNavigation": "Navigation principale"
+  },
+  "themeToggler": {
+    "toggleTheme": "Changer le thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "auto": "Automatique"
   },
   "reloadPrompt": {
     "offlineReady": "L'application est maintenant prête à être utilisée hors ligne.",
@@ -18,9 +29,10 @@
     "CNF": "Fichier canadien sur les éléments nutritifs (FCÉN)",
     "url": "https://food-nutrition.canada.ca/cnf-fce/?lang=fre"
   },
-  "carbFactor": "Facteur glucidique",
-  "Calculateur": "Calculateur de glucides",
+  "carb-factor": "Facteur glucidique",
+  "calculateur": "Calculateur de glucides",
   "message": "Total des glucides",
+  "mealNutrientLength": "Nombre d'aliments dans le repas",
   "Nom de l'aliment": "Aliment",
   "Quantité": "Quantité",
   "Facteur": "Facteur",
@@ -35,7 +47,7 @@
   "Search a nutrient": "Chercher un aliment",
   "Search": "Chercher",
   "Results": "Résultats",
-  "Experimental": "Expérimental",
+  "experimental": "Expérimental",
   "Experiment Notice": "Ce projet est à l'étape expérimentale. Les données que vous y trouverez sont susceptibles d'être erronées. Veuillez consulter un professionnel de la santé avant de prendre des décisions basées sur les informations que vous trouverez ici.",
   "Display Notice": "Afficher la notice",
   "Notice": "Avis",

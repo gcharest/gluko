@@ -53,19 +53,22 @@ function cancelNutrientChanges() {
 </script>
 
 <template>
-  <div v-for="(nutrient) in store.mealNutrients as Nutrient[]" :key="nutrient.id">
+  <div class="container-fluid">
     <NutrientListItem
+      v-for="(nutrient) in store.mealNutrients as Nutrient[]"
+      :key="nutrient.id"
       :nutrient="nutrient"
       @modifyCurrentNutrient="(id: string) => modifyCurrentNutrient(id)"
     />
   </div>
   <form class="position-sticky bottom-0">
-    <div class="card bg-dark border-2 border-light p-2">
+    <div class="card border-2 p-2">
       <div class="row">
         <div class="card-body">
-          <h2 class="card-title text-light">
+          <h2 class="card-title">
             {{ $t('message') }}: {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
           </h2>
+          <p>{{ $t('mealNutrientLength') }}: {{ store.mealNutrients.length }}</p>
         </div>
       </div>
 
