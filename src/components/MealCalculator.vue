@@ -53,32 +53,28 @@ function cancelNutrientChanges() {
 </script>
 
 <template>
-  <div class="container-fluid">
     <NutrientListItem
-      v-for="(nutrient) in store.mealNutrients as Nutrient[]"
+      v-for="(nutrient, index) in store.mealNutrients as Nutrient[]"
       :key="nutrient.id"
       :nutrient="nutrient"
+      :index="index"
       @modifyCurrentNutrient="(id: string) => modifyCurrentNutrient(id)"
     />
-  </div>
   <form class="position-sticky bottom-0">
-    <div class="card border-2 p-2">
-      <div class="row">
-        <div class="card-body">
-          <h2 class="card-title">
-            {{ $t('message') }}: {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
-          </h2>
-          <p>{{ $t('mealNutrientLength') }}: {{ store.mealNutrients.length }}</p>
+    <div class="card border-2">
+        <div class="card-body pb-0 pb-md-1 pt-1 pt-md-2">
+            <h2 class="card-title">
+              {{ $t('message') }}: {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
+            </h2>
+            <p >{{ $t('mealNutrientLength') }}: {{ store.mealNutrients.length }}</p>
         </div>
-      </div>
-
-      <div class="col">
-        <button type="button" class="btn btn-primary m-2" @click="addNewNutrient">
-          {{ $t('Ajouter un aliment') }}
-        </button>
-        <button type="button" class="btn btn-secondary m-2" @click="resetMealNutrients">
-          {{ $t('Reset') }}
-        </button>
+        <div class="card-footer">
+          <button type="button" class="btn btn-primary m-2" @click="addNewNutrient">
+            {{ $t('Ajouter un aliment') }}
+          </button>
+          <button type="button" class="btn btn-secondary m-2" @click="resetMealNutrients">
+            {{ $t('Reset') }}
+          </button>
       </div>
     </div>
   </form>
