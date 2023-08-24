@@ -30,7 +30,7 @@ const removeNutrient = () => {
           <p class="mb-1 mb-md-3">{{ props.nutrient.factor }}</p>
         </div>
         <div class="d-lg-none">
-          <hr class="d-lg-none my-2 w-80 text-white-50" />
+          <hr class="d-lg-none my-2 w-80" />
         </div>
         <div class="col-md-12 col-lg-2 text-center mb-1 mb-md-0 mt-md-3">
           <p class="mb-1">{{ $t('Subtotal') }}:</p>
