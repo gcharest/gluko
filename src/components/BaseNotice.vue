@@ -6,7 +6,8 @@
     </span>
   </button>
   <Teleport to="body">
-    <div id="experiment-modal" class="modal modal-lg fade" tabindex="-1" aria-labelledby="experiment-modal"
+    <div
+id="experiment-modal" class="modal modal-lg fade" tabindex="-1" aria-labelledby="experiment-modal"
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
