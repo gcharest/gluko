@@ -73,7 +73,7 @@ type="button" class="btn btn-primary w-100 py-1 py-md-2"
             <div class="col-lg-12 col-6 text-center">
               <button
 type="button" class="btn btn-secondary w-100 py-1 py-md-2"
-                :disabled="mealStore.mealNutrients.length <= 1"
+                :disabled="mealStore.nutrientCount <= 1"
                 :aria-label="$t('components.nutrientList.item.removeButton', { name: props.nutrient.name || $t('common.labels.nutrient') })"
                 @click="removeNutrient">
                 <i class="bi bi-trash3-fill" aria-hidden="true"></i>

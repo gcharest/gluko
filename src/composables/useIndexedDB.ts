@@ -1,17 +1,14 @@
 import { ref } from 'vue'
 import type { NutrientFile } from '@/stores/nutrientsFile'
-import type { Nutrient, Meal } from '@/stores/meal'
 import type { UserSession } from '@/stores/session'
+import type {
+  Subject,
+  CalculationSession,
+  MealHistoryEntry,
+  UserAccount
+} from '@/types/meal-history'
 
 interface DBSchema {
-  meals: {
-    key: string
-    value: Meal
-  }
-  mealNutrients: {
-    key: string
-    value: { nutrients: Nutrient[] }
-  }
   favoriteNutrients: {
     key: string
     value: number[]
@@ -24,109 +21,32 @@ interface DBSchema {
     key: number
     value: NutrientFile[]
   }
+  subjects: {
+    key: string
+    value: Subject
+  }
+  activeSessions: {
+    key: string
+    value: CalculationSession
+  }
+  mealHistory: {
+    key: string
+    value: MealHistoryEntry
+  }
+  userAccount: {
+    key: string
+    value: UserAccount
+  }
 }
 
 const DB_NAME = 'GlukoApp'
-const DB_VERSION = 2 // Incrementing version to force schema update
+const DB_VERSION = 3 // Incrementing version for multi-subject support
 
 export const useIndexedDB = () => {
   const db = ref<IDBDatabase | null>(null)
   const error = ref<Error | null>(null)
-
-  const openDB = (): Promise<IDBDatabase> => {
-    return new Promise((resolve, reject) => {
-      if (db.value) {
-        resolve(db.value)
-        return
-      }
-
-      const request = indexedDB.open(DB_NAME, DB_VERSION)
-
-      request.onerror = () => {
-        const err = new Error('Failed to open database')
-        error.value = err
-        reject(err)
-      }
-
-      request.onsuccess = () => {
-        db.value = request.result
-        resolve(request.result)
-      }
-
-      request.onupgradeneeded = async (event) => {
-        const database = (event.target as IDBRequest<IDBDatabase>).result
-        const oldVersion = event.oldVersion
-
-        switch (oldVersion) {
-          case 0:
-            database.createObjectStore('meals', { keyPath: 'id' })
-            database.createObjectStore('mealNutrients')
-            database.createObjectStore('favoriteNutrients')
-            database.createObjectStore('userSession')
-            database.createObjectStore('nutrientsFile')
-            break
-
-          // For future version migrations, add cases here
-          // case 1:
-          //   // Upgrade from version 1 to 2
-          //   break
-        }
-      }
-
-      request.onblocked = () => {
-        console.warn('Database blocked. Please close other tabs and try again.')
-        const err = new Error('Database upgrade blocked. Please close other tabs and try again.')
-        error.value = err
-        reject(err)
-      }
-
-      request.onerror = () => {
-        // Handle quota exceeded error specifically
-        if (request.error?.name === 'QuotaExceededError') {
-          const err = new Error('Storage quota exceeded. Please free up some space and try again.')
-          error.value = err
-          reject(err)
-          return
-        }
-
-        // Handle permission denied error
-        if (request.error?.name === 'SecurityError') {
-          const err = new Error('Permission denied to access IndexedDB. Please check your privacy settings.')
-          error.value = err
-          reject(err)
-          return
-        }
-
-        // General database error
-        const err = new Error(`Failed to open database: ${request.error?.message}`)
-        error.value = err
-        reject(err)
-      }
-
-      request.onupgradeneeded = async (event) => {
-        const database = (event.target as IDBRequest<IDBDatabase>).result
-
-        // Delete old object stores if they exist
-        const storeNames = database.objectStoreNames
-        for (const storeName of Array.from(storeNames)) {
-          database.deleteObjectStore(storeName)
-        }
-
-        // Create new object stores
-        database.createObjectStore('meals', { keyPath: 'id' })
-        database.createObjectStore('mealNutrients') // No keyPath, we use explicit keys for the current meal nutrients
-        database.createObjectStore('favoriteNutrients') // No keyPath, we use explicit keys
-        database.createObjectStore('userSession') // No keyPath, we use explicit keys
-        database.createObjectStore('nutrientsFile') // No keyPath, we use explicit keys
-      }
-    })
-  }
-
-  const getStore = async (storeName: keyof DBSchema, mode: 'readonly' | 'readwrite' = 'readonly') => {
-    const database = await openDB()
-    const transaction = database.transaction(storeName, mode)
-    return transaction.objectStore(storeName)
-  }
+  const isInitialized = ref(false)
+  const initializationPromise = ref<Promise<void> | null>(null)
 
   const handleError = (err: Error | DOMException | unknown): Error => {
     if (err instanceof Error) {
@@ -166,7 +86,100 @@ export const useIndexedDB = () => {
     return genericError
   }
 
+  const initializeDB = (): Promise<void> => {
+    if (isInitialized.value) return Promise.resolve()
+    if (initializationPromise.value) return initializationPromise.value
 
+    const promise = new Promise<void>((resolve, reject) => {
+      const request = indexedDB.open(DB_NAME, DB_VERSION)
+
+      request.onerror = () => {
+        if (request.error?.name === 'QuotaExceededError') {
+          const err = new Error('Storage quota exceeded. Please free up some space and try again.')
+          error.value = err
+          reject(err)
+          return
+        }
+
+        if (request.error?.name === 'SecurityError') {
+          const err = new Error('Permission denied to access IndexedDB. Please check your privacy settings.')
+          error.value = err
+          reject(err)
+          return
+        }
+
+        const err = new Error(`Failed to open database: ${request.error?.message || 'Unknown error'}`)
+        error.value = err
+        reject(err)
+      }
+
+      request.onsuccess = () => {
+        db.value = request.result
+        isInitialized.value = true
+        resolve()
+      }
+
+      request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
+        const database = (event.target as IDBOpenDBRequest).result
+        const oldVersion = event.oldVersion
+
+        // On fresh install or version < 3, create all stores
+        if (oldVersion < 3) {
+          // Delete legacy stores if they exist (for upgrades)
+          const storeNames = Array.from(database.objectStoreNames)
+          storeNames.forEach(storeName => {
+            if (['meals', 'mealNutrients'].includes(storeName)) {
+              database.deleteObjectStore(storeName)
+            }
+          })
+
+          // Create all stores fresh
+          database.createObjectStore('favoriteNutrients')
+          database.createObjectStore('userSession')
+          database.createObjectStore('nutrientsFile')
+
+          // Multi-subject support stores
+          const subjectsStore = database.createObjectStore('subjects', { keyPath: 'id' })
+          subjectsStore.createIndex('by-name', 'name', { unique: false })
+          subjectsStore.createIndex('by-active', 'active', { unique: false })
+
+          const sessionsStore = database.createObjectStore('activeSessions', { keyPath: 'id' })
+          sessionsStore.createIndex('by-subject', 'subjectId', { unique: false })
+          sessionsStore.createIndex('by-status', 'status', { unique: false })
+
+          const historyStore = database.createObjectStore('mealHistory', { keyPath: 'id' })
+          historyStore.createIndex('by-subject', 'subjectId', { unique: false })
+          historyStore.createIndex('by-date', 'date', { unique: false })
+          historyStore.createIndex('by-tags', 'tags', { unique: false, multiEntry: true })
+
+          database.createObjectStore('userAccount', { keyPath: 'id' })
+        }
+      }
+
+      request.onblocked = () => {
+        const err = new Error('Database upgrade blocked. Please close other tabs and try again.')
+        error.value = err
+        reject(err)
+      }
+    })
+
+    initializationPromise.value = promise
+    return promise
+  }
+
+  const openDB = async (): Promise<IDBDatabase> => {
+    await initializeDB()
+    if (!db.value) {
+      throw new Error('Database not initialized')
+    }
+    return db.value
+  }
+
+  const getStore = async (storeName: keyof DBSchema, mode: 'readonly' | 'readwrite' = 'readonly') => {
+    const database = await openDB()
+    const transaction = database.transaction(storeName, mode)
+    return transaction.objectStore(storeName)
+  }
 
   const serializeDates = (obj: unknown): unknown => {
     if (obj instanceof Date) {
@@ -357,16 +370,125 @@ export const useIndexedDB = () => {
     }
   }
 
+  // Enhanced get method with index support
+  const getByIndex = async <K extends keyof DBSchema>(
+    storeName: K,
+    indexName: string,
+    key: string | number | Date | ArrayBuffer | string[] | number[] | Date[] | ArrayBuffer[]
+  ): Promise<DBSchema[K]['value'] | undefined> => {
+    try {
+      const store = await getStore(storeName)
+      const index = store.index(indexName)
 
+      return new Promise((resolve, reject) => {
+        const request = index.get(key)
+        request.onsuccess = () => {
+          const result = request.result
+          if (result === undefined) {
+            resolve(undefined)
+            return
+          }
+          resolve(deserializeDates(result as Record<string, unknown>) as DBSchema[K]['value'])
+        }
+        request.onerror = () => reject(handleError(request.error))
+      })
+    } catch (err) {
+      throw handleError(err)
+    }
+  }
 
+  // Get all by index
+  const getAllByIndex = async <K extends keyof DBSchema>(
+    storeName: K,
+    indexName: string,
+    key: string | number | Date | ArrayBuffer | string[] | number[] | Date[] | ArrayBuffer[]
+  ): Promise<DBSchema[K]['value'][]> => {
+    try {
+      const store = await getStore(storeName)
+      const index = store.index(indexName)
 
+      return new Promise((resolve, reject) => {
+        const request = index.getAll(key)
+        request.onsuccess = () => {
+          const results = request.result
+          if (Array.isArray(results)) {
+            resolve(results.map(result =>
+              deserializeDates(result as Record<string, unknown>) as DBSchema[K]['value']
+            ))
+          } else {
+            resolve([])
+          }
+        }
+        request.onerror = () => reject(handleError(request.error))
+      })
+    } catch (err) {
+      throw handleError(err)
+    }
+  }
+
+  // Subject management methods
+  const getSubject = (id: string) => get('subjects', id)
+  const getAllSubjects = () => getAll('subjects')
+  const getActiveSubjects = () => getAllByIndex('subjects', 'by-active', 1) // Using 1 for true in IndexedDB
+  const saveSubject = (subject: Subject) => put('subjects', subject)
+  const removeSubject = (id: string) => remove('subjects', id)
+
+  // Calculation session methods
+  const getSession = (id: string) => get('activeSessions', id)
+  const getSessionsBySubject = (subjectId: string) => getAllByIndex('activeSessions', 'by-subject', subjectId)
+  const getSessionsByStatus = (status: 'draft' | 'completed') => getAllByIndex('activeSessions', 'by-status', status)
+  const saveSession = (session: CalculationSession) => put('activeSessions', session)
+  const removeSession = (id: string) => remove('activeSessions', id)
+
+  // Meal history methods
+  const getMealHistory = (id: string) => get('mealHistory', id)
+  const getMealHistoryBySubject = (subjectId: string) => getAllByIndex('mealHistory', 'by-subject', subjectId)
+  const getMealHistoryByDate = (date: Date) => getAllByIndex('mealHistory', 'by-date', date)
+  const getMealHistoryByTag = (tag: string) => getAllByIndex('mealHistory', 'by-tags', tag)
+  const saveMealHistory = (entry: MealHistoryEntry) => put('mealHistory', entry)
+  const removeMealHistory = (id: string) => remove('mealHistory', id)
+
+  // User account methods
+  const getUserAccount = (id: string) => get('userAccount', id)
+  const saveUserAccount = (account: UserAccount) => put('userAccount', account)
 
   return {
+    // Base operations
     get,
     getAll,
     put,
     remove,
     clear,
-    error
+    error,
+
+    // Enhanced operations
+    getByIndex,
+    getAllByIndex,
+
+    // Subject operations
+    getSubject,
+    getAllSubjects,
+    getActiveSubjects,
+    saveSubject,
+    removeSubject,
+
+    // Session operations
+    getSession,
+    getSessionsBySubject,
+    getSessionsByStatus,
+    saveSession,
+    removeSession,
+
+    // Meal history operations
+    getMealHistory,
+    getMealHistoryBySubject,
+    getMealHistoryByDate,
+    getMealHistoryByTag,
+    saveMealHistory,
+    removeMealHistory,
+
+    // User account operations
+    getUserAccount,
+    saveUserAccount
   }
 }
