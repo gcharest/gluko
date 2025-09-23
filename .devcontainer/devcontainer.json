@@ -1,0 +1,80 @@
+{
+  "name": "Gluko Vue.js Development",
+  "image": "node:22-bullseye",
+  // Install zsh and set as default shell
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true
+    }
+  },
+  "customizations": {
+    "vscode": {
+      // Minimal essential extensions for Vue.js PWA development
+      "extensions": [
+        "Vue.volar", // Vue language support
+        "Vue.vscode-typescript-vue-plugin", // TypeScript in Vue components
+        "esbenp.prettier-vscode", // Code formatting (matches .prettierrc)
+        "dbaeumer.vscode-eslint", // Linting (matches .eslintrc)
+        "lokalise.i18n-ally", // i18n support (project uses heavily)
+        "ms-playwright.playwright" // E2E testing (project configured)
+      ],
+      // Essential settings for Vue.js development
+      "settings": {
+        // Vue.js specific settings
+        "vue.codeActions.enabled": true,
+        "vue.complete.casing.tags": "kebab",
+        "vue.complete.casing.props": "camel",
+        // TypeScript settings
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "typescript.suggest.autoImports": true,
+        // Code formatting (matches project .prettierrc.json)
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        // ESLint integration
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "eslint.validate": [
+          "javascript",
+          "typescript",
+          "vue"
+        ],
+        // File associations
+        "files.associations": {
+          "*.vue": "vue"
+        },
+        // Emmet for Vue templates
+        "emmet.includeLanguages": {
+          "vue-html": "html",
+          "vue": "html"
+        },
+        // i18n Ally configuration for your project structure
+        "i18n-ally.localesPaths": [
+          "src/i18n/locales"
+        ],
+        "i18n-ally.keystyle": "nested"
+      }
+    }
+  },
+  // Forward essential development ports
+  "forwardPorts": [
+    5173,
+    4173
+  ],
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "4173": {
+      "label": "Vite Preview Server",
+      "onAutoForward": "notify"
+    }
+  },
+  // Install dependencies and Playwright browsers after container creation
+  "postCreateCommand": "npm install && npx playwright install --with-deps"
+}

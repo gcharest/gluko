@@ -1,3 +1,3 @@
-// Import all of Bootstrap's CSS
-@import 'bootstrap/scss/bootstrap';
+// Import all of Bootstrap's CSS using modern @use syntax
+@use 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';

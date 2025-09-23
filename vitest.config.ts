@@ -1,20 +1,36 @@
 import { fileURLToPath } from 'node:url'
-import { mergeConfig } from 'vite'
-import { configDefaults, defineConfig } from 'vitest/config'
-import viteConfig from './vite.config'
+import { defineConfig } from 'vitest/config'
+import vue from '@vitejs/plugin-vue'
 
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    test: {
-      environment: 'jsdom',
-      exclude: [...configDefaults.exclude, 'e2e/*', 'src/**/__tests__/unit.setup.ts'],
-      root: fileURLToPath(new URL('./', import.meta.url)),
-      transformMode: {
-        web: [/\.[jt]sx$/]
-      },
-      setupFiles: ['./src/components/__tests__/unit.setup.ts'],
-      coverage: { provider: 'v8' }
+export default defineConfig({
+  plugins: [vue()],
+  test: {
+    environment: 'jsdom',
+    exclude: ['**/node_modules/**', '**/dist/**', '**/e2e/**', 'src/**/__tests__/unit.setup.ts'],
+    root: fileURLToPath(new URL('./', import.meta.url)),
+    setupFiles: ['./src/components/__tests__/unit.setup.ts'],
+    coverage: {
+      provider: 'v8',
+      exclude: [
+        'coverage/**',
+        'dist/**',
+        'packages/*/test{,s}/**',
+        '**/*.d.ts',
+        'cypress/**',
+        'test{,s}/**',
+        'test{,-*}.{js,cjs,mjs,ts,tsx,jsx}',
+        '**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}',
+        '**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}',
+        '**/__tests__/**',
+        '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
+        '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}',
+        'src/assets/**'
+      ]
     }
-  })
-)
+  },
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
+})

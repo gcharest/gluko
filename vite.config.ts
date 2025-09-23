@@ -14,11 +14,27 @@ export default defineConfig({
     VueI18nPlugin({
       include: resolve(dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**')
     }),
-    VitePWA({ registerType: 'prompt' })
+    VitePWA({
+      registerType: 'prompt',
+      workbox: {
+        maximumFileSizeToCacheInBytes: 3000000 // 3MB limit instead of default 2MB
+      }
+    })
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['vue', 'vue-router', 'pinia'],
+          bootstrap: ['bootstrap'],
+          utilities: ['@vueuse/core', 'fuse.js']
+        }
+      }
     }
   }
 })
