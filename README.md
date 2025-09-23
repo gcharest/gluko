@@ -1,71 +1,81 @@
-# gluko
+# Gluko
 
-This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+[![GitHub Workflow Status (static)](https://img.shields.io/github/actions/workflow/status/gcharest/gluko/static.yml?branch=main&label=Static%20Pages&logo=github&style=flat-square)](https://github.com/gcharest/gluko/actions/workflows/static.yml)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Gluko is a web application designed to help individuals more accurately calculate the carbohydrate content in their meals. By providing an easy-to-use interface and leveraging the [Canadian Nutrient File database](https://food-nutrition.canada.ca/cnf-fce/?lang=eng), Gluko simplifies carb counting and ensures precision in determining the carb factor of various nutrients.
 
-## Type Support for `.vue` Imports in TS
+## Features
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- 🧮 **Meal Calculator**: Calculate total carbohydrates in your meals by combining different ingredients
+- 🔍 **Carb Factor Search**: Quick access to carbohydrate content of common foods
+- 📊 **Nutrient Information**: Detailed nutritional information from the Canadian Nutrient File
+- 🌐 **Bilingual Support**: Available in English and French
+- 🌙 **Dark Mode**: Comfortable viewing in any lighting condition
+- 📱 **Responsive Design**: Works on desktop and mobile devices
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Why Gluko?
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+Managing Type 1 Diabetes requires constant attention to carbohydrate intake to determine proper insulin dosing. Gluko aims to make this process easier by:
+- Providing quick access to reliable nutritional information
+- Enabling easy calculation of complex meals
+- Offering a user-friendly interface for daily use
+- Using official Canadian nutritional data
 
-## Customize configuration
+## Experimental
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+This project is experimental and not intended for medical use. Always consult with a healthcare professional for medical advice and insulin dosing.
 
-## Project Setup
+## Getting Started
 
-```sh
-npm install
-```
+### Using the Application
 
-### Compile and Hot-Reload for Development
+Visit [https://gcharest.github.io/gluko/](https://gcharest.github.io/gluko/) to start using Gluko right away.
 
-```sh
-npm run dev
-```
+### Development Setup
 
-### Type-Check, Compile and Minify for Production
+If you want to contribute to the project or run it locally:
 
-```sh
-npm run build
-```
+1. **Prerequisites**
+   - Node.js (v22 recommended)
+   - npm
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+2. **Installation**
+   ```sh
+   npm install
 
-```sh
-npm run test:unit
-```
+3. **Development Server**
+   ```sh
+   npm run dev
+   ```
+   Open your browser and navigate to `http://localhost:5173` to see the application
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+4. **Building for Production**
+   ```sh
+   npm run build
+   ```
+   The production-ready files will be in the `dist` directory
 
-```sh
-# Install browsers for the first run
-npx playwright install
+5. **Running Tests**
+   - Unit Tests:
+     ```sh
+     npm run test:unit
+   - End-to-End Tests:
+     ```sh
+        npx playwright install
+     ```
+        npm run test:e2e
+     ```    
 
-# When testing on CI, must build the project first
-npm run build
+## Contributing
 
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
-```
+Contributions are welcome! Whether it's:
 
-### Lint with [ESLint](https://eslint.org/)
+- Reporting bugs
+- Suggesting enhancements
+- Improving documentation
+- Submitting pull requests
 
-```sh
-npm run lint
-```
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
