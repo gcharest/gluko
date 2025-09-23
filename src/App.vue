@@ -8,7 +8,7 @@ import ReloadPrompt from '@/components/ReloadPrompt.vue'
 <template>
   <Teleport to="body">
     <BaseNavigationBar />
-    <main class="flex-shrink-0 mt-3" id="content">
+    <main id="content" class="flex-shrink-0 mt-3">
       <RouterView />
     </main>
     <BaseFooter />
