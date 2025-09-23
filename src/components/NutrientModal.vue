@@ -126,46 +126,53 @@ function handleInputEnter(event: KeyboardEvent) {
 
 <template>
   <Teleport to="body">
-    <div ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="nutrient-modal-title"
+    <div
+ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="nutrient-modal-title"
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 id="nutrient-modal-title" class="modal-title display-6">
-              {{ currentNutrient.name || $t("Nom de l'aliment") }}
+              {{ currentNutrient.name || $t('components.nutrientModal.fields.name') }}
             </h5>
-            <button type="button" class="btn-close me-1" :aria-label="$t('Close')"
+            <button
+type="button" class="btn-close me-1" :aria-label="$t('components.nutrientModal.actions.close')"
               @click="cancelNutrientChanges"></button>
           </div>
           <div class="modal-body">
             <form class="container-fluid">
               <div class="row g-3">
                 <div class="col-md-12 col-lg-6 form-floating">
-                  <input type="text" class="form-control" v-model="currentNutrient.name"
-                    :placeholder="currentNutrient.name" id="nutrient-name" :aria-label="$t('Nom de l\'aliment')"
-                    @focus="handleInputFocus" @keydown.enter.prevent="handleInputEnter" />
-                  <label class="ms-2" for="nutrient-name">{{ $t("Nom de l'aliment") }}</label>
+                  <input
+id="nutrient-name" v-model="currentNutrient.name" type="text"
+                    class="form-control" :placeholder="currentNutrient.name"
+                    :aria-label="$t('components.nutrientModal.fields.name')" @focus="handleInputFocus"
+                    @keydown.enter.prevent="handleInputEnter" />
+                  <label class="ms-2" for="nutrient-name">{{ $t('components.nutrientModal.fields.name') }}</label>
                 </div>
                 <div class="col col-lg-3 form-floating">
-                  <input type="number" pattern="[0-9]*" inputmode="decimal" class="form-control"
-                    v-model="currentNutrient.quantity" :placeholder="currentNutrient.quantity?.toString() || '0'"
-                    id="nutrient-quantity" :aria-label="$t('Quantité')" @focus="handleInputFocus"
-                    @keydown.enter.prevent="handleInputEnter" />
-                  <label class="ms-2" for="nutrient-quantity">{{ $t('Quantité') }}</label>
+                  <input
+id="nutrient-quantity" v-model="currentNutrient.quantity" type="number" pattern="[0-9]*"
+                    inputmode="decimal" class="form-control"
+                    :placeholder="currentNutrient.quantity?.toString() || '0'" :aria-label="$t('components.nutrientModal.fields.quantity')"
+                    @focus="handleInputFocus" @keydown.enter.prevent="handleInputEnter" />
+                  <label class="ms-2" for="nutrient-quantity">{{ $t('components.nutrientModal.fields.quantity')
+                    }}</label>
                 </div>
                 <div class="col col-lg-3 form-floating mb-3 lg">
-                  <input type="number" pattern="[0-9]*" inputmode="decimal" class="form-control"
-                    v-model="currentNutrient.factor" :placeholder="currentNutrient.factor?.toString() || '0'"
-                    id="nutrient-factor" :aria-label="$t('Facteur')" @focus="handleInputFocus"
-                    @keydown.enter.prevent="handleInputEnter" />
-                  <label class="ms-2" for="nutrient-factor">{{ $t('Facteur') }}</label>
+                  <input
+id="nutrient-factor" v-model="currentNutrient.factor" type="number" pattern="[0-9]*"
+                    inputmode="decimal" class="form-control"
+                    :placeholder="currentNutrient.factor?.toString() || '0'" :aria-label="$t('components.nutrientModal.fields.factor')"
+                    @focus="handleInputFocus" @keydown.enter.prevent="handleInputEnter" />
+                  <label class="ms-2" for="nutrient-factor">{{ $t('components.nutrientModal.fields.factor') }}</label>
                 </div>
               </div>
               <hr class="d-lg-none my-2 text-white-50" />
               <div class="row">
                 <div class="col">
                   <p>
-                    {{ $t('Subtotal') }} :
+                    {{ $t('common.labels.subtotal') }} :
                     {{ (currentNutrient.quantity * currentNutrient.factor).toFixed(2) }}
                   </p>
                 </div>
@@ -174,10 +181,10 @@ function handleInputEnter(event: KeyboardEvent) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" @click="saveNutrient">
-              {{ $t('Save Changes') }}
+              {{ $t('components.nutrientModal.actions.save') }}
             </button>
             <button type="button" class="btn btn-secondary" @click="cancelNutrientChanges">
-              {{ $t('Close') }}
+              {{ $t('components.nutrientModal.actions.close') }}
             </button>
           </div>
         </div>

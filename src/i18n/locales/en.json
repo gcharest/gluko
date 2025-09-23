@@ -1,18 +1,103 @@
 {
+  "common": {
+    "actions": {
+      "add": "Add",
+      "modify": "Modify",
+      "remove": "Remove",
+      "delete": "Delete",
+      "reset": "Reset",
+      "save": "Save",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "close": "Close",
+      "search": "Search"
+    },
+    "labels": {
+      "quantity": "Quantity",
+      "factor": "Factor",
+      "subtotal": "Subtotal",
+      "nutrient": "Nutrient",
+      "results": "Results",
+      "noResults": "No results"
+    },
+    "units": {
+      "grams": "g"
+    },
+    "status": {
+      "experimental": "Experimental",
+      "offline": "App ready to work offline",
+      "updateAvailable": "New content available, click on reload button to update."
+    }
+  },
+  "navigation": {
+    "skipToContent": "Skip to content",
+    "mainNavigation": "Main navigation",
+    "home": "Carbs",
+    "carbFactor": "Carb Factor",
+    "about": "About"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "auto": "Auto"
+  },
+  "components": {
+    "nutrientList": {
+      "item": {
+        "title": "Nutrient item {index}",
+        "modifyButton": "Modify nutrient {name}",
+        "removeButton": "Remove nutrient {name}"
+      },
+      "counter": {
+        "title": "Meal Counter",
+        "total": "Total count of carbs",
+        "nutrientCount": "Number of nutrients in the meal"
+      }
+    },
+    "nutrientModal": {
+      "title": "Edit nutrient details",
+      "fields": {
+        "name": "Name",
+        "quantity": "Quantity",
+        "factor": "Factor"
+      },
+      "actions": {
+        "save": "Save Changes",
+        "close": "Close"
+      }
+    },
+    "confirmationModal": {
+      "delete": {
+        "title": "Confirm Delete",
+        "message": "Are you sure you want to remove {name}?"
+      },
+      "reset": {
+        "title": "Confirm Reset",
+        "message": "Are you sure you want to reset the meal? This will remove all nutrients."
+      }
+    },
+    "search": {
+      "title": "Search a nutrient",
+      "placeholder": "Enter nutrient name",
+      "source": "Source",
+      "noResults": "No results",
+      "results": "Results ({count})"
+    },
+    "mealCalculator": {
+      "title": "Carbs Counter",
+      "totalCarbs": "Total count of carbs",
+      "nutrientCount": "Number of nutrients in the meal",
+      "actions": {
+        "addNutrient": "Add a nutrient",
+        "reset": "Reset"
+      }
+    }
+  },
   "locale": {
     "en": "English",
     "fr": "French",
     "toggleLanguage": "Change Language"
-  },
-  "navigation": {
-    "skipToContent": "Skip to content",
-    "mainNavigation": "Main navigation"
-  },
-  "themeToggler": {
-    "toggleTheme": "Toggle theme",
-    "light": "Light",
-    "dark": "Dark",
-    "auto": "Auto"
   },
   "reloadPrompt": {
     "offlineReady": "App ready to work offline",
@@ -30,30 +115,20 @@
     "CNF": "Canadian Nutrient File",
     "url": "https://food-nutrition.canada.ca/cnf-fce/?lang=eng"
   },
-  "calculateur": "Carbs Counter",
-  "message": "Total count of carbs",
-  "mealNutrientLength": "Number of nutrients in the meal",
-  "Nom de l'aliment": "Nutrient",
-  "Quantité": "Quantity",
-  "Facteur": "Factor",
-  "Ajouter un aliment": "Add a nutrient",
-  "Reset": "Reset",
-  "Submit": "Submit",
-  "Subtotal": "Subtotal",
-  "Nutrient": "Nutrient",
-  "Modify": "Modify",
-  "Close": "Close",
-  "Save Changes": "Save Changes",
-  "Search a nutrient": "Search a nutrient",
-  "Search": "Search",
-  "Results": "Results",
-  "experimental": "Experimental",
-  "Experiment Notice": "This project is in the experimental stage. The information you see here may be inaccurate. Please consult a health care professional before making any decisions based on the information you find here.",
-  "Display Notice": "Display Notice",
-  "Notice": "Notice",
-  "No results": "No results",
-  "Not Found": "Error 404",
-  "Page not found": "The page you are looking for does not exist.",
+  "errors": {
+    "notFound": {
+      "title": "Error 404",
+      "message": "The page you are looking for does not exist."
+    }
+  },
+  "notices": {
+    "experimental": {
+      "title": "Experimental",
+      "message": "This project is in the experimental stage. The information you see here may be inaccurate. Please consult a health care professional before making any decisions based on the information you find here.",
+      "display": "Display Notice",
+      "label": "Notice"
+    }
+  },
   "modals": {
     "confirmation": {
       "title": "Confirm Action",

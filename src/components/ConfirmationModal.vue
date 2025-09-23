@@ -22,7 +22,7 @@ const eventHandlers = {
   handleShown: () => {
     emit('update:modelValue', true)
     // Focus the cancel button by default for safety
-    const cancelBtn = modalRef.value?.querySelector('.btn-secondary')
+    const cancelBtn = modalRef.value?.querySelector('.btn-secondary') as HTMLButtonElement | null
     cancelBtn?.focus()
   }
 }
@@ -89,7 +89,8 @@ function handleKeydown(event: KeyboardEvent) {
             <h5 id="confirmation-modal-title" class="modal-title">
               {{ title }}
             </h5>
-            <button type="button" class="btn-close" :aria-label="$t('Close')" @click="handleCancel"></button>
+            <button type="button" class="btn-close" :aria-label="$t('common.actions.close')"
+              @click="handleCancel"></button>
           </div>
           <div class="modal-body">
             <p class="mb-0">{{ message }}</p>

@@ -1,18 +1,103 @@
 {
+  "common": {
+    "actions": {
+      "add": "Ajouter",
+      "modify": "Modifier",
+      "remove": "Supprimer",
+      "delete": "Supprimer",
+      "reset": "Réinitialiser",
+      "save": "Sauvegarder",
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "close": "Fermer",
+      "search": "Chercher"
+    },
+    "labels": {
+      "quantity": "Quantité",
+      "factor": "Facteur",
+      "subtotal": "Sous-total",
+      "nutrient": "Aliment",
+      "results": "Résultats",
+      "noResults": "Aucun résultat"
+    },
+    "units": {
+      "grams": "g"
+    },
+    "status": {
+      "experimental": "Expérimental",
+      "offline": "L'application est maintenant prête à être utilisée hors ligne.",
+      "updateAvailable": "Nouveau contenu disponible. Cliquez sur le bouton de rechargement pour mettre à jour."
+    }
+  },
+  "navigation": {
+    "skipToContent": "Aller au contenu",
+    "mainNavigation": "Navigation principale",
+    "home": "Glucides",
+    "carbFactor": "Facteur glucidique",
+    "about": "À propos"
+  },
+  "theme": {
+    "toggle": "Changer le thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "auto": "Automatique"
+  },
+  "components": {
+    "nutrientList": {
+      "item": {
+        "title": "Élément nutritif {index}",
+        "modifyButton": "Modifier l'aliment {name}",
+        "removeButton": "Supprimer l'aliment {name}"
+      },
+      "counter": {
+        "title": "Calculateur de repas",
+        "total": "Total des glucides",
+        "nutrientCount": "Nombre d'aliments dans le repas"
+      }
+    },
+    "nutrientModal": {
+      "title": "Modifier les détails de l'aliment",
+      "fields": {
+        "name": "Nom",
+        "quantity": "Quantité",
+        "factor": "Facteur"
+      },
+      "actions": {
+        "save": "Sauvegarder",
+        "close": "Fermer"
+      }
+    },
+    "confirmationModal": {
+      "delete": {
+        "title": "Confirmer la suppression",
+        "message": "Êtes-vous sûr de vouloir supprimer {name}?"
+      },
+      "reset": {
+        "title": "Confirmer la réinitialisation",
+        "message": "Êtes-vous sûr de vouloir réinitialiser le repas? Cela supprimera tous les aliments."
+      }
+    },
+    "search": {
+      "title": "Chercher un aliment",
+      "placeholder": "Entrer le nom de l'aliment",
+      "source": "Source",
+      "noResults": "Aucun résultat",
+      "results": "Résultats ({count})"
+    },
+    "mealCalculator": {
+      "title": "Calculateur de glucides",
+      "totalCarbs": "Total des glucides",
+      "nutrientCount": "Nombre d'aliments dans le repas",
+      "actions": {
+        "addNutrient": "Ajouter un aliment",
+        "reset": "Réinitialiser"
+      }
+    }
+  },
   "locale": {
     "en": "Anglais",
     "fr": "Français",
     "toggleLanguage": "Changer la langue"
-  },
-  "navigation": {
-    "skipToContent": "Aller au contenu",
-    "mainNavigation": "Navigation principale"
-  },
-  "themeToggler": {
-    "toggleTheme": "Changer le thème",
-    "light": "Clair",
-    "dark": "Sombre",
-    "auto": "Automatique"
   },
   "reloadPrompt": {
     "offlineReady": "L'application est maintenant prête à être utilisée hors ligne.",
@@ -30,30 +115,20 @@
     "url": "https://food-nutrition.canada.ca/cnf-fce/?lang=fre"
   },
   "carb-factor": "Facteur glucidique",
-  "calculateur": "Calculateur de glucides",
-  "message": "Total des glucides",
-  "mealNutrientLength": "Nombre d'aliments dans le repas",
-  "Nom de l'aliment": "Aliment",
-  "Quantité": "Quantité",
-  "Facteur": "Facteur",
-  "Ajouter un aliment": "Ajouter un aliment",
-  "Reset": "Réinitialiser",
-  "Submit": "Soumettre",
-  "Subtotal": "Sous-total",
-  "Nutrient": "Aliment",
-  "Modify": "Modifier",
-  "Close": "Fermer",
-  "Save Changes": "Sauvegarder",
-  "Search a nutrient": "Chercher un aliment",
-  "Search": "Chercher",
-  "Results": "Résultats",
-  "experimental": "Expérimental",
-  "Experiment Notice": "Ce projet est à l'étape expérimentale. Les données que vous y trouverez sont susceptibles d'être erronées. Veuillez consulter un professionnel de la santé avant de prendre des décisions basées sur les informations que vous trouverez ici.",
-  "Display Notice": "Afficher la notice",
-  "Notice": "Avis",
-  "No results": "Aucun résultat",
-  "Not Found": "Erreur 404",
-  "Page not found": "La page n'a pas été trouvée",
+  "errors": {
+    "notFound": {
+      "title": "Erreur 404",
+      "message": "La page n'a pas été trouvée"
+    }
+  },
+  "notices": {
+    "experimental": {
+      "title": "Expérimental",
+      "message": "Ce projet est à l'étape expérimentale. Les données que vous y trouverez sont susceptibles d'être erronées. Veuillez consulter un professionnel de la santé avant de prendre des décisions basées sur les informations que vous trouverez ici.",
+      "display": "Afficher la notice",
+      "label": "Avis"
+    }
+  },
   "modals": {
     "confirmation": {
       "title": "Confirmer l'action",

@@ -14,8 +14,8 @@ const getSupportedLocales = computed(() => {
 </script>
 <template>
   <button
-    class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
     id="language"
+    class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
     type="button"
     aria-expanded="false"
     data-bs-toggle="dropdown"
@@ -23,7 +23,7 @@ const getSupportedLocales = computed(() => {
     aria-label="Toggle language (auto)"
   >
     <i class="bi bi-translate"></i>
-    <span class="d-lg-none ms-2" id="language-text">{{ $t('locale.toggleLanguage') }}</span>
+    <span id="language-text" class="d-lg-none ms-2">{{ $t('locale.toggleLanguage') }}</span>
   </button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="language-text">
     <li v-for="locale in getSupportedLocales" :key="locale.id">
