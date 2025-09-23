@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { useSessionStorage } from '@vueuse/core'
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
+import { useIndexedDB } from '@/composables/useIndexedDB'
 import dataset from '@/assets/canadian_nutrient_file.json'
 import Fuse from 'fuse.js'
 
@@ -32,22 +32,44 @@ export interface SearchResult {
 }
 
 export const useNutrientFileStore = defineStore('nutrientsFile', () => {
-  // State - Auto-initialize with dataset if empty
-  const nutrientsFile = useSessionStorage('nutrientsFile', dataset as NutrientFile[])
-  const favoriteNutrients = useSessionStorage('favoriteNutrients', [] as number[])
+  const db = useIndexedDB()
+  const nutrientsFile = ref<NutrientFile[]>([])
+  const favoriteNutrients = ref<number[]>([])
   const searchCache = new Map<string, SearchResult[]>()
 
-  // Auto-initialize if data is missing (e.g., after sessionStorage cleared)
-  if (nutrientsFile.value.length === 0) {
-    nutrientsFile.value = dataset as NutrientFile[]
+  const loadInitialData = async () => {
+    try {
+      const storedNutrientsFile = await db.get('nutrientsFile', 0)
+      if (storedNutrientsFile) {
+        nutrientsFile.value = storedNutrientsFile
+      } else {
+        nutrientsFile.value = dataset as NutrientFile[]
+        await db.put('nutrientsFile', nutrientsFile.value, 0)
+      }
+
+      const storedFavorites = await db.get('favoriteNutrients', 'current')
+      if (storedFavorites) {
+        favoriteNutrients.value = storedFavorites
+      }
+    } catch (error) {
+      console.error('Failed to load initial data:', error)
+      nutrientsFile.value = dataset as NutrientFile[]
+    }
   }
 
-  // Getters (computed)
+  loadInitialData()
+
+  const saveFavorites = async () => {
+    try {
+      await db.put('favoriteNutrients', favoriteNutrients.value, 'current')
+    } catch (error) {
+      console.error('Failed to save favorites:', error)
+    }
+  }
+
   const totalNutrients = computed(() => nutrientsFile.value.length)
   const favoriteCount = computed(() => favoriteNutrients.value.length)
   const isDataLoaded = computed(() => nutrientsFile.value.length > 0)
-
-  // Search configuration
   const searchOptions = {
     keys: ['FoodDescriptionF', 'FoodDescription'],
     location: 0,
@@ -170,9 +192,10 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
     }
   }
 
-  function reloadData(): boolean {
+  async function reloadData(): Promise<boolean> {
     try {
       nutrientsFile.value = dataset as NutrientFile[]
+      await db.put('nutrientsFile', nutrientsFile.value, 0)
       clearSearchCache()
       return true
     } catch (error) {
@@ -181,10 +204,11 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
     }
   }
 
-  function initializeData(): boolean {
+  async function initializeData(): Promise<boolean> {
     try {
       if (nutrientsFile.value.length === 0) {
         nutrientsFile.value = dataset as NutrientFile[]
+        await db.put('nutrientsFile', nutrientsFile.value, 0)
       }
       return true
     } catch (error) {
@@ -193,10 +217,12 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
     }
   }
 
-  function $reset(): boolean {
+  async function $reset(): Promise<boolean> {
     try {
       nutrientsFile.value = dataset as NutrientFile[]
       favoriteNutrients.value = []
+      await db.put('nutrientsFile', nutrientsFile.value, 0)
+      await saveFavorites()
       clearSearchCache()
       return true
     } catch (error) {

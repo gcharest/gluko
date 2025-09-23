@@ -18,7 +18,8 @@
       "subtotal": "Sous-total",
       "nutrient": "Aliment",
       "results": "Résultats",
-      "noResults": "Aucun résultat"
+      "noResults": "Aucun résultat",
+      "loading": "Chargement..."
     },
     "units": {
       "grams": "g"

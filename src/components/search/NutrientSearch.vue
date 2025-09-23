@@ -98,7 +98,7 @@ const handleSelect = (item: any) => {
     </div>
 
     <div v-if="search" aria-live="polite">
-      <div v-if="loading" class="mt-2">{{ $t('common.loading') }}...</div>
+      <div v-if="loading" class="mt-2">{{ $t('common.labels.loading') }}...</div>
       <SearchResults
         v-if="searchResults.length > 0"
         :results="searchResults"
@@ -111,4 +111,4 @@ const handleSelect = (item: any) => {
       </p>
     </div>
   </div>
-</template>]]>
+</template>

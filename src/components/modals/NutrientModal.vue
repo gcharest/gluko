@@ -124,8 +124,8 @@ watch(() => props.nutrient, (newVal) => {
   }
 }, { immediate: true })
 
-function saveNutrient() {
-  mealStore.updateNutrient(currentNutrient.value)
+async function saveNutrient() {
+  await mealStore.updateNutrient(currentNutrient.value)
   emit('update:modelValue', false)
 }
 
@@ -161,8 +161,7 @@ function handleNutrientSelect(result: SearchResult) {
 
 <template>
   <Teleport to="body">
-    <div
-ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="nutrient-modal-title"
+    <div ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="nutrient-modal-title"
       :inert="!modelValue">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -170,8 +169,7 @@ ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="nutrie
             <h5 id="nutrient-modal-title" class="modal-title display-6">
               {{ currentNutrient.name || $t('components.nutrientModal.fields.name') }}
             </h5>
-            <button
-type="button" class="btn-close me-1" :aria-label="$t('components.nutrientModal.actions.close')"
+            <button type="button" class="btn-close me-1" :aria-label="$t('components.nutrientModal.actions.close')"
               @click="cancelNutrientChanges"></button>
           </div>
           <div class="modal-body">
@@ -179,8 +177,7 @@ type="button" class="btn-close me-1" :aria-label="$t('components.nutrientModal.a
               <!-- Search Section -->
               <div class="mb-4">
                 <label class="form-label">{{ $t('components.nutrientModal.search.label') }}</label>
-                <NutrientSearch
-:auto-search="false" :clear-after-select="true" :show-source-links="false"
+                <NutrientSearch :auto-search="false" :clear-after-select="true" :show-source-links="false"
                   :compact-results="true" :search-button-label="$t('components.nutrientModal.search.button')"
                   :placeholder="$t('components.nutrientModal.search.placeholder')" @select="handleNutrientSelect" />
                 <small class="form-text text-muted">
@@ -189,15 +186,13 @@ type="button" class="btn-close me-1" :aria-label="$t('components.nutrientModal.a
               </div>
               <div class="row g-3">
                 <div class="col-md-12 col-lg-6 form-floating">
-                  <input
-id="nutrient-name" v-model="currentNutrient.name" type="text" class="form-control"
+                  <input id="nutrient-name" v-model="currentNutrient.name" type="text" class="form-control"
                     :placeholder="currentNutrient.name" :aria-label="$t('components.nutrientModal.fields.name')"
                     @focus="handleInputFocus" @keydown.enter.prevent="handleInputEnter" />
                   <label class="ms-2" for="nutrient-name">{{ $t('components.nutrientModal.fields.name') }}</label>
                 </div>
                 <div class="col col-lg-3 form-floating">
-                  <input
-id="nutrient-quantity" v-model="currentNutrient.quantity" type="number" pattern="[0-9]*"
+                  <input id="nutrient-quantity" v-model="currentNutrient.quantity" type="number" pattern="[0-9]*"
                     inputmode="decimal" class="form-control" :placeholder="currentNutrient.quantity?.toString() || '0'"
                     :aria-label="$t('components.nutrientModal.fields.quantity')" @focus="handleInputFocus"
                     @keydown.enter.prevent="handleInputEnter" />
@@ -206,8 +201,7 @@ id="nutrient-quantity" v-model="currentNutrient.quantity" type="number" pattern=
                   </label>
                 </div>
                 <div class="col col-lg-3 form-floating">
-                  <input
-id="nutrient-factor" v-model="currentNutrient.factor" type="number" pattern="[0-9]*"
+                  <input id="nutrient-factor" v-model="currentNutrient.factor" type="number" pattern="[0-9]*"
                     inputmode="decimal" class="form-control" :placeholder="currentNutrient.factor?.toString() || '0'"
                     :aria-label="$t('components.nutrientModal.fields.factor')" @focus="handleInputFocus"
                     @keydown.enter.prevent="handleInputEnter" />
