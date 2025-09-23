@@ -1,5 +1,9 @@
 {
   "common": {
+    "pagination": {
+      "previous": "Page précédente",
+      "next": "Page suivante"
+    },
     "actions": {
       "add": "Ajouter",
       "modify": "Modifier",
@@ -33,7 +37,8 @@
   "navigation": {
     "skipToContent": "Aller au contenu",
     "mainNavigation": "Navigation principale",
-    "home": "Glucides",
+    "home": "Gluko",
+    "history": "Historique des repas",
     "carbFactor": "Facteur glucidique",
     "about": "À propos"
   },
@@ -44,6 +49,30 @@
     "auto": "Automatique"
   },
   "components": {
+    "dateRangeFilter": {
+      "start": "Date de début",
+      "end": "Date de fin",
+      "presets": {
+        "today": "Aujourd'hui",
+        "lastWeek": "7 derniers jours",
+        "lastMonth": "30 derniers jours",
+        "lastQuarter": "90 derniers jours"
+      }
+    },
+    "subjectSelector": {
+      "allSubjects": "Tous les sujets",
+      "noSubjects": "Aucun sujet trouvé",
+      "addSubject": "Ajouter un sujet"
+    },
+    "mealHistoryCard": {
+      "actions": {
+        "edit": "Modifier le repas",
+        "duplicate": "Dupliquer le repas",
+        "delete": "Supprimer le repas"
+      },
+      "nutrients": "aliments",
+      "tags": "étiquettes"
+    },
     "nutrientList": {
       "item": {
         "title": "Élément nutritif {index}",
@@ -98,7 +127,8 @@
       "nutrientCount": "Nombre d'aliments dans le repas",
       "actions": {
         "addNutrient": "Ajouter un aliment",
-        "reset": "Réinitialiser"
+        "reset": "Réinitialiser",
+        "saveToHistory": "Sauvegarder dans l'historique"
       }
     }
   },
@@ -113,8 +143,6 @@
     "reload": "Recharger",
     "close": "Fermer"
   },
-  "home": "Glucides",
-  "about": "À propos",
   "aboutText": {
     "para1": "Cette application a pour objectif de faciliter le calcul des glucides.",
     "para2": "Le calculateur de glucides permet d'ajouter des aliments dans une liste, d'indiquer la quantité en gramme ainsi que le facteur glucidique. Le calculateur de glucides affichera le total des glucides de la liste d'aliments saisis.",
@@ -122,7 +150,6 @@
     "CNF": "Fichier canadien sur les éléments nutritifs (FCÉN)",
     "url": "https://food-nutrition.canada.ca/cnf-fce/?lang=fre"
   },
-  "carb-factor": "Facteur glucidique",
   "errors": {
     "notFound": {
       "title": "Erreur 404",
@@ -135,6 +162,29 @@
       "message": "Ce projet est à l'étape expérimentale. Les données que vous y trouverez sont susceptibles d'être erronées. Veuillez consulter un professionnel de la santé avant de prendre des décisions basées sur les informations que vous trouverez ici.",
       "display": "Afficher la notice",
       "label": "Avis"
+    }
+  },
+  "views": {
+    "mealHistory": {
+      "title": "Historique des repas",
+      "filters": {
+        "title": "Filtres",
+        "dateRange": "Période",
+        "subject": "Sujet",
+        "tags": "Étiquettes",
+        "search": "Rechercher",
+        "searchPlaceholder": "Rechercher des repas..."
+      },
+      "actions": {
+        "export": "Exporter",
+        "import": "Importer"
+      },
+      "results": {
+        "count": "{count} repas trouvés",
+        "perPage": "Résultats par page",
+        "loading": "Chargement des repas..."
+      },
+      "empty": "Aucun repas ne correspond à vos critères."
     }
   },
   "modals": {

@@ -1,5 +1,9 @@
 {
   "common": {
+    "pagination": {
+      "previous": "Previous page",
+      "next": "Next page"
+    },
     "actions": {
       "add": "Add",
       "modify": "Modify",
@@ -33,7 +37,8 @@
   "navigation": {
     "skipToContent": "Skip to content",
     "mainNavigation": "Main navigation",
-    "home": "Carbs",
+    "home": "Gluko",
+    "history": "Meal History",
     "carbFactor": "Carb Factor",
     "about": "About"
   },
@@ -44,6 +49,30 @@
     "auto": "Auto"
   },
   "components": {
+    "dateRangeFilter": {
+      "start": "Start Date",
+      "end": "End Date",
+      "presets": {
+        "today": "Today",
+        "lastWeek": "Last 7 days",
+        "lastMonth": "Last 30 days",
+        "lastQuarter": "Last 90 days"
+      }
+    },
+    "subjectSelector": {
+      "allSubjects": "All Subjects",
+      "noSubjects": "No subjects found",
+      "addSubject": "Add Subject"
+    },
+    "mealHistoryCard": {
+      "actions": {
+        "edit": "Edit Meal",
+        "duplicate": "Duplicate Meal",
+        "delete": "Delete Meal"
+      },
+      "nutrients": "nutrients",
+      "tags": "tags"
+    },
     "nutrientList": {
       "item": {
         "title": "Nutrient item {index}",
@@ -98,7 +127,8 @@
       "nutrientCount": "Number of nutrients in the meal",
       "actions": {
         "addNutrient": "Add a nutrient",
-        "reset": "Reset"
+        "reset": "Reset",
+        "saveToHistory": "Save to history"
       }
     }
   },
@@ -113,9 +143,6 @@
     "reload": "Reload",
     "close": "Close"
   },
-  "home": "Carbs",
-  "carb-factor": "Carb Factor",
-  "about": "About",
   "aboutText": {
     "para1": "This web application aims to help calculate the amount of carbohydrates in a meal.",
     "para2": "The carb counter tool offers the user the ability to add a list of nutrients and their respective quantities. The user can then calculate the total amount of carbohydrates in the meal.",
@@ -135,6 +162,29 @@
       "message": "This project is in the experimental stage. The information you see here may be inaccurate. Please consult a health care professional before making any decisions based on the information you find here.",
       "display": "Display Notice",
       "label": "Notice"
+    }
+  },
+  "views": {
+    "mealHistory": {
+      "title": "Meal History",
+      "filters": {
+        "title": "Filters",
+        "dateRange": "Date Range",
+        "subject": "Subject",
+        "tags": "Tags",
+        "search": "Search",
+        "searchPlaceholder": "Search meals..."
+      },
+      "actions": {
+        "export": "Export",
+        "import": "Import"
+      },
+      "results": {
+        "count": "{count} meals found",
+        "perPage": "Results per page",
+        "loading": "Loading meals..."
+      },
+      "empty": "No meals found matching your criteria."
     }
   },
   "modals": {

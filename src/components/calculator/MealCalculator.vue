@@ -3,18 +3,21 @@ import { onBeforeMount, ref } from 'vue'
 import NutrientList from '@/components/nutrients/NutrientList.vue'
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue'
 import { useMealStore } from '@/stores/meal'
+import { useMealHistoryStore } from '@/stores/mealHistory'
+import type { Nutrient } from '@/types/meal-history'
 
 const store = useMealStore()
 const showResetConfirmation = ref(false)
 
-onBeforeMount(() => {
-  if (store.mealNutrients.length === 0) {
-    store.$reset()
+onBeforeMount(async () => {
+  if (store.nutrientEmpty) {
+    await store.addEmptyNutrient()
   }
 })
 
-function handleResetConfirm() {
-  store.$reset()
+async function handleResetConfirm() {
+  await store.clearSession()
+  await store.addEmptyNutrient()
   showResetConfirmation.value = false
 }
 
@@ -22,18 +25,44 @@ function handleReset() {
   showResetConfirmation.value = true
 }
 
-function handleAdd() {
-  store.addEmptyNutrient()
-  // Get the last added nutrient
-  return store.mealNutrients[store.mealNutrients.length - 1]
+async function handleAdd() {
+  await store.addEmptyNutrient()
+}
+
+async function handleSaveToHistory() {
+  const mealHistoryStore = useMealHistoryStore()
+  const totalCarbs = store.currentNutrients.reduce((total: number, nutrient: Nutrient) => {
+    return total + (nutrient.quantity * nutrient.factor)
+  }, 0)
+
+  await mealHistoryStore.addEntry(
+    store.currentNutrients,
+    totalCarbs,
+    {
+      tags: []
+    }
+  )
+
+  // Clear the calculator after saving
+  await store.clearSession()
+  await store.addEmptyNutrient()
 }
 </script>
 
 <template>
-  <NutrientList :nutrients="store.mealNutrients" @add="handleAdd" @reset="handleReset" />
+  <div class="d-flex flex-column gap-3">
+    <NutrientList :nutrients="store.currentNutrients" @add="handleAdd" @reset="handleReset" />
 
-  <ConfirmationModal
-v-model="showResetConfirmation" :title="$t('modals.confirmation.reset.title')"
+    <!-- Save to history button -->
+    <button type="button" class="btn btn-primary"
+      :disabled="!store.currentNutrients.length || store.currentNutrients.every((n: Nutrient) => !n.quantity)"
+      @click="handleSaveToHistory">
+      <i class="bi bi-journal-plus me-1"></i>
+      {{ $t('components.mealCalculator.actions.saveToHistory') }}
+    </button>
+  </div>
+
+  <ConfirmationModal v-model="showResetConfirmation" :title="$t('modals.confirmation.reset.title')"
     :message="$t('modals.confirmation.reset.message')" :confirm-label="$t('modals.confirmation.reset.confirmLabel')"
     :cancel-label="$t('modals.confirmation.reset.cancelLabel')" confirm-variant="warning"
     @confirm="handleResetConfirm" />

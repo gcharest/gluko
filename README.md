@@ -1,9 +1,8 @@
 # Gluko
 
-
 [![GitHub Workflow Status (static)](https://img.shields.io/github/actions/workflow/status/gcharest/gluko/static.yml?branch=main&label=Static%20Pages&logo=github&style=flat-square)](https://github.com/gcharest/gluko/actions/workflows/static.yml)
 
-Gluko is a web application designed to help individuals more accurately calculate the carbohydrate content in their meals. By providing an easy-to-use interface and leveraging the [Canadian Nutrient File database](https://food-nutrition.canada.ca/cnf-fce/?lang=eng), Gluko simplifies carb counting and ensures precision in determining the carb factor of various nutrients.
+Gluko is a web application designed to help individuals and families more accurately calculate the carbohydrate content in their meals. By providing an easy-to-use interface and leveraging the [Canadian Nutrient File database](https://food-nutrition.canada.ca/cnf-fce/?lang=eng), Gluko simplifies carb counting and ensures precision in determining the carb factor of various nutrients.
 
 ## Features
 
@@ -13,14 +12,19 @@ Gluko is a web application designed to help individuals more accurately calculat
 - 🌐 **Bilingual Support**: Available in English and French
 - 🌙 **Dark Mode**: Comfortable viewing in any lighting condition
 - 📱 **Responsive Design**: Works on desktop and mobile devices
+- 🗂️ **Meal History**: Save, view, and filter past meals for easy tracking and review
+- 👨‍👧‍👦 **Multi-Subject Support**: Manage meal history for multiple subjects (e.g., parents with multiple children living with Type 1 Diabetes)
+- 🔎 **Advanced Filtering**: Filter meal history by date range, subject, and tags
 
 ## Why Gluko?
 
 Managing Type 1 Diabetes requires constant attention to carbohydrate intake to determine proper insulin dosing. Gluko aims to make this process easier by:
+
 - Providing quick access to reliable nutritional information
 - Enabling easy calculation of complex meals
 - Offering a user-friendly interface for daily use
 - Using official Canadian nutritional data
+- Supporting families and caregivers with multi-subject management and meal tracking
 
 ## Experimental
 
@@ -41,31 +45,40 @@ If you want to contribute to the project or run it locally:
    - npm
 
 2. **Installation**
+
    ```sh
    npm install
+   ```
 
 3. **Development Server**
+
    ```sh
    npm run dev
    ```
+
    Open your browser and navigate to `http://localhost:5173` to see the application
 
 4. **Building for Production**
+
    ```sh
    npm run build
    ```
-   The production-ready files will be in the `dist` directory
+
+   The production-ready files will be in the dist directory
 
 5. **Running Tests**
    - Unit Tests:
+
      ```sh
      npm run test:unit
-   - End-to-End Tests:
-     ```sh
-        npx playwright install
      ```
-        npm run test:e2e
-     ```    
+
+   - End-to-End Tests:
+
+     ```sh
+     npx playwright install
+     npm run test:e2e
+     ```
 
 ## Contributing
 
@@ -78,4 +91,4 @@ Contributions are welcome! Whether it's:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.

@@ -15,9 +15,11 @@ const emit = defineEmits(['add', 'reset'])
 const currentNutrient: Ref<Nutrient | null> = ref(null)
 const isModalOpen = ref(false)
 
-function handleAdd() {
-  emit('add')
-  currentNutrient.value = null // Force using the latest nutrient from props
+async function handleAdd() {
+  // Reset currentNutrient to ensure we get a fresh one from props
+  currentNutrient.value = null
+  await emit('add')
+  // Set modal to open immediately
   isModalOpen.value = true
 }
 

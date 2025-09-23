@@ -11,7 +11,7 @@ const navigateTo = (route: string) => {
 <template>
   <div class="container">
     <div class="px-4 py-5 my-5 text-center">
-      <h1 class="display-4 fw-bold mb-4">{{ $t('home') }}</h1>
+      <h1 class="display-4 fw-bold mb-4">{{ $t('navigation.home') }}</h1>
       <div class="col-lg-8 mx-auto">
         <p class="lead mb-4">{{ $t('aboutText.para1') }}</p>
         <p class="mb-4">{{ $t('notices.experimental.title') }}</p>

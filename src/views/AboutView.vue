@@ -1,6 +1,6 @@
 <template>
   <main class="about container">
-    <h1 class="">{{ $t('about') }}</h1>
+    <h1 class="">{{ $t('navigation.about') }}</h1>
     <p class="">
       {{ $t('aboutText.para1') }}
     </p>

@@ -13,12 +13,14 @@
     "vscode": {
       // Minimal essential extensions for Vue.js PWA development
       "extensions": [
-        "Vue.volar", // Vue language support
-        "Vue.vscode-typescript-vue-plugin", // TypeScript in Vue components
-        "esbenp.prettier-vscode", // Code formatting (matches .prettierrc)
-        "dbaeumer.vscode-eslint", // Linting (matches .eslintrc)
-        "lokalise.i18n-ally", // i18n support (project uses heavily)
-        "ms-playwright.playwright" // E2E testing (project configured)
+        "Vue.volar",
+        "Vue.vscode-typescript-vue-plugin",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "lokalise.i18n-ally",
+        "ms-playwright.playwright",
+        "DavidAnson.vscode-markdownlint",
+        "yzhang.markdown-all-in-one"
       ],
       // Essential settings for Vue.js development
       "settings": {
