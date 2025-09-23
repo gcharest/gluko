@@ -14,21 +14,36 @@ const mealStore = useMealStore()
 const modalRef = ref<HTMLElement | null>(null)
 let bsModal: Modal | null = null
 
+let previousActiveElement: HTMLElement | null = null
+
 // Store event handlers separately for cleanup
 const eventHandlers = {
+  handleHiding: () => {
+    // Move focus before animation starts
+    if (previousActiveElement && 'focus' in previousActiveElement) {
+      try {
+        (previousActiveElement as HTMLElement).focus()
+      } catch (e) {
+        // Fallback if the element is no longer focusable
+        const modifyButton = document.querySelector(`[data-nutrient-id="${props.nutrient.id}"]`) as HTMLButtonElement | null
+        modifyButton?.focus()
+      }
+    }
+  },
   handleHidden: () => {
     emit('update:modelValue', false)
-    emit('cancelNutrientChanges')
-    // Remove keyboard listener when modal is hidden
     document.removeEventListener('keydown', handleGlobalKeydown)
+    previousActiveElement = null
   },
   handleShown: () => {
-    emit('update:modelValue', true)
-    // Focus first input when modal opens
-    const firstInput = modalRef.value?.querySelector('input')
-    firstInput?.focus()
-    // Add keyboard listener when modal is shown
     document.addEventListener('keydown', handleGlobalKeydown)
+    // Store the previously focused element
+    previousActiveElement = document.activeElement as HTMLElement
+    // Focus the first input when modal is shown
+    const firstInput = modalRef.value?.querySelector('input')
+    if (firstInput) {
+      firstInput.focus()
+    }
   }
 }
 
@@ -66,6 +81,7 @@ onMounted(() => {
       backdrop: true
     })
 
+    modalRef.value.addEventListener('hide.bs.modal', eventHandlers.handleHiding)
     modalRef.value.addEventListener('hidden.bs.modal', eventHandlers.handleHidden)
     modalRef.value.addEventListener('shown.bs.modal', eventHandlers.handleShown)
   }
@@ -74,6 +90,7 @@ onMounted(() => {
 // Cleanup event listeners and modal instance
 onBeforeUnmount(() => {
   if (modalRef.value) {
+    modalRef.value.removeEventListener('hide.bs.modal', eventHandlers.handleHiding)
     modalRef.value.removeEventListener('hidden.bs.modal', eventHandlers.handleHidden)
     modalRef.value.removeEventListener('shown.bs.modal', eventHandlers.handleShown)
   }
@@ -110,6 +127,7 @@ function cancelNutrientChanges() {
   currentNutrient.value = JSON.parse(JSON.stringify(props.nutrient))
   emit('cancelNutrientChanges')
   emit('update:modelValue', false)
+  // Modal hiding will be handled by the hide event handler
 }
 
 // Input event handlers
@@ -126,45 +144,39 @@ function handleInputEnter(event: KeyboardEvent) {
 
 <template>
   <Teleport to="body">
-    <div
-ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="nutrient-modal-title"
-      aria-hidden="true">
+    <div ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="nutrient-modal-title"
+      :inert="!modelValue">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 id="nutrient-modal-title" class="modal-title display-6">
               {{ currentNutrient.name || $t('components.nutrientModal.fields.name') }}
             </h5>
-            <button
-type="button" class="btn-close me-1" :aria-label="$t('components.nutrientModal.actions.close')"
+            <button type="button" class="btn-close me-1" :aria-label="$t('components.nutrientModal.actions.close')"
               @click="cancelNutrientChanges"></button>
           </div>
           <div class="modal-body">
             <form class="container-fluid">
               <div class="row g-3">
                 <div class="col-md-12 col-lg-6 form-floating">
-                  <input
-id="nutrient-name" v-model="currentNutrient.name" type="text"
-                    class="form-control" :placeholder="currentNutrient.name"
-                    :aria-label="$t('components.nutrientModal.fields.name')" @focus="handleInputFocus"
-                    @keydown.enter.prevent="handleInputEnter" />
+                  <input id="nutrient-name" v-model="currentNutrient.name" type="text" class="form-control"
+                    :placeholder="currentNutrient.name" :aria-label="$t('components.nutrientModal.fields.name')"
+                    @focus="handleInputFocus" @keydown.enter.prevent="handleInputEnter" />
                   <label class="ms-2" for="nutrient-name">{{ $t('components.nutrientModal.fields.name') }}</label>
                 </div>
                 <div class="col col-lg-3 form-floating">
-                  <input
-id="nutrient-quantity" v-model="currentNutrient.quantity" type="number" pattern="[0-9]*"
-                    inputmode="decimal" class="form-control"
-                    :placeholder="currentNutrient.quantity?.toString() || '0'" :aria-label="$t('components.nutrientModal.fields.quantity')"
-                    @focus="handleInputFocus" @keydown.enter.prevent="handleInputEnter" />
+                  <input id="nutrient-quantity" v-model="currentNutrient.quantity" type="number" pattern="[0-9]*"
+                    inputmode="decimal" class="form-control" :placeholder="currentNutrient.quantity?.toString() || '0'"
+                    :aria-label="$t('components.nutrientModal.fields.quantity')" @focus="handleInputFocus"
+                    @keydown.enter.prevent="handleInputEnter" />
                   <label class="ms-2" for="nutrient-quantity">{{ $t('components.nutrientModal.fields.quantity')
-                    }}</label>
+                  }}</label>
                 </div>
                 <div class="col col-lg-3 form-floating mb-3 lg">
-                  <input
-id="nutrient-factor" v-model="currentNutrient.factor" type="number" pattern="[0-9]*"
-                    inputmode="decimal" class="form-control"
-                    :placeholder="currentNutrient.factor?.toString() || '0'" :aria-label="$t('components.nutrientModal.fields.factor')"
-                    @focus="handleInputFocus" @keydown.enter.prevent="handleInputEnter" />
+                  <input id="nutrient-factor" v-model="currentNutrient.factor" type="number" pattern="[0-9]*"
+                    inputmode="decimal" class="form-control" :placeholder="currentNutrient.factor?.toString() || '0'"
+                    :aria-label="$t('components.nutrientModal.fields.factor')" @focus="handleInputFocus"
+                    @keydown.enter.prevent="handleInputEnter" />
                   <label class="ms-2" for="nutrient-factor">{{ $t('components.nutrientModal.fields.factor') }}</label>
                 </div>
               </div>
