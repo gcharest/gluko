@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import BaseNavigationBar from '@/components/BaseNavigationBar.vue'
-import BaseFooter from '@/components/BaseFooter.vue'
-import ReloadPrompt from '@/components/ReloadPrompt.vue'
+import BaseNavigationBar from '@/components/base/BaseNavigationBar.vue'
+import BaseFooter from '@/components/base/BaseFooter.vue'
+import ReloadPrompt from '@/components/base/ReloadPrompt.vue'
 </script>
 
 <template>

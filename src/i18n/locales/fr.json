@@ -65,6 +65,12 @@
       "actions": {
         "save": "Sauvegarder",
         "close": "Fermer"
+      },
+      "search": {
+        "label": "Rechercher un aliment",
+        "placeholder": "Rechercher par nom",
+        "button": "Trouver l'aliment",
+        "helper": "Cliquez sur un résultat pour remplir les détails de l'aliment"
       }
     },
     "confirmationModal": {
@@ -82,7 +88,8 @@
       "placeholder": "Entrer le nom de l'aliment",
       "source": "Source",
       "noResults": "Aucun résultat",
-      "results": "Résultats ({count})"
+      "results": "Résultats ({count})",
+      "selectItem": "Sélectionner {name}"
     },
     "mealCalculator": {
       "title": "Calculateur de glucides",

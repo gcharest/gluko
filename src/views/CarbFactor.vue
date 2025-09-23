@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import CarbFactorSearch from '@/components/CarbFactorSearch.vue'
+import NutrientSearch from '@/components/search/NutrientSearch.vue'
 </script>
 
 <template>
   <div class="container">
     <h1>{{ $t('navigation.carbFactor') }}</h1>
-    <p>{{ $t('notices.experimental.display') }}</p>
-    <CarbFactorSearch />
+    <p>{{ $t('notices.experimental.title') }}</p>
+    <NutrientSearch />
   </div>
 </template>
-  

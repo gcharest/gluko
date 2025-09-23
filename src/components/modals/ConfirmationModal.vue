@@ -99,7 +99,8 @@ function handleKeydown(event: KeyboardEvent) {
 
 <template>
   <Teleport to="body">
-    <div ref="modalRef" class="modal fade" tabindex="-1" :aria-labelledby="'confirmation-modal-title'"
+    <div
+ref="modalRef" class="modal fade" tabindex="-1" :aria-labelledby="'confirmation-modal-title'"
       :inert="!modelValue" @keydown="handleKeydown">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -107,7 +108,8 @@ function handleKeydown(event: KeyboardEvent) {
             <h5 id="confirmation-modal-title" class="modal-title">
               {{ title }}
             </h5>
-            <button type="button" class="btn-close" :aria-label="$t('common.actions.close')"
+            <button
+type="button" class="btn-close" :aria-label="$t('common.actions.close')"
               @click="handleCancel"></button>
           </div>
           <div class="modal-body">

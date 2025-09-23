@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import { Collapse } from 'bootstrap'
-import BaseLanguageToggler from '@/components/BaseLanguageToggler.vue'
-import BaseThemeToggler from '@/components/BaseThemeToggler.vue'
+import BaseLanguageToggler from './BaseLanguageToggler.vue'
+import BaseThemeToggler from './BaseThemeToggler.vue'
 import BaseNotice from './BaseNotice.vue'
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
@@ -36,9 +36,9 @@ type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#nav
         <div class="offcanvas-body p-4 pt-0 p-lg-0">
           <ul class="navbar-nav flex-row flex-wrap fw-bold">
             <li class="nav-item col-12 col-lg-auto mb-lg-1" data-bs-dismiss="offcanvas" data-bs-target="#navbarMain">
-              <RouterLink class="nav-link py-2 px-0 px-lg-2" to="/">{{
-                $t('navigation.home')
-                }}</RouterLink>
+              <RouterLink class="nav-link" to="/calculator">
+                {{ $t('components.mealCalculator.title') }}
+              </RouterLink>
             </li>
             <li class="nav-item col-12 col-lg-auto mb-lg-1" data-bs-dismiss="offcanvas" data-bs-target="#navbarMain">
               <RouterLink class="nav-link" to="/carb-factor">{{ $t('carb-factor') }}</RouterLink>

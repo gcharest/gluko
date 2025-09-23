@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { ref, type PropType, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { Nutrient } from '@/stores/meal'
+import type { SearchResult } from '@/stores/nutrientsFile'
 import { useMealStore } from '@/stores/meal'
 import { Modal } from 'bootstrap'
+import NutrientSearch from '@/components/search/NutrientSearch.vue'
+
+const { locale } = useI18n()
 
 const props = defineProps({
   modelValue: { type: Boolean, required: true },
@@ -24,6 +29,7 @@ const eventHandlers = {
       try {
         (previousActiveElement as HTMLElement).focus()
       } catch (e) {
+        console.warn('Failed to focus on previous element:', e)
         // Fallback if the element is no longer focusable
         const modifyButton = document.querySelector(`[data-nutrient-id="${props.nutrient.id}"]`) as HTMLButtonElement | null
         modifyButton?.focus()
@@ -140,11 +146,23 @@ function handleInputEnter(event: KeyboardEvent) {
   const input = event.target as HTMLInputElement
   input?.blur?.()
 }
+
+function handleNutrientSelect(result: SearchResult) {
+  currentNutrient.value.name = result.item[`FoodDescription${locale.value === 'fr' ? 'F' : ''}`]
+  currentNutrient.value.factor = result.item.FctGluc !== null
+    ? result.item.FctGluc
+    : result.item['205'] / 100
+
+  // Focus quantity field after selection
+  const quantityInput = document.getElementById('nutrient-quantity') as HTMLInputElement | null
+  quantityInput?.focus()
+}
 </script>
 
 <template>
   <Teleport to="body">
-    <div ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="nutrient-modal-title"
+    <div
+ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="nutrient-modal-title"
       :inert="!modelValue">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -152,32 +170,50 @@ function handleInputEnter(event: KeyboardEvent) {
             <h5 id="nutrient-modal-title" class="modal-title display-6">
               {{ currentNutrient.name || $t('components.nutrientModal.fields.name') }}
             </h5>
-            <button type="button" class="btn-close me-1" :aria-label="$t('components.nutrientModal.actions.close')"
+            <button
+type="button" class="btn-close me-1" :aria-label="$t('components.nutrientModal.actions.close')"
               @click="cancelNutrientChanges"></button>
           </div>
           <div class="modal-body">
             <form class="container-fluid">
+              <!-- Search Section -->
+              <div class="mb-4">
+                <label class="form-label">{{ $t('components.nutrientModal.search.label') }}</label>
+                <NutrientSearch
+:auto-search="false" :clear-after-select="true" :show-source-links="false"
+                  :compact-results="true" :search-button-label="$t('components.nutrientModal.search.button')"
+                  :placeholder="$t('components.nutrientModal.search.placeholder')" @select="handleNutrientSelect" />
+                <small class="form-text text-muted">
+                  {{ $t('components.nutrientModal.search.helper') }}
+                </small>
+              </div>
               <div class="row g-3">
                 <div class="col-md-12 col-lg-6 form-floating">
-                  <input id="nutrient-name" v-model="currentNutrient.name" type="text" class="form-control"
+                  <input
+id="nutrient-name" v-model="currentNutrient.name" type="text" class="form-control"
                     :placeholder="currentNutrient.name" :aria-label="$t('components.nutrientModal.fields.name')"
                     @focus="handleInputFocus" @keydown.enter.prevent="handleInputEnter" />
                   <label class="ms-2" for="nutrient-name">{{ $t('components.nutrientModal.fields.name') }}</label>
                 </div>
                 <div class="col col-lg-3 form-floating">
-                  <input id="nutrient-quantity" v-model="currentNutrient.quantity" type="number" pattern="[0-9]*"
+                  <input
+id="nutrient-quantity" v-model="currentNutrient.quantity" type="number" pattern="[0-9]*"
                     inputmode="decimal" class="form-control" :placeholder="currentNutrient.quantity?.toString() || '0'"
                     :aria-label="$t('components.nutrientModal.fields.quantity')" @focus="handleInputFocus"
                     @keydown.enter.prevent="handleInputEnter" />
-                  <label class="ms-2" for="nutrient-quantity">{{ $t('components.nutrientModal.fields.quantity')
-                  }}</label>
+                  <label class="ms-2" for="nutrient-quantity">
+                    {{ $t('components.nutrientModal.fields.quantity') }}
+                  </label>
                 </div>
-                <div class="col col-lg-3 form-floating mb-3 lg">
-                  <input id="nutrient-factor" v-model="currentNutrient.factor" type="number" pattern="[0-9]*"
+                <div class="col col-lg-3 form-floating">
+                  <input
+id="nutrient-factor" v-model="currentNutrient.factor" type="number" pattern="[0-9]*"
                     inputmode="decimal" class="form-control" :placeholder="currentNutrient.factor?.toString() || '0'"
                     :aria-label="$t('components.nutrientModal.fields.factor')" @focus="handleInputFocus"
                     @keydown.enter.prevent="handleInputEnter" />
-                  <label class="ms-2" for="nutrient-factor">{{ $t('components.nutrientModal.fields.factor') }}</label>
+                  <label class="ms-2" for="nutrient-factor">
+                    {{ $t('components.nutrientModal.fields.factor') }}
+                  </label>
                 </div>
               </div>
               <hr class="d-lg-none my-2 text-white-50" />

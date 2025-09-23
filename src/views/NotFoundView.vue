@@ -4,7 +4,7 @@
 <template>
   <div class="container">
     <h1 class="">{{ $t('errors.notFound.title') }}</h1>
-    <p class="">{{ $t('notices.experimental.display') }}</p>
+    <p class="">{{ $t('notices.experimental.title') }}</p>
     <p class="">{{ $t('errors.notFound.message') }}</p>
   </div>
 </template>

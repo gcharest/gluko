@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { shallowMount } from '@vue/test-utils'
-import BaseFooter from '@/components/BaseFooter.vue'
+import BaseFooter from '@/components/base/BaseFooter.vue'
 
 describe('BaseFooter.vue', () => {
   const wrapper = shallowMount(BaseFooter)

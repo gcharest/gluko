@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import BaseNavigationBar from '@/components/BaseNavigationBar.vue'
+import BaseNavigationBar from '@/components/base/BaseNavigationBar.vue'
 
 describe('BaseNavigationBar.vue', () => {
   it('has a link to skip to the content', () => {
