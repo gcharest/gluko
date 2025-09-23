@@ -75,6 +75,6 @@
       "onAutoForward": "notify"
     }
   },
-  // Install dependencies and Playwright browsers after container creation
-  "postCreateCommand": "npm install && npx playwright install --with-deps"
+  // Install dependencies after container creation
+  "postCreateCommand": "npm install"
 }

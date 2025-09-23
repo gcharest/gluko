@@ -5,7 +5,10 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   test: {
-    environment: 'jsdom',
+    // enable jest-like global test APIs
+    globals: true,
+    // simulate DOM with happy-dom
+    environment: 'happy-dom',
     exclude: ['**/node_modules/**', '**/dist/**', '**/e2e/**', 'src/**/__tests__/unit.setup.ts'],
     root: fileURLToPath(new URL('./', import.meta.url)),
     setupFiles: ['./src/components/__tests__/unit.setup.ts'],
