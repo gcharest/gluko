@@ -1,18 +1,23 @@
 import { describe, it, expect } from 'vitest'
-import { shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import BaseNavigationBar from '@/components/BaseNavigationBar.vue'
 
-describe('BaseHeader.vue', () => {
-  const wrapper = shallowMount(BaseNavigationBar)
+describe('BaseNavigationBar.vue', () => {
   it('has a link to skip to the content', () => {
-    expect(wrapper.find('#skip-to-content').exists()).toBe(true)
-    expect(wrapper.find('#skip-to-content').attributes('href')).toBe('#content')
+    const wrapper = mount(BaseNavigationBar)
+    const skipLink = wrapper.find('#skip-to-content')
+
+    expect(skipLink.exists()).toBe(true)
+    expect(skipLink.attributes('href')).toBe('#content')
   })
+
   it('renders a header', () => {
+    const wrapper = mount(BaseNavigationBar)
     expect(wrapper.find('header').exists()).toBe(true)
   })
 
   it('has no props', () => {
+    const wrapper = mount(BaseNavigationBar)
     expect(wrapper.props()).toEqual({})
   })
 })
