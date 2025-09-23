@@ -3,8 +3,8 @@
 </script>
 <template>
   <div class="container">
-    <h1 class="">{{ $t('Not Found') }}</h1>
-    <p class="">{{ $t('experimental') }}</p>
-    <p class="">{{ $t('Page not found') }}</p>
+    <h1 class="">{{ $t('errors.notFound.title') }}</h1>
+    <p class="">{{ $t('notices.experimental.display') }}</p>
+    <p class="">{{ $t('errors.notFound.message') }}</p>
   </div>
 </template>

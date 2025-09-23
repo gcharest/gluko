@@ -4,8 +4,9 @@ import CarbFactorSearch from '@/components/CarbFactorSearch.vue'
 
 <template>
   <div class="container">
-    <h1>{{ $t('carb-factor') }}</h1>
-    <p>{{ $t('experimental') }}</p>
+    <h1>{{ $t('navigation.carbFactor') }}</h1>
+    <p>{{ $t('notices.experimental.display') }}</p>
     <CarbFactorSearch />
   </div>
 </template>
+  

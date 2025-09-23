@@ -62,16 +62,15 @@ const handleModifyKeydown = (event: KeyboardEvent) => {
         <div class="col-12 col-lg-3">
           <div class="row">
             <div class="col-lg-12 col-6 text-center mb-1">
-              <button
-type="button" class="btn btn-primary w-100 py-1 py-md-2"
+              <button type="button" class="btn btn-primary w-100 py-1 py-md-2"
                 :aria-label="$t('components.nutrientList.item.modifyButton', { name: props.nutrient.name || $t('common.labels.nutrient') })"
-                tabindex="0" @click="emit('modifyCurrentNutrient', props.nutrient.id)" @keydown="handleModifyKeydown">
+                tabindex="0" :data-nutrient-id="props.nutrient.id"
+                @click="emit('modifyCurrentNutrient', props.nutrient.id)" @keydown="handleModifyKeydown">
                 {{ $t('common.actions.modify') }}
               </button>
             </div>
             <div class="col-lg-12 col-6 text-center">
-              <button
-type="button" class="btn btn-secondary w-100 py-1 py-md-2"
+              <button type="button" class="btn btn-secondary w-100 py-1 py-md-2"
                 :disabled="mealStore.mealNutrients.length <= 1"
                 :aria-label="$t('components.nutrientList.item.removeButton', { name: props.nutrient.name || $t('common.labels.nutrient') })"
                 @click="removeNutrient">
@@ -84,8 +83,7 @@ type="button" class="btn btn-secondary w-100 py-1 py-md-2"
     </div>
   </div>
 
-  <ConfirmationModal
-v-model="showDeleteConfirmation" :title="$t('components.confirmationModal.delete.title')"
+  <ConfirmationModal v-model="showDeleteConfirmation" :title="$t('components.confirmationModal.delete.title')"
     :message="$t('components.confirmationModal.delete.message', { name: props.nutrient.name || $t('common.labels.nutrient') })"
     :confirm-label="$t('common.actions.delete')" :cancel-label="$t('common.actions.cancel')" confirm-variant="danger"
     @confirm="handleConfirmDelete" />

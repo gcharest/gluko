@@ -19,7 +19,8 @@ const showResetConfirmation = ref(false)
 function handleResetConfirm() {
   store.$reset()
   currentNutrient.value = store.mealNutrients[0]
-  isModalOpen.value = true
+  // Let the user decide when to modify the default nutrient
+  showResetConfirmation.value = false
 }
 
 function resetMealNutrients() {
