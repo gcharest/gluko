@@ -53,5 +53,26 @@
   "Notice": "Notice",
   "No results": "No results",
   "Not Found": "Error 404",
-  "Page not found": "The page you are looking for does not exist."
+  "Page not found": "The page you are looking for does not exist.",
+  "modals": {
+    "confirmation": {
+      "title": "Confirm Action",
+      "delete": {
+        "title": "Confirm Deletion",
+        "message": "Are you sure you want to remove",
+        "confirmLabel": "Remove",
+        "cancelLabel": "Cancel"
+      },
+      "reset": {
+        "title": "Confirm Reset",
+        "message": "Are you sure you want to reset the meal? This will remove all nutrients.",
+        "confirmLabel": "Reset",
+        "cancelLabel": "Cancel"
+      }
+    },
+    "general": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    }
+  }
 }

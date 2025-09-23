@@ -2,8 +2,8 @@
 import { onBeforeMount, ref, type Ref } from 'vue'
 import NutrientListItem from './NutrientListItem.vue'
 import NutrientModal from './NutrientModal.vue'
+import ConfirmationModal from './ConfirmationModal.vue'
 import { useMealStore, type Nutrient } from '@/stores/meal'
-import { Modal } from 'bootstrap'
 
 const store = useMealStore()
 onBeforeMount(() => {
@@ -13,39 +13,38 @@ onBeforeMount(() => {
 })
 
 const currentNutrient: Ref<Nutrient> = ref(store.mealNutrients[0])
+const isModalOpen = ref(false)
+const showResetConfirmation = ref(false)
 
-function resetMealNutrients() {
+function handleResetConfirm() {
   store.$reset()
   currentNutrient.value = store.mealNutrients[0]
-  showNutrientModal()
+  isModalOpen.value = true
 }
 
-function showNutrientModal() {
-  const nutrientModal = document.getElementById('nutrient-modal')
-  if (nutrientModal) {
-    const modal = new Modal(nutrientModal)
-    modal.show()
-  }
+function resetMealNutrients() {
+  showResetConfirmation.value = true
 }
 
 function addNewNutrient() {
   store.addEmptyNutrient()
   currentNutrient.value = store.mealNutrients[store.mealNutrients.length - 1]
-  showNutrientModal()
+  isModalOpen.value = true
 }
 
 function modifyCurrentNutrient(id: string) {
-  //Update current nutrient with a temporary copy of the nutrient
   const nutrientData = store.mealNutrients.find((item) => item.id === id)
   if (nutrientData) {
     currentNutrient.value = nutrientData
-    showNutrientModal()
+    isModalOpen.value = true
   }
 }
 
-function cancelNutrientChanges() {
-  //Update current nutrient with a temporary copy of the nutrient
-  const nutrientData = store.mealNutrients.find((item) => item.id === currentNutrient.value.id)
+function handleModalClose() {
+  isModalOpen.value = false
+  const nutrientData = store.mealNutrients.find(
+    (item) => item.id === currentNutrient.value.id
+  )
   if (nutrientData) {
     currentNutrient.value = nutrientData
   }
@@ -53,34 +52,31 @@ function cancelNutrientChanges() {
 </script>
 
 <template>
-    <NutrientListItem
-      v-for="(nutrient, index) in store.mealNutrients as Nutrient[]"
-      :key="nutrient.id"
-      :nutrient="nutrient"
-      :index="index"
-      @modifyCurrentNutrient="(id: string) => modifyCurrentNutrient(id)"
-    />
+  <NutrientListItem v-for="(nutrient, index) in store.mealNutrients as Nutrient[]" :key="nutrient.id"
+    :nutrient="nutrient" :index="index" @modifyCurrentNutrient="(id: string) => modifyCurrentNutrient(id)" />
   <form class="position-sticky bottom-0">
     <div class="card border-2">
-        <div class="card-body pb-0 pb-md-1 pt-1 pt-md-2">
-            <h2 class="card-title">
-              {{ $t('message') }}: {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
-            </h2>
-            <p >{{ $t('mealNutrientLength') }}: {{ store.mealNutrients.length }}</p>
-        </div>
-        <div class="card-footer">
-          <button type="button" class="btn btn-primary m-2" @click="addNewNutrient">
-            {{ $t('Ajouter un aliment') }}
-          </button>
-          <button type="button" class="btn btn-secondary m-2" @click="resetMealNutrients">
-            {{ $t('Reset') }}
-          </button>
+      <div class="card-body pb-0 pb-md-1 pt-1 pt-md-2">
+        <h2 class="card-title">
+          {{ $t('message') }}: {{ (Math.round(store.mealCarbs * 100) / 100).toFixed(2) }} g
+        </h2>
+        <p>{{ $t('mealNutrientLength') }}: {{ store.mealNutrients.length }}</p>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-primary m-2" @click="addNewNutrient">
+          {{ $t('Ajouter un aliment') }}
+        </button>
+        <button type="button" class="btn btn-secondary m-2" @click="resetMealNutrients">
+          {{ $t('Reset') }}
+        </button>
       </div>
     </div>
   </form>
-  <NutrientModal
-    v-if="store.mealNutrients.length > 0"
-    :nutrient="currentNutrient"
-    @cancelNutrientChanges="cancelNutrientChanges"
-  />
+  <NutrientModal v-if="store.mealNutrients.length > 0" v-model="isModalOpen" :nutrient="currentNutrient"
+    @cancel-nutrient-changes="handleModalClose" />
+
+  <ConfirmationModal v-model="showResetConfirmation" :title="$t('modals.confirmation.reset.title')"
+    :message="$t('modals.confirmation.reset.message')" :confirm-label="$t('modals.confirmation.reset.confirmLabel')"
+    :cancel-label="$t('modals.confirmation.reset.cancelLabel')" confirm-variant="warning"
+    @confirm="handleResetConfirm" />
 </template>

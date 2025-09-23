@@ -53,5 +53,26 @@
   "Notice": "Avis",
   "No results": "Aucun résultat",
   "Not Found": "Erreur 404",
-  "Page not found": "La page n'a pas été trouvée"
+  "Page not found": "La page n'a pas été trouvée",
+  "modals": {
+    "confirmation": {
+      "title": "Confirmer l'action",
+      "delete": {
+        "title": "Confirmer la suppression",
+        "message": "Êtes-vous sûr de vouloir supprimer",
+        "confirmLabel": "Supprimer",
+        "cancelLabel": "Annuler"
+      },
+      "reset": {
+        "title": "Confirmer la réinitialisation",
+        "message": "Êtes-vous sûr de vouloir réinitialiser le repas? Ceci supprimera tous les aliments.",
+        "confirmLabel": "Réinitialiser",
+        "cancelLabel": "Annuler"
+      }
+    },
+    "general": {
+      "confirm": "Confirmer",
+      "cancel": "Annuler"
+    }
+  }
 }
