@@ -37,8 +37,8 @@ jobs:
           npm run preview &
           SERVER_PID=$!
 
-          # Wait for the server to be ready (timeout after 30s)
-          wait-on -t 30000 http://localhost:5173 || {
+          # Wait for the server to be ready (timeout after 60s)
+          wait-on -t 60000 http://localhost:4173/gluko/ || {
             echo "Server failed to start"
             kill $SERVER_PID
             exit 1
