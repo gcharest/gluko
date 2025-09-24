@@ -1,13 +1,15 @@
-name: Format
+name: Code Quality Checks
 
 on:
   pull_request:
     branches:
       - main
+      - feat/meal_history
+      - feat/cicd_pipelines
   workflow_dispatch:
 
 jobs:
-  format:
+  code-quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,5 +20,11 @@ jobs:
           node-version: '22'
       - name: Install dependencies
         run: npm ci
+      - name: Run ESLint
+        run: npm run lint
+      - name: Run Markdownlint
+        run: npx markdownlint '**/*.md'
       - name: Run Prettier
         run: npx prettier --check .
+      - name: Run TypeScript type check
+        run: npm run type-check
