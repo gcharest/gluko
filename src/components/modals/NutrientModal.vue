@@ -192,9 +192,9 @@ function handleNutrientSelect(result: SearchResult) {
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="nutrient-modal-title" class="modal-title display-6">
+            <h2 id="nutrient-modal-title" class="modal-title display-6">
               {{ currentNutrient.name || $t('components.nutrientModal.fields.name') }}
-            </h5>
+            </h2>
             <button
               type="button"
               class="btn-close me-1"
@@ -206,7 +206,7 @@ function handleNutrientSelect(result: SearchResult) {
             <form class="container-fluid">
               <!-- Search Section -->
               <div class="mb-4">
-                <label class="form-label">{{ $t('components.nutrientModal.search.label') }}</label>
+                <label for="searchInput" class="form-label">{{ $t('components.nutrientModal.search.label') }}</label>
                 <NutrientSearch
                   :auto-search="false"
                   :clear-after-select="true"

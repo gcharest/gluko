@@ -148,9 +148,9 @@ function closeModal() {
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="experimentLabel" class="modal-title">
+            <h2 id="experimentLabel" class="modal-title">
               {{ $t('notices.experimental.label') }}
-            </h5>
+            </h2>
           </div>
           <div class="modal-body">
             <div class="row">

@@ -35,7 +35,7 @@
         v-for="preset in presets"
         :key="preset.key"
         type="button"
-        class="btn btn-outline-secondary btn-sm"
+        class="btn btn-secondary btn-sm"
         @click="applyPreset(preset.key)"
       >
         {{ $t(`components.dateRangeFilter.presets.${preset.key}`) }}

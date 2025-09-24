@@ -37,7 +37,7 @@ const handleKeydown = (event: KeyboardEvent) => {
         <div class="input-group mb-3">
           <button
             id="button-search-nutrient"
-            class="btn btn-outline-secondary"
+            class="btn btn-secondary"
             type="button"
             aria-label="Search"
             @click="triggerSearch"

@@ -37,7 +37,7 @@ const navigateTo = (route: string) => {
                 <h2 class="card-title h4">{{ $t('components.search.title') }}</h2>
                 <p class="card-text">
                   {{ $t('aboutText.para3') }}
-                  <a :href="$t('aboutText.url')" target="_blank" class="link-primary">
+                  <a :href="$t('aboutText.url')" target="_blank">
                     {{ $t('aboutText.CNF') }} </a
                   >.
                 </p>
