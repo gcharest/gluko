@@ -23,7 +23,7 @@ jobs:
       - name: Install and Run Markdownlint
         run: |
           npm install -g markdownlint-cli
-          markdownlint '**/*.md'
+          markdownlint '**/*.md' --ignore 'node_modules/**'
       - name: Run Prettier
         run: npx prettier --check .
       - name: Run TypeScript type check
