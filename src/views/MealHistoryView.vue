@@ -30,8 +30,12 @@
             <!-- Search Filter -->
             <div class="mb-3">
               <label class="form-label">{{ $t('views.mealHistory.filters.search') }}</label>
-              <input v-model="searchQuery" type="search" class="form-control"
-                :placeholder="$t('views.mealHistory.filters.searchPlaceholder')" />
+              <input
+                v-model="searchQuery"
+                type="search"
+                class="form-control"
+                :placeholder="$t('views.mealHistory.filters.searchPlaceholder')"
+              />
             </div>
           </div>
         </div>
@@ -60,9 +64,16 @@
             {{ $t('views.mealHistory.results.count', { count: totalResults }) }}
           </p>
           <div class="d-flex align-items-center gap-2">
-            <label for="page-size-select" class="form-label mb-0">{{ $t('views.mealHistory.results.perPage') }}</label>
-            <select id="page-size-select" v-model="pageSize" class="form-select" style="width: auto"
-              :aria-label="$t('views.mealHistory.results.perPage')">
+            <label for="page-size-select" class="form-label mb-0">{{
+              $t('views.mealHistory.results.perPage')
+            }}</label>
+            <select
+              id="page-size-select"
+              v-model="pageSize"
+              class="form-select"
+              style="width: auto"
+              :aria-label="$t('views.mealHistory.results.perPage')"
+            >
               <option v-for="size in pageSizeOptions" :key="size" :value="size">
                 {{ size }}
               </option>
@@ -89,8 +100,14 @@
 
         <!-- Results list -->
         <div v-else class="meal-history-list">
-          <MealHistoryCard v-for="meal in paginatedMeals" :key="meal.id" :meal="meal" @edit="handleEditMeal"
-            @duplicate="handleDuplicateMeal" @delete="handleDeleteMeal" />
+          <MealHistoryCard
+            v-for="meal in paginatedMeals"
+            :key="meal.id"
+            :meal="meal"
+            @edit="handleEditMeal"
+            @duplicate="handleDuplicateMeal"
+            @delete="handleDeleteMeal"
+          />
         </div>
 
         <!-- Pagination -->
@@ -98,23 +115,40 @@
           <ul class="pagination justify-content-center">
             <!-- Previous page -->
             <li :class="['page-item', { disabled: currentPage === 1 }]">
-              <button type="button" class="page-link" :aria-label="$t('common.pagination.previous')"
-                @click="currentPage--">
+              <button
+                type="button"
+                class="page-link"
+                :aria-label="$t('common.pagination.previous')"
+                @click="currentPage--"
+              >
                 <i class="bi bi-chevron-left"></i>
               </button>
             </li>
 
             <!-- Page numbers -->
-            <li v-for="page in displayedPages" :key="page" :class="['page-item', { active: page === currentPage }]">
-              <button type="button" class="page-link" :disabled="typeof page === 'string'"
-                @click="typeof page === 'number' ? (currentPage = page) : undefined">
+            <li
+              v-for="page in displayedPages"
+              :key="page"
+              :class="['page-item', { active: page === currentPage }]"
+            >
+              <button
+                type="button"
+                class="page-link"
+                :disabled="typeof page === 'string'"
+                @click="typeof page === 'number' ? (currentPage = page) : undefined"
+              >
                 {{ page }}
               </button>
             </li>
 
             <!-- Next page -->
             <li :class="['page-item', { disabled: currentPage === totalPages }]">
-              <button type="button" class="page-link" :aria-label="$t('common.pagination.next')" @click="currentPage++">
+              <button
+                type="button"
+                class="page-link"
+                :aria-label="$t('common.pagination.next')"
+                @click="currentPage++"
+              >
                 <i class="bi bi-chevron-right"></i>
               </button>
             </li>
