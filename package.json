@@ -10,6 +10,7 @@
     "test:unit": "vitest",
     "test:unit:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
+    "test:e2e:a11y": "playwright test e2e/accessibility.spec.ts",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
