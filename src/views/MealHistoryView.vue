@@ -30,8 +30,11 @@
             <div class="mb-3">
               <label class="form-label">{{ $t('views.mealHistory.filters.search') }}</label>
               <input
-v-model="searchQuery" type="search" class="form-control"
-                :placeholder="$t('views.mealHistory.filters.searchPlaceholder')" />
+                v-model="searchQuery"
+                type="search"
+                class="form-control"
+                :placeholder="$t('views.mealHistory.filters.searchPlaceholder')"
+              />
             </div>
           </div>
         </div>
@@ -89,8 +92,13 @@ v-model="searchQuery" type="search" class="form-control"
         <!-- Results list -->
         <div v-else class="meal-history-list">
           <MealHistoryCard
-v-for="meal in paginatedMeals" :key="meal.id" :meal="meal" @edit="handleEditMeal"
-            @duplicate="handleDuplicateMeal" @delete="handleDeleteMeal" />
+            v-for="meal in paginatedMeals"
+            :key="meal.id"
+            :meal="meal"
+            @edit="handleEditMeal"
+            @duplicate="handleDuplicateMeal"
+            @delete="handleDeleteMeal"
+          />
         </div>
 
         <!-- Pagination -->
@@ -99,24 +107,39 @@ v-for="meal in paginatedMeals" :key="meal.id" :meal="meal" @edit="handleEditMeal
             <!-- Previous page -->
             <li :class="['page-item', { disabled: currentPage === 1 }]">
               <button
-type="button" class="page-link" :aria-label="$t('common.pagination.previous')"
-                @click="currentPage--">
+                type="button"
+                class="page-link"
+                :aria-label="$t('common.pagination.previous')"
+                @click="currentPage--"
+              >
                 <i class="bi bi-chevron-left"></i>
               </button>
             </li>
 
             <!-- Page numbers -->
-            <li v-for="page in displayedPages" :key="page" :class="['page-item', { active: page === currentPage }]">
+            <li
+              v-for="page in displayedPages"
+              :key="page"
+              :class="['page-item', { active: page === currentPage }]"
+            >
               <button
-type="button" class="page-link" :disabled="typeof page === 'string'"
-                @click="typeof page === 'number' ? currentPage = page : undefined">
+                type="button"
+                class="page-link"
+                :disabled="typeof page === 'string'"
+                @click="typeof page === 'number' ? (currentPage = page) : undefined"
+              >
                 {{ page }}
               </button>
             </li>
 
             <!-- Next page -->
             <li :class="['page-item', { disabled: currentPage === totalPages }]">
-              <button type="button" class="page-link" :aria-label="$t('common.pagination.next')" @click="currentPage++">
+              <button
+                type="button"
+                class="page-link"
+                :aria-label="$t('common.pagination.next')"
+                @click="currentPage++"
+              >
                 <i class="bi bi-chevron-right"></i>
               </button>
             </li>

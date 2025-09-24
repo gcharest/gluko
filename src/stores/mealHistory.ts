@@ -39,13 +39,16 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
   }
 
   // Watch for subject changes and reload data
-  watch(() => subjectStore.activeSubjectId, async (newId: string | null) => {
-    if (newId) {
-      await loadInitialData()
-    } else {
-      entries.value = []
+  watch(
+    () => subjectStore.activeSubjectId,
+    async (newId: string | null) => {
+      if (newId) {
+        await loadInitialData()
+      } else {
+        entries.value = []
+      }
     }
-  })
+  )
 
   // Initialize store
   loadInitialData()
@@ -57,26 +60,27 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
     // Apply search query
     if (searchQuery.value) {
       const query = searchQuery.value.toLowerCase()
-      filtered = filtered.filter(entry =>
-        entry.name?.toLowerCase().includes(query) ||
-        entry.notes?.toLowerCase().includes(query) ||
-        entry.tags.some(tag => tag.toLowerCase().includes(query))
+      filtered = filtered.filter(
+        (entry) =>
+          entry.name?.toLowerCase().includes(query) ||
+          entry.notes?.toLowerCase().includes(query) ||
+          entry.tags.some((tag) => tag.toLowerCase().includes(query))
       )
     }
 
     // Apply tag filters
     if (selectedTags.value.length > 0) {
-      filtered = filtered.filter(entry =>
-        selectedTags.value.every(tag => entry.tags.includes(tag))
+      filtered = filtered.filter((entry) =>
+        selectedTags.value.every((tag) => entry.tags.includes(tag))
       )
     }
 
     // Apply date range
     if (dateRange.value.start) {
-      filtered = filtered.filter(entry => entry.date >= dateRange.value.start!)
+      filtered = filtered.filter((entry) => entry.date >= dateRange.value.start!)
     }
     if (dateRange.value.end) {
-      filtered = filtered.filter(entry => entry.date <= dateRange.value.end!)
+      filtered = filtered.filter((entry) => entry.date <= dateRange.value.end!)
     }
 
     return filtered
@@ -87,13 +91,11 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
     return filteredEntries.value.slice(start, start + ENTRIES_PER_PAGE)
   })
 
-  const totalPages = computed(() =>
-    Math.ceil(filteredEntries.value.length / ENTRIES_PER_PAGE)
-  )
+  const totalPages = computed(() => Math.ceil(filteredEntries.value.length / ENTRIES_PER_PAGE))
 
   const allTags = computed(() => {
     const tags = new Set<string>()
-    entries.value.forEach(entry => entry.tags.forEach(tag => tags.add(tag)))
+    entries.value.forEach((entry) => entry.tags.forEach((tag) => tags.add(tag)))
     return Array.from(tags).sort()
   })
 
@@ -104,7 +106,7 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
 
     // Calculate daily averages
     const dailyStats = new Map<string, { count: number; totalCarbs: number }>()
-    entries.value.forEach(entry => {
+    entries.value.forEach((entry) => {
       const dateKey = entry.date.toISOString().split('T')[0]
       const stats = dailyStats.get(dateKey) || { count: 0, totalCarbs: 0 }
       stats.count++
@@ -112,8 +114,11 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
       dailyStats.set(dateKey, stats)
     })
 
-    const avgCarbsPerDay = Array.from(dailyStats.values()).reduce((sum, { totalCarbs, count }) =>
-      sum + (totalCarbs / count), 0) / dailyStats.size || 0
+    const avgCarbsPerDay =
+      Array.from(dailyStats.values()).reduce(
+        (sum, { totalCarbs, count }) => sum + totalCarbs / count,
+        0
+      ) / dailyStats.size || 0
 
     return {
       total,
@@ -168,7 +173,7 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
 
   async function updateEntry(entry: MealHistoryEntry): Promise<boolean> {
     try {
-      const index = entries.value.findIndex(e => e.id === entry.id)
+      const index = entries.value.findIndex((e) => e.id === entry.id)
       if (index === -1) return false
 
       const updatedEntry = {
@@ -191,7 +196,7 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
 
   async function deleteEntry(id: string): Promise<boolean> {
     try {
-      const index = entries.value.findIndex(e => e.id === id)
+      const index = entries.value.findIndex((e) => e.id === id)
       if (index === -1) return false
 
       await db.removeMealHistory(id)
@@ -206,7 +211,7 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
 
   async function duplicateEntry(id: string): Promise<MealHistoryEntry | null> {
     try {
-      const entry = entries.value.find(e => e.id === id)
+      const entry = entries.value.find((e) => e.id === id)
       if (!entry) return null
 
       const duplicate: MealHistoryEntry = {

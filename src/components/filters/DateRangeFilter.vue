@@ -2,25 +2,42 @@
   <div class="date-range-filter">
     <!-- Start Date -->
     <div class="mb-2">
-      <label :for="startInputId" class="form-label">{{ $t('components.dateRangeFilter.start') }}</label>
+      <label :for="startInputId" class="form-label">{{
+        $t('components.dateRangeFilter.start')
+      }}</label>
       <input
-:id="startInputId" v-model="startDate" type="date" class="form-control" :max="maxStartDate"
-        @change="handleStartDateChange" />
+        :id="startInputId"
+        v-model="startDate"
+        type="date"
+        class="form-control"
+        :max="maxStartDate"
+        @change="handleStartDateChange"
+      />
     </div>
 
     <!-- End Date -->
     <div class="mb-2">
       <label :for="endInputId" class="form-label">{{ $t('components.dateRangeFilter.end') }}</label>
       <input
-:id="endInputId" v-model="endDate" type="date" class="form-control" :min="minEndDate" :max="todayFormatted"
-        @change="handleEndDateChange" />
+        :id="endInputId"
+        v-model="endDate"
+        type="date"
+        class="form-control"
+        :min="minEndDate"
+        :max="todayFormatted"
+        @change="handleEndDateChange"
+      />
     </div>
 
     <!-- Quick select buttons -->
     <div class="d-flex gap-2 flex-wrap">
       <button
-v-for="preset in presets" :key="preset.key" type="button" class="btn btn-outline-secondary btn-sm"
-        @click="applyPreset(preset.key)">
+        v-for="preset in presets"
+        :key="preset.key"
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        @click="applyPreset(preset.key)"
+      >
         {{ $t(`components.dateRangeFilter.presets.${preset.key}`) }}
       </button>
     </div>
@@ -89,7 +106,7 @@ function handleEndDateChange() {
 
 // Apply preset date ranges
 function applyPreset(presetKey: string) {
-  const preset = presets.find(p => p.key === presetKey)
+  const preset = presets.find((p) => p.key === presetKey)
   if (!preset) return
 
   const end = new Date()

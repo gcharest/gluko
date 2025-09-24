@@ -56,12 +56,16 @@ export const useIndexedDB = () => {
 
     if (err instanceof DOMException) {
       if (err.name === 'QuotaExceededError') {
-        const quotaError = new Error('Storage quota exceeded. Please free up some space and try again.')
+        const quotaError = new Error(
+          'Storage quota exceeded. Please free up some space and try again.'
+        )
         error.value = quotaError
         return quotaError
       }
       if (err.name === 'SecurityError') {
-        const securityError = new Error('Permission denied to access IndexedDB. Please check your privacy settings.')
+        const securityError = new Error(
+          'Permission denied to access IndexedDB. Please check your privacy settings.'
+        )
         error.value = securityError
         return securityError
       }
@@ -71,15 +75,16 @@ export const useIndexedDB = () => {
         return transactionError
       }
       if (err.name === 'InvalidStateError') {
-        const stateError = new Error('Database is not in a valid state. Please reload the application.')
+        const stateError = new Error(
+          'Database is not in a valid state. Please reload the application.'
+        )
         error.value = stateError
         return stateError
       }
     }
 
-    const errMessage = err instanceof Error ? err.message :
-      typeof err === 'string' ? err :
-        'Unknown error'
+    const errMessage =
+      err instanceof Error ? err.message : typeof err === 'string' ? err : 'Unknown error'
 
     const genericError = new Error(`An error occurred: ${errMessage}`)
     error.value = genericError
@@ -102,13 +107,17 @@ export const useIndexedDB = () => {
         }
 
         if (request.error?.name === 'SecurityError') {
-          const err = new Error('Permission denied to access IndexedDB. Please check your privacy settings.')
+          const err = new Error(
+            'Permission denied to access IndexedDB. Please check your privacy settings.'
+          )
           error.value = err
           reject(err)
           return
         }
 
-        const err = new Error(`Failed to open database: ${request.error?.message || 'Unknown error'}`)
+        const err = new Error(
+          `Failed to open database: ${request.error?.message || 'Unknown error'}`
+        )
         error.value = err
         reject(err)
       }
@@ -127,7 +136,7 @@ export const useIndexedDB = () => {
         if (oldVersion < 3) {
           // Delete legacy stores if they exist (for upgrades)
           const storeNames = Array.from(database.objectStoreNames)
-          storeNames.forEach(storeName => {
+          storeNames.forEach((storeName) => {
             if (['meals', 'mealNutrients'].includes(storeName)) {
               database.deleteObjectStore(storeName)
             }
@@ -175,7 +184,10 @@ export const useIndexedDB = () => {
     return db.value
   }
 
-  const getStore = async (storeName: keyof DBSchema, mode: 'readonly' | 'readwrite' = 'readonly') => {
+  const getStore = async (
+    storeName: keyof DBSchema,
+    mode: 'readonly' | 'readwrite' = 'readonly'
+  ) => {
     const database = await openDB()
     const transaction = database.transaction(storeName, mode)
     return transaction.objectStore(storeName)
@@ -262,11 +274,13 @@ export const useIndexedDB = () => {
 
           // Deserialize dates in all records
           if (Array.isArray(results)) {
-            resolve(results.map(result =>
-              typeof result === 'object' && result !== null
-                ? deserializeDates(result as Record<string, unknown>) as DBSchema[K]['value']
-                : result
-            ))
+            resolve(
+              results.map((result) =>
+                typeof result === 'object' && result !== null
+                  ? (deserializeDates(result as Record<string, unknown>) as DBSchema[K]['value'])
+                  : result
+              )
+            )
           } else {
             resolve([])
           }
@@ -295,11 +309,10 @@ export const useIndexedDB = () => {
 
       const putPromise = new Promise<DBSchema[K]['key']>((resolve, reject) => {
         const serializedValue = serializeDates(value)
-        const request = key !== undefined
-          ? store.put(serializedValue, key)
-          : store.put(serializedValue)
+        const request =
+          key !== undefined ? store.put(serializedValue, key) : store.put(serializedValue)
 
-        request.onsuccess = () => resolve(key ?? request.result as DBSchema[K]['key'])
+        request.onsuccess = () => resolve(key ?? (request.result as DBSchema[K]['key']))
         request.onerror = () => {
           tx.abort()
           reject(handleError(request.error))
@@ -309,7 +322,6 @@ export const useIndexedDB = () => {
       // Wait for both transaction and put to complete
       const [storedKey] = await Promise.all([putPromise, txPromise])
       return storedKey
-
     } catch (err) {
       throw handleError(err)
     }
@@ -338,7 +350,6 @@ export const useIndexedDB = () => {
           tx.onerror = () => reject(handleError(tx.error))
         })
       ])
-
     } catch (err) {
       throw handleError(err)
     }
@@ -364,7 +375,6 @@ export const useIndexedDB = () => {
           tx.onerror = () => reject(handleError(tx.error))
         })
       ])
-
     } catch (err) {
       throw handleError(err)
     }
@@ -412,9 +422,12 @@ export const useIndexedDB = () => {
         request.onsuccess = () => {
           const results = request.result
           if (Array.isArray(results)) {
-            resolve(results.map(result =>
-              deserializeDates(result as Record<string, unknown>) as DBSchema[K]['value']
-            ))
+            resolve(
+              results.map(
+                (result) =>
+                  deserializeDates(result as Record<string, unknown>) as DBSchema[K]['value']
+              )
+            )
           } else {
             resolve([])
           }
@@ -435,14 +448,17 @@ export const useIndexedDB = () => {
 
   // Calculation session methods
   const getSession = (id: string) => get('activeSessions', id)
-  const getSessionsBySubject = (subjectId: string) => getAllByIndex('activeSessions', 'by-subject', subjectId)
-  const getSessionsByStatus = (status: 'draft' | 'completed') => getAllByIndex('activeSessions', 'by-status', status)
+  const getSessionsBySubject = (subjectId: string) =>
+    getAllByIndex('activeSessions', 'by-subject', subjectId)
+  const getSessionsByStatus = (status: 'draft' | 'completed') =>
+    getAllByIndex('activeSessions', 'by-status', status)
   const saveSession = (session: CalculationSession) => put('activeSessions', session)
   const removeSession = (id: string) => remove('activeSessions', id)
 
   // Meal history methods
   const getMealHistory = (id: string) => get('mealHistory', id)
-  const getMealHistoryBySubject = (subjectId: string) => getAllByIndex('mealHistory', 'by-subject', subjectId)
+  const getMealHistoryBySubject = (subjectId: string) =>
+    getAllByIndex('mealHistory', 'by-subject', subjectId)
   const getMealHistoryByDate = (date: Date) => getAllByIndex('mealHistory', 'by-date', date)
   const getMealHistoryByTag = (tag: string) => getAllByIndex('mealHistory', 'by-tags', tag)
   const saveMealHistory = (entry: MealHistoryEntry) => put('mealHistory', entry)

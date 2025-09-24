@@ -12,8 +12,9 @@ const searchResults = computed(() => {
 })
 
 const cnfLink = computed(() => (foodID: number, locale: string) => {
-  return `https://food-nutrition.canada.ca/cnf-fce/serving-portion?id=${foodID}&lang=${locale === 'fr' ? 'fre' : 'eng'
-    }`
+  return `https://food-nutrition.canada.ca/cnf-fce/serving-portion?id=${foodID}&lang=${
+    locale === 'fr' ? 'fre' : 'eng'
+  }`
 })
 
 // Trigger search from button click or enter key
@@ -35,19 +36,27 @@ const handleKeydown = (event: KeyboardEvent) => {
       <div class="col">
         <div class="input-group mb-3">
           <button
-id="button-search-nutrient" class="btn btn-outline-secondary" type="button" aria-label="Search"
-            @click="triggerSearch">
+            id="button-search-nutrient"
+            class="btn btn-outline-secondary"
+            type="button"
+            aria-label="Search"
+            @click="triggerSearch"
+          >
             <i class="bi bi-search" /> {{ $t('common.actions.search') }}
           </button>
           <input
-id="searchInput" v-model="searchInput" type="text"
-            class="form-control" :placeholder="$t('components.search.placeholder')" @keydown="handleKeydown" />
+            id="searchInput"
+            v-model="searchInput"
+            type="text"
+            class="form-control"
+            :placeholder="$t('components.search.placeholder')"
+            @keydown="handleKeydown"
+          />
         </div>
       </div>
       <div>
         <h2>
-          {{ $t('components.search.results', { count: searchResults.length })
-          }}
+          {{ $t('components.search.results', { count: searchResults.length }) }}
         </h2>
         <ul v-if="searchResults !== undefined && searchResults.length > 0" class="list-group">
           <li class="list-group-item">
@@ -62,7 +71,11 @@ id="searchInput" v-model="searchInput" type="text"
                 <p>
                   <span v-if="$i18n.locale === 'fr'">{{ result.item.FoodDescriptionF }}</span>
                   <span v-else>{{ result.item.FoodDescription }}</span>
-                  <a :href="cnfLink(result.item.FoodCode, $i18n.locale)" target="_blank" class="link-primary small">
+                  <a
+                    :href="cnfLink(result.item.FoodCode, $i18n.locale)"
+                    target="_blank"
+                    class="link-primary small"
+                  >
                     {{ $t('components.search.source') }} <i class="bi bi-box-arrow-up-right" />
                   </a>
                 </p>
@@ -71,8 +84,8 @@ id="searchInput" v-model="searchInput" type="text"
                 <p class="text-center">
                   {{
                     result.item.FctGluc !== null
-                  ? result.item.FctGluc.toFixed(2)
-                  : (result.item['205'] / 100).toFixed(2)
+                      ? result.item.FctGluc.toFixed(2)
+                      : (result.item['205'] / 100).toFixed(2)
                   }}
                 </p>
               </div>

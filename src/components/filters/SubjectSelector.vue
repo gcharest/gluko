@@ -2,8 +2,14 @@
   <div class="subject-selector">
     <div v-if="allSubjectsOption" class="form-check">
       <input
-:id="allSubjectsId" v-model="selectedSubjectId" class="form-check-input" type="radio" name="subject"
-        :value="null" @change="handleChange" />
+        :id="allSubjectsId"
+        v-model="selectedSubjectId"
+        class="form-check-input"
+        type="radio"
+        name="subject"
+        :value="null"
+        @change="handleChange"
+      />
       <label class="form-check-label" :for="allSubjectsId">
         {{ $t('components.subjectSelector.allSubjects') }}
       </label>
@@ -33,8 +39,14 @@
     <div v-else class="subject-list">
       <div v-for="subject in subjects" :key="subject.id" class="form-check">
         <input
-:id="getSubjectInputId(subject.id)" v-model="selectedSubjectId" class="form-check-input" type="radio"
-          name="subject" :value="subject.id" @change="handleChange" />
+          :id="getSubjectInputId(subject.id)"
+          v-model="selectedSubjectId"
+          class="form-check-input"
+          type="radio"
+          name="subject"
+          :value="subject.id"
+          @change="handleChange"
+        />
         <label class="form-check-label" :for="getSubjectInputId(subject.id)">
           {{ subject.name }}
         </label>
@@ -84,9 +96,12 @@ const subjects = computed<Subject[]>(() => {
 })
 
 // Watch for external changes to modelValue
-watch(() => props.modelValue, (newValue) => {
-  selectedSubjectId.value = newValue
-})
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    selectedSubjectId.value = newValue
+  }
+)
 
 // Event handlers
 function handleChange() {

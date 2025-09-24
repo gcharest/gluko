@@ -26,17 +26,26 @@ onBeforeMount(() => {
 </script>
 <template>
   <button
-id="theme" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
-    type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static"
-    aria-label="Toggle theme (auto)">
+    id="theme"
+    class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
+    type="button"
+    aria-expanded="false"
+    data-bs-toggle="dropdown"
+    data-bs-display="static"
+    aria-label="Toggle theme (auto)"
+  >
     <i class="bi bi-circle-half"></i>
     <span id="theme-text" class="d-lg-none ms-2">{{ $t('theme.toggle') }}</span>
   </button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="theme-text">
     <li>
       <button
-type="button" class="dropdown-item d-flex align-items-center" :class="{ active: activeTheme === 'light' }"
-        aria-pressed="false" @click="updateTheme('light')">
+        type="button"
+        class="dropdown-item d-flex align-items-center"
+        :class="{ active: activeTheme === 'light' }"
+        aria-pressed="false"
+        @click="updateTheme('light')"
+      >
         <i class="bi bi-sun-fill"></i>
         <span class="ms-2">
           {{ $t('theme.light') }}
@@ -46,8 +55,12 @@ type="button" class="dropdown-item d-flex align-items-center" :class="{ active: 
     </li>
     <li>
       <button
-type="button" class="dropdown-item d-flex align-items-center" :class="{ active: activeTheme === 'dark' }"
-        aria-pressed="false" @click="updateTheme('dark')">
+        type="button"
+        class="dropdown-item d-flex align-items-center"
+        :class="{ active: activeTheme === 'dark' }"
+        aria-pressed="false"
+        @click="updateTheme('dark')"
+      >
         <i class="bi bi-moon-stars-fill"></i>
         <span class="ms-2">
           {{ $t('theme.dark') }}
@@ -57,8 +70,12 @@ type="button" class="dropdown-item d-flex align-items-center" :class="{ active: 
     </li>
     <li>
       <button
-type="button" class="dropdown-item d-flex align-items-center" :class="{ active: activeTheme === 'auto' }"
-        aria-pressed="true" @click="updateTheme('auto')">
+        type="button"
+        class="dropdown-item d-flex align-items-center"
+        :class="{ active: activeTheme === 'auto' }"
+        aria-pressed="true"
+        @click="updateTheme('auto')"
+      >
         <i class="bi bi-circle-half"> </i>
         <span class="ms-2">
           {{ $t('theme.auto') }}

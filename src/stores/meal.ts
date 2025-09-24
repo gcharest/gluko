@@ -35,7 +35,7 @@ export const useMealStore = defineStore('mealStore', () => {
       console.log('Loading draft sessions...')
       const sessions = await db.getAllByIndex('activeSessions', 'by-status', 'draft')
       console.log('Found sessions:', sessions)
-      sessions.forEach(session => {
+      sessions.forEach((session) => {
         activeSessions.value.set(session.subjectId, session)
         console.log('Added session for subject:', session.subjectId)
       })
@@ -56,16 +56,19 @@ export const useMealStore = defineStore('mealStore', () => {
   loadInitialData()
 
   // Watch for subject changes
-  watch(() => subjectStore.activeSubjectId, async (newId, oldId) => {
-    if (oldId) {
-      // Save current session for previous subject
-      await saveSession(oldId)
+  watch(
+    () => subjectStore.activeSubjectId,
+    async (newId, oldId) => {
+      if (oldId) {
+        // Save current session for previous subject
+        await saveSession(oldId)
+      }
+      if (newId) {
+        // Load or create session for new subject
+        await loadOrCreateSession(newId)
+      }
     }
-    if (newId) {
-      // Load or create session for new subject
-      await loadOrCreateSession(newId)
-    }
-  })
+  )
 
   // Helper functions
   const getCurrentSession = () => {
@@ -98,7 +101,7 @@ export const useMealStore = defineStore('mealStore', () => {
 
       // Try to load existing draft session
       const existingSessions = await db.getSessionsBySubject(subjectId)
-      const draftSession = existingSessions.find(s => s.status === 'draft')
+      const draftSession = existingSessions.find((s) => s.status === 'draft')
 
       if (draftSession) {
         activeSessions.value.set(subjectId, draftSession)
@@ -183,11 +186,11 @@ export const useMealStore = defineStore('mealStore', () => {
 
       let index = -1
       if (typeof identifier === 'string') {
-        index = session.nutrients.findIndex(n => n.id === identifier)
+        index = session.nutrients.findIndex((n) => n.id === identifier)
       } else if (typeof identifier === 'number') {
         index = identifier
       } else {
-        index = session.nutrients.findIndex(n => n.id === identifier.id)
+        index = session.nutrients.findIndex((n) => n.id === identifier.id)
       }
 
       if (index === -1 || index >= session.nutrients.length) return false
@@ -216,7 +219,7 @@ export const useMealStore = defineStore('mealStore', () => {
       const session = getCurrentSession()
       if (!session) return false
 
-      const index = session.nutrients.findIndex(n => n.id === nutrient.id)
+      const index = session.nutrients.findIndex((n) => n.id === nutrient.id)
       if (index === -1) return false
 
       const updatedNutrients = [...session.nutrients]
@@ -268,7 +271,7 @@ export const useMealStore = defineStore('mealStore', () => {
       const newSession: CalculationSession = {
         id: getUUID(),
         subjectId: targetSubjectId,
-        nutrients: sourceSession.nutrients.map(n => ({
+        nutrients: sourceSession.nutrients.map((n) => ({
           ...n,
           id: getUUID() // Generate new IDs for duplicated nutrients
         })),

@@ -13,7 +13,7 @@ const eventHandlers = {
     // Move focus before animation starts
     if (previousActiveElement && 'focus' in previousActiveElement) {
       try {
-        (previousActiveElement as HTMLElement).focus()
+        ;(previousActiveElement as HTMLElement).focus()
       } catch (e) {
         console.warn('Failed to focus on previous element:', e)
       }
@@ -134,7 +134,13 @@ function closeModal() {
   </button>
 
   <Teleport to="body">
-    <div ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="experimentLabel" :inert="!showModal">
+    <div
+      ref="modalRef"
+      class="modal modal-lg fade"
+      tabindex="-1"
+      aria-labelledby="experimentLabel"
+      :inert="!showModal"
+    >
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">

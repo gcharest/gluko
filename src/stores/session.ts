@@ -41,7 +41,9 @@ export const useUserSessionStore = defineStore('userSession', () => {
 
   // Getters (computed)
   const getUserSession = computed(() => userSession.value)
-  const hasExperimentNoticeBeenDismissed = computed(() => userSession.value.dismissedExperimentNotice)
+  const hasExperimentNoticeBeenDismissed = computed(
+    () => userSession.value.dismissedExperimentNotice
+  )
 
   // Actions
   async function initialize() {
