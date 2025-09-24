@@ -2,31 +2,41 @@ import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
 test.describe('Accessibility Tests', () => {
-  test('Home page should not have any automatically detectable accessibility issues', async ({ page }) => {
+  test('Home page should not have any automatically detectable accessibility issues', async ({
+    page
+  }) => {
     await page.goto('/')
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
   })
 
-  test('Calculator page should not have any automatically detectable accessibility issues', async ({ page }) => {
+  test('Calculator page should not have any automatically detectable accessibility issues', async ({
+    page
+  }) => {
     await page.goto('/calculator')
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
   })
 
-  test('Carb Factor page should not have any automatically detectable accessibility issues', async ({ page }) => {
+  test('Carb Factor page should not have any automatically detectable accessibility issues', async ({
+    page
+  }) => {
     await page.goto('/carb-factor')
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
   })
 
-  test('History page should not have any automatically detectable accessibility issues', async ({ page }) => {
+  test('History page should not have any automatically detectable accessibility issues', async ({
+    page
+  }) => {
     await page.goto('/history')
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
   })
 
-  test('About page should not have any automatically detectable accessibility issues', async ({ page }) => {
+  test('About page should not have any automatically detectable accessibility issues', async ({
+    page
+  }) => {
     await page.goto('/about')
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
@@ -54,7 +64,9 @@ test.describe('Component-specific Accessibility Tests', () => {
 
   test('Language toggler should be properly labeled', async ({ page }) => {
     await page.goto('/')
-    const languageToggler = await page.getByRole('button', { name: /Change Language|Changer la langue/ })
+    const languageToggler = await page.getByRole('button', {
+      name: /Change Language|Changer la langue/
+    })
     expect(await languageToggler.isVisible()).toBeTruthy()
   })
 
@@ -70,7 +82,7 @@ test.describe('Component-specific Accessibility Tests', () => {
     // Check if nutrient inputs are properly labeled
     const nutrientInputs = await page.getByRole('textbox')
     for (const input of await nutrientInputs.all()) {
-      const label = await input.evaluate(el => {
+      const label = await input.evaluate((el) => {
         const id = el.id
         return id ? document.querySelector(`label[for="${id}"]`)?.textContent : null
       })

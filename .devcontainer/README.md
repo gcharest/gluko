@@ -13,7 +13,7 @@ This directory contains an ultra-minimal development container configuration for
 ### Essential VS Code Extensions (6 extensions)
 
 - **Vue.js Core**: Volar + TypeScript Vue Plugin
-- **Code Quality**: ESLint + Prettier (matches your project config)  
+- **Code Quality**: ESLint + Prettier (matches your project config)
 - **i18n Support**: i18n Ally (your project uses French/English)
 - **Testing**: Playwright (for your E2E tests)
 
@@ -43,7 +43,7 @@ This directory contains an ultra-minimal development container configuration for
 The container will automatically:
 
 - Pull the official Node.js 22 image
-- Install all 6 essential extensions  
+- Install all 6 essential extensions
 - Run `npm install` to set up dependencies
 - Install Playwright browsers with `npx playwright install --with-deps`
 - Forward port 5173 for the Vite dev server
@@ -52,7 +52,7 @@ The container will automatically:
 
 ```bash
 npm run dev          # Start Vite dev server
-npm run build        # Build for production  
+npm run build        # Build for production
 npm run test:unit    # Run Vitest unit tests
 npm run test:e2e     # Run Playwright e2e tests
 npm run lint         # ESLint checking
