@@ -20,7 +20,7 @@ const getSupportedLocales = computed(() => {
     aria-expanded="false"
     data-bs-toggle="dropdown"
     data-bs-display="static"
-    aria-label="Toggle language (auto)"
+    :aria-label="$t('locale.toggleLanguage')"
   >
     <i class="bi bi-translate"></i>
     <span id="language-text" class="d-lg-none ms-2">{{ $t('locale.toggleLanguage') }}</span>

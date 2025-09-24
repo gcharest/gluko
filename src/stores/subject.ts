@@ -36,7 +36,7 @@ export const useSubjectStore = defineStore('subjectStore', () => {
         console.log('Loaded active subject from user account:', activeSubjectId.value)
       } else if (subjects.value.length > 0) {
         // Set first active subject as default if none selected
-        activeSubjectId.value = subjects.value.find(s => s.active)?.id || subjects.value[0].id
+        activeSubjectId.value = subjects.value.find((s) => s.active)?.id || subjects.value[0].id
         console.log('Set first subject as active:', activeSubjectId.value)
       }
     } catch (err) {
@@ -49,16 +49,14 @@ export const useSubjectStore = defineStore('subjectStore', () => {
   loadInitialData()
 
   // Getters
-  const activeSubjects = computed(() =>
-    subjects.value.filter(subject => subject.active)
-  )
+  const activeSubjects = computed(() => subjects.value.filter((subject) => subject.active))
 
   const currentSubject = computed(() =>
-    subjects.value.find(subject => subject.id === activeSubjectId.value)
+    subjects.value.find((subject) => subject.id === activeSubjectId.value)
   )
 
-  const subjectById = computed(() => (id: string) =>
-    subjects.value.find(subject => subject.id === id)
+  const subjectById = computed(
+    () => (id: string) => subjects.value.find((subject) => subject.id === id)
   )
 
   const sortedSubjects = computed(() =>
@@ -102,7 +100,7 @@ export const useSubjectStore = defineStore('subjectStore', () => {
 
   async function updateSubject(subject: Subject): Promise<boolean> {
     try {
-      const index = subjects.value.findIndex(s => s.id === subject.id)
+      const index = subjects.value.findIndex((s) => s.id === subject.id)
       if (index === -1) return false
 
       const updatedSubject = {
@@ -122,7 +120,7 @@ export const useSubjectStore = defineStore('subjectStore', () => {
 
   async function deleteSubject(id: string): Promise<boolean> {
     try {
-      const index = subjects.value.findIndex(s => s.id === id)
+      const index = subjects.value.findIndex((s) => s.id === id)
       if (index === -1) return false
 
       // Don't allow deleting the last subject
@@ -132,7 +130,7 @@ export const useSubjectStore = defineStore('subjectStore', () => {
 
       // If deleting active subject, switch to another one
       if (id === activeSubjectId.value) {
-        const newActive = subjects.value.find(s => s.id !== id && s.active)
+        const newActive = subjects.value.find((s) => s.id !== id && s.active)
         activeSubjectId.value = newActive?.id || subjects.value[0].id
         await updateUserPreference('defaultSubjectId', activeSubjectId.value)
       }
@@ -149,7 +147,7 @@ export const useSubjectStore = defineStore('subjectStore', () => {
 
   async function setActiveSubject(id: string): Promise<boolean> {
     try {
-      const subject = subjects.value.find(s => s.id === id)
+      const subject = subjects.value.find((s) => s.id === id)
       if (!subject) return false
 
       activeSubjectId.value = id
@@ -189,7 +187,7 @@ export const useSubjectStore = defineStore('subjectStore', () => {
     settings: Partial<Subject['settings']>
   ): Promise<boolean> {
     try {
-      const subject = subjects.value.find(s => s.id === id)
+      const subject = subjects.value.find((s) => s.id === id)
       if (!subject) return false
 
       const updatedSubject = {
@@ -202,7 +200,7 @@ export const useSubjectStore = defineStore('subjectStore', () => {
       }
 
       await db.saveSubject(updatedSubject)
-      const index = subjects.value.findIndex(s => s.id === id)
+      const index = subjects.value.findIndex((s) => s.id === id)
       subjects.value[index] = updatedSubject
       return true
     } catch (err) {

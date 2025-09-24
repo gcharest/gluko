@@ -22,7 +22,7 @@ const eventHandlers = {
     // Move focus before animation starts
     if (previousActiveElement && 'focus' in previousActiveElement) {
       try {
-        (previousActiveElement as HTMLElement).focus()
+        ;(previousActiveElement as HTMLElement).focus()
       } catch {
         // Fallback to body if original element is no longer available
         document.body.focus()
@@ -70,13 +70,16 @@ onBeforeUnmount(() => {
 })
 
 // Watch for v-model changes
-watch(() => props.modelValue, (newVal) => {
-  if (newVal && bsModal) {
-    bsModal.show()
-  } else if (!newVal && bsModal) {
-    bsModal.hide()
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    if (newVal && bsModal) {
+      bsModal.show()
+    } else if (!newVal && bsModal) {
+      bsModal.hide()
+    }
   }
-})
+)
 
 function handleConfirm() {
   emit('confirm')
@@ -100,8 +103,13 @@ function handleKeydown(event: KeyboardEvent) {
 <template>
   <Teleport to="body">
     <div
-ref="modalRef" class="modal fade" tabindex="-1" :aria-labelledby="'confirmation-modal-title'"
-      :inert="!modelValue" @keydown="handleKeydown">
+      ref="modalRef"
+      class="modal fade"
+      tabindex="-1"
+      :aria-labelledby="'confirmation-modal-title'"
+      :inert="!modelValue"
+      @keydown="handleKeydown"
+    >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
@@ -109,8 +117,11 @@ ref="modalRef" class="modal fade" tabindex="-1" :aria-labelledby="'confirmation-
               {{ title }}
             </h5>
             <button
-type="button" class="btn-close" :aria-label="$t('common.actions.close')"
-              @click="handleCancel"></button>
+              type="button"
+              class="btn-close"
+              :aria-label="$t('common.actions.close')"
+              @click="handleCancel"
+            ></button>
           </div>
           <div class="modal-body">
             <p class="mb-0">{{ message }}</p>

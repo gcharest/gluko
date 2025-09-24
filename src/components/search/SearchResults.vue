@@ -35,13 +35,16 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
         :key="result.refIndex"
         class="list-group-item list-group-item-action"
         role="button"
-        :aria-label="$t('components.search.selectItem', { 
-          name: $i18n.locale === 'fr' ? result.item.FoodDescriptionF : result.item.FoodDescription 
-        })"
+        :aria-label="
+          $t('components.search.selectItem', {
+            name: $i18n.locale === 'fr' ? result.item.FoodDescriptionF : result.item.FoodDescription
+          })
+        "
         tabindex="0"
         @click="emit('select', result)"
         @keydown.enter="emit('select', result)"
-        @keydown.space.prevent="emit('select', result)">
+        @keydown.space.prevent="emit('select', result)"
+      >
         <div class="row">
           <div class="col-8">
             <p class="mb-1">
@@ -54,16 +57,18 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
               :href="cnfLink(result.item.FoodCode, $i18n.locale)"
               target="_blank"
               class="link-primary small"
-              @click.stop>
+              @click.stop
+            >
               {{ $t('components.search.source') }}
               <i class="bi bi-box-arrow-up-right" />
             </a>
           </div>
           <div class="col-4">
             <p class="text-center mb-0">
-              {{ result.item.FctGluc !== null
-                ? result.item.FctGluc.toFixed(2)
-                : (result.item['205'] / 100).toFixed(2)
+              {{
+                result.item.FctGluc !== null
+                  ? result.item.FctGluc.toFixed(2)
+                  : (result.item['205'] / 100).toFixed(2)
               }}
             </p>
           </div>
@@ -96,4 +101,5 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
 .search-results-list .list-group-item-action:active {
   transform: translateX(2px);
 }
-</style>]]>
+</style>
+]]>

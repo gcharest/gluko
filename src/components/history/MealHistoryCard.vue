@@ -13,8 +13,12 @@
         </div>
         <div class="dropdown">
           <button
-:id="dropdownId" class="btn btn-link btn-sm text-muted p-0" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
+            :id="dropdownId"
+            class="btn btn-link btn-sm text-muted p-0"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             <i class="bi bi-three-dots-vertical"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end" :aria-labelledby="dropdownId">
@@ -34,7 +38,11 @@
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <button type="button" class="dropdown-item text-danger" @click="$emit('delete', meal)">
+              <button
+                type="button"
+                class="dropdown-item text-danger"
+                @click="$emit('delete', meal)"
+              >
                 <i class="bi bi-trash me-2"></i>
                 {{ $t('components.mealHistoryCard.actions.delete') }}
               </button>
@@ -56,9 +64,7 @@
           </span>
         </div>
         <div class="text-end">
-          <span class="total-carbs">
-            {{ totalCarbs.toFixed(1) }}g
-          </span>
+          <span class="total-carbs"> {{ totalCarbs.toFixed(1) }}g </span>
         </div>
       </div>
 
@@ -112,7 +118,7 @@ const formattedDate = computed(() => {
 // Calculate total carbs
 const totalCarbs = computed(() => {
   return props.meal.nutrients.reduce((total, nutrient) => {
-    return total + (nutrient.quantity * nutrient.factor)
+    return total + nutrient.quantity * nutrient.factor
   }, 0)
 })
 </script>

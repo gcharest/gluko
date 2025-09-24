@@ -1,0 +1,43 @@
+name: Code Quality Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'vite.config.*'
+      - 'tsconfig.*'
+      - 'index.html'
+      - 'env.d.ts'
+      - '.eslintrc.*'
+      - '.prettier*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --no-optional
+      - name: Run ESLint
+        run: npm run lint
+      - name: Install and Run Markdownlint
+        run: |
+          npm install -g markdownlint-cli
+          markdownlint '**/*.md' --ignore 'node_modules/**' --config .markdownlint.json
+      - name: Run Prettier
+        run: npx prettier --check .
+      - name: Run TypeScript type check
+        run: npm run type-check

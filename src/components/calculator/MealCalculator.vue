@@ -32,16 +32,12 @@ async function handleAdd() {
 async function handleSaveToHistory() {
   const mealHistoryStore = useMealHistoryStore()
   const totalCarbs = store.currentNutrients.reduce((total: number, nutrient: Nutrient) => {
-    return total + (nutrient.quantity * nutrient.factor)
+    return total + nutrient.quantity * nutrient.factor
   }, 0)
 
-  await mealHistoryStore.addEntry(
-    store.currentNutrients,
-    totalCarbs,
-    {
-      tags: []
-    }
-  )
+  await mealHistoryStore.addEntry(store.currentNutrients, totalCarbs, {
+    tags: []
+  })
 
   // Clear the calculator after saving
   await store.clearSession()
@@ -54,16 +50,26 @@ async function handleSaveToHistory() {
     <NutrientList :nutrients="store.currentNutrients" @add="handleAdd" @reset="handleReset" />
 
     <!-- Save to history button -->
-    <button type="button" class="btn btn-primary"
-      :disabled="!store.currentNutrients.length || store.currentNutrients.every((n: Nutrient) => !n.quantity)"
-      @click="handleSaveToHistory">
+    <button
+      type="button"
+      class="btn btn-primary"
+      :disabled="
+        !store.currentNutrients.length || store.currentNutrients.every((n: Nutrient) => !n.quantity)
+      "
+      @click="handleSaveToHistory"
+    >
       <i class="bi bi-journal-plus me-1"></i>
       {{ $t('components.mealCalculator.actions.saveToHistory') }}
     </button>
   </div>
 
-  <ConfirmationModal v-model="showResetConfirmation" :title="$t('modals.confirmation.reset.title')"
-    :message="$t('modals.confirmation.reset.message')" :confirm-label="$t('modals.confirmation.reset.confirmLabel')"
-    :cancel-label="$t('modals.confirmation.reset.cancelLabel')" confirm-variant="warning"
-    @confirm="handleResetConfirm" />
+  <ConfirmationModal
+    v-model="showResetConfirmation"
+    :title="$t('modals.confirmation.reset.title')"
+    :message="$t('modals.confirmation.reset.message')"
+    :confirm-label="$t('modals.confirmation.reset.confirmLabel')"
+    :cancel-label="$t('modals.confirmation.reset.cancelLabel')"
+    confirm-variant="warning"
+    @confirm="handleResetConfirm"
+  />
 </template>

@@ -55,7 +55,8 @@ const handleKeydown = (event: KeyboardEvent) => {
 const handleInput = () => {
   if (props.autoSearch) {
     const trimmedValue = searchInput.value.trim()
-    if (trimmedValue.length >= 2) { // Only search if there are at least 2 characters
+    if (trimmedValue.length >= 2) {
+      // Only search if there are at least 2 characters
       search.value = trimmedValue
     } else {
       search.value = '' // Clear results if input is too short
@@ -92,7 +93,8 @@ const handleSelect = (item: any) => {
         class="btn btn-outline-secondary"
         type="button"
         :aria-label="searchButtonLabel || $t('common.actions.search')"
-        @click="triggerSearch">
+        @click="triggerSearch"
+      >
         <i class="bi bi-search" /> {{ searchButtonLabel || $t('common.actions.search') }}
       </button>
     </div>

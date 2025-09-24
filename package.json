@@ -10,6 +10,7 @@
     "test:unit": "vitest",
     "test:unit:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
+    "test:e2e:a11y": "playwright test e2e/accessibility.spec.ts",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -29,6 +30,7 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
     "@eslint/js": "^9.36.0",
     "@pinia/testing": "^1.0.2",
     "@playwright/test": "^1.49.1",

@@ -35,9 +35,7 @@ function handleModalClose() {
   isModalOpen.value = false
   if (!currentNutrient.value) return
 
-  const nutrientData = props.nutrients.find(
-    (item) => item.id === currentNutrient.value?.id
-  )
+  const nutrientData = props.nutrients.find((item) => item.id === currentNutrient.value?.id)
   if (nutrientData) {
     currentNutrient.value = nutrientData
   }
@@ -48,23 +46,32 @@ function handleModalClose() {
   <div class="nutrient-list">
     <!-- List of nutrients -->
     <NutrientListItem
-v-for="(nutrient, index) in nutrients" :key="nutrient.id" :nutrient="nutrient" :index="index"
-      @modify-current-nutrient="modifyCurrentNutrient" />
+      v-for="(nutrient, index) in nutrients"
+      :key="nutrient.id"
+      :nutrient="nutrient"
+      :index="index"
+      @modify-current-nutrient="modifyCurrentNutrient"
+    />
 
     <!-- Add/Reset controls -->
     <form class="position-sticky bottom-0">
       <div class="card border-2">
         <CalculatorSummary
-:total-carbs="nutrients.reduce((sum, n) => sum + (n.quantity * n.factor), 0)"
-          :nutrient-count="nutrients.length" />
+          :total-carbs="nutrients.reduce((sum, n) => sum + n.quantity * n.factor, 0)"
+          :nutrient-count="nutrients.length"
+        />
         <CalculatorControls @add="handleAdd" @reset="emit('reset')" />
       </div>
     </form>
 
     <!-- Nutrient editing modal -->
     <NutrientModal
-v-model="isModalOpen"
-      :nutrient="currentNutrient || nutrients[nutrients.length - 1] || { id: '', name: '', quantity: 0, factor: 0 }"
-      @cancel-nutrient-changes="handleModalClose" />
+      v-model="isModalOpen"
+      :nutrient="
+        currentNutrient ||
+        nutrients[nutrients.length - 1] || { id: '', name: '', quantity: 0, factor: 0 }
+      "
+      @cancel-nutrient-changes="handleModalClose"
+    />
   </div>
 </template>

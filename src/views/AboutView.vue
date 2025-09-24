@@ -1,15 +1,15 @@
 <template>
-  <main class="about container">
-    <h1 class="">{{ $t('navigation.about') }}</h1>
-    <p class="">
+  <div class="about container">
+    <h1>{{ $t('navigation.about') }}</h1>
+    <p>
       {{ $t('aboutText.para1') }}
     </p>
-    <p class="">
+    <p>
       {{ $t('aboutText.para2') }}
     </p>
-    <p class="">
+    <p>
       {{ $t('aboutText.para3') }}
       <a :href="$t('aboutText.url')">{{ $t('aboutText.CNF') }}</a>
     </p>
-  </main>
+  </div>
 </template>

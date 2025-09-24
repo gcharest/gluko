@@ -35,10 +35,11 @@ const navigateTo = (route: string) => {
             <div class="card h-100">
               <div class="card-body">
                 <h2 class="card-title h4">{{ $t('components.search.title') }}</h2>
-                <p class="card-text">{{ $t('aboutText.para3') }}
+                <p class="card-text">
+                  {{ $t('aboutText.para3') }}
                   <a :href="$t('aboutText.url')" target="_blank" class="link-primary">
-                    {{ $t('aboutText.CNF') }}
-                  </a>.
+                    {{ $t('aboutText.CNF') }} </a
+                  >.
                 </p>
                 <button class="btn btn-secondary w-100" @click="navigateTo('/carb-factor')">
                   {{ $t('navigation.carbFactor') }}

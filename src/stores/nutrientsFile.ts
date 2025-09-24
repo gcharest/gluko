@@ -117,7 +117,7 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
 
   function getNutrientById(id: number): NutrientFile | undefined {
     try {
-      return nutrientsFile.value.find(nutrient => nutrient.FoodID === id)
+      return nutrientsFile.value.find((nutrient) => nutrient.FoodID === id)
     } catch (error) {
       console.error('Failed to get nutrient by ID:', error)
       return undefined
@@ -176,7 +176,7 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
   function getFavoriteNutrients(): NutrientFile[] {
     try {
       return favoriteNutrients.value
-        .map(id => getNutrientById(id))
+        .map((id) => getNutrientById(id))
         .filter((nutrient): nutrient is NutrientFile => nutrient !== undefined)
     } catch (error) {
       console.error('Failed to get favorite nutrients:', error)
