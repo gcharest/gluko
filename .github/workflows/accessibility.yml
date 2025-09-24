@@ -1,12 +1,23 @@
 name: Accessibility Tests
-permissions:
-  contents: read
 
 on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'vite.config.*'
+      - 'tsconfig.*'
+      - 'index.html'
+      - 'env.d.ts'
+      - 'e2e/**'
+      - 'playwright.config.*'
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   accessibility:
