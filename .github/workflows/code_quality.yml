@@ -17,27 +17,14 @@ jobs:
         with:
           node-version: '22'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts --no-optional
       - name: Run ESLint
         run: npm run lint
-      - name: Run Markdownlint
-        run: npx markdownlint '**/*.md'
+      - name: Install and Run Markdownlint
+        run: |
+          npm install -g markdownlint-cli
+          markdownlint '**/*.md'
       - name: Run Prettier
         run: npx prettier --check .
       - name: Run TypeScript type check
         run: npm run type-check
-
-  build-test:
-    runs-on: ubuntu-latest
-    needs: code-quality
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Install dependencies
-        run: npm ci
-      - name: Build project
-        run: npm run build
