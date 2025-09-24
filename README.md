@@ -1,6 +1,9 @@
 # Gluko
 
-[![GitHub Workflow Status (static)](https://img.shields.io/github/actions/workflow/status/gcharest/gluko/static.yml?branch=main&label=Static%20Pages&logo=github&style=flat-square)](https://github.com/gcharest/gluko/actions/workflows/static.yml)
+[![Deploy static content to Pages](https://github.com/gcharest/gluko/actions/workflows/static.yml/badge.svg)](https://github.com/gcharest/gluko/actions/workflows/static.yml)
+[![Code Quality Checks](https://github.com/gcharest/gluko/actions/workflows/code_quality.yml/badge.svg)](https://github.com/gcharest/gluko/actions/workflows/code_quality.yml)
+[![Accessibility Tests](https://github.com/gcharest/gluko/actions/workflows/accessibility.yml/badge.svg)](https://github.com/gcharest/gluko/actions/workflows/accessibility.yml)
+[![CodeQL Advanced](https://github.com/gcharest/gluko/actions/workflows/codeql.yml/badge.svg)](https://github.com/gcharest/gluko/actions/workflows/codeql.yml)
 
 Gluko is a web application designed to help individuals and families more accurately calculate the carbohydrate content in their meals.
 By providing an easy-to-use interface and leveraging the [Canadian Nutrient File database](https://food-nutrition.canada.ca/cnf-fce/?lang=eng), Gluko simplifies carb counting and ensures precision in determining the carb factor of various nutrients.
