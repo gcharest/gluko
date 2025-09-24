@@ -33,7 +33,10 @@ export default defineConfig({
     trace: 'on-first-retry',
 
     // Always run headless in the dev container
-    headless: true
+    headless: true,
+
+    // Viewport settings that ensure consistent testing
+    viewport: { width: 1280, height: 720 }
   },
 
   // Browser configurations
