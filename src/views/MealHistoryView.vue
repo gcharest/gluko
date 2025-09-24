@@ -1,11 +1,12 @@
 <template>
   <div class="container-fluid">
+    <h1>{{ $t('navigation.history') }}</h1>
     <div class="row">
       <!-- Filters Sidebar -->
       <div class="col-md-3">
         <div class="card">
           <div class="card-header">
-            <h5 class="card-title mb-0">{{ $t('views.mealHistory.filters.title') }}</h5>
+            <h2 class="h5 card-title mb-0">{{ $t('views.mealHistory.filters.title') }}</h2>
           </div>
           <div class="card-body">
             <!-- Date Range Filter -->
@@ -29,12 +30,8 @@
             <!-- Search Filter -->
             <div class="mb-3">
               <label class="form-label">{{ $t('views.mealHistory.filters.search') }}</label>
-              <input
-                v-model="searchQuery"
-                type="search"
-                class="form-control"
-                :placeholder="$t('views.mealHistory.filters.searchPlaceholder')"
-              />
+              <input v-model="searchQuery" type="search" class="form-control"
+                :placeholder="$t('views.mealHistory.filters.searchPlaceholder')" />
             </div>
           </div>
         </div>
@@ -43,7 +40,7 @@
       <!-- Main Content -->
       <div class="col-md-9">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h2 class="h4 mb-0">{{ $t('views.mealHistory.title') }}</h2>
+          <h2 class="h4 mb-0">{{ $t('views.mealHistory.results.title') }}</h2>
           <div class="d-flex gap-2">
             <!-- Export/Import buttons -->
             <button type="button" class="btn btn-outline-secondary" @click="handleExport">
@@ -63,8 +60,9 @@
             {{ $t('views.mealHistory.results.count', { count: totalResults }) }}
           </p>
           <div class="d-flex align-items-center gap-2">
-            <label class="form-label mb-0">{{ $t('views.mealHistory.results.perPage') }}</label>
-            <select v-model="pageSize" class="form-select" style="width: auto">
+            <label for="page-size-select" class="form-label mb-0">{{ $t('views.mealHistory.results.perPage') }}</label>
+            <select id="page-size-select" v-model="pageSize" class="form-select" style="width: auto"
+              :aria-label="$t('views.mealHistory.results.perPage')">
               <option v-for="size in pageSizeOptions" :key="size" :value="size">
                 {{ size }}
               </option>
@@ -91,14 +89,8 @@
 
         <!-- Results list -->
         <div v-else class="meal-history-list">
-          <MealHistoryCard
-            v-for="meal in paginatedMeals"
-            :key="meal.id"
-            :meal="meal"
-            @edit="handleEditMeal"
-            @duplicate="handleDuplicateMeal"
-            @delete="handleDeleteMeal"
-          />
+          <MealHistoryCard v-for="meal in paginatedMeals" :key="meal.id" :meal="meal" @edit="handleEditMeal"
+            @duplicate="handleDuplicateMeal" @delete="handleDeleteMeal" />
         </div>
 
         <!-- Pagination -->
@@ -106,40 +98,23 @@
           <ul class="pagination justify-content-center">
             <!-- Previous page -->
             <li :class="['page-item', { disabled: currentPage === 1 }]">
-              <button
-                type="button"
-                class="page-link"
-                :aria-label="$t('common.pagination.previous')"
-                @click="currentPage--"
-              >
+              <button type="button" class="page-link" :aria-label="$t('common.pagination.previous')"
+                @click="currentPage--">
                 <i class="bi bi-chevron-left"></i>
               </button>
             </li>
 
             <!-- Page numbers -->
-            <li
-              v-for="page in displayedPages"
-              :key="page"
-              :class="['page-item', { active: page === currentPage }]"
-            >
-              <button
-                type="button"
-                class="page-link"
-                :disabled="typeof page === 'string'"
-                @click="typeof page === 'number' ? (currentPage = page) : undefined"
-              >
+            <li v-for="page in displayedPages" :key="page" :class="['page-item', { active: page === currentPage }]">
+              <button type="button" class="page-link" :disabled="typeof page === 'string'"
+                @click="typeof page === 'number' ? (currentPage = page) : undefined">
                 {{ page }}
               </button>
             </li>
 
             <!-- Next page -->
             <li :class="['page-item', { disabled: currentPage === totalPages }]">
-              <button
-                type="button"
-                class="page-link"
-                :aria-label="$t('common.pagination.next')"
-                @click="currentPage++"
-              >
+              <button type="button" class="page-link" :aria-label="$t('common.pagination.next')" @click="currentPage++">
                 <i class="bi bi-chevron-right"></i>
               </button>
             </li>

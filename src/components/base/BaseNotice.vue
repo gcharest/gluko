@@ -13,7 +13,7 @@ const eventHandlers = {
     // Move focus before animation starts
     if (previousActiveElement && 'focus' in previousActiveElement) {
       try {
-        ;(previousActiveElement as HTMLElement).focus()
+        ; (previousActiveElement as HTMLElement).focus()
       } catch (e) {
         console.warn('Failed to focus on previous element:', e)
       }
@@ -126,21 +126,15 @@ function closeModal() {
 </script>
 
 <template>
-  <button type="button" class="btn btn-link nav-link" @click="openModal">
-    <i class="bi bi-exclamation-circle"></i>
-    <span class="d-lg-none ms-2">
-      {{ $t('notices.experimental.display') }}
-    </span>
+  <button type="button" class="btn btn-link nav-link" :aria-label="$t('notices.experimental.display')"
+    @click="openModal">
+    <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+    <span class="visually-hidden">{{ $t('notices.experimental.display') }}</span>
+    <span class="d-lg-none ms-2">{{ $t('notices.experimental.display') }}</span>
   </button>
 
   <Teleport to="body">
-    <div
-      ref="modalRef"
-      class="modal modal-lg fade"
-      tabindex="-1"
-      aria-labelledby="experimentLabel"
-      :inert="!showModal"
-    >
+    <div ref="modalRef" class="modal modal-lg fade" tabindex="-1" aria-labelledby="experimentLabel" :inert="!showModal">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">

@@ -37,6 +37,8 @@
   "navigation": {
     "skipToContent": "Skip to content",
     "mainNavigation": "Main navigation",
+    "toggleNavigation": "Toggle navigation",
+    "sourceCode": "View source code on GitHub",
     "home": "Gluko",
     "history": "Meal History",
     "carbFactor": "Carb Factor",
@@ -180,6 +182,7 @@
         "import": "Import"
       },
       "results": {
+        "title": "Meal List",
         "count": "{count} meals found",
         "perPage": "Results per page",
         "loading": "Loading meals..."

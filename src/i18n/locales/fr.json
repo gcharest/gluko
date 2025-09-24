@@ -37,6 +37,8 @@
   "navigation": {
     "skipToContent": "Aller au contenu",
     "mainNavigation": "Navigation principale",
+    "toggleNavigation": "Basculer la navigation",
+    "sourceCode": "Voir le code source sur GitHub",
     "home": "Gluko",
     "history": "Historique des repas",
     "carbFactor": "Facteur glucidique",
@@ -180,6 +182,7 @@
         "import": "Importer"
       },
       "results": {
+        "title": "Liste des repas",
         "count": "{count} repas trouvés",
         "perPage": "Résultats par page",
         "loading": "Chargement des repas..."

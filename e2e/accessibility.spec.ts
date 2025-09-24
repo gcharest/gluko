@@ -5,7 +5,8 @@ test.describe('Accessibility Tests', () => {
   test('Home page should not have any automatically detectable accessibility issues', async ({
     page
   }) => {
-    await page.goto('/')
+    await page.goto('/gluko/', { waitUntil: 'networkidle' })
+    await page.waitForSelector('main', { state: 'visible' })
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
   })
@@ -13,7 +14,10 @@ test.describe('Accessibility Tests', () => {
   test('Calculator page should not have any automatically detectable accessibility issues', async ({
     page
   }) => {
-    await page.goto('/calculator')
+    // Use the configured base URL and wait for navigation
+    await page.goto('/gluko/calculator', { waitUntil: 'networkidle' })
+    // Add a small wait to ensure dynamic content is loaded
+    await page.waitForSelector('main', { state: 'visible' })
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
   })
@@ -21,7 +25,8 @@ test.describe('Accessibility Tests', () => {
   test('Carb Factor page should not have any automatically detectable accessibility issues', async ({
     page
   }) => {
-    await page.goto('/carb-factor')
+    await page.goto('/gluko/carb-factor', { waitUntil: 'networkidle' })
+    await page.waitForSelector('main', { state: 'visible' })
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
   })
@@ -29,7 +34,8 @@ test.describe('Accessibility Tests', () => {
   test('History page should not have any automatically detectable accessibility issues', async ({
     page
   }) => {
-    await page.goto('/history')
+    await page.goto('/gluko/history', { waitUntil: 'networkidle' })
+    await page.waitForSelector('main', { state: 'visible' })
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
   })
@@ -37,7 +43,8 @@ test.describe('Accessibility Tests', () => {
   test('About page should not have any automatically detectable accessibility issues', async ({
     page
   }) => {
-    await page.goto('/about')
+    await page.goto('/gluko/about', { waitUntil: 'networkidle' })
+    await page.waitForSelector('main', { state: 'visible' })
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
     expect(accessibilityScanResults.violations).toEqual([])
   })
@@ -46,7 +53,10 @@ test.describe('Accessibility Tests', () => {
 // Extended tests for common interactive components
 test.describe('Component-specific Accessibility Tests', () => {
   test('Navigation menu should be keyboard accessible', async ({ page }) => {
-    await page.goto('/')
+    // Set mobile viewport to ensure navigation button is visible
+    await page.setViewportSize({ width: 390, height: 844 }) // iPhone 12 dimensions
+    await page.goto('/gluko/', { waitUntil: 'networkidle' })
+    await page.waitForLoadState('domcontentloaded')
 
     // Check if the skip link is the first focusable element
     await page.keyboard.press('Tab')
@@ -54,16 +64,31 @@ test.describe('Component-specific Accessibility Tests', () => {
     expect(focusedElement).toBe('skip-to-content')
 
     // Check if the main navigation is accessible
-    const nav = await page.getByRole('navigation', { name: 'Main navigation' })
+    const nav = await page.getByRole('navigation', { name: /Main navigation|Navigation principale/ })
     expect(await nav.isVisible()).toBeTruthy()
 
     // Check for ARIA labels in navigation
-    const menuButton = await page.getByRole('button', { name: 'Toggle navigation' })
-    expect(await menuButton.getAttribute('aria-expanded')).toBe('false')
+    await page.waitForSelector('button.navbar-toggler', { state: 'visible' })
+    const menuButton = await page.getByRole('button', { name: /Toggle navigation|Basculer la navigation/ })
+    await expect(menuButton).toBeVisible()
+
+    // Test initial state
+    await expect(menuButton).toHaveAttribute('aria-expanded', 'false')
+
+    // Test toggling the menu
+    await menuButton.click()
+
+    // Wait for Bootstrap's show event to complete
+    await page.waitForFunction(() => {
+      const button = document.querySelector('[data-bs-toggle="offcanvas"]')
+      return button?.getAttribute('aria-expanded') === 'true'
+    }, { timeout: 2000 })
+
+    await expect(menuButton).toHaveAttribute('aria-expanded', 'true')
   })
 
   test('Language toggler should be properly labeled', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/gluko/', { waitUntil: 'networkidle' })
     const languageToggler = await page.getByRole('button', {
       name: /Change Language|Changer la langue/
     })
@@ -71,13 +96,13 @@ test.describe('Component-specific Accessibility Tests', () => {
   })
 
   test('Theme toggler should be properly labeled', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/gluko/', { waitUntil: 'networkidle' })
     const themeToggler = await page.getByRole('button', { name: /Toggle theme|Changer le thème/ })
     expect(await themeToggler.isVisible()).toBeTruthy()
   })
 
   test('Calculator form controls should be properly labeled', async ({ page }) => {
-    await page.goto('/calculator')
+    await page.goto('/gluko/calculator', { waitUntil: 'networkidle' })
 
     // Check if nutrient inputs are properly labeled
     const nutrientInputs = await page.getByRole('textbox')
