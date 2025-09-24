@@ -1,0 +1,55 @@
+name: Accessibility Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Install wait-on
+        run: npm install -g wait-on
+
+      - name: Start preview server and run tests
+        run: |
+          # Start the preview server
+          npm run preview &
+          SERVER_PID=$!
+
+          # Wait for the server to be ready (timeout after 30s)
+          wait-on -t 30000 http://localhost:5173 || {
+            echo "Server failed to start"
+            kill $SERVER_PID
+            exit 1
+          }
+
+          # Run the tests
+          npx playwright test e2e/accessibility.spec.ts
+          TEST_EXIT_CODE=$?
+
+          # Clean up the server
+          kill $SERVER_PID
+
+          # Exit with the test exit code
+          exit $TEST_EXIT_CODE
