@@ -11,27 +11,28 @@
           <div class="card-body">
             <!-- Date Range Filter -->
             <div class="mb-3">
-              <label class="form-label">{{ $t('views.mealHistory.filters.dateRange') }}</label>
+              <h3 class="h5">{{ $t('views.mealHistory.filters.dateRange') }}</h3>
               <DateRangeFilter v-model="dateRange" />
             </div>
 
             <!-- Subject Filter -->
             <div class="mb-3">
-              <label class="form-label">{{ $t('views.mealHistory.filters.subject') }}</label>
+              <h3 class="h5">{{ $t('views.mealHistory.filters.subject') }}</h3>
               <SubjectSelector v-model="selectedSubjectId" @add="handleAddSubject" />
             </div>
 
             <!-- Tags Filter -->
             <div class="mb-3">
-              <label class="form-label">{{ $t('views.mealHistory.filters.tags') }}</label>
+              <h3 class="h5">{{ $t('views.mealHistory.filters.tags') }}</h3>
               <!-- TODO: Add tags selector component -->
             </div>
 
             <!-- Search Filter -->
             <div class="mb-3">
-              <label class="form-label">{{ $t('views.mealHistory.filters.search') }}</label>
+              <label for="searchInput" class="form-label">{{ $t('views.mealHistory.filters.search') }}</label>
               <input
                 v-model="searchQuery"
+                id="searchInput"
                 type="search"
                 class="form-control"
                 :placeholder="$t('views.mealHistory.filters.searchPlaceholder')"
@@ -47,11 +48,11 @@
           <h2 class="h4 mb-0">{{ $t('views.mealHistory.results.title') }}</h2>
           <div class="d-flex gap-2">
             <!-- Export/Import buttons -->
-            <button type="button" class="btn btn-outline-secondary" @click="handleExport">
+            <button type="button" class="btn btn-secondary" @click="handleExport">
               <i class="bi bi-download me-1"></i>
               {{ $t('views.mealHistory.actions.export') }}
             </button>
-            <button type="button" class="btn btn-outline-secondary" @click="handleImport">
+            <button type="button" class="btn btn-secondary" @click="handleImport">
               <i class="bi bi-upload me-1"></i>
               {{ $t('views.mealHistory.actions.import') }}
             </button>

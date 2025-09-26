@@ -90,7 +90,7 @@ const handleSelect = (item: any) => {
       <button
         v-if="!autoSearch"
         id="button-search-nutrient"
-        class="btn btn-outline-secondary"
+        class="btn btn-primary"
         type="button"
         :aria-label="searchButtonLabel || $t('common.actions.search')"
         @click="triggerSearch"

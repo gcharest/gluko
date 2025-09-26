@@ -55,7 +55,7 @@
 
     <!-- Add subject button -->
     <div class="mt-2">
-      <button type="button" class="btn btn-outline-primary btn-sm w-100" @click="handleAddSubject">
+      <button type="button" class="btn btn-primary btn-sm w-100" @click="handleAddSubject">
         <i class="bi bi-plus-circle me-1"></i>
         {{ $t('components.subjectSelector.addSubject') }}
       </button>

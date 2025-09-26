@@ -4,9 +4,9 @@
       <!-- Header with timestamp and actions -->
       <div class="d-flex justify-content-between align-items-start mb-2">
         <div>
-          <h5 class="card-title mb-1">
+          <h2 class="card-title mb-1">
             {{ formattedDate }}
-          </h5>
+          </h2>
           <p v-if="subjectName" class="text-muted small mb-0">
             {{ subjectName }}
           </p>

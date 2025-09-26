@@ -103,6 +103,7 @@ onUnmounted(() => {
   margin-bottom: 12px;
   font-size: 1rem;
   line-height: 1.5;
+  color: #000000;
 }
 
 .pwa-toast-actions {

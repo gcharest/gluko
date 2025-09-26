@@ -70,7 +70,6 @@ onMounted(() => {
         ref="navbarRef"
         class="offcanvas-lg offcanvas-end flex-grow-1"
         tabindex="-1"
-        aria-labelledby="mainNavbarOffCanvas"
         data-bs-scroll="true"
       >
         <div class="offcanvas-header px-4 pb-0">

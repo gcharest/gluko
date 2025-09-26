@@ -113,9 +113,9 @@ function handleKeydown(event: KeyboardEvent) {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="confirmation-modal-title" class="modal-title">
+            <h2 id="confirmation-modal-title" class="modal-title">
               {{ title }}
-            </h5>
+            </h2>
             <button
               type="button"
               class="btn-close"
