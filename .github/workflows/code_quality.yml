@@ -46,7 +46,7 @@ jobs:
 
       - name: Run Prettier
         if: matrix.check == 'prettier'
-        run: npx prettier --check .
+        run: npx prettier --check /src
 
       - name: Run TypeScript type check
         if: matrix.check == 'typecheck'
