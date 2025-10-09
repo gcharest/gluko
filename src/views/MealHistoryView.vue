@@ -29,7 +29,9 @@
 
             <!-- Search Filter -->
             <div class="mb-3">
-              <label for="searchInput" class="form-label">{{ $t('views.mealHistory.filters.search') }}</label>
+              <label for="searchInput" class="form-label">{{
+                $t('views.mealHistory.filters.search')
+              }}</label>
               <input
                 v-model="searchQuery"
                 id="searchInput"

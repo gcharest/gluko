@@ -206,7 +206,9 @@ function handleNutrientSelect(result: SearchResult) {
             <form class="container-fluid">
               <!-- Search Section -->
               <div class="mb-4">
-                <label for="searchInput" class="form-label">{{ $t('components.nutrientModal.search.label') }}</label>
+                <label for="searchInput" class="form-label">{{
+                  $t('components.nutrientModal.search.label')
+                }}</label>
                 <NutrientSearch
                   :auto-search="false"
                   :clear-after-select="true"
