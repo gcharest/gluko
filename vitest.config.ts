@@ -4,6 +4,10 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
+  define: {
+    __APP_VERSION__: JSON.stringify('test-version'),
+    __BUILD_DATE__: JSON.stringify('2025-01-01'),
+  },
   test: {
     // enable jest-like global test APIs
     globals: true,

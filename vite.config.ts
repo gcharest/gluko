@@ -9,6 +9,10 @@ import { VitePWA } from 'vite-plugin-pwa'
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/gluko/',
+  define: {
+    __APP_VERSION__: JSON.stringify(process.env.VERSION || 'dev'),
+    __BUILD_DATE__: JSON.stringify(process.env.BUILD_DATE || new Date().toISOString()),
+  },
   plugins: [
     vue(),
     VueI18nPlugin({
