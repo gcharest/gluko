@@ -91,7 +91,6 @@ const handleModifyKeydown = (event: KeyboardEvent) => {
               <button
                 type="button"
                 class="btn btn-secondary w-100 py-1 py-md-2"
-                :disabled="mealStore.nutrientCount <= 1"
                 :aria-label="
                   $t('components.nutrientList.item.removeButton', {
                     name: props.nutrient.name || $t('common.labels.nutrient')
