@@ -33,8 +33,8 @@
                 $t('views.mealHistory.filters.search')
               }}</label>
               <input
-                v-model="searchQuery"
                 id="searchInput"
+                v-model="searchQuery"
                 type="search"
                 class="form-control"
                 :placeholder="$t('views.mealHistory.filters.searchPlaceholder')"
