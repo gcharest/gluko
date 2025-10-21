@@ -16,8 +16,40 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'prompt',
+      includeAssets: ['favicon.ico', 'logo.svg'],
+      manifest: {
+        name: 'Gluko - Diabetes Carb Calculator',
+        short_name: 'Gluko',
+        description: 'Diabetes meal planning and carbohydrate counting application',
+        theme_color: '#0d6efd',
+        background_color: '#ffffff',
+        display: 'standalone',
+        orientation: 'portrait',
+        scope: '/gluko/',
+        start_url: '/gluko/',
+        icons: [
+          {
+            src: 'logo.svg',
+            sizes: 'any',
+            type: 'image/svg+xml'
+          }
+        ]
+      },
       workbox: {
-        maximumFileSizeToCacheInBytes: 3000000 // 3MB limit instead of default 2MB
+        maximumFileSizeToCacheInBytes: 10000000, // 10MB to handle the JSON files
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              }
+            }
+          }
+        ]
       }
     })
   ],

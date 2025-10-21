@@ -88,7 +88,15 @@ const currentNutrient = ref<Nutrient>({
 })
 
 const availableMeasures = ref<
-  Array<{ measureId: number; measureName: string; measureNameF: string; unit: string }>
+  Array<{
+    measureId: number
+    measureName: string
+    measureNameF: string
+    unit: string
+    qty: number
+    carbs: number
+    showCarbs: boolean
+  }>
 >([])
 const selectedFood = ref<SearchResult | null>(null)
 
@@ -194,13 +202,45 @@ function handleNutrientSelect(result: SearchResult) {
     result.item.foodDescriptionF.toLowerCase().includes('sauce')
 
   // Filter and set available measures based on food type
+  // Calculate carb amount for each measure
+  const carbFactor =
+    result.item.fctGluc !== null ? result.item.fctGluc : result.item.nutrients['205']?.value / 100
   const allMeasures = result.item.measures.map((measure) => {
     const unit = measure.measureName.toLowerCase().includes('ml') ? 'ml' : 'g'
+    // Extract numeric value from measure name and estimate realistic quantities
+    let qty = 0
+    const measureName = measure.measureName.toLowerCase()
+
+    // Extract numbers from measure names
+    const match = measureName.match(/(\d+[\.,]?\d*)\s*(g|ml)/i)
+    if (match) {
+      qty = parseFloat(match[1].replace(',', '.'))
+    } else if (measureName.includes('medium')) {
+      qty = 150 // typical medium apple ~150g
+    } else if (measureName.includes('large')) {
+      qty = 200 // typical large apple ~200g
+    } else if (measureName.includes('small')) {
+      qty = 100 // typical small apple ~100g
+    } else if (measureName.includes('1 ')) {
+      qty = 150 // default to medium size
+    } else {
+      qty = 100 // fallback
+    }
+
+    const carbs = +(qty * carbFactor).toFixed(1)
+
+    // Check if measure name already contains carb information
+    const measureText = locale.value === 'fr' ? measure.measureNameF : measure.measureName
+    const hasCarbs = /carb|glucid|CHO/i.test(measureText)
+
     return {
       measureId: measure.measureId,
       measureName: measure.measureName,
       measureNameF: measure.measureNameF,
-      unit: unit
+      unit: unit,
+      qty: qty,
+      carbs: carbs,
+      showCarbs: !hasCarbs
     }
   })
 
@@ -228,6 +268,9 @@ function handleNutrientSelect(result: SearchResult) {
     currentNutrient.value.measureName = defaultMeasure.measureName
     currentNutrient.value.measureNameF = defaultMeasure.measureNameF
     currentNutrient.value.unit = defaultMeasure.unit
+    // Set quantity to 1 and factor to the measure's carb content
+    currentNutrient.value.quantity = 1
+    currentNutrient.value.factor = defaultMeasure.carbs
   }
 
   // Focus quantity field after selection
@@ -243,6 +286,10 @@ function handleMeasureChange() {
     currentNutrient.value.measureName = selectedMeasure.measureName
     currentNutrient.value.measureNameF = selectedMeasure.measureNameF
     currentNutrient.value.unit = selectedMeasure.unit
+    // Set quantity to 1 when a specific measure is selected (the measure defines the amount)
+    currentNutrient.value.quantity = 1
+    // Update the factor to match the measure's quantity
+    currentNutrient.value.factor = selectedMeasure.carbs
   }
 }
 </script>
@@ -318,14 +365,19 @@ function handleMeasureChange() {
                       :key="measure.measureId"
                       :value="measure.measureId"
                     >
-                      {{ locale === 'fr' ? measure.measureNameF : measure.measureName }}
+                      {{
+                        (locale === 'fr' ? measure.measureNameF : measure.measureName) +
+                        (measure.showCarbs
+                          ? ' (' + $t('common.nutrients.carbs') + ': ' + measure.carbs + 'g)'
+                          : '')
+                      }}
                     </option>
                   </select>
                   <label class="ms-2" for="nutrient-measure">{{
                     $t('components.nutrientModal.fields.measure')
                   }}</label>
                 </div>
-                <div class="col col-lg-3 form-floating">
+                <div v-if="!currentNutrient.measureId" class="col col-lg-3 form-floating">
                   <input
                     id="nutrient-quantity"
                     v-model.number="currentNutrient.quantity"

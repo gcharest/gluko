@@ -33,28 +33,26 @@ function modifyCurrentNutrient(id: string) {
 
 function handleModalClose() {
   isModalOpen.value = false
-  if (!currentNutrient.value) return
-
-  const nutrientData = props.nutrients.find((item) => item.id === currentNutrient.value?.id)
-  if (nutrientData) {
-    currentNutrient.value = nutrientData
-  }
+  // Clear currentNutrient to ensure fresh data on next open
+  currentNutrient.value = null
 }
 </script>
 
 <template>
-  <div class="nutrient-list">
-    <!-- List of nutrients -->
-    <NutrientListItem
-      v-for="(nutrient, index) in nutrients"
-      :key="nutrient.id"
-      :nutrient="nutrient"
-      :index="index"
-      @modify-current-nutrient="modifyCurrentNutrient"
-    />
+  <div class="nutrient-list d-flex flex-column h-100">
+    <!-- Scrollable list of nutrients -->
+    <div class="nutrient-items flex-grow-1 overflow-auto">
+      <NutrientListItem
+        v-for="(nutrient, index) in nutrients"
+        :key="nutrient.id"
+        :nutrient="nutrient"
+        :index="index"
+        @modify-current-nutrient="modifyCurrentNutrient"
+      />
+    </div>
 
-    <!-- Add/Reset controls -->
-    <form class="position-sticky bottom-0">
+    <!-- Fixed controls at bottom -->
+    <div class="nutrient-controls flex-shrink-0 mt-3">
       <div class="card border-2">
         <CalculatorSummary
           :total-carbs="nutrients.reduce((sum, n) => sum + n.quantity * n.factor, 0)"
@@ -62,7 +60,7 @@ function handleModalClose() {
         />
         <CalculatorControls @add="handleAdd" @reset="emit('reset')" />
       </div>
-    </form>
+    </div>
 
     <!-- Nutrient editing modal -->
     <NutrientModal
@@ -75,3 +73,32 @@ function handleModalClose() {
     />
   </div>
 </template>
+
+<style scoped>
+.nutrient-list {
+  height: 100%;
+  max-height: calc(100vh - 200px); /* Reserve space for header and save button */
+}
+
+.nutrient-items {
+  overflow-y: auto;
+  padding-right: 8px; /* Space for scrollbar */
+}
+
+.nutrient-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nutrient-items::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nutrient-items::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.nutrient-items::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+</style>

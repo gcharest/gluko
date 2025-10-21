@@ -46,21 +46,26 @@ async function handleSaveToHistory() {
 </script>
 
 <template>
-  <div class="d-flex flex-column gap-3">
-    <NutrientList :nutrients="store.currentNutrients" @add="handleAdd" @reset="handleReset" />
+  <div class="d-flex flex-column gap-3 h-100">
+    <div class="flex-grow-1 d-flex flex-column" style="min-height: 0">
+      <NutrientList :nutrients="store.currentNutrients" @add="handleAdd" @reset="handleReset" />
+    </div>
 
     <!-- Save to history button -->
-    <button
-      type="button"
-      class="btn btn-primary"
-      :disabled="
-        !store.currentNutrients.length || store.currentNutrients.every((n: Nutrient) => !n.quantity)
-      "
-      @click="handleSaveToHistory"
-    >
-      <i class="bi bi-journal-plus me-1"></i>
-      {{ $t('components.mealCalculator.actions.saveToHistory') }}
-    </button>
+    <div class="flex-shrink-0">
+      <button
+        type="button"
+        class="btn btn-primary w-100"
+        :disabled="
+          !store.currentNutrients.length ||
+          store.currentNutrients.every((n: Nutrient) => !n.quantity)
+        "
+        @click="handleSaveToHistory"
+      >
+        <i class="bi bi-journal-plus me-1"></i>
+        {{ $t('components.mealCalculator.actions.saveToHistory') }}
+      </button>
+    </div>
   </div>
 
   <ConfirmationModal

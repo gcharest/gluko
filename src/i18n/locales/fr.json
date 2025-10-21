@@ -29,6 +29,9 @@
       "grams": "g",
       "milliliters": "ml"
     },
+    "nutrients": {
+      "carbs": "Glucides"
+    },
     "status": {
       "experimental": "Expérimental",
       "offline": "L'application est maintenant prête à être utilisée hors ligne.",

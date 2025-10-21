@@ -29,6 +29,9 @@
       "grams": "g",
       "milliliters": "ml"
     },
+    "nutrients": {
+      "carbs": "Carbs"
+    },
     "status": {
       "experimental": "Experimental",
       "offline": "App ready to work offline",

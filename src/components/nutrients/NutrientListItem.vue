@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { PropType } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useMealStore, type Nutrient } from '@/stores/meal'
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue'
 
+const { locale } = useI18n()
 const mealStore = useMealStore()
 const props = defineProps({
   nutrient: { type: Object as PropType<Nutrient>, required: true },
@@ -45,7 +47,14 @@ const handleModifyKeydown = (event: KeyboardEvent) => {
             {{ $t('common.labels.quantity') }}:
           </p>
           <p class="mb-1 mb-md-3" aria-labelledby="quantity-label-{{props.nutrient.id}}">
-            {{ props.nutrient.quantity }} {{ props.nutrient.unit || $t('common.units.grams') }}
+            <span v-if="props.nutrient.measureId">
+              {{ props.nutrient.quantity }} × ({{
+                locale === 'fr' ? props.nutrient.measureNameF : props.nutrient.measureName
+              }})
+            </span>
+            <span v-else>
+              {{ props.nutrient.quantity }} {{ props.nutrient.unit || $t('common.units.grams') }}
+            </span>
           </p>
         </div>
         <div class="col-6 col-lg-3 text-center mb-1 mb-lg-0 mt-md-3">
