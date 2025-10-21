@@ -23,6 +23,7 @@
     "@vueuse/core": "^11.3.0",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.11.3",
+    "csv-parse": "^6.1.0",
     "fuse.js": "^7.0.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.21",

@@ -26,7 +26,8 @@
       "loading": "Loading..."
     },
     "units": {
-      "grams": "g"
+      "grams": "g",
+      "milliliters": "ml"
     },
     "status": {
       "experimental": "Experimental",
@@ -92,7 +93,8 @@
       "fields": {
         "name": "Name",
         "quantity": "Quantity",
-        "factor": "Factor"
+        "factor": "Factor",
+        "measure": "Unit/Measure"
       },
       "actions": {
         "save": "Save Changes",

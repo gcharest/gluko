@@ -9,6 +9,10 @@ export interface Nutrient {
   name: string
   quantity: number
   factor: number
+  measureId?: number
+  measureName?: string
+  measureNameF?: string
+  unit?: string
 }
 
 export const useMealStore = defineStore('mealStore', () => {

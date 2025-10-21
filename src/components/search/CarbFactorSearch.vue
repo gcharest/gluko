@@ -11,8 +11,8 @@ const searchResults = computed(() => {
   return store.searchNutrients(search.value)
 })
 
-const cnfLink = computed(() => (foodID: number, locale: string) => {
-  return `https://food-nutrition.canada.ca/cnf-fce/serving-portion?id=${foodID}&lang=${
+const cnfLink = computed(() => (foodId: number, locale: string) => {
+  return `https://food-nutrition.canada.ca/cnf-fce/serving-portion?id=${foodId}&lang=${
     locale === 'fr' ? 'fre' : 'eng'
   }`
 })
@@ -69,10 +69,10 @@ const handleKeydown = (event: KeyboardEvent) => {
             <div class="row">
               <div class="col-8">
                 <p>
-                  <span v-if="$i18n.locale === 'fr'">{{ result.item.FoodDescriptionF }}</span>
-                  <span v-else>{{ result.item.FoodDescription }}</span>
+                  <span v-if="$i18n.locale === 'fr'">{{ result.item.foodDescriptionF }}</span>
+                  <span v-else>{{ result.item.foodDescription }}</span>
                   <a
-                    :href="cnfLink(result.item.FoodCode, $i18n.locale)"
+                    :href="cnfLink(result.item.foodCode, $i18n.locale)"
                     target="_blank"
                     class="link-primary small"
                   >
@@ -83,9 +83,9 @@ const handleKeydown = (event: KeyboardEvent) => {
               <div class="col-4">
                 <p class="text-center">
                   {{
-                    result.item.FctGluc !== null
-                      ? result.item.FctGluc.toFixed(2)
-                      : (result.item['205'] / 100).toFixed(2)
+                    result.item.fctGluc !== null
+                      ? result.item.fctGluc.toFixed(2)
+                      : (result.item.nutrients['205']?.value / 100).toFixed(2)
                   }}
                 </p>
               </div>

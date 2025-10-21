@@ -45,7 +45,7 @@ const handleModifyKeydown = (event: KeyboardEvent) => {
             {{ $t('common.labels.quantity') }}:
           </p>
           <p class="mb-1 mb-md-3" aria-labelledby="quantity-label-{{props.nutrient.id}}">
-            {{ props.nutrient.quantity }} {{ $t('common.units.grams') }}
+            {{ props.nutrient.quantity }} {{ props.nutrient.unit || $t('common.units.grams') }}
           </p>
         </div>
         <div class="col-6 col-lg-3 text-center mb-1 mb-lg-0 mt-md-3">

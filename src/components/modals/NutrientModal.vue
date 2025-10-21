@@ -80,8 +80,17 @@ const currentNutrient = ref<Nutrient>({
   id: crypto.randomUUID(),
   name: '',
   quantity: 0,
-  factor: 0
+  factor: 0,
+  measureId: undefined,
+  measureName: '',
+  measureNameF: '',
+  unit: 'g'
 })
+
+const availableMeasures = ref<
+  Array<{ measureId: number; measureName: string; measureNameF: string; unit: string }>
+>([])
+const selectedFood = ref<SearchResult | null>(null)
 
 // Initialize Bootstrap modal and event handlers
 onMounted(() => {
@@ -170,13 +179,71 @@ function handleInputEnter(event: KeyboardEvent) {
 }
 
 function handleNutrientSelect(result: SearchResult) {
-  currentNutrient.value.name = result.item[`FoodDescription${locale.value === 'fr' ? 'F' : ''}`]
+  selectedFood.value = result
+  currentNutrient.value.name = result.item[`foodDescription${locale.value === 'fr' ? 'F' : ''}`]
   currentNutrient.value.factor =
-    result.item.FctGluc !== null ? result.item.FctGluc : result.item['205'] / 100
+    result.item.fctGluc !== null ? result.item.fctGluc : result.item.nutrients['205']?.value / 100
+
+  // Detect if it's a liquid food
+  const isLiquid =
+    result.item.foodDescriptionF.toLowerCase().includes('liquide') ||
+    result.item.foodDescriptionF.toLowerCase().includes('lait') ||
+    result.item.foodDescriptionF.toLowerCase().includes('jus') ||
+    result.item.foodDescriptionF.toLowerCase().includes('boisson') ||
+    result.item.foodDescriptionF.toLowerCase().includes('sirop') ||
+    result.item.foodDescriptionF.toLowerCase().includes('sauce')
+
+  // Filter and set available measures based on food type
+  const allMeasures = result.item.measures.map((measure) => {
+    const unit = measure.measureName.toLowerCase().includes('ml') ? 'ml' : 'g'
+    return {
+      measureId: measure.measureId,
+      measureName: measure.measureName,
+      measureNameF: measure.measureNameF,
+      unit: unit
+    }
+  })
+
+  // Filter measures based on food type
+  if (isLiquid) {
+    // For liquids, show only ml measures
+    availableMeasures.value = allMeasures.filter((m) => m.unit === 'ml')
+    // If no ml measures available, keep the first measure as fallback
+    if (availableMeasures.value.length === 0 && allMeasures.length > 0) {
+      availableMeasures.value = [allMeasures[0]]
+    }
+  } else {
+    // For solids, show only gram measures (exclude ml measures)
+    availableMeasures.value = allMeasures.filter((m) => m.unit === 'g')
+    // If no gram measures available, keep the first measure as fallback
+    if (availableMeasures.value.length === 0 && allMeasures.length > 0) {
+      availableMeasures.value = [allMeasures[0]]
+    }
+  }
+
+  // Set default measure (first available after filtering)
+  if (availableMeasures.value.length > 0) {
+    const defaultMeasure = availableMeasures.value[0]
+    currentNutrient.value.measureId = defaultMeasure.measureId
+    currentNutrient.value.measureName = defaultMeasure.measureName
+    currentNutrient.value.measureNameF = defaultMeasure.measureNameF
+    currentNutrient.value.unit = defaultMeasure.unit
+  }
 
   // Focus quantity field after selection
   const quantityInput = document.getElementById('nutrient-quantity') as HTMLInputElement | null
   quantityInput?.focus()
+}
+
+function handleMeasureChange() {
+  const selectedMeasure = availableMeasures.value.find(
+    (m) => m.measureId === currentNutrient.value.measureId
+  )
+  if (selectedMeasure) {
+    currentNutrient.value.measureName = selectedMeasure.measureName
+    currentNutrient.value.measureNameF = selectedMeasure.measureNameF
+    currentNutrient.value.unit = selectedMeasure.unit
+  }
 }
 </script>
 
@@ -238,6 +305,26 @@ function handleNutrientSelect(result: SearchResult) {
                     $t('components.nutrientModal.fields.name')
                   }}</label>
                 </div>
+                <div v-if="availableMeasures.length > 0" class="col-md-12 col-lg-6 form-floating">
+                  <select
+                    id="nutrient-measure"
+                    v-model="currentNutrient.measureId"
+                    class="form-select"
+                    :aria-label="$t('components.nutrientModal.fields.measure')"
+                    @change="handleMeasureChange"
+                  >
+                    <option
+                      v-for="measure in availableMeasures"
+                      :key="measure.measureId"
+                      :value="measure.measureId"
+                    >
+                      {{ locale === 'fr' ? measure.measureNameF : measure.measureName }}
+                    </option>
+                  </select>
+                  <label class="ms-2" for="nutrient-measure">{{
+                    $t('components.nutrientModal.fields.measure')
+                  }}</label>
+                </div>
                 <div class="col col-lg-3 form-floating">
                   <input
                     id="nutrient-quantity"
@@ -252,7 +339,9 @@ function handleNutrientSelect(result: SearchResult) {
                     @keydown.enter.prevent="handleInputEnter"
                   />
                   <label class="ms-2" for="nutrient-quantity">
-                    {{ $t('components.nutrientModal.fields.quantity') }}
+                    {{ $t('components.nutrientModal.fields.quantity') }} ({{
+                      currentNutrient.unit || 'g'
+                    }})
                   </label>
                 </div>
                 <div class="col col-lg-3 form-floating">

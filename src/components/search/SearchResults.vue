@@ -13,8 +13,8 @@ const { results, showSourceLinks, compact } = toRefs(props)
 
 const emit = defineEmits(['select'])
 
-const cnfLink = computed(() => (foodID: number, locale: string) => {
-  return `https://food-nutrition.canada.ca/cnf-fce/serving-portion?id=${foodID}&lang=${locale === 'fr' ? 'fre' : 'eng'}`
+const cnfLink = computed(() => (foodId: number, locale: string) => {
+  return `https://food-nutrition.canada.ca/cnf-fce/serving-portion?id=${foodId}&lang=${locale === 'fr' ? 'fre' : 'eng'}`
 })
 </script>
 
@@ -37,7 +37,7 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
         role="button"
         :aria-label="
           $t('components.search.selectItem', {
-            name: $i18n.locale === 'fr' ? result.item.FoodDescriptionF : result.item.FoodDescription
+            name: $i18n.locale === 'fr' ? result.item.foodDescriptionF : result.item.foodDescription
           })
         "
         tabindex="0"
@@ -49,12 +49,12 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
           <div class="col-8">
             <p class="mb-1">
               <i v-if="compact" class="bi bi-plus-circle me-2"></i>
-              <span v-if="$i18n.locale === 'fr'">{{ result.item.FoodDescriptionF }}</span>
-              <span v-else>{{ result.item.FoodDescription }}</span>
+              <span v-if="$i18n.locale === 'fr'">{{ result.item.foodDescriptionF }}</span>
+              <span v-else>{{ result.item.foodDescription }}</span>
             </p>
             <a
               v-if="showSourceLinks"
-              :href="cnfLink(result.item.FoodCode, $i18n.locale)"
+              :href="cnfLink(result.item.foodCode, $i18n.locale)"
               target="_blank"
               class="link-primary small"
               @click.stop
@@ -66,9 +66,9 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
           <div class="col-4">
             <p class="text-center mb-0">
               {{
-                result.item.FctGluc !== null
-                  ? result.item.FctGluc.toFixed(2)
-                  : (result.item['205'] / 100).toFixed(2)
+                result.item.fctGluc !== null
+                  ? result.item.fctGluc.toFixed(2)
+                  : (result.item.nutrients['205']?.value / 100).toFixed(2)
               }}
             </p>
           </div>

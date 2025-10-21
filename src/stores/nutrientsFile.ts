@@ -1,10 +1,39 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { useIndexedDB } from '@/composables/useIndexedDB'
-import dataset from '@/assets/canadian_nutrient_file.json'
+import dataset from '@/assets/canadian_nutrient_file_diabetes.json'
 import Fuse from 'fuse.js'
 
+export interface NutrientInfo {
+  value: number
+  unit: string
+  name: string
+  nameF: string
+}
+
+export interface MeasureInfo {
+  measureId: number
+  measureName: string
+  measureNameF: string
+}
+
 export interface NutrientFile {
+  foodId: number
+  foodCode: number
+  foodGroupId: number
+  foodGroupName: string
+  foodGroupNameF: string
+  foodDescription: string
+  foodDescriptionF: string
+  foodSourceId?: number
+  scientificName?: string | null
+  nutrients: Record<string, NutrientInfo>
+  measures: MeasureInfo[]
+  fctGluc: number | null
+}
+
+// Legacy interface for backward compatibility
+export interface LegacyNutrientFile {
   FoodID: number
   FoodCode: number
   FoodGroupID: number
@@ -39,12 +68,21 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
 
   const loadInitialData = async () => {
     try {
+      // Force refresh for diabetes-focused dataset with all fields
+      const CURRENT_DATA_HASH = 'diabetes-focused-v1.1'
+
       const storedNutrientsFile = await db.get('nutrientsFile', 0)
-      if (storedNutrientsFile) {
+      const storedHash = localStorage.getItem('nutrientDataHash')
+
+      const shouldRefresh = storedHash !== CURRENT_DATA_HASH
+
+      if (storedNutrientsFile && !shouldRefresh) {
         nutrientsFile.value = storedNutrientsFile
       } else {
+        console.log('Loading diabetes-focused nutrient dataset...')
         nutrientsFile.value = dataset as NutrientFile[]
         await db.put('nutrientsFile', nutrientsFile.value, 0)
+        localStorage.setItem('nutrientDataHash', CURRENT_DATA_HASH)
       }
 
       const storedFavorites = await db.get('favoriteNutrients', 'current')
@@ -71,7 +109,7 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
   const favoriteCount = computed(() => favoriteNutrients.value.length)
   const isDataLoaded = computed(() => nutrientsFile.value.length > 0)
   const searchOptions = {
-    keys: ['FoodDescriptionF', 'FoodDescription'],
+    keys: ['foodDescriptionF', 'foodDescription'],
     location: 0,
     distance: 200,
     threshold: 0.2,
@@ -117,7 +155,7 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
 
   function getNutrientById(id: number): NutrientFile | undefined {
     try {
-      return nutrientsFile.value.find((nutrient) => nutrient.FoodID === id)
+      return nutrientsFile.value.find((nutrient) => nutrient.foodId === id)
     } catch (error) {
       console.error('Failed to get nutrient by ID:', error)
       return undefined
