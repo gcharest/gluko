@@ -32,18 +32,16 @@ const cnfLink = computed(() => (foodId: number, locale: string) => {
       </li>
       <li
         v-for="result in results"
-        :key="result.refIndex"
-        class="list-group-item list-group-item-action"
+        :key="result.item.foodId"
+        class="list-group-item list-group-item-action search-highlight"
+        tabindex="0"
         role="button"
         :aria-label="
-          $t('components.search.selectItem', {
-            name: $i18n.locale === 'fr' ? result.item.foodDescriptionF : result.item.foodDescription
-          })
+          $i18n.locale === 'fr' ? result.item.foodDescriptionF : result.item.foodDescription
         "
-        tabindex="0"
-        @click="emit('select', result)"
-        @keydown.enter="emit('select', result)"
-        @keydown.space.prevent="emit('select', result)"
+        @click="$emit('select', result)"
+        @keydown.enter.prevent="$emit('select', result)"
+        @keydown.space.prevent="$emit('select', result)"
       >
         <div class="row">
           <div class="col-8">

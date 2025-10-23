@@ -12,7 +12,10 @@ export default defineConfig({
   plugins: [
     vue(),
     VueI18nPlugin({
-      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**')
+      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**'),
+      runtimeOnly: false,
+      compositionOnly: true,
+      fullInstall: true
     }),
     VitePWA({
       registerType: 'prompt',
@@ -60,12 +63,27 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
+      external: (id) => {
+        // Externalize webpack and any node-specific modules that shouldn't be bundled
+        return id === 'webpack' || id.startsWith('node:')
+      },
       output: {
         manualChunks: {
           vendor: ['vue', 'vue-router', 'pinia'],
           bootstrap: ['bootstrap'],
           utilities: ['@vueuse/core', 'fuse.js']
         }
+      }
+    },
+    // Optimize assets
+    assetsInlineLimit: 4096,
+    // Enable compression
+    target: 'esnext',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
       }
     }
   }

@@ -1,3 +1,118 @@
 // Import all of Bootstrap's CSS using modern @use syntax
 @use 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+
+// Custom variables and improvements
+:root {
+  --bs-primary-rgb: 13, 110, 253;
+  --gluko-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --gluko-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --gluko-border-radius: 0.75rem;
+}
+
+// Enhanced card styling
+.card {
+  border: none;
+  box-shadow: var(--gluko-shadow);
+  border-radius: var(--gluko-border-radius);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--gluko-shadow-lg);
+  }
+}
+
+// Enhanced primary button styling
+.btn-primary {
+  border: none;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+  }
+}
+
+// Enhanced form controls
+.form-control,
+.form-select {
+  border-radius: var(--gluko-border-radius);
+  border: 2px solid #e9ecef;
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  }
+}
+
+// Smooth animations
+* {
+  transition:
+    color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+}
+
+// Loading animations
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// Pulse animation for loading states
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+// Custom scrollbar styling
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--bs-primary);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0056b3;
+}
+
+// Enhanced modal styling
+.modal-content {
+  border: none;
+  border-radius: var(--gluko-border-radius);
+  box-shadow: var(--gluko-shadow-lg);
+}
+
+// Nutrient item enhancements
+.nutrient-item {
+  background: #f8f9fa;
+  border-left: 4px solid var(--bs-primary);
+}
+
+// Search result highlighting
+.search-highlight {
+  background: rgba(13, 110, 253, 0.05);
+  border-radius: 0.5rem;
+}

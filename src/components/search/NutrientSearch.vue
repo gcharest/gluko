@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick } from 'vue'
 import { useNutrientFileStore } from '@/stores/nutrientsFile'
+import { useDebounceFn } from '@vueuse/core'
 import SearchResults from './SearchResults.vue'
 
 const props = defineProps({
@@ -22,6 +23,18 @@ const loading = ref(false)
 
 const searchResults = computed(() => {
   return store.searchNutrients(search.value)
+})
+
+// Debounced search for auto-search mode (300ms delay)
+const debouncedSearch = useDebounceFn(() => {
+  search.value = searchInput.value.trim()
+}, 300)
+
+// Watch for auto-search
+watch(searchInput, () => {
+  if (props.autoSearch && searchInput.value.trim().length >= 2) {
+    debouncedSearch()
+  }
 })
 
 // Update loading state when search changes

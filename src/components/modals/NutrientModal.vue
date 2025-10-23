@@ -244,22 +244,21 @@ function handleNutrientSelect(result: SearchResult) {
     }
   })
 
-  // Filter measures based on food type
-  if (isLiquid) {
-    // For liquids, show only ml measures
-    availableMeasures.value = allMeasures.filter((m) => m.unit === 'ml')
-    // If no ml measures available, keep the first measure as fallback
-    if (availableMeasures.value.length === 0 && allMeasures.length > 0) {
-      availableMeasures.value = [allMeasures[0]]
-    }
-  } else {
-    // For solids, show only gram measures (exclude ml measures)
-    availableMeasures.value = allMeasures.filter((m) => m.unit === 'g')
-    // If no gram measures available, keep the first measure as fallback
-    if (availableMeasures.value.length === 0 && allMeasures.length > 0) {
-      availableMeasures.value = [allMeasures[0]]
-    }
-  }
+  // Show ALL measures (no filtering by liquid/solid anymore)
+  availableMeasures.value = allMeasures
+
+  // Add custom option at the end with appropriate unit
+  const customUnit = isLiquid ? 'ml' : 'g'
+  const customQty = 100
+  availableMeasures.value.push({
+    measureId: -1, // Special ID for custom
+    measureName: 'Custom',
+    measureNameF: 'Personnalisé',
+    unit: customUnit,
+    qty: customQty,
+    carbs: +(customQty * carbFactor).toFixed(1),
+    showCarbs: true
+  })
 
   // Set default measure (first available after filtering)
   if (availableMeasures.value.length > 0) {
@@ -286,10 +285,20 @@ function handleMeasureChange() {
     currentNutrient.value.measureName = selectedMeasure.measureName
     currentNutrient.value.measureNameF = selectedMeasure.measureNameF
     currentNutrient.value.unit = selectedMeasure.unit
-    // Set quantity to 1 when a specific measure is selected (the measure defines the amount)
-    currentNutrient.value.quantity = 1
-    // Update the factor to match the measure's quantity
-    currentNutrient.value.factor = selectedMeasure.carbs
+
+    if (selectedMeasure.measureId === -1) {
+      // Custom option selected - set default values and let user input quantity
+      currentNutrient.value.quantity = 100
+      currentNutrient.value.factor = selectedFood.value
+        ? selectedFood.value.item.fctGluc !== null
+          ? selectedFood.value.item.fctGluc
+          : selectedFood.value.item.nutrients['205']?.value / 100
+        : 0
+    } else {
+      // Predefined measure selected - set quantity to 1 and factor to measure's carb content
+      currentNutrient.value.quantity = 1
+      currentNutrient.value.factor = selectedMeasure.carbs
+    }
   }
 }
 </script>
@@ -324,7 +333,7 @@ function handleMeasureChange() {
                   $t('components.nutrientModal.search.label')
                 }}</label>
                 <NutrientSearch
-                  :auto-search="false"
+                  :auto-search="true"
                   :clear-after-select="true"
                   :show-source-links="false"
                   :compact-results="true"
@@ -377,7 +386,7 @@ function handleMeasureChange() {
                     $t('components.nutrientModal.fields.measure')
                   }}</label>
                 </div>
-                <div v-if="!currentNutrient.measureId" class="col col-lg-3 form-floating">
+                <div v-if="currentNutrient.measureId === -1" class="col col-lg-3 form-floating">
                   <input
                     id="nutrient-quantity"
                     v-model.number="currentNutrient.quantity"
