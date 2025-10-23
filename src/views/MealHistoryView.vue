@@ -33,6 +33,7 @@
                 $t('views.mealHistory.filters.search')
               }}</label>
               <input
+                id="searchInput"
                 v-model="searchQuery"
                 id="searchInput"
                 type="search"

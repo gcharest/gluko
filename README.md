@@ -1,6 +1,6 @@
 # Gluko
 
-[![Deploy static content to Pages](https://github.com/gcharest/gluko/actions/workflows/static.yml/badge.svg)](https://github.com/gcharest/gluko/actions/workflows/static.yml)
+[![Deploy static content to Pages](https://github.com/gcharest/gluko/actions/workflows/deploy_static_site.yml/badge.svg)](https://github.com/gcharest/gluko/actions/workflows/deploy_static_site.yml)
 [![Code Quality Checks](https://github.com/gcharest/gluko/actions/workflows/code_quality.yml/badge.svg)](https://github.com/gcharest/gluko/actions/workflows/code_quality.yml)
 [![Accessibility Tests](https://github.com/gcharest/gluko/actions/workflows/accessibility.yml/badge.svg)](https://github.com/gcharest/gluko/actions/workflows/accessibility.yml)
 [![CodeQL Advanced](https://github.com/gcharest/gluko/actions/workflows/codeql.yml/badge.svg)](https://github.com/gcharest/gluko/actions/workflows/codeql.yml)
