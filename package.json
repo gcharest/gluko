@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "VERSION=$(git rev-parse --short HEAD) BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ) vite",
+    "dev:local": "node ./scripts/dev-with-meta.js",
     "build": "VERSION=$(git rev-parse --short HEAD) BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ) run-p type-check build-only",
     "preview": "vite preview",
     "test:unit": "vitest",
