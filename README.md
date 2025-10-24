@@ -61,6 +61,34 @@ If you want to contribute to the project or run it locally:
    ```
 
    Open your browser and navigate to `http://localhost:5173` to see the application
+  
+   ## Run locally (cross-platform)
+
+   Recommended (cross-platform, uses bundled helper):
+
+   ```sh
+   npm run dev:local
+   ```
+
+   This runs a small Node helper that computes the git short SHA and ISO build date, sets `VERSION` and `BUILD_DATE` for the Vite process, and starts the dev server. Use this on Windows, macOS and Linux.
+
+   Manual one-liners (if you prefer to set envs yourself):
+
+   Windows cmd.exe:
+
+   ```cmd
+   set VERSION=abcd123 && set BUILD_DATE=2025-10-23T12:00:00Z && npx vite
+   ```
+
+   PowerShell:
+
+   ```powershell
+   $env:VERSION = 'abcd123'; $env:BUILD_DATE = '2025-10-23T12:00:00Z'; npx vite
+   ```
+
+   Notes:
+   - The helper script (`npm run dev:local`) prefers the locally installed `vite` binary and will fail with a message instructing you to run `npm ci` if devDependencies are missing.
+   - Setting environment variables inline differs between shells; prefer the helper for simplicity.
 
 4. **Building for Production**
 
