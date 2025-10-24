@@ -1,0 +1,822 @@
+FoodID,Food Code,FoodGroupID,FoodSourceID,FoodDescription,FoodDescriptionF,CountryCode,FoodDateOfEntry,FoodDateOfPublication,ScientificName
+2786,2786,13,1,"Beef, ground, regular, raw","Boeuf, haché, régulier, cru",13309,1988-01-01,1999-03-01,
+1151,1151,7,0,"Deli-meat, sandwich spread, ham","Charcuterie, garniture à sandwich, jambon",07031,1983-01-01,,
+1153,1153,7,38,"Sausage, Knackwurst (knockwurst), raw","Saucisse, knackwurst (knockwurst), porc, boeuf",07038,1983-01-01,,
+1154,1154,7,38,"Deli-meat, roast beef, cooked, sliced","Charcuterie, boeuf, cuit, tranché",07043,1983-01-01,,
+1157,1157,7,0,"Deli-meat, olive loaf, pork","Charcuterie, pain de viande aux olives, porc",07051,1983-01-01,,
+1158,1158,7,0,"Deli-meat, pastrami, turkey, sliced","Charcuterie, pastrami, dinde, tranché",07052,1983-01-01,,
+1166,1166,7,0,"Deli-meat, sandwich spread, unspecified meat","Charcuterie, garniture à sandwich, viande non spécifée",07073,1983-01-01,,
+1171,1171,7,0,"Deli-meat, thuringer, cervelat, beef and pork","Charcuterie, saucisson, thuringer, cervelat, boeuf et porc",07078,1983-01-01,,
+1172,1172,7,38,"Deli-meat, turkey breast, cooked, sliced","Charcuterie, poitrine de dinde, cuite, tranchée",07081,1983-01-01,,
+1174,1174,7,0,"Sausage, Vienna (cocktail), canned, chicken, beef and pork","Saucisse,  Vienne (cocktail), conserve, poulet, boeuf et porc",07083,1981-01-01,,
+1179,1179,7,38,"Deli-meat, bologna (baloney), beef","Charcuterie, bologne, boeuf",07007,1996-01-01,,
+1184,1184,7,23,"Deli-meat, Dutch loaf, old fashioned, pork and beef","Pain de viande hollandais, à l'ancienne, porc et boeuf",,1996-01-01,,
+1190,1190,7,0,"Deli-meat, headcheese, pork","Charcuterie, tête fromagée, porc",07034,1996-01-01,,
+1192,1192,7,0,"Liver sausage, liverwurst, pork","Saucisson de foie (liverwurst), porc",07041,1996-01-01,,
+1196,1196,7,0,"Deli-meat, pickle and pimiento loaf, pork","Charcuterie, pain de viande aux piments et aux cornichons, porc",07224,1996-01-01,,
+1200,1200,7,38,"Deli-meat, salami, cooked, beef","Charcuterie, salami, cuit, boeuf",07068,1996-01-01,,
+1202,1202,7,0,"Deli-meat, salami, cooked, turkey","Charcuterie, salami, cuit, dinde",07070,1996-01-01,,
+1207,1207,7,38,"Deli-meat, chicken, cooked, sliced","Charcuterie, poulet, cuit, tranché",07017,1996-01-01,,
+1212,1212,7,38,"Deli-meat, mock chicken loaf","Charcuterie, simili poulet, pain de viande",,1996-01-01,,
+1216,1216,7,38,"Deli-meat, bologna (baloney), chicken","Charcuterie, bologne, poulet",07952,1996-01-01,,
+1220,1220,7,38,"Deli-meat, chicken breast, cooked, extra lean","Charcuterie, poitrine de poulet, cuite, extra maigre",07017,1983-01-01,,
+3257,3257,16,0,"Beans, french, mature seeds, raw","Haricots verts, grains mûrs, crus",16022,1988-01-01,,Phaseolus vulgaris
+3282,3282,16,0,"Black-eyed peas (cowpeas, crowder, southern), common, mature seeds, raw","Haricots à oeil noir (dolique), communs, grains mûrs, crus",16062,1988-01-01,,Vigna unguiculata
+3283,3283,16,0,"Black-eyed peas (cowpeas, crowder, southern)), common, mature seeds, boiled","Haricots à oeil noir (dolique), communs, grains mûrs, bouillis",16063,1988-01-01,,
+3373,3373,16,0,"Beans, winged (goa beans), dry, boiled, with salt","Pois, carrés, secs, bouillis, sel ajouté",16436,1988-01-01,,
+5674,5674,7,38,"Sausage, Polish, smoked, pre-cooked","Saucisse, saucisson polonais, porc et boeuf, fumé",07916,2004-03-09,2002-08-01,
+5677,5677,7,38,"Sausage, breakfast links or rounds, turkey, raw","Saucisse à déjeuner, en chapelet ou en galette, dinde, crue",07919,2004-03-09,2002-08-01,
+5678,5678,7,0,"Sausage. Swisswurst, pork and beef, with swiss cheese, smoked","Saucisse, ""swisswurst"", porc et boeuf, avec fromage suisse, fumée",07920,2004-03-09,2002-08-01,
+5680,5680,7,0,"Sausage, Bratwurst, beef and pork, smoked","Saucisse Bratwurst, boeuf et porc, fumée",07922,2004-03-09,2002-08-01,
+5681,5681,7,0,"Sausage, Bratwurst, chicken, cooked","Saucisse Bratwurst, poulet, cuite",07923,2004-03-09,2002-08-01,
+5682,5682,7,0,"Sausage, Bratwurst, pork, beef and turkey, smoked, reduced fat","Saucisse Bratwurst, porc, boeuf et dinde, fumée, teneur réduite en gras",07924,2004-03-09,2002-08-01,
+5683,5683,7,0,"Deli-meat, pastrami, beef, extra lean, sliced","Charcuterie, pastrami, boeuf, extrai maigre, tranché",07925,2004-03-09,2002-08-01,
+5684,5684,7,0,"Deli-meat, salami, Italian, pork","Charcuterie, salami italien, porc",07926,2004-03-09,2002-08-01,
+5685,5685,7,0,"Sausage, Italian, turkey, smoked","Saucisse italienne, dinde, fumée",07927,2004-03-09,2002-08-01,
+5687,5687,7,0,"Sausage, smoked, turkey, hot","Saucisse, fumée, dinde, épicée",07929,2004-03-09,2002-08-01,
+5689,5689,7,0,"Deli-meat, Beerwurst, (Beer salami, Bierwurst), pork and beef","Charcuterie, saucisson à la bière, porc et boeuf",07931,2004-03-09,2002-08-01,
+5692,5692,7,38,"Sausage, Kielbasa (kolbassa), turkey","Saucisse kielbassa (kolbassa), dinde",07934,2004-03-09,2002-08-01,
+5698,5698,7,0,"Deli-meat, macaroni and cheese loaf, chicken/pork/beef","Charcuterie, pain de viande, macaroni au fromage, poulet, porc et boeuf",07940,2004-03-09,2002-08-01,
+5699,5699,7,0,"Deli-meat, salami, Italian, pork and beef, reduced sodium","Charcuterie, salami italien, porc et boeuf, réduit en sodium",07941,2004-03-09,2002-08-01,
+5702,5702,7,38,"Deli-meat, turkey breast, oven roasted, sliced","Charcuterie, poitrine de dinde, rôtie au four, tranchée",07079,2004-03-09,2002-08-01,
+501502,6306,7,38,"Deli-meat, prosciutto (parma ham) dry-cured","Charcuterie, prosciutto, (jambon de Parme), salé à sec",,2008-04-16,,
+3589,3589,17,28,"Game meat, native, muskrat, raw","Gibier, viande, autochtone, rat musqué, cru",,1990-01-01,,Ondatra zibethica
+3595,3595,17,28,"Game meat, native, rabbit, wild, raw","Gibier, viande, autochtone, lapin, sauvage, cru",,1990-01-01,,"Lepus sp: americanus, arcticus"
+4884,4884,11,0,"Mushroom, fungi, Cloud ears, dried","Champignon, Cloud ears, déshydratés",11988,2000-12-20,1997-06-01,
+5715,5715,17,0,"Game meat, bison, ground, raw","Gibier, viande, bison, haché, cru",17330,2004-03-09,2002-08-01,Bison bison
+5722,5722,17,0,"Game meat, bison, top round, lean, steak, raw","Gibier, viande, bison, intérieur de ronde, maigre, bifteck, cru",17337,2004-03-09,2002-08-01,Bison bison
+5769,5769,17,28,"Game meat, native, beluga, meat, dried","Gibier, viande, autochtone, béluga, viande, déshydratée",,2004-12-16,,Delphinapterus leucas
+426,426,4,0,"Salad dressing, french, homemade, unspecified oil","Vinaigrette, française, faite maison, huile non spécifiée",04133,1981-01-01,,
+428,428,4,0,"Salad dressing, oil and vinegar, homemade","Vinaigrette, huile et vinaigre, faite maison",04135,1981-01-01,,
+527,527,4,0,"Salad dressing, mayonnaise type, commercial, regular","Vinaigrette, type mayonnaise, commerciale, régulière",04018,1981-01-01,,
+531,531,4,0,"Salad dressing, mayonnaise, commercial, regular","Vinaigrette, mayonnaise, commerciale, régulière",04025,1985-01-01,,
+9,9,22,30,"Meat loaf with tomato sauce, mashed potatoes and peas","Pain de viande avec sauce aux tomates, pommes de terre en purée et pois",,1981-01-01,,
+3642,3642,17,20,"Game meat, frog legs, raw","Gibier, viande, grenouille, cuisses, crues",80200,1981-01-01,,
+4575,4575,21,0,"Fast foods, entree, crab cake","Aliments prêts à manger, plat principal, beignet de crabe",21046,1995-01-01,,
+5822,5822,17,28,"Game meat, native, moose, fat, raw","Gibier, viande, autochtone, orignal, gras, cru",,2005-01-24,,Alces alces
+501983,6756,21,36,"Fast foods, sandwiches and burgers, submarine sandwich on white bread with turkey","Aliments prêts à manger, sandwichs et burgers, sous-marin fait avec pain blanc et dinde",,2009-07-14,,
+501984,6757,21,36,"Fast foods, sandwiches and burgers, submarine sandwich on white bread, vegetarian, with vegetables only","Aliments prêts à manger, sandwichs et burgers, sous-marin végétarien, fait avec pain blanc et légumes uniquement",,2009-07-14,,
+126,126,1,23,"Egg, chicken, white, fresh or frozen, raw","Oeuf, poule, blanc, frais ou congelé, cru",01124,1989-01-01,1999-02-01,
+127,127,1,23,"Egg, chicken, yolk, fresh or frozen, raw","Oeuf, poule, jaune, frais ou congelé, cru",01125,1989-01-01,1999-02-01,
+186,186,2,0,"Spices, fennel seed","Épices, fenouil, graines",02018,1981-01-01,,Foeniculum vulgare
+194,194,2,0,"Spices, onion powder","Épices, oignon, poudre",02026,1981-01-01,,Allium cepa
+199,199,2,0,"Spices, pepper, red or cayenne","Épices, piment rouge ou de cayenne",02031,1981-01-01,,Capsicum frutescens or Capsicum annuum
+203,203,2,0,"Spices, pumpkin pie spice","Épices, assaisonnement pour tarte à la citrouille",02035,1981-01-01,,
+967,967,6,0,"Soup, broth, beef, dehydrated","Soupe, bouillon, boeuf, déshydratée",06075,1990-01-01,,
+972,972,6,0,"Soup, broth, chicken, dehydrated","Soupe, bouillon, poulet, déshydratée",06080,1983-01-01,,
+2315,2315,11,0,"Spinach souffle, homemade","Épinard, soufflé, fait maison",11658,1985-01-01,,
+2871,2871,14,0,"Hot chocolate, mix, powder, prepared with water","Chocolat chaud, mélange sec, préparé avec eau",14194,1988-01-01,,
+2884,2884,14,0,"Coffee substitute, cereal grain beverage, powder, water added","Café, succédané, boisson de céréales, poudre, eau ajoutée",14237,1988-01-01,,
+2928,2928,14,30,"Coffee, instant, sweetened, cappucino flavour, powder, water added","Café instantané, sucré, saveur cappucino, poudre, eau ajoutée",,1988-01-01,,
+4548,4548,21,0,"Fast foods, egg, scrambled","Aliments prêts à manger, oeuf brouillé",21018,1990-01-01,,
+4733,4733,6,0,"Sauce, cheese sauce mix, dry, unprepared","Sauce, fromage, mélange sec, non préparé",06720,2000-12-13,1997-04-01,
+5263,5263,6,6,"Soup, cream, potato, canned, condensed, 2% M.F. milk added","Soupe, crème, pommes de terre, conserve, condensée, lait 2% M.G. ajouté",,2001-11-23,,
+5267,5267,6,38,"Soup, tomato, canned, condensed, 2% M.F. milk added","Soupe, tomates, conserve, condensée, lait 2% M.G. ajouté",,2001-11-23,,
+5297,5297,14,29,"Hot chocolate, cocoa, without sugar, mix, powder, prepared with water","Chocolat chaud, cacao, sans sucre ajouté, mélange sec, préparé avec eau",,2003-09-05,,
+5962,5962,14,0,"Sports drink, fruit flavour, ready-to-drink","Boisson pour sportifs, saveur fruits, prête-à-boire",14460,2006-02-27,2005-08-01,
+1078,1078,6,0,"Soup, broth, beef, dehydrated, water added","Soupe, bouillon, boeuf, déshydratée, eau ajoutée",06475,1989-01-01,,
+1083,1083,6,0,"Soup, broth, chicken, dehydrated, water added","Soupe, bouillon, poulet, déshydratée, eau ajoutée",06480,1983-01-01,,
+1084,1084,6,0,"Soup, broth, chicken, cubed, dehydrated, water added","Soupe, bouillon, poulet, cube, déshydratée, eau ajoutée",06481,1983-01-01,,
+2869,2869,14,0,"Hot chocolate, mix, powder","Chocolat chaud, mélange sec",14192,1988-01-01,,
+2885,2885,14,0,"Juice drink, cranberry and apricot, bottled","Boisson au jus, canneberges et abricots, bouteille",14240,1988-01-01,,
+2953,2953,14,1,"Hot chocolate, with aspartame, mix, powder","Chocolat chaud, avec aspartame, mélange sec",14196,1988-01-01,,
+4282,4282,19,0,"Icing (frosting), chocolate, creamy, dry mix, prepared with butter","Glaçage, chocolat, crémeux, mélange sec, préparé avec beurre",19241,1994-01-01,,
+4286,4286,19,0,"Icing (frosting), white, fluffy, dry mix, prepared with water","Glaçage, blanc, velouté, mélange sec, préparé avec eau",19247,1994-01-01,,
+4287,4287,19,0,"Dessert, frozen, fruit and juice bar","Dessert, congelé, barre de fruits et jus",19263,1994-01-01,,
+4337,4337,19,0,"Icing (frosting), chocolate, creamy, dry mix, prepared with margarine","Glaçage, chocolat, crémeux, mélange sec, préparé avec margarine",19372,1994-01-01,,
+4340,4340,19,0,"Icing (frosting), glaze, homemade","Glaçage, fondant, fait maison",19375,1994-01-01,,
+4728,4728,6,0,"Soup, stock, fish, homemade","Soupe, bouillon, poisson, faite maison",06174,2000-12-13,1997-04-01,
+4776,4776,14,0,"Hot chocolate with marshmallows, powder, mix","Chocolat chaud avec guimauves, mélange sec",14195,2000-12-13,1997-04-01,
+4777,4777,14,0,"Hot chocolate, rich, mix, powder","Chocolat chaud, onctueux, mélange sec",14197,2000-12-13,1997-04-01,
+5305,5305,1,0,"Dessert topping (non dairy), fat free, Reddi Wip","Garniture à dessert (non laitière), sans gras, Reddi Wip",01200,2004-03-09,2003-08-01,
+5340,5340,6,38,"Soup, broth, chicken, ready to serve, reduced sodium","Soupe, bouillon, poulet, prête à servir, réduite en sodium",06183,2004-03-09,2003-08-01,
+5354,5354,6,0,"Sauce, chili, peppers, hot, chili, mature red, canned","Sauce chili, piments forts, chili, rouges, conserve",06961,2004-03-09,2003-08-01,
+5363,5363,6,38,"Soup, broth, chicken, ready-to-serve, no salt added","Soupe, bouillon, poulet, prête-à-servir, sans sel ajouté",06970,2004-03-09,2003-08-01,
+5373,5373,6,0,"Soup, bouillon cubes and granules, low sodium, dry","Soupe, bouillon ou consommé, en cube ou en granules, faible en sodium, sèche",06981,2004-03-09,2003-08-01,
+5426,5426,14,0,"Hot chocolate, low calorie, with aspartame, mix, powder, with added calcium and phosphorus, without added sodium or vitamin A","Chocolat chaud, hypocalorique, avec aspartame, mélange sec, calcium et phosphore ajoutés, sans sodium ou vitamine A ajoutés",14538,2004-03-09,2003-08-01,
+5450,5450,19,0,"Hot chocolate, cocoa, high fat or breakfast, plain, mix, powder","Chocolat chaud, cacao, à haute teneur en matière grasse ou déjeuner, nature, mélange sec",19859,2004-03-09,2003-08-01,
+5451,5451,19,0,"Hot chocolate, cocoa, high fat or breakfast, processed with alkali, mix, powder","Chocolat chaud, cacao, à haute teneur en matière grasse ou déjeuner, préparé avec alkali, mélange sec",19860,2004-03-09,2003-08-01,
+5457,5457,14,35,"Drink, fruit flavour, powder, low calorie, vitamin C, with aspartame","Boisson, saveur de fruits, poudre, hypocalorique, vitamine C, avec aspartame",42055,2004-03-09,2003-08-01,
+5530,5530,14,35,"Milk shake, not chocolate, dry mix, unprepared","Lait frappé, non au chocolat, mélange sec, non préparé",43078,2004-03-09,2003-08-01,
+5547,5547,11,35,"Radish, hawaiian style, pickled","Radis, à l'hawaïenne, mariné",43142,2004-03-09,2003-08-01,
+5614,5614,19,35,"Dessert, frozen, pop, with artificial sweetener","Dessert, congelé, pop, avec édulcorant artificiel",43514,2004-03-09,2003-08-01,
+5632,5632,14,35,"Drink, fruit flavour, powder, vitamin C, unsweetened","Boisson, saveur de fruits, poudre, vitamine C, non sucrée",47011,2004-03-09,2003-08-01,
+3774,3774,18,0,"Cake mix, marble, pudding-type, dry, unprepared","Mélange à gâteau, marbre, type pouding, sec, non préparé",18117,1995-01-01,,
+3788,3788,18,0,"Cake, white, pudding-type, dry mix, unprepared","Gâteau, blanc, type pouding, mélange sec, non préparé",18135,1995-01-01,,
+3795,3795,18,0,"Cake, yellow (plus streusel), pudding-type, dry mix, unprepared","Gâteau, jaune (avec streusel), type pouding, mélange sec",18142,1995-01-01,,
+4227,4227,19,0,"Dessert, egg custard, dry mix, unprepared","Dessert, flan aux oeufs, mélange sec, non préparé",19169,1994-01-01,,
+4238,4238,19,0,"Dessert, pudding, chocolate, dry mix, instant, unprepared","Dessert, pouding, chocolat, mélange sec, instantané, non préparé",19184,1994-01-01,,
+4241,4241,19,0,"Dessert, flan, caramel custard, dry mix, unprepared","Dessert, flan au caramel, mélange sec, non préparé",19187,1994-01-01,,
+4242,4242,19,0,"Dessert, pudding, chocolate, dry mix, regular, unprepared","Dessert, pouding, chocolat, mélange sec, régulier, non préparé",19188,1994-01-01,,
+4248,4248,19,0,"Dessert, pudding, rice, dry mix, unprepared","Dessert, pouding, riz, mélange sec, non préparé",19194,1994-01-01,,
+4251,4251,19,0,"Dessert, pudding, tapioca, dry mix, unprepared","Dessert, pouding, tapioca, mélange sec, non préparé",19198,1994-01-01,,
+4255,4255,19,0,"Dessert, pudding, vanilla, dry mix, instant, unprepared","Dessert, pouding, vanille, mélange sec, instantané, non préparé",19202,1994-01-01,,
+4259,4259,19,0,"Dessert, pudding, vanilla, dry mix, regular, unprepared","Dessert, pouding, vanille, mélange sec, régulier, non préparé",19206,1994-01-01,,
+4273,4273,19,0,"Dessert, rennin, chocolate, dry mix, unprepared","Dessert, rennine (présure), chocolat, mélange sec, non préparé",19220,1994-01-01,,
+4275,4275,19,0,"Dessert, rennin, vanilla, dry mix, unprepared","Dessert, rennine (présure), vanille, mélange sec, non préparé",19222,1994-01-01,,
+4281,4281,19,0,"Icing (frosting), chocolate, creamy, dry mix, unprepared","Glaçage, chocolat, crémeux, mélange sec, non préparé",19240,1994-01-01,,
+4285,4285,19,0,"Icing (frosting), white, fluffy, dry mix, unprepared","Glaçage, blanc, velouté, mélange sec, non préparé",19246,1994-01-01,,
+4307,4307,19,0,"Dessert, pudding, banana, dry mix, regular, unprepared","Dessert, pouding, banane, mélange sec, régulier, non préparé",19320,1995-01-01,,
+4309,4309,19,0,"Dessert, pudding, coconut, dry mix, instant, unprepared","Dessert, pouding, noix de coco, mélange sec, instantané, non préparé",19322,1994-01-01,,
+4311,4311,19,0,"Dessert, pudding, coconut, dry mix, regular, unprepared","Dessert, pouding, noix de coco, mélange sec, régulier, non préparé",19324,1994-01-01,,
+4313,4313,19,0,"Dessert, pudding, lemon, dry mix, instant, unprepared","Dessert, pouding, ditron, mélange sec, instantané, non préparé",19330,1994-01-01,,
+4315,4315,19,0,"Dessert, pudding, lemon, dry mix, regular, unprepared","Dessert, pouding, citron, mélange sec, régulier, non préparé",19332,1994-01-01,,
+4577,4577,21,0,"Fast foods, entree, oysters, battered or breaded, fried","Aliments prêts à manger, plat principal, huîtres, en pâte à frire ou panées, frites",21048,1990-01-01,,
+5625,5625,19,35,"Dessert, pudding, chocolate, dry mix, instant, low calorie, unprepared","Dessert, pouding, chocolat, mélange sec, instantané, hypocalorique, non préparé",44061,2004-03-09,2003-08-01,
+5629,5629,19,35,"Dessert, pudding, chocolate, dry mix, regular, low calorie, unprepared","Dessert, pouding, chocolat, mélange sec, régulier, hypocalorique, non préparé",44258,2004-03-09,2003-08-01,
+5630,5630,19,35,"Dessert, pudding, all flavours except chocolate, dry mix, regular, low calorie, unprepared","Dessert, pouding, toutes saveurs sauf chocolat, mélange sec, régulier, hypocalorique, non préparé",44259,2004-03-09,2003-08-01,
+5631,5631,19,35,"Dessert, pudding, all flavours except chocolate, dry mix, instant, low calorie, unprepared","Dessert, pouding, toutes saveurs sauf chocolat, mélange sec, instantané, hypocalorique, non préparé",44260,2004-03-09,2003-08-01,
+1526,1526,9,0,"Cherry, sour, red, raw","Cerise sure, rouge, crue",09063,1984-01-01,,Prunus cerasus
+1557,1557,9,0,"Fruit salad (peach, pear, apricot, pineapple, cherry), canned, water pack, solids and liquid","Fruits, salade (pêches, poires, abricots, ananas, cerises), conserve, dans l'eau, solides et liquide",09102,1984-01-01,,
+1573,1573,9,0,"Grape, North American type (slip skin), raw","Raisin, type Nord-Américain, peau non-adhérente, cru",09131,1984-01-01,,Vitis spp.
+1640,1640,9,0,"Peach, dried halves, sulphured, uncooked","Pêche, moitié, séchée, sulfurée, non cuite",09246,1984-01-01,,
+1696,1696,9,3,"Apple, raw, with skin","Pomme, crue, avec pelure",09003,1984-01-01,,Malus sylvestris
+1718,1718,9,3,"Grape, red or green (European type, such as Thompson seedless), adherent skin, raw","Raisin, rouge ou vert (Type Européen, comme Thompson sans graines), peau adhérente, cru",09132,1984-01-01,,Vitis vinifera
+1995,1995,11,0,"Balsam-pear (bitter gourd, bitter melon), leafy tips, raw","Margose, feuilles tendres, crues",11022,1985-01-01,,Momordica charantia
+1997,1997,11,0,"Balsam-pear (bitter gourd, bitter melon), pods, raw","Margose, fruits, crus",11024,1985-01-01,,Momordica charantia
+2008,2008,11,0,"Beans, mung, mature seeds, sprouted, bean sprouts, raw","Haricots, mungo, secs, germés, germes de haricot, crus",11043,1985-01-01,,Vigna radiata
+2010,2010,11,0,"Beans, mung, mature seeds, sprouted, bean sprouts, stir-fried, no fat added","Haricots, mungo, secs, germés, germes de haricot, sautés, sans gras ajouté",11045,1985-01-01,,
+2034,2034,11,0,"Cabbage, red, raw","Chou rouge, cru",11112,1985-01-01,,Brassica oleracea (Capitata Group)
+2039,2039,11,0,"Bok choy, pak-choi, boiled drained","Bok choy, pak-choi, bouilli, égoutté",11117,1985-01-01,,
+2062,2062,11,0,"Coleslaw (cabbage salad), with dressing, homemade","Chou, salade, avec vinaigrette, faite maison",11159,1985-01-01,,
+2098,2098,11,0,"Beans, hyacinth, raw","Doliques d'Égypte, crus",11224,1985-01-01,,Dolichos lablab
+2114,2114,11,0,"Lentils, sprouted, stir-fried, no fat added","Lentilles, germées, sautées, sans gras ajouté",11249,1985-01-01,,
+2144,2144,11,0,"Onion, spring (green) or scallion (includes tops and bulb), raw","Oignon, vert (inclus le bout et le bulbe), cru",11291,1989-01-01,,Allium cepa or Allium fistulosum
+2161,2161,11,0,"Pepper, sweet, green, canned, solids and liquid","Poivron vert, conserve, solides et liquide",11335,1985-01-01,,
+2162,2162,11,0,"Peas, pigeon, raw","Pois, cajan, crus",11344,1985-01-01,,Cajanus cajan
+2163,2163,11,0,"Peas, pigeon, boiled, drained","Pois, cajan, bouillis, égouttés",11345,1985-01-01,,
+2170,2170,11,0,"Potato, scalloped, homemade, with butter","Pomme de terre, escaloppe (dauphinoise), faite maison, avec beurre",11372,1985-01-01,,
+2171,2171,11,0,"Potato, au gratin, homemade, with butter","Pomme de terre, au gratin, faite maison, avec beurre",11373,1985-01-01,,
+2178,2178,11,0,"Potato, au gratin, dry mix, prepared with water, whole milk and butter","Pomme de terre, au gratin, mélange sec, préparé avec eau, lait entier et beurre",11385,1985-01-01,,
+2205,2205,11,0,"Seaweed, dulse (laver, nori), raw","Algue, rhodyménie palmé (main de mere, nori), crue",11446,1985-01-01,,Porphyra laciniata
+2212,2212,11,0,"Soybeans, mature seeds, sprouted, bean sprouts, stir-fried, no fat added","Fèves, soya, sèches, germées, germes de haricot, sautées, sans gras ajouté",11454,1994-01-01,,
+2241,2241,11,0,"Sweet potato, baked, skin removed after baking","Patate douce, cuite au four, pelée après la cuisson",11508,1985-01-01,,
+2290,2290,11,0,"Dock (sorrel), raw","Oseille, cru",11616,1985-01-01,,Rumex spp.
+2316,2316,11,0,"Sweet potato, cooked, candied, homemade","Patate douce, cuite, confite, faite maison",11659,1985-01-01,,
+2317,2317,11,0,"Tomato, red, ripe, stewed (scalloped with breadcrumbs)","Tomate, rouge, mûre, étuvée (escalopes avec chapelure)",11660,1989-01-01,,
+2328,2328,11,0,"Beans, snap (Italian, green or yellow), frozen, boiled, with salt","Haricots italiens, jaunes ou verts, congelés, bouillis, sel ajouté",11731,1995-01-01,,
+2335,2335,11,0,"Potato, mashed, dehydrated, granules without milk, prepared with whole milk and margarine","Pomme de terre, purée, déshydratée, granules sans lait, préparée avec lait entier et margarine",11929,1989-01-01,,
+2396,2396,11,3,"Leeks (bulb and lower-leaf portion), raw","Poireaux (bulbe et portion inférieure), crus",11246,1985-01-01,,Allium ampeloprasum
+2397,2397,11,3,"Leeks (bulb and lower-leaf portion), boiled, drained","Poireaux (bulbe et portion inférieure), bouillis, égouttés",11247,1985-01-01,,
+2399,2399,11,3,"Mushroom, white, raw","Champignon, blanc, cru",11260,1985-01-01,,Agaricus bisporus
+2411,2411,11,3,"Peas, green, canned, drained solids","Pois, petits (verts), conserve, solides égouttés",11308,1985-01-01,,
+2415,2415,11,3,"Pepper, sweet, green, frozen, chopped, unprepared","Poivron vert, congelé, haché, non préparé",11337,1985-01-01,,
+2416,2416,11,3,"Pepper, sweet, green, frozen, chopped, boiled, drained","Poivron vert, congelé, haché, bouilli, égoutté",11338,1985-01-01,,
+2429,2429,11,3,"Potato, scalloped, dry mix, prepared with water, whole milk and butter","Pomme de terre, en escalopes, mélange sec, préparé avec eau, lait entier et beurre",11387,1985-01-01,,
+2436,2436,11,29,"Potato, french-fried, frozen, restaurant prepared, fried in vegetable oil","Pomme de terre, frite, congelée, préparée au restaurant avec de l'huile végétale",,1985-01-01,,
+2447,2447,11,3,"Spinach, canned, drained solids","Épinard, conserve, égoutté",11461,1985-01-01,,
+2451,2451,11,3,"Squash, winter, butternut, raw","Courge d'hiver, courge musquée, crue",11485,1985-01-01,,Cucurbita moschata
+2485,2485,11,3,"Pepper, sweet, green, boiled, drained, with salt","Poivron vert, bouilli, égoutté, sel ajouté",11822,1990-01-01,,
+2493,2493,11,3,"Corn, sweet, white, frozen, kernels off cob, boiled, drained, with salt","Maïs sucré, blanc, congelé, grains, bouilli, égoutté, sel ajouté",11912,1995-01-01,,
+4861,4861,11,0,"Pepper, chili, green, canned","Piment, chili, vert, conserve",11980,2000-12-20,1997-06-01,
+4906,4906,11,0,"Fiddlehead greens (ferns), raw","Crosses de fougères (têtes de violon), crues",11995,2000-12-22,1999-02-01,Matteuccia struthioreris
+5370,5370,6,0,"Soup, beef and mushroom, low sodium, chunky style","Soupe, boeuf et champignons, faible en sodium, chunky",06978,2004-03-09,2003-08-01,
+5,5,22,0,"Chinese dish, chow mein, chicken","Mets chinois, chow mein, poulet",36623,1981-01-01,,
+43,43,1,0,"Cheese, ricotta, with whole milk","Fromage ricotta, avec lait entier",01036,1981-01-01,,
+55,55,1,0,"Eggnog, 7% M.F., Canadian product, 4% to 8% M.F.","Lait de poule, 7% M.G., produit canadien, 4% à 8% M.G.",01057,1981-01-01,,
+56,56,1,0,"Coffee whitener (non dairy), liquid","Colorant à café (non laitier), liquide",01067,1981-01-01,,
+59,59,1,0,"Dessert topping (non dairy), pressurized","Garniture à dessert (non laitière), sous pression (bombe)",01072,1981-01-01,,
+60,60,1,0,"Dessert topping (non dairy), frozen, semisolid","Garniture à dessert (non laitière), congelée, semi-solide",01073,1981-01-01,,
+71,71,14,1,"Hot chocolate, cocoa, homemade, prepared with 2% milk","Chocolat chaud, cacao, fait maison, préparé avec lait 2% m.g.",01105,1995-01-01,,
+72,72,1,0,"Milk, fluid, goat, enriched, whole","Lait, liquide, chèvre, enrichi, entier",01106,1981-01-01,,
+86,86,1,0,"Egg, chicken, white, dried, powder, glucose reduced","Oeuf, poule, blanc, déshydraté, poudre, réduit en glucose",01136,1981-01-01,,
+116,116,14,1,"Hot chocolate, cocoa, homemade, prepared with whole milk","Chocolat chaud, cacao, fait maison, préparé avec lait entier",,1981-01-01,,
+129,129,1,4,"Egg, chicken, whole, cooked, fried","Oeuf, poule, entier, cuit, frit",01128,1989-01-01,,
+130,130,1,36,"Egg, chicken, whole, cooked, boiled in shell, hard-cooked","Oeuf, poule, entier, cuit, bouilli à la coque, dur",01129,1990-01-01,,
+134,134,1,1,"Milk, dry, skim, powder, regular","Lait, en poudre, écrémé",01154,1981-01-01,,
+147,147,1,26,"Cheese, cottage, less than 0.1% M.F.","Fromage cottage, moins de 0,1% M.G.",,1991-01-01,,
+164,164,19,0,"Dessert, frozen yogourt","Dessert, congelé, yogourt glacé",42187,1990-01-01,,
+822,822,5,0,"Chicken, broiler, skin only, raw","Poulet à griller, peau seulement, cru",05015,1996-01-01,,Gallus gallus
+823,823,5,0,"Chicken, broiler, skin only, roasted","Poulet à griller, peau seulement, rôti",05018,1996-01-01,,
+824,824,5,0,"Chicken, broiler, skin only, stewed","Poulet à griller, peau seulement, à l'étuvée",05019,1996-01-01,,
+832,832,5,0,"Chicken, broiler, back, meat and skin, raw","Poulet à griller, dos, viande et peau, cru",05048,1996-01-01,,Gallus gallus
+833,833,5,0,"Chicken, broiler, back, meat and skin, roasted","Poulet à griller, dos, viande et peau, rôti",05051,1996-01-01,,
+834,834,5,0,"Chicken, broiler, back, meat and skin, stewed","Poulet à griller, dos, viande et peau, à l'étuvée",05052,1996-01-01,,
+835,835,5,0,"Chicken, broiler, back, meat, raw","Poulet à griller, dos, viande, cru",05053,1996-01-01,,Gallus gallus
+836,836,5,0,"Chicken, broiler, back, meat, roasted","Poulet à griller, dos, viande, rôti",05055,1996-01-01,,
+837,837,5,0,"Chicken, broiler, back, meat, stewed","Poulet à griller, dos, viande, à l'étuvée",05056,1996-01-01,,
+838,838,5,0,"Chicken, broiler, breast, meat and skin, raw","Poulet à griller, poitrine, viande et peau, cru",05057,1996-01-01,,Gallus gallus
+839,839,5,0,"Chicken, broiler, breast, meat and skin, roasted","Poulet à griller, poitrine, viande et peau, rôti",05060,1996-01-01,,
+840,840,5,0,"Chicken, broiler, breast, meat and skin, stewed","Poulet à griller, poitrine, viande et peau, à l'étuvée",05061,1996-01-01,,
+841,841,5,0,"Chicken, broiler, breast, skinless, boneless, meat, raw","Poulet à griller, poitrine, sans la peau, désossée, viande, crue",05062,1996-01-01,,Gallus gallus
+842,842,5,0,"Chicken, broiler, breast, meat, roasted","Poulet à griller, poitrine, viande, rôti",05064,1996-01-01,,
+843,843,5,0,"Chicken, broiler, breast, meat, stewed","Poulet à griller, poitrine, viande, à l'étuvée",05065,1996-01-01,,
+844,844,5,0,"Chicken, broiler, drumstick, meat and skin, raw","Poulet à griller, pilon, viande et peau, cru",05066,1996-01-01,,Gallus gallus
+845,845,5,0,"Chicken, broiler, drumstick, meat and skin, roasted","Poulet à griller, pilon, viande et peau, rôti",05069,1996-01-01,,
+846,846,5,0,"Chicken, broiler, drumstick, meat and skin, stewed","Poulet à griller, pilon, viande et peau, à l'étuvée",,1996-01-01,,
+848,848,5,0,"Chicken, broiler, drumstick, meat, roasted","Poulet à griller, pilon, viande, rôti",05073,1996-01-01,,
+849,849,5,0,"Chicken, broiler, drumstick, meat, stewed","Poulet à griller, pilon, viande, à l'étuvée",05074,1996-01-01,,
+850,850,5,0,"Chicken, broiler, thigh, meat and skin, raw","Poulet à griller, haut de cuisse, viande et peau, cru",05091,1996-01-01,,Gallus gallus
+851,851,5,0,"Chicken, broiler, thigh, meat and skin, roasted","Poulet à griller, haut de cuisse, viande et peau, rôti",05094,1996-01-01,,
+852,852,5,0,"Chicken, broiler, thigh, meat and skin,  stewed","Poulet à griller, haut de cuisse, viande et peau, à l'étuvée",05095,1996-01-01,,
+853,853,5,0,"Chicken, broiler, thigh, meat, raw","Poulet à griller, haut de cuisse, viande, cru",05096,1996-01-01,,Gallus gallus
+854,854,5,0,"Chicken, broiler, thigh, meat, roasted","Poulet à griller, haut de cuisse, viande, rôti",05098,1996-01-01,,
+855,855,5,0,"Chicken, broiler, thigh, meat, stewed","Poulet à griller, haut de cuisse, viande, à l'étuvée",05099,1996-01-01,,
+924,924,6,38,"Soup, bean with bacon, canned, condensed","Soupe, fèves et bacon, conserve, condensée",06004,1981-01-01,,
+927,927,6,38,"Soup, broth, beef, ready-to-serve","Soupe, bouillon, boeuf, prête-à-servir",06008,1983-01-01,,
+939,939,6,38,"Soup, chicken vegetable (includes gumbo), ready-to-serve","Soupe, poulet et légumes (inclus gumbo), prête-à-servir",06024,1983-01-01,,
+1047,1047,6,38,"Soup, bean with bacon, canned, condensed, water added","Soupe, fèves et bacon, conserve, condensée, eau ajoutée",,1981-01-01,,
+1117,1117,6,38,"Soup, split pea with ham, ready-to-serve","Soupe, pois cassés avec jambon, prête-à-servir",06050,1983-01-01,,
+1125,1125,6,0,"Soup, split pea with ham, canned, condensed, water added","Soupe, pois cassés avec jambon, conserve, condenséee, au ajoutée",06451,1981-01-01,,
+1139,1139,7,0,"Sausage, Beerwurst, beer salami, pork","Saucisse, saucisson de bière, porc",07003,1983-01-01,,
+1140,1140,7,0,"Sausage, Bockwurst, pork/veal, with milk and eggs, raw","Saucisse, Bockwurst, porc/veau, lait/oeufs, crue",07006,1983-01-01,,
+1142,1142,7,0,"Sausage, Brotwurst,  pork, beef, with nonfat dry milk","Saucisse, Brotwurst, porc, boeuf, avec lait écrémé en poudre",07015,1983-01-01,,
+1143,1143,7,38,"Wiener (cheesefurter), cheddar smokie","Saucisse fumée, fromage, porc, boeuf",07016,1983-01-01,,
+1148,1148,7,38,"Deli-meat, ham, cooked, sliced","Charcuterie, jambon, cuit, tranché",07028,1983-01-01,,
+1152,1152,7,38,"Sausage, Italian, pork, raw","Saucisse italienne, porc, crue",07036,1983-01-01,,
+1167,1167,7,38,"Sausage, smoked, pork, pre-cooked","Saucisse, fumée, porc, pré-cuite",07074,1983-01-01,,
+1175,1175,7,0,"Sausage, Italian, pork, cooked","Saucisse italienne, porc, cuite",07089,1983-01-01,,
+1178,1178,7,38,"Sausage, blood sausage (blood pudding), raw","Saucisse, boudin, cru",07005,1996-01-01,,
+1182,1182,7,38,"Sausage, Bratwurst, pork, cooked","Saucisse Bratwurst, porc, cuite",07013,1996-01-01,,
+1183,1183,7,0,"Sausage, Braunschweiger (liver sausage with bacon), pork","Saucisse, saucisson Braunschweiger (saucisson de foie avec bacon), porc",07014,1996-01-01,,
+1185,1185,7,38,"Wiener (frankfurter), All beef","Saucisse fumée, boeuf",07022,1996-01-01,,
+1198,1198,7,38,"Sausage, breakfast links or rounds, pork, raw","Saucisse à déjeuner, en chapelet ou en galette, porc, crue",07063,1996-01-01,,
+1199,1199,7,38,"Sausage, breakfast links or rounds, pork, cooked","Saucisse à déjeuner, en chapelet ou en galette, porc, cuite",07064,1996-01-01,,
+1217,1217,7,38,"Sausage, ham, pre cooked","Saucisse, jambon, pré-cuite",,1996-01-01,,
+1230,1230,8,26,"Cereal, ready to eat, Alpen (muesli), Weetabix","Céréale, prête-à-manger, alpen (muesli), Weetabix",,1996-01-01,,
+1232,1232,8,38,"Cereal, ready to eat, 'All Bran' Bran Flakes, Kellogg's","Céréale, prête-à-manger, 'All Bran' bran flakes, Kellogg's",,1996-01-01,2011-02-17,
+1239,1239,8,26,"Cereal, ready to eat, Selects: Date and Raisin Pecan Crunch, Post","Céréale, prête-à-manger, Selects: dattes, raisins secs et pacanes croquantes, Post",,1996-01-01,,
+1266,1266,8,26,"Cereal, ready to eat, Puffed Rice, unsweenened, Quaker","Céréale, prête-à-manger, riz soufflé, non-sucré, Quaker",,1996-01-01,,
+1334,1334,8,26,"Cereal, ready to eat, Granola: with almonds, Rogers","Céréale, prête-à-manger, granola: avec amandes, Rogers",,1996-01-01,,
+1360,1360,8,38,"Cereal, ready to eat, Muslix: various flavours, Kellogg's","Céréale, prête-à-manger, muesli: saveurs variées, Kellogg's",,1996-01-01,2011-02-17,
+1367,1367,8,38,"Cereal, ready to eat, Oatmeal Crisp. various flavours, (almond, maple nut, raisin, triple berry, vanilla almond), General Mills","Céréale, prête-à-manger, avoine croquante, saveurs variées, (amandes, érable et noix, rasins sec, baies, amandes vanilles),  General Mills",,1996-01-01,2011-02-17,
+1374,1374,8,26,"Cereal, ready to eat, Raisin Bran: Loads of Raisins, President's Choice","Céréale, prête-à-manger, Plein de raisons secs: son et raisins secs, Choix du Président",,1996-01-01,,
+1378,1378,8,38,"Cereal, ready to eat, Reese Puffs (Peanut butter), General Mills","Céréale, prête-à-manger, Reese Puffs (Beurre d'arachide), General Mills",,1996-01-01,2011-02-17,
+1382,1382,8,38,"Cereal, ready to eat, Shreddies, honey, Post","Céréale, prête-à-manger, Shreddies, miel, Post",,1996-01-01,2011-02-17,
+1397,1397,8,26,"Cereal, hot, cream of wheat, regular, dry","Céréale, chaude, crème de blé, nature, sèche",,1996-01-01,,
+1398,1398,8,24,"Cereal, hot, cream of wheat, regular, prepared","Céréale, chaude, crème de blé, nature, préparée",,1996-01-01,,
+1399,1399,8,26,"Cereal, hot, cream of wheat, quick, dry","Céréale, chaude, crème de blé, rapide, sèche",,1996-01-01,,
+1400,1400,8,24,"Cereal, hot, cream of wheat, quick, prepared","Céréale, chaude, crème de blé, rapide, préparée",,1996-01-01,,
+1403,1403,8,26,"Cereal, hot, cream of wheat, instant: original, dry","Céréale, chaude, crème de blé, instantanée: original, sèche",,1996-01-01,,
+1404,1404,8,24,"Cereal, hot, cream of wheat, instant: original, prepared","Céréale, chaude, crème de blé, instantanée: original, préparée",,1996-01-01,,
+1413,1413,8,26,"Cereal, hot, oats, instant: regular, dry","Céréale, chaude, avoine (gruau), instantanée: nature, sèche",,1996-01-01,,
+1414,1414,8,24,"Cereal, hot, oats, instant: regular, prepared","Céréale, chaude, avoine (gruau), instantanée: nature, préparée",,1996-01-01,,
+1431,1431,8,26,"Cereal, hot, oats, porridge, (with added oat bran, wheat bran, and flax seed), dry, Rogers","Céréale, chaude, avoine (gruau), son de blé, son d'avoine, et graines de lin ajoutés, sèche, Rogers",,1996-01-01,,
+1432,1432,8,24,"Cereal, hot, oats, porridge (with added oat bran, wheat bran and flax seed), prepared, Rogers","Céréale, chaude, avoine (gruau), son de blé, son d'avoine et graines de lin ajoutés, préparée, Rogers",,1996-01-01,,
+1466,1466,8,26,"Cereal, hot, cream of wheat, instant: maple and brown sugar, dry","Céréale, chaude, crème de blé, instantanée: cassonade et érable, sèche",,1996-01-01,,
+1467,1467,8,24,"Cereal, hot, cream of wheat, instant: maple and brown sugar, prepared","Céréale, chaude, crème de blé, instantanée: cassonade et érable, préparée",,1996-01-01,,
+1470,1470,8,26,"Cereal, hot, cream of wheat, instant: apple and cinnamon, dry","Céréale, chaude, crème de blé, instantanée: pomme et cannelle, sèche",,1996-01-01,,
+1471,1471,8,24,"Cereal, hot, cream of wheat, instant: apple and cinnamon, prepared","Céréale, chaude, crème de blé, instantanée: pomme et cannelle, préparée",,1996-01-01,,
+1472,1472,8,38,"Cereal, ready to eat, All Bran Original, Kellogg's","Céréale, prête-à-manger, All Bran Original, Kellogg's",,1996-01-01,2011-02-17,
+1478,1478,8,38,"Cereal, ready to eat, Mini-Wheats: Original frosted, maple, brown sugar, strawberry, Kellogg's","Céréale, prête-à-manger, Mini-Wheats: givrage original, érable, cassonnade, fraise, Kellogg's",,1996-01-01,2011-02-17,
+1502,1502,9,0,"Apricot, canned halves with skin, extra light syrup, solids and liquid","Abricot, moitié avec pelure, conserve, dans du sirop extra léger, solides et liquide",09025,1984-01-01,,
+6298,6298,11,36,"Artichoke, marinated",Artichaut mariné,,2007-06-29,,
+3249,3249,16,0,"Beans, baked, canned, with beef","Haricots au four (''fèves au lard''), conserve, avec boeuf",16007,1988-01-01,,
+3251,3251,16,0,"Beans, baked, canned, with pork and sweet sauce","Haricots au four (''fèves au lard''), conserve, avec lard et sauce sucrée",16010,1988-01-01,,
+3253,3253,16,0,"Beans, black turtle, mature seeds, boiled","Haricots, ""black turtle"", grains mûrs, bouillis",16017,1988-01-01,,
+3342,3342,16,0,"Beans, black turtle, mature seeds, boiled, salted","Haricots, ""black turtle"", grains mûrs, bouillis, salés",16317,1988-01-01,,
+3254,3254,16,0,"Beans, black turtle, mature seeds, canned, solids and liquid","Haricots, ""black turtle"", grains mûrs, conserve, solides et liquide",16018,1988-01-01,,
+3252,3252,16,0,"Beans, black turtle, mature seeds, raw","Haricots, ""black turtle"", grains mûrs, crus",16016,1988-01-01,,Phaseolus vulgaris
+3344,3344,16,0,"Beans, french, mature seeds, boiled, salted","Haricots verts, grains mûrs, bouillis, salés",16323,1988-01-01,,
+3261,3261,16,0,"Beans, great northern, canned, solids and liquid, no salt added","Haricots, ""great northern"", conserve, solides et liquide, sans sel ajouté",16026,1988-01-01,,
+2002,2002,11,0,"Beans, kidney, sprouted, boiled, drained","Haricots communs, secs, germés, bouillis, égouttés",11030,1985-01-01,,
+501586,6368,11,0,"Beans, kidney, sprouted, boiled, drained, with salt","Haricots communs, secs, germés, bouillis, égouttés, sel ajouté",11713,2009-03-09,,
+2001,2001,11,0,"Beans, kidney, sprouted, raw","Haricots communs, secs, germés, crus",11029,1985-01-01,,Phaseolus vulgaris
+2012,2012,11,0,"Beans, navy, mature seeds, sprouted, boiled, drained","Haricots, petits blancs, secs, germés, bouillis, égouttés",11047,1985-01-01,,
+501587,6369,11,0,"Beans, navy, mature seeds, sprouted, boiled, drained, with salt","Haricots, petits blancs, secs, germés, bouillis, égouttés, sel ajouté",11719,2009-03-09,,
+2011,2011,11,0,"Beans, navy, mature seeds, sprouted, raw","Haricots, petits blancs, secs, germés, crus",11046,1985-01-01,,Phaseolus vulgaris
+501589,6371,11,0,"Beans, pinto, mature seeds, sprouted,  boiled, drained, with salt","Haricots, pinto, secs, germés, bouillis, égouttés, sel ajouté",11721,2009-03-09,,
+2311,2311,11,0,"Beans, pinto, mature seeds, sprouted, boiled, drained","Haricots, pinto, secs, germés, bouillis, égouttés",11654,1985-01-01,,
+2310,2310,11,0,"Beans, pinto, mature seeds, sprouted, raw","Haricots, pinto, secs, germés, crus",11653,1985-01-01,,Phaseolus vulgaris
+3276,3276,16,0,"Beans, white, canned, solids and liquid, no salt added","Haricots, blancs, conserve, solides et liquide, sans sel ajouté",16051,1988-01-01,,
+3335,3335,16,0,"Beans, yardlong, mature seeds, boiled","Doliques asperge, grains mûrs, bouillis",16134,1988-01-01,,
+3372,3372,16,0,"Beans, yardlong, mature seeds, boiled, salted","Doliques asperge, grains mûrs, bouillis, salés",16434,1988-01-01,,
+3334,3334,16,0,"Beans, yardlong, mature seeds, raw","Doliques asperge, grains mûrs, crus",16133,1988-01-01,,Vigna uniguiculata sesquipedalis
+5952,5952,13,23,"Beef, chuck, blade steak, boneless, lean, raw","Boeuf, épaule, bifteck de palette, désossé, maigre, cru",23080,2006-01-16,,
+4998,4998,13,23,"Beef, ground, extra lean, crumbled, pan-fried","Boeuf, haché, extra maigre, émietté, sauté",23565,2001-03-07,1999-03-01,
+4997,4997,13,23,"Beef, ground, extra lean, patty, pan-fried","Boeuf, haché, extra maigre, galette de, sauté",23564,2001-03-07,1999-03-01,
+4996,4996,13,1,"Beef, ground, extra lean, raw","Boeuf, haché, extra maigre, cru",23562,2001-03-07,1999-03-01,
+2687,2687,13,0,"Beef, ground, lean, broiled","Boeuf, haché, maigre, grillé",23568,1988-01-01,1999-03-01,
+2689,2689,13,23,"Beef, ground, lean, patty, pan-fried","Boeuf, haché, maigre, galette, sauté",23569,1988-01-01,1999-03-01,
+2692,2692,13,1,"Beef, ground, medium, baked","Boeuf, haché, mi-maigre, cuit au four",23576,1988-01-01,,
+2694,2694,13,0,"Beef, ground, medium, broiled","Boeuf, haché, mi-maigre, grillé",23573,1988-01-01,1999-03-01,
+4995,4995,13,23,"Beef, ground, medium, crumbled, pan-fried","Boeuf, haché, mi-maigre, émietté, sauté",23575,2001-02-28,1999-03-01,
+2696,2696,13,23,"Beef, ground, medium, patty, pan-fried","Boeuf, haché, mi-maigre, galette, sauté",23574,1988-01-01,1999-03-01,
+2702,2702,13,1,"Beef, ground, regular, patty, pan-fried","Boeuf, haché, régulier, galette, sauté",23579,1988-01-01,1999-03-01,
+5994,5994,13,23,"Beef, hip, eye of round roast, boneless, lean and fat, 0mm (0"") trim, cooked, roasted","Boeuf, cuisse, rôti de noix de ronde, désossé, maigre et gras, 0mm (0"") paré, cuit, rôti",13415,2006-03-02,,
+2864,2864,14,30,"Beverage mix, chocolate flavour, powder","Boisson, mélange à saveur, chocolat, poudre",14175,1988-01-01,,
+2865,2865,14,0,"Beverage mix, chocolate flavour, powder, with whole milk","Boisson, mélange à saveur, chocolat, poudre, avec lait entier",14177,1988-01-01,,
+3686,3686,18,0,"Biscuit, multigrain, refrigerated dough","Biscuit, poudre à pâte, multigrains, pâte réfrigérée",18017,1995-01-01,,
+3285,3285,16,0,"Black-eyed peas (cowpeas, crowder, southern), common, mature seeds, canned with pork","Haricots à oeil noir (dolique), communs, grains mûrs, conserve, avec porc",16065,1988-01-01,,
+3284,3284,16,0,"Black-eyed peas (cowpeas, crowder, southern), common, mature seeds, canned, plain, solids and liquid","Haricots à oeil noir (dolique), communs, grains mûrs, conserve, nature, solides et liquide",16064,1988-01-01,,
+501882,6659,9,0,"Blueberry, wild, frozen","Bleuet sauvage, congelé",09053,2009-05-14,2009-05-14,
+501600,6382,11,0,"Borage, boiled, drained, with salt","Bourrache, bouillie, égouttée, sel ajouté",11737,2009-03-09,,
+4070,4070,18,0,"Bread stuffing, dry mix, unprepared","Pain, préparation pour farce, mélange sec, non préparé",18081,1995-01-01,,
+3691,3691,18,0,"Bread, cornbread (also corn muffin mix), dry mix, unprepared","Pain, semoule de maïs (aussi préparation pour muffin), mélange sec, non préparé",18022,1995-01-01,,
+3695,3695,18,0,"Bread, egg (Challah)","Pain, oeufs (Challa)",18027,1995-01-01,,
+3696,3696,18,0,"Bread, egg, (challah), toasted","Pain, oeufs, (challa), grillé",18028,1995-01-01,,
+3702,3702,18,38,"Bread, multigrain, commercial","Pain, multigrains (aussi blé entier, sept grains)",18035,1995-01-01,,
+3703,3703,18,38,"Bread, multigrain, toasted","Pain, multigrains, grillé",18036,1995-01-01,,
+3714,3714,18,38,"Bread, white with raisins, commercial","Pain blanc aux raisins, commercial",18047,1995-01-01,,
+3715,3715,18,38,"Bread, white with raisins, commercial, toasted","Pain blanc aux raisins, commercial, grillé",18048,1995-01-01,,
+5411,5411,11,0,"Broccoli raab (rapini), cooked","Rapini (brocoli raab), cuit",11097,2004-03-09,2003-08-01,
+5410,5410,11,0,"Broccoli raab (rapini), raw","Rapini (brocoli raab), cru",11096,2004-03-09,2003-08-01,Brassica ruvo
+5549,5549,11,35,"Cabbage, mustard, with salt","Chou, moutarde, sel ajouté",43144,2004-03-09,2003-08-01,
+501098,6304,11,24,"Cabbage, napa, raw","Chou, napa, cru",,2007-09-14,,Brassica pekinensis
+501609,6391,11,0,"Cabbage, red, boiled, drained, with salt","Chou rouge, bouilli, égoutté, sel ajouté",11752,2009-03-09,,
+3745,3745,18,0,"Cake mix, angel food, dry, unprepared","Mélange à gâteau, gâteau des anges, sec, non préparé",18087,1995-01-01,,
+3750,3750,18,0,"Cake mix, carrot, pudding-type, dry, unprepared","Mélange à gâteau, carottes, type pouding, sec, non préparé",18092,1995-01-01,,
+3757,3757,18,30,"Cake mix, chocolate (devil's food, fudge), regular, dry, unprepared","Mélange à gâteau, chocolat (diablotin, fudge), ordinaire, sec, non préparé",18099,1995-01-01,,
+3755,3755,18,0,"Cake mix, chocolate, pudding-type, dry, unprepared","Mélange à gâteau, chocolat, type pouding, sec, non préparé",18097,1995-01-01,,
+3769,3769,18,0,"Cake mix, german chocolate, pudding-type mix, dry, unprepared","Mélange à gâteau, chocolat allemand, type pouding, sec, non préparé",18112,1995-01-01,,
+3771,3771,18,0,"Cake mix, gingerbread, dry, unprepared","Mélange à gâteau, pain d'épices, sec, non préparé",18114,1995-01-01,,
+3746,3746,18,0,"Cake, angel food, dry mix, prepared","Gâteau des anges, mélange sec, préparé",18088,1995-01-01,,
+3790,3790,18,30,"Cake, white, regular, dry mix, unprepared","Gâteau blanc, régulier, mélange sec, non préparé",18137,1995-01-01,,
+3797,3797,18,0,"Cake, yellow, regular, dry mix, unprepared","Gâteau, jaune, préparation régulière, mélange sec, non préparé",18144,1995-01-01,,
+4396,4396,19,20,"Candied foods, maraschino cherries, jar, solids and liquid","Confits, cerises au marasquin, bocal, solides et liquide",,1981-01-01,,
+5392,5392,19,0,"Candied, maraschino cherries, jar, drained","Confits, cerises au marasquin, bocal, égouttées",09328,2004-03-09,2003-08-01,
+4174,4174,19,0,"Candies, gumdrops (jujubes)","Bonbons, jujubes",19106,1994-01-01,,
+5139,5139,8,38,"Cereal, ready to eat, Selects, Cranberry Almond Crunch, Post","Céréale, prête-à-manger, Selects, Cranberry Almond Crunch, Post",,2001-05-08,2011-02-17,
+501574,6356,8,30,"Cereal, ready-to-eat, amaranth flakes","Céréales, prêtes à manger, flocons d'amarante",43584,2009-03-06,,
+5565,5565,1,35,"Cheese spread, cream cheese base, flavoured","Fromage à tartiner, base de fromage à la crème, arômatisé",43276,2004-03-09,2003-08-01,
+5583,5583,1,35,"Cheese, cottage, 1% M.F., unsalted","Fromage cottage, 1% M.G., sans sel",43352,2004-03-09,2003-08-01,
+5600,5600,1,35,"Cheese, cottage, low fat, 1% M.F, with vegetables","Fromage cottage, faible en gras, 1% .M.G., avec légumes",43396,2004-03-09,2003-08-01,
+5601,5601,1,35,"Cheese, processed product, cheddar, slices, low sodium","Produit de fromage fondu, cheddar, faible en sodium",43398,2004-03-09,2003-08-01,
+5592,5592,1,35,"Cheese, processed product, swiss, slices, low fat","Produit de fromage fondu, Suisse, faible en gras",43379,2004-03-09,2003-08-01,
+501515,6318,5,30,"Chicken breast tenders, breaded, cooked in conventional oven","Poulet, tendres de poitrine, panés, cuits au four conventionnel",05325,2008-05-26,2007-09-01,
+501516,6319,5,0,"Chicken breast tenders, breaded, cooked in microwave","Poulet, tendres de poitrine, panés, cuits au four à micro-ondes",05326,2008-05-26,2007-09-01,
+501517,6320,5,30,"Chicken breast tenders, breaded, uncooked","Poulet, tendres de poitrine, panés, non cuits",05327,2008-05-26,2007-09-01,
+5589,5589,14,35,"Chocolate flavour drink, whey and milk based","Boisson, saveur de chocolat, base de lactosérum et lait",43369,2004-03-09,2003-08-01,
+5270,5270,1,24,"Chocolate syrup, thin type, 2% M.F. milk added","Chocolat, sirop, consistance claire, lait 2% M.G. ajouté",,2001-11-27,,
+2867,2867,1,0,"Chocolate syrup, thin type, whole milk added","Chocolat, sirop, consistance claire, lait entier ajouté",14182,1988-01-01,,
+3762,3762,18,0,"Coffee cake, cinnamon with crumb topping, commercial","Gâteau café, cannelle avec garniture de miettes, commercial",18104,1995-01-01,,
+3765,3765,18,0,"Coffee cake, cinnamon with crumb topping, dry mix, prepared","Gâteau café, cannelle, garniture de miettes, mélange sec, préparé",18108,1995-01-01,,
+3812,3812,18,0,"Cookie, chocolate chip, commercial, regular, higher fat","Biscuits, brisures de chocolat, commercial, régulier, élevé en gras",18159,1995-01-01,,
+3811,3811,18,0,"Cookie, chocolate chip, commercial, regular, lower fat","Biscuit, grains de chocolat, commercial, régulier, moins de lipides",18158,1995-01-01,,
+3814,3814,18,0,"Cookie, chocolate chip, dry mix, unprepared","Biscuits, grains de chocolat, mélange sec, non préparé",18161,1995-01-01,,
+4010,4010,18,0,"Cookie, chocolate chip, homemade, made with butter","Biscuit, grains de chocolat, fait maison, avec beurre",18378,1995-01-01,,
+3818,3818,18,0,"Cookie, chocolate chip, homemade, made with margarine","Biscuit, grains de chocolat, fait maison, avec margarine",18165,1995-01-01,,
+3816,3816,18,0,"Cookie, chocolate chip, refrigerated dough","Biscuit, grains de chocolat, pâte réfrigérée",18163,1995-01-01,,
+6292,6292,18,0,"Cookie, chocolate chip, refrigerated dough, baked","Biscuit, grains de chocolat, pâte réfrigérée, cuit",18164,2007-06-28,,
+3813,3813,18,0,"Cookie, chocolate chip, soft type, commercial","Biscuit, grains de chocolat, type moelleux, commercial",18160,1995-01-01,,
+3833,3833,18,0,"Cookie, oatmeal (with or without raisins), dry mix, unprepared","Biscuit, avoine (avec ou sans raisins), mélange sec, non préparé",18180,1995-01-01,,
+3845,3845,18,0,"Cookie, shortbread, plain, commercial","Biscuit, sablé, nature, commercial",18192,1995-01-01,,
+2075,2075,11,0,"Cowpeas (black-eyed peas), immature seeds, boiled, drained","Doliques à oeil noir, grains immatures, bouillis, égouttés",11192,1990-01-01,,
+2077,2077,11,0,"Cowpeas (black-eyed peas), immature seeds, frozen, boiled, drained","Doliques à oeil noir, congelés, bouillis, égouttés",11196,1985-01-01,,
+2076,2076,11,0,"Cowpeas (black-eyed peas), immature seeds, frozen, unprepared","Doliques à oeil noir, grains immatures, congelés, non préparés",11195,1985-01-01,,
+2074,2074,11,0,"Cowpeas (black-eyed peas), immature seeds, raw","Doliques à oeil noir, grains immatures, crus",11191,1990-01-01,,Vigna unguiculata
+5431,5431,18,0,"Cracker, cheese, sandwich, with cheese filling","Craquelin, fromage, sandwich, fourré avec fromage",18927,2004-03-09,2003-08-01,
+3873,3873,18,0,"Cracker, standard snack-type, sandwich, with cheese filling","Craquelin, type collation, sandwich avec fromage",18230,1995-01-01,,
+3094,3094,15,0,"Crustaceans, crab, alaska king, boiled or steamed","Crustacés, crabe royal d'alaska, à vapeur ou bouilli",15137,1989-01-01,,
+3095,3095,15,0,"Crustaceans, crab, alaska king, imitation (seafood surimi)","Crustacés, crabe royal d'alaska, imitation (fruits de mer surimi)",15138,1989-01-01,,
+3093,3093,15,3,"Crustaceans, crab, alaska king, raw","Crustacés, crabe royal d'alaska, cru",15136,1989-01-01,,Paralithodes camtschatica (Tilesius)
+3173,3173,15,0,"Crustaceans, crab, atlantic snow crab (spider, queen), boiled or steamed","Crustacés, crabe des nieges (crabe-araignée), à vapeur ou bouilli",15227,1994-01-01,,
+3239,3239,15,23,"Crustaceans, crab, atlantic snow crab (spider, queen), canned, drained","Crustacés, crabe des neiges (crabe-araignée), conserve, égoutté",,1990-01-01,,
+3101,3101,15,0,"Crustaceans, crab, atlantic snow crab (spider, queen), raw","Crustacés, crabe des neiges (crabe-araignée), cru",15144,1989-01-01,,Chionoectes opilio (O. Fabricius)
+3097,3097,15,0,"Crustaceans, crab, blue, boiled or steamed","Crustacés, crabe, bleu, à vapeur ou bouilli",15140,1989-01-01,,
+3098,3098,15,0,"Crustaceans, crab, blue, canned, drained","Crustacés, crabe, bleu, conserve, égoutté",15141,1989-01-01,,
+3099,3099,15,0,"Crustaceans, crab, blue, crab cakes, homemade","Crustacés, crabe, bleu, beignets de crabe, faits maison",15142,1989-01-01,,
+3096,3096,15,0,"Crustaceans, crab, blue, raw","Crustacés, crabe, bleu, cru",15139,1989-01-01,,Callinectes sapidus Rathbun
+3172,3172,15,0,"Crustaceans, crab, dungeness, boiled or steamed","Crustacés, crabe dormeur du pacifique, à vapeur ou bouilli",15226,1994-01-01,,
+3100,3100,15,0,"Crustaceans, crab, dungeness, raw","Crustacés, crabe dormeur, pacifique, cru",15143,1989-01-01,,Cancer magister Dana
+3237,3237,15,23,"Crustaceans, crab, jonah, steamed","Crustacés, crabe, tourteau, à vapeur",,1990-01-01,,
+3238,3238,15,23,"Crustaceans, crab, red, steamed","Crustacés, crabe, rouge, à vapeur",,1990-01-01,,
+3188,3188,15,0,"Crustaceans, crayfish, mixed species, farmed, raw","Crustacés, écrevisse, espèces diverses, élevage, crues",15242,1994-01-01,,"Astacus, Orconectes, and Procambarus spp"
+3103,3103,15,0,"Crustaceans, crayfish, mixed species, wild, boiled or steamed","Crustacés, écrevisse, espèces diverses, sauvage, à vapeur ou bouillies",15146,1994-01-01,,
+3102,3102,15,0,"Crustaceans, crayfish, mixed species, wild, raw","Crustacés, écrevisse, espèces diverses, sauvage, crues",15145,1994-01-01,,"Astacus, Orconectes, and Procambarus spp."
+3210,3210,15,3,"Crustaceans, lobster, american (northern), boiled or steamed","Crustacés, homard, d'amérique, à vapeur ou bouilli",15148,1989-01-01,,
+3209,3209,15,3,"Crustaceans, lobster, american (northern), raw","Crustacés, homard, amérique, cru",15147,1989-01-01,,Homarus americanus Milne-Edwards
+3242,3242,15,20,"Crustaceans, shrimp or lobster paste, canned","Crustacés, crevette ou homard, pâté, conserve",,1981-01-01,,
+3105,3105,15,0,"Crustaceans, shrimp, imitation (surimi)","Crustacés, crevette, imitation (surimi)",15153,1989-01-01,,
+3212,3212,15,3,"Crustaceans, shrimp, mixed species, boiled or steamed","Crustacés, crevette, espèces diverses, à vapeur ou bouillies",15151,1989-01-01,,
+3104,3104,15,0,"Crustaceans, shrimp, mixed species, breaded and fried","Crustacés, crevette, espèces, diverses, panées et frites",15150,1989-01-01,,
+3224,3224,15,3,"Crustaceans, shrimp, mixed species, canned","Crustacés, crevette, espèces diverses, conserve",15152,1989-01-01,,
+3211,3211,15,3,"Crustaceans, shrimp, mixed species, raw","Crustacés, crevette, espèces diverses, crues",15149,1989-01-01,,Penaeidae and Pandalidae
+3106,3106,15,0,"Crustaceans, spiny lobster (crawfish, rock lobster), mixed species, raw","Crustacés, langouste, espèces diverses, crues",15154,1989-01-01,,Jasus spp. and Panulirus spp.
+3189,3189,15,0,"Crusteceans, crayfish, mixed species, farmed, boiled or steamed","Crustacés, écrevisse, espèces diverses, élevage, à vapeur ou bouillies",15243,1994-01-01,,
+3174,3174,15,0,"Crusteceans, spiny lobster (crawfish, rock lobster), boiled or steamed","Crustacés, langouste, espèces diverses, à vapeur ou bouilli",15228,1994-01-01,,
+2708,2708,7,1,"Deli meat, beef, cured, jellied","Viande froide, boeuf, salé, en gelée",13353,1990-01-01,,
+5694,5694,7,0,"Deli-meat, Bologna (baloney), reduced fat","Charcuterie, saucisson de bologne, teneur réduite en gras",07936,2004-03-09,2002-08-01,
+4843,4843,7,0,"Deli-meat, chicken breast (honey glazed)","Charcuterie, poulet, poitrine (glacé au miel)",07209,2000-12-20,1997-06-01,
+5691,5691,7,38,"Deli-meat, chicken breast, oven-roasted, fat free, sliced","Charcuterie, poitrine de poulet, rôtie au four, sans gras, tranchée",07933,2004-03-09,2002-08-01,
+5693,5693,7,38,"Deli-meat, chicken breast, oven-roasted, sliced","Charcuterie, poitrine de poulet, rôtie au four, tranchée",07935,2004-03-09,2002-08-01,
+5696,5696,7,0,"Deli-meat, honey ham, smoked, extra lean, sliced","Charcuterie, jambon au miel, fumé, extra maigre, tranché",07938,2004-03-09,2002-08-01,
+4258,4258,19,0,"Dessert, egg custard, dry mix, prepared with 2% milk","Dessert, flan aux oeufs, mélange sec, préparé avec lait 2%",19205,1994-01-01,,
+5751,5751,19,35,"Dessert, frozen yogourt, chocolate, skim milk, with artificial sweetener","Dessert, congelé, yogourt glacé, chocolat, lait écrémé, édulcorant artificiel",42185,2004-03-09,2002-08-01,
+4917,4917,19,0,"Dessert, frozen, ice cream, light, with aspartame, vanilla","Dessert, congelé, crème glacée, légère, avec aspartame, vanille",19260,2000-12-22,1999-02-01,
+4164,4164,19,0,"Dessert, frozen, ice cream, low fat, vanilla, soft serve","Dessert, congelé, crème glacée, pauvre en gras, vanille, molle",19096,1994-01-01,,
+5750,5750,19,35,"Dessert, frozen, ice cream, vanilla, light, no sugar added, chocolate coated","Dessert, congelé, crème glacée, vanille, légère, sans sucre, enrobée de chocolat",42074,2004-03-09,2002-08-01,
+5463,5463,19,35,"Dessert, frozen, made with skim milk, chocolate","Dessert, congelé, fait avec lait écrémé, chocolat",42131,2004-03-09,2003-08-01,
+4245,4245,19,0,"Dessert, pudding, coconut, dry mix, instant, prepared with 2% milk","Dessert, pouding, noix de coco, mélange sec, instantané, préparé avec lait 2%",19191,1994-01-01,,
+4316,4316,19,0,"Dessert, pudding, lemon, dry mix, regular, prepared","Dessert, pouding, citron, mélange sec, régulier, préparé",19333,1994-01-01,,
+4267,4267,19,0,"Dessert, rennin, vanilla, dry mix, prepared with 2% milk","Dessert, rennine (présure), vanille, mélange sec, préparé avec lait 2%",19214,1994-01-01,,
+4054,4054,18,1,"Doughnut (donut), cake-type, chocolate, sugared or glazed","Beigne, type gâteau, chocolat, enrobé de sucre ou givré",18251,1995-01-01,,
+3891,3891,18,0,"Doughnut (donut), cake-type, plain (includes unsugared, old-fashioned)","Beigne, type gâteau, nature (inclus non sucré, à l'ancienne)",18248,1995-01-01,,
+3892,3892,18,0,"Doughnut (donut), cake-type, plain, chocolate coated or iced","Beigne, type gâteau, nature, enrobé de chocolat ou glacé",18249,1995-01-01,,
+3893,3893,18,0,"Doughnut (donut), cake-type, plain, sugared or glazed","Beigne, type gâteau, nature, enrobage de sucre ou givré",18250,1995-01-01,,
+3895,3895,18,0,"Doughnut (donut), French cruller, glazed","Beigne, roussette, givré",18253,1995-01-01,,
+3897,3897,18,0,"Doughnut (donut), yeast-leavened (honey bun), glazed","Beigne, levure (miel), givré",18255,1995-01-01,,
+3896,3896,18,0,"Doughnut (donut), yeast-leavened, with cream filling","Beigne, levure, fourré à la crème",18254,1995-01-01,,
+3898,3898,18,0,"Doughnut (donut), yeast-leavened, with jelly filling","Beigne, levure, fourré de gelée",18256,1995-01-01,,
+2097,2097,11,0,"Drumstick (horseradish-tree), leaves, boiled, drained","Cassier (ben oléifère), feuilles, bouillies, égouttées",11223,1985-01-01,,
+501660,6442,11,0,"Drumstick (horseradish-tree), leaves, boiled, drained, with salt","Cassier (ben oléifère), feuilles, bouillies, égouttées, sel ajouté",11786,2009-03-17,,
+2096,2096,11,0,"Drumstick (horseradish-tree), leaves, raw","Cassier (ben oléifère), feuilles, crues",11222,1985-01-01,,Moringa oleifera
+2294,2294,11,0,"Drumstick (horseradish-tree), pods, boiled, drained","Cassier (ben oléifère), gousses, bouillies, égouttées",11621,1985-01-01,,
+501661,6443,11,0,"Drumstick (horseradish-tree), pods, boiled, drained, with salt","Cassier (ben oléifère), gousses, bouillies, égouttées, sel ajouté",11787,2009-03-17,,
+2293,2293,11,0,"Drumstick (horseradish-tree), pods, raw","Cassier (ben oléifère), gousses, crues",11620,1985-01-01,,Moringa oleifera
+502015,6789,19,0,Dulce de leche (caramelized milk),Dulce de leche (lait caramélisé),01225,2009-10-13,,
+3902,3902,18,0,"English muffin, multigrain (also granola)","Muffin anglais, multigrains (aussi granola)",18260,1995-01-01,,
+3903,3903,18,0,"English muffin, multigrain (also granola), toasted","Muffin anglais, multigrains (aussi granola), grillé",18261,1995-01-01,,
+4646,4646,21,0,"Fast foods, corn dog, wiener/sausage with cornflour coating","Aliments prêts à manger, saucisse avec enrobage de farine de maïs (saucisse sur bâtonnet)",21120,1990-01-01,,
+4559,4559,21,0,"Fast foods, dessert, cookies, chocolate chip","Aliments prêts à manger, dessert, biscuits, grains de chocolat",21030,1990-01-01,,
+4557,4557,21,0,"Fast foods, dessert, ice cream, light, vanilla, soft serve with cone","Aliments prêts à manger, dessert, crème glacée, légère, vanille, molle avec cornet",21028,1990-01-01,,
+501986,6759,21,0,"Fast foods, sandwiches and burgers, grilled chicken sandwich with lettuce, tomato and spread","Aliments prêts à manger, sandwichs et burgers, sandwich au poulet grillé, avec laitue, tomates et tartinade",21490,2009-07-14,,
+4650,4650,21,0,"Fast foods, sandwiches and burgers, submarine sandwich on white bread with coldcuts, lettuce and tomatoes","Aliments prêts à manger, sandwichs et burgers, sous-marin fait avec pain blanc, viandes froides, laitue et tomates",21124,1990-01-01,,
+4651,4651,21,0,"Fast foods, sandwiches and burgers, submarine sandwich on white bread with roast beef, lettuce and tomatoes","Aliments prêts à manger, sandwichs et burgers, sous-marin fait avec pain blanc avec rôti de boeuf, laitue et tomates",21125,1990-01-01,,
+4652,4652,21,0,"Fast foods, sandwiches and burgers, submarine sandwich on white bread, with tuna salad, lettuce and tomatoes","Aliments prêts à manger, sandwichs et burgers, sous-marin fait avec pain blanc avec salade de thon, laitue et tomates",21126,1990-01-01,,
+4655,4655,21,0,"Fast foods, side dish, hush puppies","Aliments prêts à manger, plat d'accompagnement, galette hush puppies",21129,1990-01-01,,
+4663,4663,21,30,"Fast foods, side dish, potato, french-fried in beef tallow and vegetable oil","Aliments prêts à manger, plat d'accompagnement, pommes de terre, frites dans du suif de boeuf et huile végétale",,1990-01-01,,
+2502,2502,11,3,"Fiddlehead greens (ferns), frozen, unprepared","Crosses de fougères (têtes de violon), congelées, non préparées",11996,1988-01-01,,
+2984,2984,15,3,"Fish, anchovy, european, raw","Poisson, anchois, eueropéen, cru",15001,1989-01-01,,Engraulis encrasichholus (L)
+5841,5841,15,28,"Fish, arctic char, native, meat and skin, dried","Poisson, omble chevalier, autochtone, viande et peau, déshydratées",,2005-02-09,,Salvelinus alpinus (naresi)
+5840,5840,15,28,"Fish, arctic char, native, meat and skin, raw","Poisson, omble chevalier, autochtone, viande et peau, crues",,2005-02-09,,Salvelinus alpinus (naresi)
+5838,5838,15,28,"Fish, arctic char, native, meat, boiled","Poisson, omble chevalier, autochtone, viande, bouilli",,2005-02-09,,Salvelinus alpinus (naresi)
+5839,5839,15,28,"Fish, arctic char, native, meat, dried","Poisson, omble chevalier, autochtone, viande, déshydraté",,2005-02-09,,Salvelinus alpinus (naresi)
+3230,3230,15,28,"Fish, arctic char, native, meat, raw","Poisson, omble chevalier, autochtone, viande, cru",,1990-01-01,,Salvelinus alpinus (naresi)
+5842,5842,15,28,"Fish, arctic char, native, skin, raw","Poisson, omble chevalier, autochtone, peau, cru",,2005-02-09,,Salvelinus alpinus (naresi)
+3134,3134,15,0,"Fish, bass, fresh water, mixed species, baked or broiled","Poisson, bar d'eau douce (achigan), espèces diverses, au four ou grillées",15187,1994-01-01,,
+2986,2986,15,0,"Fish, bass, fresh water, mixed species, raw","Poisson, bar, d'eau douce, espèces diverses, crues",15003,1989-01-01,,Percichthyidae and Centrarchidae
+3135,3135,15,0,"Fish, bass, striped, baked or broiled","Poisson, bar d'Amérique, au four ou grillé",15188,1994-01-01,,
+2987,2987,15,0,"Fish, bass, striped, raw","Poisson, bar, d'amérique, cru",15004,1989-01-01,,Morone saxatilis (Walbaum)
+5879,5879,15,28,"Fish, blackfish, native, whole","Poisson, bar noir (mérou noir), autochtone, entier",35016,2005-03-04,2005-03-01,Dallia pectoralis
+3136,3136,15,0,"Fish, bluefish, baked or broiled","Poisson, tassergal, au four ou grillé",15189,1994-01-01,,
+2988,2988,15,0,"Fish, bluefish, raw","Poisson, tassergal, cru",15005,1989-01-01,,Pomatomus saltatrix (L)
+501653,6435,15,0,"Fish, burbot (loche), baked or broiled","Poisson, lotte (loche), cuite au four ou grillée",15190,2009-03-11,,
+3137,3137,15,28,"Fish, burbot (loche), native, baked or broiled","Poisson, lotte (loche), autochtone, cuite au four ou grillée",,1994-01-01,,Lota lota (L)
+5849,5849,15,28,"Fish, burbot (loche), native, eggs, raw","Poisson, lotte (loche), autochtone, oeufs, crus",,2005-02-11,,Lota lota (L)
+5915,5915,15,28,"Fish, burbot (loche), native, head, baked","Poisson, lotte (loche), autochtone, tête, cuite au four",,2005-04-19,,Lota lota (L)
+5912,5912,15,28,"Fish, burbot (loche), native, liver, baked","Poisson, lotte (loche), autochtone, foie, cuit au four",,2005-04-19,,Lota lota (L)
+5850,5850,15,28,"Fish, burbot (loche), native, liver, raw","Poisson, lotte (loche), autochtone, foie, cru",,2005-02-11,,Lota lota (L)
+2989,2989,15,28,"Fish, burbot (loche), native, raw","Poisson, lotte (loche), autochtone, crue",,1989-01-01,,Lota lota (L)
+5914,5914,15,28,"Fish, burbot (loche), native, skin, baked","Poisson, lotte (loche), autochtone, peau, cuite au four",,2005-04-19,,Lota lota (L)
+5913,5913,15,28,"Fish, burbot (loche), native, skin, raw","Poisson, lotte (loche), autochtone, peau, crue",,2005-04-19,,Lota lota (L)
+501652,6434,15,0,"Fish, burbot (loche), raw","Poisson, lotte (loche), crue",15006,2009-03-11,,lota lota (L.)
+3138,3138,15,0,"Fish, butterfish, baked or broiled","Poisson, stromatée à fossettes, au four ou grillée",15191,1994-01-01,,
+2990,2990,15,0,"Fish, butterfish, raw","Poisson, stromatée à fossettes, crue",15007,1989-01-01,,Peprilus triacanthus (Peck)
+2992,2992,15,0,"Fish, carp, baked or broiled","Poisson, carpe, cuite ar four ou grillée",15009,1989-01-01,,
+2991,2991,15,0,"Fish, carp, raw","Poisson, carpe, crue",15008,1989-01-01,,Cyprinus carpio
+3170,3170,15,0,"Fish, catfish (wolffish), atlantic, baked or broiled","Poisson, loup atlantique (loup de mer), au four ou grillé",15224,1994-01-01,,
+3091,3091,15,0,"Fish, catfish (wolffish), atlantic, raw","Poisson, loup de l'atlantique (loup de mer), cru",15134,1989-01-01,,Anarhichas lupus (L.)
+3181,3181,15,0,"Fish, catfish, channel (bullhead), farmed, baked or broiled","Poisson, barbue de rivière, élevage, au four ou grillée",15235,1994-01-01,,
+3180,3180,15,0,"Fish, catfish, channel (bullhead), farmed, raw","Poisson, barbue de rivière, élevage, crue",15234,1994-01-01,,Ictalurus punctatus (Rafinesque)
+3179,3179,15,0,"Fish, catfish, channel (bullhead), wild, baked or broiled","Poisson, barbue de rivière, sauvage, au four ou grillée",15233,1994-01-01,,
+2994,2994,15,0,"Fish, catfish, channel (bullhead), wild, breaded and fried","Poisson, barbue de rivière, sauvage, panée et frite",15011,1989-01-01,,
+2993,2993,15,0,"Fish, catfish, channel (bullhead), wild, raw","Poisson, barbue de rivière, sauvage, crue",15010,1994-01-01,,Ictalurus punctatus (Rafinesque)
+2995,2995,15,3,"Fish, caviar, black and red, granular","Poisson, caviar, noir et rouge, granuleux",15012,1989-01-01,,
+5922,5922,15,28,"Fish, cisco (lake herring, tullibee), native, baked","Poisson, cisco (hareng de lac), autochtone, cuit au four",,2005-05-11,,Coregonus autumnalis
+2996,2996,15,28,"Fish, cisco (lake herring, tullibee), native, raw","Poisson, cisco (hareng de lac), autochtone, cru",15013,1989-01-01,,Coregonus autumnalis
+2997,2997,15,28,"Fish, cisco (lake herring, tullibee), native, smoked","Poisson, cisco (hareng de lac), autochtone, fumé",15014,1989-01-01,,Coregonus autumnalis
+5921,5921,15,28,"Fish, cisco (lake herring, tullibee), native, smoked, dried","Poisson, cisco (hareng de lac), autochtone, fumé, déshydraté",,2005-05-11,,Coregonus autumnalis
+3139,3139,15,0,"Fish, cod (gray cod), pacific, baked or broiled","Poisson, morue, pacifique (morue grise), au four ou grillée",15192,1994-01-01,,
+3196,3196,15,3,"Fish, cod (gray cod), pacific, raw","Poisson, morue (morue grise), pacifique, crue",15019,1989-01-01,,Gadus macrocephalus Tilesius
+3195,3195,15,3,"Fish, cod (scrod), atlantic, baked or broiled","Poisson, morue, atlantique, au four ou grillé",15016,1989-01-01,,
+2998,2998,15,0,"Fish, cod (scrod), atlantic, canned, solids and liquid","Poisson, morue de l'atlantique, conserve, solides et liquide",15017,1989-01-01,,
+2999,2999,15,0,"Fish, cod (scrod), atlantic, dried and salted","Poisson, morue de l'atlantique, déshydratée et salée",15018,1989-01-01,,
+501943,6713,15,36,"Fish, cod (scrod), Atlantic, dried and salted, soaked in water","Poisson, morue de l'atlantique, déshydratée et salée, trempée dans l'eau",,2009-05-28,,
+3194,3194,15,3,"Fish, cod (scrod), atlantic, raw","Poisson, morue, atlantique, crue",15015,1989-01-01,,Gadus morhua (L.)
+3232,3232,15,23,"Fish, cod (scrod), atlantic, smoked","Poisson, morue, atlantique, fumée",,1990-01-01,,
+3231,3231,15,23,"Fish, cod (scrod), atlantic, tongues and cheeks, raw","Poisson, morue, atlantique, langues et joues, crues",,1990-01-01,,
+3001,3001,15,0,"Fish, croaker, atlantic, breaded and fried","Poisson, tambour brésilien, pané et frit",15021,1989-01-01,,
+3000,3000,15,0,"Fish, croaker, atlantic, raw","Poisson, tambour brésilien, cru",15020,1989-01-01,,Micropogonias undulatus (L)
+3140,3140,15,0,"Fish, cusk, baked or broiled","Poisson, brosme, au four ou grillé",15193,1994-01-01,,
+3197,3197,15,0,"Fish, cusk, raw","Poisson, brosme, cru",15022,1989-01-01,,Brosme brosme (Muller)
+5882,5882,15,28,"Fish, devilfish, native, meat","Poisson, diable de mer (Mante), autochtone, viande",35034,2005-03-04,2005-03-01,Myoxocephalus
+3141,3141,15,0,"Fish, dolphinfish (mahimahi), baked or broiled","Poisson, coryphène commune, au four ou grillée",15194,1994-01-01,,
+3002,3002,15,0,"Fish, dolphinfish (mahimahi), raw","Poisson, coryphène commune, crue",15023,1989-01-01,,Coryphaena hippurus (L)
+3142,3142,15,0,"Fish, drum, freshwater, baked or broiled","Poisson, malachigan, eau douce, au four ou grillé",15195,1994-01-01,,
+3003,3003,15,0,"Fish, drum, freshwater, raw","Poisson, malachigan d'eau douce (drum), cru",15024,1989-01-01,,Aplodinotus grunniens (Rafinesque)
+3005,3005,15,0,"Fish, eel, mixed species, baked or broiled","Poisson, anguille, espèces diverses, cuites au four ou grillées",15026,1989-01-01,,
+3004,3004,15,0,"Fish, eel, mixed species, raw","Poisson, anguille, espèces diverses, crues",15025,1989-01-01,,Anguilla spp.
+3241,3241,15,20,"Fish, eulachon, raw","Poisson, eulakane, cru",,1981-01-01,,
+3006,3006,15,0,"Fish, fish sticks, frozen, prepared","Poisson, bâtonnets, congelés, préparés",15027,1989-01-01,,
+3007,3007,15,0,"Fish, flatfish (flounder or sole or plaice), baked or broiled","Poisson plat (plie ou flet ou sole), cuit au four ou grillé",15029,1989-01-01,,
+3216,3216,15,3,"Fish, flatfish (flounder or sole or plaice), raw","Poisson plat (plie ou flet ou sole), cru",15028,1989-01-01,,Bothidae and Pleuronectidae
+3008,3008,15,0,"Fish, gefiltefish, commercial, sweet recipe with broth","Poisson, gefiltefish à la juive, commercial, recette sucrée avec bouillon",15030,1989-01-01,,
+3233,3233,15,23,"Fish, goldeye, raw","Poisson, laquaiche aux yeux d'or, crues",,1990-01-01,,
+5844,5844,15,28,"Fish, grayling, native, cooked","Poisson, ombre, autochtone, cuit",,2005-02-10,,Thymallus arcticus
+3010,3010,15,0,"Fish, grouper, mixed species, baked or broiled","Poisson, merou, espèces diverses, cuites au four ou grillées",15032,1989-01-01,,
+3009,3009,15,0,"Fish, grouper, mixed species, raw","Poisson, merou, espèces diverses, crues",15031,1989-01-01,,Epinephelus spp.
+3011,3011,15,0,"Fish, haddock (finnan haddie), smoked","Poisson, aiglefin (""finnan haddie""), fumé",15035,1989-01-01,,
+3199,3199,15,3,"Fish, haddock, baked or broiled","Poisson, aiglefin, au four ou grillé",15034,1989-01-01,,
+3198,3198,15,3,"Fish, haddock, raw","Poisson, aiglefin, cru",15033,1989-01-01,,Melanogrammus aeglefinus (L.)
+3090,3090,15,0,"Fish, hake (whiting), mixed species, baked or broiled","Poisson, merlu (collin), espèces diverses, cuites au four ou grillées",15133,1995-01-01,,
+3089,3089,15,0,"Fish, hake (whiting), mixed species, raw","Poisson, merlu (colllin), espèces diverses, crues",15132,1989-01-01,,Gadidae
+3012,3012,15,0,"Fish, halibut, Atlantic or Pacific, baked or broiled","Poisson, flétan, Atlantique ou Pacifique, au four ou grillé",15037,1989-01-01,,
+3200,3200,15,3,"Fish, halibut, Atlantic or Pacific, raw","Poisson, flétan, Atlantique ou Pacifique, cru",15036,1989-01-01,,Hippoglossus hippoglossus (L.) and H. stenolepis Schmidt
+3143,3143,15,0,"Fish, halibut, Greenland (turbot), baked or broiled","Poisson, flétan, Groenland (flétan noir), au four ou grillé",15196,1994-01-01,,
+3013,3013,15,0,"Fish, halibut, Greenland (turbot), raw","Poisson, flétan, Groenland (flétan noir), cru",15038,1989-01-01,,Reinhardtius hippoglossoides (Walbaum)
+5884,5884,15,28,"Fish, herring eggs on giant kelp, native, Pacific","Poisson, oeufs de hareng, sur algue géante, autochtone, pacifique",35039,2005-03-04,2005-03-01,Clupea harengus pallasi Valenciennes & Macrocystis integrifolia
+5885,5885,15,28,"Fish, herring eggs, native, Pacific, dry","Poisson, hareng, autochtone, oeufs, pacifique, déshydratés",35040,2005-03-04,2005-03-01,Clupea harengus pallasi Valenciennes
+5886,5886,15,28,"Fish, herring eggs, native, Pacific, raw","Poisson, hareng, autochtone, oeufs, pacifique, crus",35041,2005-03-04,2005-03-01,Clupea harengus pallasi Valenciennes
+3015,3015,15,0,"Fish, herring, atlantic, baked or broiled","Poisson, hareng, atlantique, cuit au four ou grillé",15040,1989-01-01,,
+3017,3017,15,3,"Fish, herring, atlantic, kippered","Poisson, hareng, atlantique, fumé et salé",15042,1989-01-01,,
+3016,3016,15,0,"Fish, herring, atlantic, pickled","Poisson, hareng, atlantique, mariné",15041,1989-01-01,,
+3014,3014,15,3,"Fish, herring, atlantic, raw","Poisson, hareng, atlantique, cru",15039,1989-01-01,,Clupea harengus harengus (L)
+5887,5887,15,28,"Fish, herring, native, Pacific, air-dried, packed in oil","Poisson, hareng, autochtone, pacifique, déshydraté, dans l`huile",35042,2005-03-04,2005-03-01,Clupea harengus pallasi Valenciennes
+3144,3144,15,0,"Fish, herring, pacific, baked or broiled","Poisson, hareng, pacifique, au four ou grillé",15197,1994-01-01,,
+3018,3018,15,0,"Fish, herring, pacific, raw","Poisson, hareng, pacifique, cru",15043,1989-01-01,,Clupea harengus pallasi Valenciennes
+3234,3234,15,23,"Fish, inconnu (connie, coney), raw","Poisson, inconnu, cru",,1990-01-01,,
+5846,5846,15,28,"Fish, inconnu, native, cooked","Poisson, inconnu, autochtone, cuit",,2005-02-10,,Stenodus leucichthys
+5845,5845,15,28,"Fish, inconnu, native, raw","Poisson, inconnu, autochtone, cru",,2005-02-10,,Stenodus leucichthys
+5847,5847,15,28,"Fish, inconnu, native, smoked, baked","Poisson, inconnu, autochtone, fumé, au four",,2005-02-10,,Stenodus leucichthys
+5848,5848,15,28,"Fish, inconnu, native, smoked, dried","Poisson, inconnu, autochtone, fumé, déshydraté",,2005-02-10,,Stenodus leucichthys
+3145,3145,15,0,"Fish, ling, baked or broiled","Poisson, lingue, au four ou grillé",15198,1994-01-01,,
+3019,3019,15,0,"Fish, ling, raw","Poisson, lingue, cru",15044,1989-01-01,,Molva molva (L)
+3146,3146,15,0,"Fish, lingcod, baked or broiled","Poisson, morue-lingue, au four ou grillée",15199,1994-01-01,,
+5888,5888,15,28,"Fish, lingcod, native, liver","Poisson, morue-lingue, autochtone, foie",35047,2005-03-04,2005-03-01,Ophiodon elongatus
+3020,3020,15,0,"Fish, lingcod, raw","Poisson, morue lingue, crue",15045,1989-01-01,,Ophiodon elongatus Girard
+3022,3022,15,0,"Fish, mackerel, atlantic, baked or broiled","Poisson, maquereau bleu, cuit au four ou grillé",15047,1989-01-01,,
+3021,3021,15,3,"Fish, mackerel, atlantic, raw","Poisson maquereau bleu, cru",15046,1989-01-01,,Scomber scombrus L
+3023,3023,15,0,"Fish, mackerel, jack, canned, drained solids","Poisson, chinchard, conserve, solides égouttés",15048,1989-01-01,,Trachurus symmetricus (Ayers)
+3147,3147,15,0,"Fish, mackerel, king, baked or broiled","Poisson, thazard, au four ou grillé",15200,1994-01-01,,
+3024,3024,15,0,"Fish, mackerel, king, raw","Poisson, thazard bané (maquereau royal), cru",15049,1989-01-01,,Scombermorus cavalla (Cuvier)
+3148,3148,15,0,"Fish, mackerel, pacific and jack, mixed species, baked or broiled","Poisson, maquereau espagnol/chinchard, espèces diverses, au four ou grillé",15201,1994-01-01,,
+3025,3025,15,0,"Fish, mackerel, pacific and jack, mixed species, raw","Poisson, maquereau espagnol et chinchard, espèces diverses, crues",15050,1994-01-01,,Scomber spp and Trachurus spp.
+5633,5633,15,0,"Fish, mackerel, salted","Poisson, maquereau, salé",83110,2004-03-09,2003-08-01,
+3027,3027,15,0,"Fish, mackerel, spanish (atlantic), baked or broiled","Poisson, thazard tacheté (atlantique), cuit au four ou grillé",15052,1989-01-01,,
+3026,3026,15,3,"Fish, mackerel, spanish (atlantic), raw","Poisson, thazard tacheté (atlantique), cru",15051,1989-01-01,,Scombermorus maculatus (Mitchill)
+3149,3149,15,0,"Fish, milkfish (awa), baked or broiled","Poisson, chanos, au four ou grillé",15202,1994-01-01,,
+3028,3028,15,0,"Fish, milkfish (awa), raw","Poisson, chanide, cru",15053,1989-01-01,,Chanos chanon (Forskaal)
+3150,3150,15,0,"Fish, monkfish (goosefish, anglerfish), baked or broiled","Poisson, baudroie, au four ou grillée",15203,1994-01-01,,
+3201,3201,15,3,"Fish, monkfish (goosefish, anglerfish), raw","Poisson, baudroie d'amérique, crue",15054,1989-01-01,,Lophius piscatorius L.
+3164,3164,15,0,"Fish, mullet (sucker), white, baked or broiled","Poisson, meunier noir (carpe noir), au four ou grillé",15217,1994-01-01,,
+3072,3072,15,0,"Fish, mullet (sucker), white, raw","Poisson, meunier noir (carpe noire), cru",15107,1989-01-01,,Catostomus commersoni (Lacepede)
+3030,3030,15,0,"Fish, mullet, striped, baked or broiled","Poisson, mulet cabot (muge cabot), cuit au four ou grillé",15056,1989-01-01,,
+3029,3029,15,0,"Fish, mullet, striped, raw","Poisson, mulet cabot (muge cabot), cru",15055,1989-01-01,,Mugil  cephalus L.
+3032,3032,15,0,"Fish, ocean perch (rosefish, redfish), atlantic, baked or broiled","Poisson, sebaste, atlantique (perche rose), cuit au four ou grillé",15058,1989-01-01,,
+3031,3031,15,0,"Fish, ocean perch, Atlantic, raw","Poisson, sebaste, atlantique, cru",15057,1989-01-01,,Sebastes marinus L.
+5892,5892,15,28,"Fish, oopah (tunicata), native, whole animal","Poisson, oopah (tunicata), autochtone, entier",35058,2005-03-04,2005-03-01,Tunicata
+3178,3178,15,0,"Fish, orange roughy, baked or broiled","Poisson, hoplostete orange (""orange roughy""), au four ou grillé",15232,1994-01-01,,
+3046,3046,15,0,"Fish, orange roughy, raw","Poisson, hoplostète orange (""orange roughy""), cru",15073,1994-01-01,,Hoplostethus atlanticus
+3035,3035,15,0,"Fish, perch, mixed species, baked or broiled","Poisson, perchude, espéces diverses, cuites au four ou grillée",15061,1989-01-01,,
+3034,3034,15,0,"Fish, perch, mixed species, raw","Poisson, perchaude, espèces diverses, crues",15060,1989-01-01,,Morone americana Gmelin and Perca flavescens (Mitchill)
+3151,3151,15,0,"Fish, pickerel, walleye-pickerel (yellow pike), baked or broiled","Poisson, doré (doré jaune/blanc), au four ou grillé",15204,1994-01-01,,
+3202,3202,15,3,"Fish, pickerel, walleye-pickerel (yellow pike), raw","Poisson, doré (doré jaune ou blanc), cru",15064,1989-01-01,,Stizostedion vitreum vitreum (Mitchill)
+3037,3037,15,28,"Fish, pike, northern, native, cooked","Poisson, grand brochet, autochtone, cuit",15063,1989-01-01,,Esox lucius
+5894,5894,15,28,"Fish, pike, northern, native, liver","Poisson, grand brochet, autochtone, foie",35060,2005-03-04,2005-03-01,Esox lucius
+3036,3036,15,28,"Fish, pike, northern, native, raw","Poisson, grand brochet, autochtone, cru",15062,1989-01-01,,Esox lucius L.
+3152,3152,15,0,"Fish, pollock, atlantic (boston blue), baked or broiled","Poisson, goberge, atlantique (merlan, lieu noir), au four ou grillée",15205,1994-01-01,,
+3038,3038,15,0,"Fish, pollock, atlantic (boston blue), raw","Poisson, goberge, atlantique (merlan, lieu noir), crue",15065,1989-01-01,,Pollachius virens L.
+3040,3040,15,0,"Fish, pollock, walleye (alaska), baked or broiled","Poisson, morue, pacifique occidental, cuite au four ou grillée",15067,1989-01-01,,
+3039,3039,15,3,"Fish, pollock, walleye (alaska), raw","Poisson, morue, pacifique occidental, crue",15066,1989-01-01,,Theragra chalcogramma (Pallas)
+3042,3042,15,0,"Fish, pompano, florida, baked or broiled","Poisson, pompano, floride, cuit au four ou grillé",15069,1989-01-01,,
+3041,3041,15,0,"Fish, pompano, florida, raw","Poisson, pompano, floride, cru",15068,1989-01-01,,Trachinotus carolinus (L.)
+3153,3153,15,0,"Fish, pout, ocean, baked or broiled","Poisson, loquette d'amérique, au four ou grillée",15206,1994-01-01,,
+3033,3033,15,0,"Fish, pout, ocean, raw","Poisson, loquette d'amérique, crue",15059,1989-01-01,,Macrozoarces americanus (Schneider)
+3044,3044,15,0,"Fish, rockfish, pacific ocean perch, mixed species, baked or broiled","Poisson, sébaste, pacifique, espèces diverses, cuites au four ou grillées",15071,1989-01-01,,
+3043,3043,15,0,"Fish, rockfish, pacific ocean perch, mixed species, raw","Poisson, sébaste, pacifique, espèces diverses, crues",15070,1989-01-01,,Sebastes spp.
+3154,3154,15,0,"Fish, roe, mixed species, baked or broiled","Poisson, rogue (oeufs de poisson), espèces diverses, au four ou grillées",15207,1994-01-01,,
+3045,3045,15,0,"Fish, roe, mixed species, raw","Poisson, rogue (oeufs de poisson), espèces diverses, crues",15072,1989-01-01,,
+3155,3155,15,0,"Fish, sablefish (black cod), baked or broiled","Poisson, morue charbonnière, au four ou grillée",15208,1994-01-01,,
+3047,3047,15,0,"Fish, sablefish (black cod), raw","Poisson, morue charbonnière, crue",15074,1989-01-01,,Anoplopoma fimbria (Pallas)
+3048,3048,15,0,"Fish, sablefish (black cod), smoked","Poisson, morue charbonnière, fumée",15075,1989-01-01,,
+3183,3183,15,0,"Fish, salmon, atlantic, farmed, baked or broiled","Poisson, saumon, atlantique, élevage, au four ou grillé",15237,1994-01-01,,
+3182,3182,15,3,"Fish, salmon, atlantic, farmed, raw","Poisson, saumon, atlantique, élevage, cru",15236,1994-01-01,,Salmo salar L.
+3156,3156,15,0,"Fish, salmon, atlantic, wild, baked or broiled","Poisson, saumon, atlantique, sauvage, au four ou grillé",15209,1994-01-01,,
+3049,3049,15,3,"Fish, salmon, atlantic, wild, raw","Poisson, saumon, atlantique, sauvage, cru",15076,1989-01-01,,Salmo salar L.
+3157,3157,15,0,"Fish, salmon, chinook (spring), baked or broiled","Poisson, saumon, quinnat (printemps, royal), au four ou grillé",15210,1994-01-01,,
+3051,3051,15,0,"Fish, salmon, chinook (spring), raw","Poisson, saumon, quinnat (de printemps, roi), cru",15078,1989-01-01,,Oncorhynchus tshawytscha (Walbaum)
+3050,3050,15,3,"Fish, salmon, chinook (spring), smoked","Poisson, saumon, quinnat, fumé",15077,1989-01-01,,
+3129,3129,15,0,"Fish, salmon, chinook (spring), smoked, lox","Poisson, saumon, quinnat, fumé, lox",15179,1989-01-01,,
+3158,3158,15,0,"Fish, salmon, chum (keta), baked or broiled","Poisson, saumon, kéta, au four ou grillé",15211,1994-01-01,,
+3130,3130,15,0,"Fish, salmon, chum (keta), canned, drained solids with bone, unsalted","Poisson, saumon, kéta, conserve, égoutté, avec arêtes, sans sel",15180,1989-01-01,,
+3218,3218,15,3,"Fish, salmon, chum (keta), canned, drained, solids with bone, salted","Poisson, saumon, kéta, conserve, égoutté, avec arêtes, salé",15080,1989-01-01,,
+3227,3227,15,3,"Fish, salmon, chum (keta), poached","Poisson, saumon, kéta, poché",15279,1989-01-01,,
+3217,3217,15,3,"Fish, salmon, chum (keta), raw","Poisson, saumon, kéta, cru",15079,1989-01-01,,Oncorhynchus keta (Walbaum)
+3185,3185,15,0,"Fish, salmon, coho, farmed, baked or broiled","Poisson, saumon, coho, élevage, au four ou grillé",15239,1994-01-01,,
+3184,3184,15,0,"Fish, salmon, coho, farmed, raw","Poisson, saumon, coho, élevage, cru",15238,1994-01-01,,Oncorhynchus kisutch (Walbaum)
+3193,3193,15,0,"Fish, salmon, coho, wild, baked or broiled","Poisson, saumon, coho, sauvage, au four ou grillé",15247,1994-01-01,,
+3220,3220,15,3,"Fish, salmon, coho, wild, poached","Poisson, saumon, coho, sauvage, poché",15082,1989-01-01,,
+3219,3219,15,3,"Fish, salmon, coho, wild, raw","Poisson, saumon, coho, sauvage, cru",15081,1994-01-01,,Oncorhynchus kisutch (Walbaum)
+5928,5928,15,28,"Fish, salmon, native, eggs, raw","Poisson, saumon, autochtone, oeufs, cru",,2005-06-28,,
+5896,5896,15,28,"Fish, salmon, native, king or chinook, kippered, canned","Poisson, saumon, autochtone, royal ou quinnat, légèrement salé et fumé, conserve",35065,2005-03-04,2005-03-01,Oncorhynchus tshawytscha
+5899,5899,15,28,"Fish, salmon, native, king or chinook, liver","Poisson, saumon, autochtone, royal ou quinnat, foie",35068,2005-03-04,2005-03-01,Oncorhynchus tshawytscha
+5898,5898,15,28,"Fish, salmon, native, king or chinook, smoked, brined","Poisson, saumon, autochtone, royal ou quinnat, fumé, saumuré",35067,2005-03-04,2005-03-01,Oncorhynchus tshawytscha
+5897,5897,15,28,"Fish, salmon, native, king or chinook, smoked, canned","Poisson, saumon, autochtone, royal ou quinnat, fumé, conserve",35066,2005-03-04,2005-03-01,Oncorhynchus tshawytscha
+5895,5895,15,28,"Fish, salmon, native, tipnuk, fermented","Poisson, saumon, autochtone, tipnuk, fermenté",35064,2005-03-04,2005-03-01,
+3159,3159,15,0,"Fish, salmon, pink (humpback), baked or broiled","Poisson, saumon, rose, au four ou grillé",15212,1994-01-01,,
+3222,3222,15,0,"Fish, salmon, pink (humpback), canned, solids with bone and liquid, salted","Poisson, saumon, rose, conserve, avec chair et arêts et liquide, salé",15084,1989-01-01,,
+3225,3225,15,3,"Fish, salmon, pink (humpback), canned, solids with bone and liquid, unsalted","Poisson, saumon, rose, conserve, chair avec arêtes et liquide, sans sel",15181,1989-01-01,,
+3228,3228,15,3,"Fish, salmon, pink (humpback), poached","Poisson, saumon, rose, poché",15283,1989-01-01,,
+3221,3221,15,3,"Fish, salmon, pink (humpback), raw","Poisson, saumon, rose, cru",15083,1989-01-01,,Oncorhynchus gorbuscha (Walbaum)
+5965,5965,15,0,"Fish, salmon, pink, canned, drained solids with bone","Poisson, saumon, rose, conserve, chair avec arêtes",15260,2006-02-27,2005-08-01,
+3053,3053,15,0,"Fish, salmon, sockeye (red), baked or broiled","Poisson, saumon, rouge (sockeye), cuit au four ou grillé",15086,1989-01-01,,
+3226,3226,15,3,"Fish, salmon, sockeye (red), canned, drained solids with bone, unsalted","Poisson, saumon, rouge (sockeye), conserve, égoutté avec arêtes, sans sel",15182,1989-01-01,,
+3223,3223,15,0,"Fish, salmon, sockeye (red), canned, drained solids, salted","Poisson, saumon, rouge (sockeye), conserve, égoutté, salé",15087,1989-01-01,,
+3052,3052,15,3,"Fish, salmon, sockeye (red), raw","Poisson, saumon, rouge (sockeye), cru",15085,1994-01-01,,Oncorhynchus nerka (Walbaum)
+3203,3203,15,3,"Fish, sardine, Atlantic, canned in oil, drained solids with bone","Poisson, sardine, Atlantique, conserve, dans l' huile, égoutté avec arêtes",15088,1989-01-01,,Clupea harengus harengus L.
+3054,3054,15,0,"Fish, sardine, pacific, canned in tomato sauce, drained with bones","Poisson, sardines, Pacifique, conserve, avec sauce tomate, égouttées, avec arêtes",15089,1989-01-01,,Sardinops spp
+3235,3235,15,23,"Fish, sauger (yellow walleye), raw","Poisson, doré noir, cru",,1990-01-01,,
+5919,5919,15,28,"Fish, sculpin, native, raw","Poisson, chabot, autochtone, cru",,2005-04-21,,Acanthocottus groenlandicus
+3160,3160,15,0,"Fish, scup (porgy), baked or broiled","Poisson, spare doré, au four ou grillé",15213,1994-01-01,,
+3055,3055,15,0,"Fish, scup (porgy), raw","Poisson, spare doré, cru",15090,1989-01-01,,Stenotomus chrysops L.
+3057,3057,15,0,"Fish, sea bass, mixed species, baked or broiled","Poisson, bar commun (serran), espèces diverses, cuites au four ou grillées",15092,1989-01-01,,
+3056,3056,15,0,"Fish, sea bass, mixed species, raw","Poisson, bar commun (serran), espèces diverses, crues",15091,1989-01-01,,Centropristes striata L. and Lateolabrax japonicus (Cuvier)
+3161,3161,15,0,"Fish, seatrout (weakfish), mixed species, baked or broiled","Poisson, truite saumonée, espèces diverses, au four ou grillée",15214,1994-01-01,,
+3058,3058,15,0,"Fish, seatrout (weakfish), mixed species, raw","Poisson, truite de mer, espèces diverses, crues",15093,1989-01-01,,Cynoscion spp.
+3162,3162,15,0,"Fish, shad, American, baked or broiled","Poisson, alose, au four ou grillée",15215,1994-01-01,,
+3059,3059,15,0,"Fish, shad, American, raw","Poisson, alose, crue",15094,1989-01-01,,Alosa sapidissima (Wilson)
+3061,3061,15,0,"Fish, shark (dogfish), mixed species, battered and fried","Poisson, requin (aiguillat), espèces diverses, panure avec pâte et frites",15096,1989-01-01,,
+3060,3060,15,3,"Fish, shark (dogfish), mixed species, raw","Poisson, requin, (aiguillat), espèces diverses, crues",15095,1989-01-01,,Squaliformes
+3063,3063,15,0,"Fish, sheepshead, baked or broiled","Poisson, malachigan d'eau douce (""sheepshead""), cuit au four ou grillé",15098,1989-01-01,,
+3062,3062,15,0,"Fish, sheepshead, raw","Poisson, malachigan d'eau douce (""sheepshead""), cru",15097,1989-01-01,,Archosargus probatocephalus (Walbaum)
+6264,6264,15,0,"Fish, smelt, dried","Poisson, éperlan, séché",35184,2006-11-29,2006-11-01,
+3065,3065,15,0,"Fish, smelt, rainbow (american, capelin), baked or broiled","Poisson, éperlan, arc-en-ciel (d'amérique), cuit au four ou grillé",15100,1989-01-01,,
+3064,3064,15,0,"Fish, smelt, rainbow (american, capelin), raw","Poisson, éperlan, arc-en-ciel (d'amérique), cru",15099,1989-01-01,,Osmerus mordax (Mitchill)
+3067,3067,15,0,"Fish, snapper, mixed species, baked or broiled","Poisson, vivaneau, espèces diverses, cuites au four ou grillées",15102,1989-01-01,,
+3066,3066,15,0,"Fish, snapper, mixed species, raw","Poisson, vivaneau, espèces diverses, crues",15101,1989-01-01,,Lutjanidae
+3163,3163,15,0,"Fish, spot, baked or broiled","Poisson, tambour croca, au four ou grillé",15216,1994-01-01,,
+3068,3068,15,0,"Fish, spot, raw","Poisson, tambour croca, cru",15103,1989-01-01,,Leiostomus xanthuras Lacepede
+6262,6262,15,0,"Fish, steelhead trout, boiled, canned","Poisson, truite arc-en-ciel anadrome, bouillie, en conserve",35181,2006-11-29,2006-11-01,
+6261,6261,15,0,"Fish, steelhead trout, meat, dried","Poisson, truite arc-en-ciel anadrome, viande, séchée",35180,2006-11-29,2006-11-01,
+3070,3070,15,0,"Fish, sturgeon, mixed species, baked or broiled","Poisson, esturgeon, espèces diverses, cuites au four ou grillées",15105,1989-01-01,,
+3069,3069,15,0,"Fish, sturgeon, mixed species, raw","Poisson, esturgeon, espèces diverses, crues",15104,1989-01-01,,Acipenser spp.
+3071,3071,15,0,"Fish, sturgeon, mixed species, smoked","Poisson, esturgeon, espèces diverses, fumées",15106,1989-01-01,,
+3165,3165,15,0,"Fish, sunfish, pumpkin seed, baked or broiled","Poisson, crapet-soleill, cuit au four ou grillé",15218,1994-01-01,,
+3073,3073,15,0,"Fish, sunfish, pumpkin seed, raw","Poisson, crapet-soleil, cru",15108,1989-01-01,,Lepomis gibbosus (L.)
+3074,3074,15,0,"Fish, surimi","Poisson, surimi",15109,1989-01-01,,
+3076,3076,15,0,"Fish, swordfish, baked or broiled","Poisson, espadon, cuit ar four ou grillé",15111,1989-01-01,,
+3075,3075,15,0,"Fish, swordfish, raw","Poisson, espadon, cru",15110,1989-01-01,,Xiphias gladius L.
+5967,5967,15,0,"Fish, tilapia, baked or broiled","Poisson, tilapia, au four ou grillé",15262,2006-02-27,2005-08-01,
+5966,5966,15,0,"Fish, tilapia, raw","Poisson, tilapia, cru",15261,2006-02-27,2005-08-01,
+3078,3078,15,0,"Fish, tilefish, baked or broiled","Poisson, tile, cuit au four ou grillé",15113,1989-01-01,,
+3077,3077,15,0,"Fish, tilefish, raw","Poisson, tile, cru",15112,1989-01-01,,Lopholatilus chamaeleonticeps Goode and Bean
+3215,3215,15,3,"Fish, trout, mixed species, baked or broiled","Poisson, truite, espèces diverses, au four ou grillées",15219,1994-01-01,,
+3204,3204,15,3,"Fish, trout, mixed species, raw","Poisson, truite, espèces diverses, crues",15114,1994-01-01,,Salmonidae
+3187,3187,15,0,"Fish, trout, rainbow, farmed, baked or broiled","Poisson, truite, arc-en-ciel, élevage, au four ou grillée",15241,1994-01-01,,
+3186,3186,15,0,"Fish, trout, rainbow, farmed, raw","Poisson, truite, arc-en-ciel, élevage, crue",15240,1994-01-01,,Salmo gairdneri Richardson
+3206,3206,15,3,"Fish, trout, rainbow, wild, baked or broiled","Poisson, truite, arc-en-ciel, au four ou grillée",15116,1994-01-01,,
+3205,3205,15,3,"Fish, trout, rainbow, wild, raw","Poisson, truite, arc-en-ciel, sauvage, crue",15115,1994-01-01,,Salmo gairdneri Richardson
+3080,3080,15,0,"Fish, tuna, bluefin, fresh, baked or broiled","Poisson, thon rouge, frais, cuit au four ou grillé",15118,1989-01-01,,
+3079,3079,15,0,"Fish, tuna, bluefin, fresh, raw","Poisson, thon rouge, frais, cru",15117,1989-01-01,,Thunnus thynnus (L.)
+3207,3207,15,3,"Fish, tuna, light, canned in oil, drained, salted","Poisson, thon, chair pale, conserve, dans l'huile, égoutté, salé",15119,1989-01-01,,
+3214,3214,15,3,"Fish, tuna, light, canned in oil, drained, unsalted","Poisson, thon, chair pale, conserve, dans l'huile, égoutté, sans sel",15183,1989-01-01,,
+3081,3081,15,3,"Fish, tuna, light, canned in water, drained, salted","Poisson, thon, chair pale, conserve, dans l'eau, égoutté, salé",15121,1994-01-01,,
+3131,3131,15,0,"Fish, tuna, light, canned in water, drained, unsalted","Poisson, thon, chair pale, conserve, dans l'eau, égoutté, sans sel",15184,1994-01-01,,
+3166,3166,15,0,"Fish, tuna, skipjack (aku), baked or broiled","Poisson, bonite à ventre rayé, au four ou grillé",15220,1994-01-01,,
+3082,3082,15,0,"Fish, tuna, skipjack (aku), fresh, raw","Poisson, bonite à ventre rayé, frais, cru",15123,1989-01-01,,Euthynnus pelamis (L.)
+3083,3083,15,0,"Fish, tuna, white, canned with oil, drained, salted","Poisson, thon, chair blanche, conserve à l'huile, égoutté, salé",15124,1989-01-01,,
+3132,3132,15,0,"Fish, tuna, white, canned with oil, drained, unsalted","Poisson, thon, chair blanche, conserve dans l'huile, égoutté, sans sel",15185,1994-01-01,,
+3084,3084,15,3,"Fish, tuna, white, canned with water, drained, salted","Poisson, thon, chair blanche, conserve, dans l'eau, égoutté, salé",15126,1995-01-01,,
+3133,3133,15,0,"Fish, tuna, white, canned with water, drained, unsalted","Poisson, thon, chair blanche, conserve, dans l'eau, égoutté, sans sel",15186,1995-01-01,,
+3167,3167,15,0,"Fish, tuna, yellowfin (albacore, ahi), baked or broiled","Poisson, thon à nageoires jaunes (albacore), cuit au four ou grillé",15221,1994-01-01,,
+3085,3085,15,3,"Fish, tuna, yellowfin (albacore, ahi), fresh, raw","Poisson, thon à nageoires jaunes (albacore), frais, cru",15127,1989-01-01,,Thunnus albacares (Bonnaterre)
+3168,3168,15,0,"Fish, turbot, european, baked or broiled","Poisson, turbot, européen, au four ou grillé",15222,1994-01-01,,
+3087,3087,15,0,"Fish, turbot, european, raw","Poisson, turbot, européen, cru",15129,1989-01-01,,Scophthalmus maximus (L.)
+3088,3088,15,28,"Fish, whitefish, lake, mixed species, native, smoked","Poisson, corégone de lac, espèces diverses, autochtone, fumées",15131,1989-01-01,,Coregonus spp.
+3169,3169,15,28,"Fish, whitefish, lake, native, baked","Poisson, corégone de lac, autochtone, au four",15223,1994-01-01,,Coregonus clupeaformis
+3208,3208,15,28,"Fish, whitefish, lake, native, raw","Poisson, corégone de lac, autochtone, crues",15130,1989-01-01,,Coregonus clupeaformis
+5925,5925,15,28,"Fish, whitefish, native, eggs, baked","Poisson, corégone de lac, autochtone, oeufs, au four",,2005-06-23,,Coregonus clupeaformis
+5927,5927,15,28,"Fish, whitefish, native, esophagus, raw","Poisson, corégone de lac, autochtone, oesophage, cru",,2005-06-28,,Coregonus clupeaformis
+5926,5926,15,28,"Fish, whitefish, native, head, baked","Poisson, corégone de lac, autochtone, tête, au four",,2005-06-23,,Coregonus clupeaformis
+5924,5924,15,28,"Fish, whitefish, native, smoked, baked","Poisson, corégone de lac, autochtone, fumées, au four",,2005-06-23,,Coregonus clupeaformis
+5923,5923,15,28,"Fish, whitefish, native, smoked, dried","Poisson, corégone de lac, autochtone, fumé, déshydraté",,2005-06-23,,Coregonus clupeaformis
+3171,3171,15,0,"Fish, yellowtail, mixed species, baked or broiled","Poisson, seriole, espèces diverses, au four ou grillées",15225,1994-01-01,,
+3092,3092,15,0,"Fish, yellowtail, mixed species, raw","Poisson, sériole, espèces diverses, crues",15135,1989-01-01,,Seriola spp.
+4409,4409,20,0,"Grains, amaranth, raw","Grains céréaliers, amarante, cru",20001,1990-01-01,,amaranthus spp.
+4495,4495,20,3,"Grains, quinoa, dry","Grains céréaliers, quinoa, sec",20035,1990-01-01,,Chenopodium quinoa Willd.
+6191,6191,20,0,"Grains, spelt, uncooked","Grains céréaliers, épeautre, non cuit",20140,2006-11-17,,
+6193,6193,20,0,"Grains, teff, uncooked","Grains céréaliers, teff, non cuit",20142,2006-11-20,,
+4501,4501,20,38,"Grains, wheat flour, white, all purpose, bleached","Grains céréaliers, farine de blé, blanche, tout usage, blanchie",,1990-01-01,,
+4437,4437,20,0,"Grains, wheat, hard red winter","Grains céréaliers, blé de force roux d'hiver (blé vitreux roux d'hiver)",20072,1990-01-01,,Triticum aestivum L.
+1942,1942,7,0,"Ham, extra lean, canned","Jambon, extra maigre, en conserve",10137,1996-01-01,,
+1862,1862,7,0,"Ham, lean, canned","Jambon, maigre, en conserve",10184,1985-01-01,,
+1865,1865,7,0,"Ham, regular (13% fat), canned","Charcuterie, jambon,  régulier (13% M.G.), en conserve",10140,1985-01-01,,
+5599,5599,11,35,"Hearts of palm, raw","Coeurs de palmier, crus",43392,2004-03-09,2003-08-01,
+4778,4778,14,30,"Hot chocolate, cocoa, without sugar, mix, powder","Chocolat chaud, cacao, sans sucre ajouté, mélange sec",,2000-12-13,1997-04-01,
+4284,4284,19,0,"Icing (frosting), vanilla (white), creamy, dry mix, prepared with butter","Glaçage, vanille (blanc), crémeux, mélange sec, préparé avec beurre",19245,1994-01-01,,
+4336,4336,19,0,"Icing (frosting), vanilla (white), creamy, dry mix, prepared with margarine","Glaçage, vanille (blanc), crémeux, mélange sec, préparé avec margarine",19371,1994-01-01,,
+4283,4283,19,0,"Icing (frosting), vanilla (white), creamy, dry mix, unprepared","Glaçage, vanille (blanc), crémeux, mélange sec, non préparé",19244,1994-01-01,,
+501829,6606,18,0,"Indian, bread, naan","Indien, pain naan",28307,2009-05-05,,
+5492,5492,16,35,"Indian, papad (papadum)","Indien, papad (papadum)",42200,2004-03-09,2003-08-01,
+501978,6751,22,36,"Indien, samosa, vegetarian","Indien, samosa (samoussa), végétarien",,2009-07-08,,
+5558,5558,14,35,"Instant breakfast, powder, chocolate, sugar-free, with artificial sweetener","Déjeuner instantané, poudre, chocolat, sans sucre, avec édulcorant",43260,2004-03-09,2003-08-01,
+5586,5586,11,35,"Juice, tomato and vegetable, low sodium","Jus, tomates et légumes, conserve, faible en sodium",43365,2004-03-09,2003-08-01,
+1584,1584,9,0,"Jujube (chinese date), dried","Jujube (datte chinoise), sec",09147,1984-01-01,,
+1583,1583,9,0,"Jujube (chinese date), raw","Jujube (datte chinoise), cru",09146,1984-01-01,,Ziziphus jujuba
+6291,6291,1,9,"Kefir, (2-3.9% M.F.)","Kéfir, (2-3,9% M.G.)",,2007-06-28,,
+4813,4813,17,0,"Lamb, New Zealand, frozen, leg, whole, lean and fat, 3mm (1/8"") trim, raw","Agneau, Nouvelle-Zélande, congelé, gigot, entier, maigre et gras, 3mm (1/8"") paré, cru",17258,2000-12-13,1997-04-01,
+4814,4814,17,0,"Lamb, New Zealand, frozen, leg, whole, lean and fat, 3mm (1/8"") trim, roasted","Agneau, Nouvelle-Zélande, congelé, gigot, entier, maigre et gras, parures de 3mm (1/8""), rôti",17259,2000-12-13,1997-04-01,
+3492,3492,17,0,"Lamb, New Zealand, frozen, leg, whole, lean and fat, braised","Agneau, Nouvelle-Zélande, congelé, gigot, entier, maigre et gras, braisé",17073,1990-01-01,,
+3494,3494,17,0,"Lamb, New Zealand, frozen, leg, whole, lean, roasted","Agneau, Nouvelle-Zélande, congelé, gigot, entier, maigre, rôti",17075,1990-01-01,,
+3496,3496,17,0,"Lamb, New Zealand, frozen, loin chop, lean and fat, broiled","Agneau, Nouvelle-Zélande, congelé, longe, maigre et gras, grillé",17077,1990-01-01,,
+3495,3495,17,0,"Lamb, New Zealand, frozen, loin chop, lean and fat, raw","Agneau, Nouvelle-Zélande, congelé, longe, maigre et gras, cru",17076,1990-01-01,,
+3498,3498,17,0,"Lamb, New Zealand, frozen, loin chop, lean, broiled","Agneau, Nouvelle-Zélande, congelé, longe, maigre, grillé",17079,1990-01-01,,
+3497,3497,17,0,"Lamb, New Zealand, frozen, loin chop, lean, raw","Agneau, Nouvelle-Zélande, congelé, longe, maigre, cru",17078,1990-01-01,,
+3493,3493,17,0,"Lamb, New Zealand, leg, chop / steak, lean, raw","Agneau, Nouvelle-Zélande, gigot, côtelette / steak, maigre, cru",17074,1990-01-01,,
+3500,3500,17,0,"Lamb, New Zealand, rack - partly frenched, lean and fat, fast roasted","Agneau, Nouvelle-Zélande, carré, côtes partiellement exposées, maigre et gras, rôti",17081,1990-01-01,,
+3499,3499,17,0,"Lamb, New Zealand, rack - partly frenched, lean and fat, raw","Agneau, Nouvelle-Zélande, carré, côtes partiellement exposées, maigre et gras, cru",17080,1990-01-01,,
+2962,2962,14,30,"Lemonade with artificial sweetener, powder","Limonade avec édulcorant artificiel, poudre",14289,1988-01-01,,
+2963,2963,14,30,"Lemonade with artificial sweetener, powder, water added","Limonade avec édulcorant artificiel, poudre, eau ajoutée",14290,1988-01-01,,
+501670,6452,11,0,"Lentils, sprouted, stir-fried, with salt, no fat added","Lentilles, germées, sautées, sel ajouté, sans gras ajouté",11926,2009-03-17,,
+2966,2966,14,1,"Malt beverage, includes non-alcoholic beer (<0.5% alcohol by volume)","Boisson au malt, incluant la bière désalcoolisée (<0,5% alcool par volume)",14305,1988-01-01,,
+2903,2903,14,0,"Malted milk, chocolate flavour, powder, milk whole  milk","Lait malté, saveur de chocolat, poudre, avec lait entier",14318,1988-01-01,,
+5275,5275,14,24,"Malted milk, chocolate flavour, powder, with 2% M.F. milk","Lait malté, saveur de chocolat, poudre, avec lait 2% M.G.",,2001-11-27,,
+4358,4358,7,0,"Meat sticks, beef, non-refrigerated, smoked","Bâtonnets de viande, non-réfrigérés, fumés",19407,1994-01-01,,
+5487,5487,1,35,"Milk, fluid, buttermilk, cultured, 2% M.F.","Babeurre, liquide, culture, 2% M.G.",42189,2004-03-09,2003-08-01,
+4991,4991,18,0,"Muffin, blueberry flavour (artificial), dry mix, unprepared","Muffin, bleuets, saveur artificielle, mélange sec, non préparé",18566,2000-12-28,2000-02-01,
+3917,3917,18,0,"Muffin, blueberry, dry mix, unprepared","Muffin, bleuets, mélange sec, non préparé",18275,1995-01-01,,
+6219,6219,11,0,"Mushroom, Maitake, raw","Champignon, Maitake, cru",11993,2006-11-29,2006-11-01,Grifola frondosa
+2540,2540,12,0,"Nuts, almond paste, sweetened","Noix, pâte d'amandes, sucrée",12071,1985-01-01,,
+2567,2567,12,0,"Nuts, filberts or hazelnuts, dried","Noix, noisettes, avelines ou coudres, séchées",12120,1985-01-01,,Corylus spp.
+2610,2610,12,0,"Nuts, simulated product, wheat-based, all flavours except macadamia, without salt","Noix, simili produit, base de blé, toutes les saveurs sauf macadamia, sans sel",12200,1985-01-01,,
+3332,3332,16,0,Okara,Okara,16130,1988-01-01,,
+2404,2404,11,3,"Onion rings, breaded, par fried, frozen, heated in oven","Oignons en rondelles, panés, pré-frits, congelés, chauffés au four",11296,1985-01-01,,
+2403,2403,11,3,"Onion rings, breaded, par-fried, frozen, unprepared","Oignons en rondelles, panés, pré-frits, congelés, non préparés",11295,1985-01-01,,
+3937,3937,18,0,"Pancake, buckwheat, dry mix, incomplete, unprepared","Crêpe, sarrasin, mélange sec incomplet, non préparé",18295,1995-01-01,,
+3931,3931,18,0,"Pancake, plain (includes buttermilk), dry mix, complete, unprepared","Crêpe, nature (inclut au babeurre), mélange sec complet, non préparé",18289,1995-01-01,,
+3933,3933,18,0,"Pancake, plain (includes buttermilk), dry mix, incomplete, unprepared","Crêpe, nature (inclut au babeurre), mélange sec incomplet, non préparé",18291,1995-01-01,,
+502009,6782,18,36,"Pancake, plain, homemade with butter and maple syrup","Crêpe, nature, faite maison avec beurre et sirop d'érable",,2009-09-01,,
+3939,3939,18,0,"Pancake, whole-wheat, dry mix, incomplete, unprepared","Crêpe, blé entier, mélange sec incomplet, non préparé",18299,1995-01-01,,
+4458,4458,20,1,"Pasta, egg noodles, enriched, cooked","Pâtes, nouilles aux oeufs, enrichies, cuites",20110,1996-01-01,,
+4512,4512,20,1,"Pasta, egg noodles, enriched, dry","Pâtes, nouilles aux oeufs, enrichies, sèches",20109,1996-01-01,,
+4513,4513,20,1,"Pasta, egg noodles, spinach, enriched, dry","Pâtes, nouilles aux oeufs, épinards, enrichies, sèches",20111,1996-01-01,,
+4507,4507,20,1,"Pasta, macaroni (elbow), enriched, cooked","Pâtes, macaroni (coudes), enrichi, cuit",20100,1996-01-01,,
+4506,4506,20,1,"Pasta, macaroni (elbow), enriched, dry","Pâtes, macaroni (coudes), enrichi, sec",20099,1996-01-01,,
+4509,4509,20,1,"Pasta, macaroni, protein-fortified, enriched, cooked","Pâtes, macaroni, enrichi de protéines, enrichi, cuit",20102,1996-01-01,,
+4466,4466,20,1,"Pasta, spaghetti, enriched, cooked, salted","Pâtes, spaghetti, enrichi, cuit, salée",20321,1996-01-01,,
+2153,2153,11,0,"Peas, mature seeds, sprouted, boiled, drained","Pois secs, germés, bouillis, égouttés",11317,1985-01-01,,
+2152,2152,11,0,"Peas, mature seeds, sprouted, raw","Pois secs, germés, crus",11316,1985-01-01,,
+501891,6668,18,0,"Pie crust, cookie-type, graham cracker, ready-to-serve","Croûte de tarte, type biscuit, graham, prête à servir",18942,2009-05-14,2009-05-14,
+1658,1658,9,0,"Pineapple juice, frozen concentrate, unsweetened, undiluted","Ananas, jus, concentré, congelé, non sucré, non dilué",09274,1984-01-01,,
+4780,4780,14,1,"Plant-based beverage, rice, enriched","Boisson à base de plantes, riz, enrichie",14639,2000-12-13,1997-04-01,
+3975,3975,18,0,"Popover, dry mix, unprepared","Popover, mélange sec, non préparé",18339,1995-01-01,,
+1981,1981,10,0,"Pork, cured, back bacon (cornmeal, peameal), uncooked","Porc, salé, bacon de dos (semoule de maïs), non chauffé",10130,1996-01-01,,
+1875,1875,10,0,"Pork, cured, fat, unheated","Porc, salé, gras, non chauffé",10166,1985-01-01,,
+1870,1870,10,0,"Pork, cured, ham, boneless, mini ham-half, extra lean (approximately 5% fat), unheated","Porc, salé, jambon, désossé, petit demi-jambon, très maigre (approximativement 5% de gras), non chauffé",10149,1985-01-01,,
+5575,5575,10,35,"Pork, cured, ham, boneless, mini ham-half, extra lean and regular, cooked, reduced sodium","Porc, salé, jambon, faible en sodium, cuit",43325,2004-03-09,2003-08-01,
+1888,1888,10,0,"Pork, cured, ham, boneless, mini ham-half, extra lean and regular, roasted","Porc, salé, jambon désossé, maigre et régulier, rôti",10183,1985-01-01,,
+1887,1887,10,0,"Pork, cured, ham, boneless, mini ham-half, extra lean and regular, unheated","Porc, salé, jambon désossé, maigre et régulier, non chauffé",10182,1985-01-01,,
+1938,1938,10,0,"Pork, cured, ham, boneless, mini ham-half, extra-lean (approximately 5% fat), roasted","Porc, salé, jambon désossé, extra-maigre (approximativement 5% M.G.), rôti",10134,1996-01-01,,
+1861,1861,10,0,"Pork, cured, ham, boneless, mini ham-half, regular (11% fat), roasted","Porc, salé, jambon désossé, régulier (11% M.G.), rôti",10136,1985-01-01,,
+1877,1877,10,0,"Pork, cured, ham, shoulder, arm picnic, lean and fat, roasted","Porc, salé, jambon, épaule, picnic, maigre et gras, rôti",10168,1985-01-01,,
+1878,1878,10,0,"Pork, cured, ham, shoulder, arm picnic, lean, roasted","Porc, salé, jambon, épaule, picnic, maigre, rôti",10169,1985-01-01,,
+1941,1941,10,23,"Pork, cured, ham, shoulder, cottage roll, lean and fat, roasted","Porc, salé, jambon, épaule, soc roulé (toupie), maigre et gras, rôti",,1996-01-01,,
+1940,1940,10,23,"Pork, cured, ham, shoulder, cottage roll, lean and fat, unheated","Porc, salé, épaule, jambon, soc roulé (toupie), maigre et gras, non chauffé",10170,1996-01-01,,
+1978,1978,10,23,"Pork, cured, ham, shoulder, picnic, boneless, lean, unheated","Porc, salé, jambon, épaule, picnic, désossé, maigre, non chauffé",10169,1996-01-01,,
+5377,5377,7,0,"Pork/ham/chicken, canned, reduced sodium","Porc/jambon/poulet, en conserve, réduit en sodium",07906,2004-03-09,2003-08-01,
+2187,2187,11,0,"Potato salad, homemade","Pomme de terre, salade, faite maison",11414,1985-01-01,,
+2177,2177,11,0,"Potato, au gratin, dry mix, unprepared","Pomme de terre, au gratin, mélange sec, non préparé",11384,1985-01-01,,
+2435,2435,11,3,"Potato, french-fried, frozen, all types, salt added in processing, home-prepared, heated in oven","Pomme de terre, frite, congelée, tous les types, sel ajouté lors de la transformation, réchauffée au four",11403,1995-01-01,,
+5706,5706,11,0,"Potato, Russet, flesh and skin, baked","Pomme de terre, Russet, chair et pelure, cuite au four",11356,2004-03-09,2002-08-01,
+5573,5573,11,35,"Potatoes, canned, drained solids, unsalted","Pomme de terre, conserve, solides égouttés, sans sel",43311,2004-03-09,2003-08-01,
+3986,3986,18,0,"Roll, hamburger / hot dog, multigrain","Pain mollet, hambourgeois / à hot-dog, multigrains",18351,1995-01-01,,
+5520,5520,4,35,"Salad dressing, blue or roquefort cheese, low calorie","Vinaigrette, fromage bleu ou roquefort, hypocalorique",43020,2004-03-09,2003-08-01,
+5584,5584,4,35,"Salad dressing, mayonnaise type, low sodium, reduced fat","Vinaigrette, type mayonnaise, faible en sodium, teneur réduite en gras",43355,2004-03-09,2003-08-01,
+5332,5332,4,0,"Salad dressing, mayonnaise, reduced fat","Vinaigrette, mayonnaise, teneur réduite en gras",04641,2004-03-09,2003-08-01,
+5467,5467,4,35,"Salad dressing, mayonnaise, reduced fat , cholesterol-free","Vinaigrette, mayonnaise, teneur réduite en gras, sans cholestérol",42138,2004-03-09,2003-08-01,
+5368,5368,6,0,"Sauce, pasta, spaghetti or marinara, ready-to-serve, low sodium","Sauce, pâtes, spaghetti ou marinara, prête-à-servir, faible en sodium",06976,2004-03-09,2003-08-01,
+5384,5384,7,38,"Sausage, breakfast links or rounds, beef, cooked","Saucisse à déjeuner, en chapelet ou en galette, boeuf, cuite",07956,2004-03-09,2003-08-01,
+5381,5381,7,38,"Sausage, breakfast links or rounds, pork, pre-cooked","Saucisse à déjeuner, en chapelet ou en galette, porc, pré-cuite",07953,2004-03-09,2003-08-01,
+5499,5499,7,38,"Sausage, smoked, pork, pre-cooked, reduced fat","Saucisse, fumée, porc, pré-cuite, teneur réduite en gras",42241,2004-03-09,2003-08-01,
+5675,5675,7,38,"Sausage, smoked, with cheddar cheese, pre-cooked","Saucisse, fumée, avec fromage cheddar, pré-cuite",07917,2004-03-09,2002-08-01,
+501509,6312,2,0,"Seasoning mix, taco, dry mix","Assaisonnement, taco, mélange sec",02075,2008-05-26,2007-09-01,
+4381,4381,25,0,"Snacks, corn cakes, very low sodium","Grignotises, galettes de maïs, ultra faible en sodium",19800,1994-01-01,,
+4115,4115,25,0,"Snacks, popcorn, cheese flavour","Grignotises, maïs soufflé, saveur de fromage",19040,1994-01-01,,
+4383,4383,25,0,"Snacks, popcorn, oil-popped, white popcorn, with salt","Grignotises, maïs soufflé à l'huile, maïs blanc, sel ajouté",19807,1994-01-01,,
+4123,4123,25,0,"Snacks, pretzels, hard, whole-wheat, including both salted and unsalted","Grignotises, bretzels, durs, blé entier, incluant salés et non salés",19050,1994-01-01,,
+501900,6677,25,0,"Snacks, SUNCHIPS, French Onion flavour","Grignotises, SUNCHIPS, saveur d'oignon",25022,2009-05-14,2009-05-14,
+501901,6678,25,0,"Snacks, SUNCHIPS, Harvest Cheddar flavour","Grignotises, SUNCHIPS, saveur de fromage",25023,2009-05-14,2009-05-14,
+6257,6257,25,0,"Snacks, sweet potato chips, unsalted","Grignotises, croustilles de patates douces, non salées",25012,2006-11-29,2006-11-01,
+4133,4133,25,0,"Snacks, trail mix, regular,  with chocolate chips, salted nuts and seeds","Grignotises, mélange montagnard, régulier avec grains de chocolat, noix et graines salées",19062,1994-01-01,,
+5258,5258,6,38,"Soup, cream, chicken, canned, condensed, 2% M.F. milk added","Soupe, crème, poulet, conserve, condensée, lait 2% M.G. ajouté",,2001-11-22,,
+5260,5260,6,1,"Soup, cream, mushroom, canned, condensed, 2% M.F. milk added","Soupe, crème, champignons, conserve, condensée, lait 2% M.G. ajouté",,2001-11-23,,
+5361,5361,6,38,"Soup, cream, mushroom, ready-to-serve, reduced sodium","Soupe, crème, champignons, prête-à-servir, réduite en sodium",06968,2004-03-09,2003-08-01,
+5261,5261,6,1,"Soup, cream, onion, canned, condensed, 2% M.F. milk added","Soupe, crème, oignon, conserve, condensée, lait 2% M.G. ajouté",,2001-11-23,,
+501963,6736,6,36,"Soup, French onion, homemade (with bread and cheese)","Soupe, oignon, faite maison (avec pain et fromage)",,2009-06-19,,
+5338,5338,6,38,"Soup, minestrone, ready-to-serve, reduced sodium","Soupe, minestrone, prête-à-servir, réduite en sodium",06177,2004-03-09,2003-08-01,
+5254,5254,6,24,"Soup, NISSIN, CUP NOODLES, ramen noodles, chicken flavour, dry, water added","Soupe, NISSIN, CUP NOODLES, nouilles ramen, saveur de poulet, sèches, eau ajoutée",,2001-07-20,,
+5253,5253,6,24,"Soup, NISSIN, OODLES OF NOODLES TOP RAMEN ramen noodles, oriental flavour, dry, water added","Soupe, NISSIN, OODLES OF NOODLES TOP RAMEN nouilles ramen, saveur orientale, sèches, eau ajoutée",,2001-07-20,,
+5362,5362,6,0,"Soup, potato, instant, dehydrated, unprepared","Soupe, pommes de terre, instantanée, déshydratée, non préparée",06969,2004-03-09,2003-08-01,
+501520,6323,6,38,"Soup, red pepper and black bean, ready-to-serve, reduced sodium","Soupe, poivrons rouges et haricots noirs, prête-à-servir, réduit en sodium",06507,2008-05-26,2007-09-01,
+5336,5336,6,0,"Soup, stock, beef, homemade","Soupe, consommé ou bouillon, boeuf, faite maison",06170,2004-03-09,2003-08-01,
+5337,5337,6,0,"Soup, stock, chicken, homemade","Soupe, bouillon, poulet, faite maison",06172,2004-03-09,2003-08-01,
+5867,5867,22,0,"Spaghetti, with meatballs in tomato sauce, canned","Spaghetti avec boulettes de viande dans une sauce aux tomates, conserve",22912,2005-03-04,2005-03-01,
+501843,6620,18,36,"Sugar pie, 1 crust, homemade","Tarte au sucre, 1 croûte, faite maison",,2009-05-08,,
+502040,6818,19,0,"Sweetener, granulated brown sugar","Édulcorant, sucre granulé brun",19909,2009-10-27,,
+5626,5626,19,35,"Sweets, jellies, reduced sugar or no sugar, home preserved","Confiseries, gelées, réduites en sucre ou sans sucre, faites maison",44110,2004-03-09,2003-08-01,
+3404,3404,16,3,"Tofu, regular, firm or extra firm, raw (prepared with calcium sulphate and magnesium chloride)","Tofu, régulier, ferme ou extra ferme, nature (préparé avec sulfate de calcium et chlorure de magnésium)",16126,1988-01-01,,
+501801,6579,11,0,"Tomato products, canned paste, with salt","Produits à base de tomates, conserve, pâte, sel ajouté",11887,2009-03-17,,
+2258,2258,11,0,"Tomato products, canned, paste, no added salt","Produits à base de tomates, pâte, conserve, sans sel ajouté",11546,1985-01-01,,
+2259,2259,11,0,"Tomato products, canned, puree, no salt added","Produits à base de tomates, conserve, purée, sans sel ajouté",11547,1985-01-01,,
+501802,6580,11,0,"Tomato products, canned, puree, with salt","Produits à base de tomates, conserve, purée, sel ajouté",11888,2009-03-17,,
+2465,2465,11,3,"Tomato products, canned, sauce","Produits à base de tomates, conserve, sauce",11549,1985-01-01,,
+2467,2467,11,3,"Tomato products, canned, sauce with herbs and cheese","Produits à base de tomates, conserve, sauce avec fines herbes et fromage",11555,1985-01-01,,
+2466,2466,11,3,"Tomato products, canned, sauce with mushrooms","Produits à base de tomates, conserve, sauce avec champignons",11551,1985-01-01,,
+2468,2468,11,3,"Tomato products, canned, sauce with onions, green peppers and celery","Produits à base de tomates, conserve,  sauce avec oignons, poivrons verts et céleri",11557,1985-01-01,,
+2469,2469,11,3,"Tomato products, canned, sauce with tomato tidbits","Produits à base de tomates, conserve, sauce avec morceaux de tomates",11559,1985-01-01,,
+2309,2309,11,0,"Tomato products, canned, sauce, spanish style","Produits à base de tomates, conserve, sauce, style espagnol",11649,1985-01-01,,
+2261,2261,11,0,"Tomato products, canned, sauce, with onions","Produits à base de tomates, conserve, sauce, avec oignons",11553,1985-01-01,,
+5557,5557,11,35,"Tomato sauce, unsalted","Tomate, sauce, sans sel",43217,2004-03-09,2003-08-01,
+4849,4849,11,0,"Tomato, yellow, raw","Tomate, jaune, crue",11696,2000-12-20,1997-06-01,Solanum lycopersicum
+5595,5595,11,35,"Turnip greens, canned, unsalted","Navet, feuilles, conserve, sans sel",43387,2004-03-09,2003-08-01,
+5574,5574,11,35,"Vegetables, mixed, canned, unsalted","Légumes, macédoine, conserve, sans sel",43312,2004-03-09,2003-08-01,
+5543,5543,16,0,"Vegetarian fillets, meatless","Filet, végétarien, simili viande",43134,2004-03-09,2003-08-01,
+5546,5546,16,0,"Vegetarian meat loaf or patty, meatless","Végétarien, pain de viande ou galette, simili viande",43137,2004-03-09,2003-08-01,
+2918,2918,14,0,"Water, mineral, carbonated, bottled","Eau minérale, gazéifiée, bouteille",14075,1988-01-01,,
+5486,5486,7,38,"Wiener (frankfurter), reduced fat","Saucisse fumée, boeuf et porc, teneur réduite en gras",42188,2004-03-09,2003-08-01,
+5613,5613,7,38,"Wiener (frankfurter), reduced fat and sodium","Saucisse fumée, teneur réduite en gras et sodium",43507,2004-03-09,2003-08-01,
+5705,5705,7,38,"Wiener (frankfurter), regular, mixed meats","Saucisse fumée, viandes mélangées",07950,2004-03-09,2002-08-01,
+4001,4001,18,0,Wonton wrapper (egg roll wrapper),"Wonton, enveloppe (enveloppe à rouleaux impériaux)",18368,1995-01-01,,
+2284,2284,11,0,"Yam, boiled, drained or baked","Igname, bouillie, égouttée ou au four",11602,1985-01-01,,
+501811,6588,11,0,"Yam, boiled, drained or baked, salt added","Igname, bouillie, égouttée ou au four, sel ajouté",11897,2009-03-17,,
