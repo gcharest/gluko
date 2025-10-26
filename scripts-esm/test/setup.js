@@ -24,13 +24,52 @@ const repoRoot = path.resolve(packageRoot, '..')
 const repoCsv = path.resolve(repoRoot, 'nutrient_file_raw', 'cnf-fcen-csv')
 const repoUpdate = path.resolve(repoRoot, 'nutrient_file_raw', 'cnf-fcen-csv-update-miseajour')
 
-// Prefer test-local fixtures if present, then package-level fixtures,
-// finally fall back to repo-level layout. This keeps tests flexible.
-const csvDir = fs.existsSync(testFixturesCsv)
-  ? testFixturesCsv
-  : fs.existsSync(localCsv)
-    ? localCsv
-    : repoCsv
+// Prefer a fixtures directory that actually contains the essential CSVs
+// (NUTRIENT AMOUNT, FOOD NAME, NUTRIENT NAME). The package-local test
+// fixtures may be incomplete; prefer the repo-level fixtures when test
+// fixtures don't contain required files.
+const requiredFiles = ['NUTRIENT AMOUNT.csv', 'FOOD NAME.csv', 'NUTRIENT NAME.csv']
+function hasRequiredFiles(dir) {
+  try {
+    if (!fs.existsSync(dir)) return false
+    const names = fs.readdirSync(dir)
+    return requiredFiles.every((f) => names.includes(f))
+  } catch {
+    return false
+  }
+}
+
+let csvDir
+// If package-local test fixtures directory exists, prefer it. If it is
+// missing some required CSVs, try to copy those missing files from the
+// repository-level fixtures so package tests remain consistent and
+// deterministic.
+if (fs.existsSync(testFixturesCsv)) {
+  try {
+    const existing = fs.readdirSync(testFixturesCsv)
+    for (const f of requiredFiles) {
+      if (!existing.includes(f)) {
+        const src = path.resolve(repoCsv, f)
+        const dest = path.resolve(testFixturesCsv, f)
+        try {
+          if (fs.existsSync(src) && !fs.existsSync(dest)) fs.copyFileSync(src, dest)
+        } catch {
+          // ignore copy errors and continue
+        }
+      }
+    }
+    // use the test fixtures directory after attempting to fill missing files
+    csvDir = testFixturesCsv
+  } catch {
+    // fallback logic below
+  }
+}
+if (!csvDir) {
+  if (hasRequiredFiles(localCsv)) csvDir = localCsv
+  else csvDir = repoCsv
+}
+// updateDir may be less critical; prefer test fixtures if present, else fall
+// back to local or repo-level updates.
 const updateDir = fs.existsSync(testFixturesUpdate)
   ? testFixturesUpdate
   : fs.existsSync(localUpdate)
