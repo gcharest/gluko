@@ -47,23 +47,34 @@ class ShardWriter {
   }
 
   _pathsForIdx(idx) {
-    const tmp = path.join(this.dir, `shard-${String(idx).padStart(4, '0')}.ndjson.gz.tmp`)
-    const final = path.join(this.dir, `shard-${String(idx).padStart(4, '0')}.ndjson.gz`)
-    return { tmp, final }
+    const base = `shard-${String(idx).padStart(4, '0')}.ndjson`
+    const tmpGz = path.join(this.dir, `${base}.gz.tmp`)
+    const finalGz = path.join(this.dir, `${base}.gz`)
+    const tmpBr = path.join(this.dir, `${base}.br.tmp`)
+    const finalBr = path.join(this.dir, `${base}.br`)
+    return { tmpGz, finalGz, tmpBr, finalBr }
   }
 
   open(idx) {
     if (this.opened.has(idx)) return this.opened.get(idx)
     ensureDir(this.dir)
-    const { tmp, final } = this._pathsForIdx(idx)
-    const out = fs.createWriteStream(tmp)
+    const { tmpGz, finalGz, tmpBr, finalBr } = this._pathsForIdx(idx)
+    const outGz = fs.createWriteStream(tmpGz)
     const gz = zlib.createGzip({ level: this.gzipLevel })
-    gz.pipe(out)
+    gz.pipe(outGz)
+    // Brotli with a reasonable default; can be tuned later
+    const outBr = fs.createWriteStream(tmpBr)
+    const br = zlib.createBrotliCompress({ params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 5 } })
+    br.pipe(outBr)
     const state = {
       gz,
-      out,
-      tmp,
-      final,
+      outGz,
+      tmpGz,
+      finalGz,
+      br,
+      outBr,
+      tmpBr,
+      finalBr,
       count: 0,
       uncompressedBytes: 0,
       firstFoodID: null,
@@ -93,6 +104,12 @@ class ShardWriter {
       }
     }
     state.gz.write(line)
+    // write to brotli stream as well
+    try {
+      if (state.br) state.br.write(line)
+    } catch {
+      // best-effort: if brotli write fails, continue with gzip
+    }
     state.count += 1
     state.uncompressedBytes += lineBytes
     const idStr = String(rec.FoodID || rec.FoodCode || '')
@@ -108,22 +125,44 @@ class ShardWriter {
   async closeAll() {
     const results = []
     for (const [, st] of this.opened.entries()) {
+      // finish gzip stream
       await new Promise((res) => st.gz.end(res))
-      await new Promise((res) => st.out.on('finish', res))
-      const buf = fs.readFileSync(st.tmp)
-      const stats = fs.statSync(st.tmp)
-      const sha = crypto.createHash('sha256').update(buf).digest('hex')
-      fs.renameSync(st.tmp, st.final)
+      await new Promise((res) => st.outGz.on('finish', res))
+      // finish brotli stream
+      await new Promise((res) => st.br.end(res))
+      await new Promise((res) => st.outBr.on('finish', res))
+
+      // compute gzip metadata
+      const bufGz = fs.readFileSync(st.tmpGz)
+      const statsGz = fs.statSync(st.tmpGz)
+      const shaGz = crypto.createHash('sha256').update(bufGz).digest('hex')
+      fs.renameSync(st.tmpGz, st.finalGz)
+
+      // compute brotli metadata
+      const bufBr = fs.readFileSync(st.tmpBr)
+      const statsBr = fs.statSync(st.tmpBr)
+      const shaBr = crypto.createHash('sha256').update(bufBr).digest('hex')
+      fs.renameSync(st.tmpBr, st.finalBr)
+
       results.push({
-        file: path.basename(st.final),
+        file: path.basename(st.finalGz),
         count: st.count,
-        bytes: stats.size,
+        bytes: statsGz.size,
         uncompressedBytes: st.uncompressedBytes,
-        sha256: sha,
+        sha256: shaGz,
         firstFoodID: st.firstFoodID,
         lastFoodID: st.lastFoodID,
         minFoodID: st.minFoodID,
-        maxFoodID: st.maxFoodID
+        maxFoodID: st.maxFoodID,
+        // provide alternates (e.g., brotli) for consumers that want the preferred artifact
+        alternates: [
+          {
+            file: path.basename(st.finalBr),
+            bytes: statsBr.size,
+            sha256: shaBr,
+            compression: 'br'
+          }
+        ]
       })
     }
     return results.sort((a, b) => a.file.localeCompare(b.file))
