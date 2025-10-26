@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import * as formatters from '../formatters.js'
+import * as formatters from './formatters.js'
 import { createLogger, ensureDir, safeTrimId } from './utils.js'
 import { setCsvDir, setUpdateDir, updateDir as exportedUpdateDir } from './csv.js'
 import {

@@ -82,8 +82,8 @@ const __filename = fileURLToPath(import.meta.url)
 function printHelp() {
   console.log('\nUsage: node scripts-esm/cnf-fcen-etl.js [options] [sampleLimit]\n')
   console.log('Options:')
-  console.log('  --help, -h                Show this help and exit')
-  console.log('  --full, -f                Process full dataset (sampleLimit=0)')
+  console.log('  --help, -h               Show this help and exit')
+  console.log('  --full, -f               Process full dataset (sampleLimit=0)')
   console.log('  --dry-run, -d            Run without writing output files')
   console.log('  --shard-size, -s <N>     Number of FoodIDs per shard (default 10000)')
   console.log('  --out-dir, -o <path>     Output directory (default scripts/tmp)')
@@ -104,7 +104,7 @@ function parseCli() {
     sampleLimit: 50,
     shardSize: 10000,
     dryRun: false,
-    outDir: path.join(process.cwd(), 'scripts', 'tmp'),
+    outDir: path.join(process.cwd(), 'tmp'),
     logLevel: 'info',
     maxShardBytes: 1024 * 1024,
     outputFormat: 'full',

@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "generatedAt": "2025-10-26T18:10:29.530Z",
+  "schema": "scripts/tmp/flattened_schema.json",
+  "shardKey": "FoodID_range",
+  "shardSize": 10000,
+  "compression": "gzip",
+  "gzipLevel": 6,
+  "shards": [],
+  "totalRecords": 0,
+  "totalBytes": 0
+}

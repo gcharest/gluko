@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { toCanonical, toFull } from '../formatters.js'
+import { toCanonical, toFull } from '../lib/formatters.js'
 
 describe('scripts-esm/formatters', () => {
   it('toCanonical produces expected shape with nutrients', () => {
