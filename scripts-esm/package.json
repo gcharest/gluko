@@ -1,0 +1,16 @@
+{
+  "name": "cnf-etl-scripts-esm",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ESM copy of scripts/ for experimentation and migration",
+  "scripts": {
+    "test": "vitest --config ./vitest.config.js",
+    "test:ci": "vitest --config ./vitest.config.js --run"
+  },
+  "devDependencies": {
+    "csv-parse": "^6.1.0",
+    "vitest": "^3.2.4",
+    "@types/node": "^20.0.0"
+  }
+}
