@@ -264,13 +264,11 @@ export async function run({
   const manifest = {
     version: '1.0',
     generatedAt: new Date().toISOString(),
-    schema: path.relative(
-      workspaceRoot,
-      path.join(workspaceRoot, 'scripts', 'tmp', 'flattened_schema.json')
-    ),
     shardKey: 'FoodID_range',
     shardSize,
-    compression: 'gzip',
+    // list compression priorities: prefer brotli (br) and keep gzip as fallback
+    compression: ['br', 'gzip'],
+    brotliQuality: 5,
     gzipLevel: 6,
     shards,
     totalRecords,
