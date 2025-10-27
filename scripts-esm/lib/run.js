@@ -28,8 +28,10 @@ export async function run({
   logLevel = 'info',
   exportProvenance = false,
   maxShardBytes = 1024 * 1024,
-  outputFormat = 'full',
-  inspect = 0
+  outputFormat = 'legacy',
+  inspect = 0,
+  // compression preference: 'br' or 'gzip' (prefer brotli by default)
+  compression = 'br'
 } = {}) {
   let logger = createLogger(logLevel)
   // Allow callers (including the CLI) to set run.csvDir / run.updateDir as
@@ -91,6 +93,10 @@ export async function run({
   const emptyOutPath = path.join(outDir, 'empty', 'empty.ndjson.gz')
 
   const foodState = new Map()
+  // attachEvent logging controls: log only the first N creates, then suppress and emit a summary
+  let attachCreateCount = 0
+  let attachCreateLogged = 0
+  const ATTACH_CREATE_LOG_LIMIT = 10
   for (const [id, f] of foodMap) {
     foodState.set(id, {
       FoodID: f.FoodID,
@@ -127,13 +133,18 @@ export async function run({
         logger.info('attachEvent: ORPHAN_ADD_SKIPPED', idStr, evt.file || null, evt.action || null)
         return
       }
-      logger.info(
-        'attachEvent: CREATE minimal foodState for',
-        idStr,
-        'due to',
-        evt.file || null,
-        evt.action || null
-      )
+      // Create minimal state; throttle verbose per-item logging to the first N items
+      attachCreateCount += 1
+      if (attachCreateLogged < ATTACH_CREATE_LOG_LIMIT) {
+        logger.info(
+          'attachEvent: CREATE minimal foodState for',
+          idStr,
+          'due to',
+          evt.file || null,
+          evt.action || null
+        )
+        attachCreateLogged += 1
+      }
       foodState.set(idStr, {
         FoodID: idStr,
         FoodCode: null,
@@ -162,8 +173,11 @@ export async function run({
       (evt.table && String(evt.table).toUpperCase() === 'FOOD NAME') ||
       (evt.file && String(evt.file).toUpperCase().includes('FOOD NAME'))
     if (isFoodNameEvent && evt.action && String(evt.action).toUpperCase() === 'ADD') {
-      logger.info(
-        'attachEvent: CREATE minimal foodState for',
+      // This used to log at INFO and produced a lot of repeated messages when many
+      // food-name ADD events occurred for existing states. Keep this as DEBUG so
+      // it can be enabled when troubleshooting but won't spam normal runs.
+      logger.debug(
+        'attachEvent: CREATE minimal foodState (existing state) for',
         idStr,
         'due to',
         evt.file || null,
@@ -225,8 +239,14 @@ export async function run({
     const shardIdx = Number.isFinite(numericId) ? Math.floor((numericId - 1) / shardSize) : 0
     const hasNutrients = s.NutrientsById && Object.keys(s.NutrientsById).length > 0
     let outObj = null
-    if (outputFormat === 'canonical' || inspect > 0)
-      outObj = outputFormat === 'canonical' ? formatters.toCanonical(s) : formatters.toFull(s)
+    if (outputFormat === 'canonical' || outputFormat === 'legacy' || inspect > 0) {
+      outObj =
+        outputFormat === 'canonical'
+          ? formatters.toCanonical(s)
+          : outputFormat === 'legacy'
+            ? formatters.toLegacy(s)
+            : formatters.toFull(s)
+    }
 
     if (inspect > 0 && _inspectPrinted < inspect) {
       logger.info('Inspect sample %s/%s FoodID=%s', _inspectPrinted + 1, inspect, s.FoodID)
@@ -236,8 +256,11 @@ export async function run({
     }
 
     if (!dryRun) {
-      if (!outObj)
-        outObj = outputFormat === 'canonical' ? formatters.toCanonical(s) : formatters.toFull(s)
+      if (!outObj) {
+        if (outputFormat === 'canonical') outObj = formatters.toCanonical(s)
+        else if (outputFormat === 'legacy') outObj = formatters.toLegacy(s)
+        else outObj = formatters.toFull(s)
+      }
       if (hasNutrients) shardWriter.writeRecord(shardIdx, outObj)
       else {
         if (!emptyWriter) emptyWriter = new ProvenanceWriter(emptyOutPath, 6)
@@ -258,7 +281,34 @@ export async function run({
   }
 
   ensureDir(path.dirname(manifestPath))
-  const shards = dryRun ? [] : await shardWriter.closeAll()
+  let shards = dryRun ? [] : await shardWriter.closeAll()
+
+  // If caller requested a preferred compression, prefer it as the primary file in the manifest
+  const preferred = String(compression || 'br').toLowerCase() === 'gzip' ? 'gzip' : 'br'
+  if (shards && shards.length && preferred === 'br') {
+    shards = shards.map((s) => {
+      // find brotli alternate
+      const brAlt = (s.alternates || []).find((a) => a.compression === 'br')
+      if (brAlt) {
+        // make brotli the primary file and move the gzip info into alternates
+        const gzipAlt = {
+          file: s.file,
+          bytes: s.bytes,
+          sha256: s.sha256,
+          compression: 'gzip'
+        }
+        return {
+          ...s,
+          file: brAlt.file,
+          bytes: brAlt.bytes,
+          sha256: brAlt.sha256,
+          alternates: [gzipAlt]
+        }
+      }
+      return s
+    })
+  }
+
   const totalRecords = shards.reduce((sum, s) => sum + s.count, 0)
   const totalBytes = shards.reduce((sum, s) => sum + s.bytes, 0)
   const manifest = {
@@ -274,6 +324,21 @@ export async function run({
     totalRecords,
     totalBytes
   }
+  // If we throttled attachEvent CREATE logs, emit a single summary so users know how many were suppressed
+  if (typeof attachCreateCount === 'number' && attachCreateCount > 0) {
+    const suppressed = Math.max(0, attachCreateCount - attachCreateLogged)
+    if (suppressed > 0) {
+      logger.info(
+        'attachEvent: created %s minimal foodState entries; %s suppressed (first %s shown)',
+        attachCreateCount,
+        suppressed,
+        attachCreateLogged
+      )
+    } else {
+      logger.info('attachEvent: created %s minimal foodState entries', attachCreateCount)
+    }
+  }
+
   await fs.promises.writeFile(manifestPath, JSON.stringify(manifest, null, 2), 'utf8')
   logger.info('Wrote shards to', shardsDir)
   logger.info('Wrote manifest to', manifestPath)
