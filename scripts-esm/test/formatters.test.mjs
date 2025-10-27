@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { toCanonical, toFull } from '../lib/formatters.js'
+import { toCanonical, toFull, toLegacy } from '../lib/formatters.js'
 
 describe('scripts-esm/formatters', () => {
   it('toCanonical produces expected shape with nutrients', () => {
@@ -56,5 +56,30 @@ describe('scripts-esm/formatters', () => {
     expect(t).not.toBe(s)
     expect(t).toEqual(s)
     expect(t.nested).toBe(s.nested)
+  })
+
+  it('toLegacy pivots nutrients to numeric top-level keys and includes FctGluc', () => {
+    const s = {
+      FoodID: 10,
+      FoodCode: 10,
+      FoodGroupID: 2,
+      FoodSourceID: 20,
+      FoodDescription: 'Foo',
+      FoodDescriptionF: 'FooF',
+      FoodGroupName: 'Group',
+      FoodGroupNameF: 'GroupF',
+      Derived: { FctGluc: { value: 0.123 } },
+      NutrientsById: {
+        203: { value: 9.54, unit: 'g' },
+        205: { value: 5.91, unit: 'g' }
+      }
+    }
+    const out = toLegacy(s)
+    expect(out.FoodID).toBe(10)
+    expect(out.FoodCode).toBe(10)
+    expect(out.FoodGroupName).toBe('Group')
+    expect(out['203']).toBeCloseTo(9.54)
+    expect(out['205']).toBeCloseTo(5.91)
+    expect(out.FctGluc).toBeCloseTo(0.123)
   })
 })
