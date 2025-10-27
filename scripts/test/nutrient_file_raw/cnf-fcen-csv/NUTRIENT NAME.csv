@@ -1,0 +1,3 @@
+NutrientID,NutrientCode,NutrientSymbol,NutrientUnit,NutrientName,Tagname,NutrientDecimals
+1,GLC,g,mg,Glucose,CHOCDF,2
+2,FIB,f,g,Fiber,FIBTG,1

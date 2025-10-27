@@ -1,0 +1,3 @@
+FoodID,FoodCode,FoodDescription,FoodDescriptionF,FoodGroupID,FoodSourceID
+10,100,Apple Modified, Pomme Mod,1,1
+50,500,Elderberry, Sureau,4,2

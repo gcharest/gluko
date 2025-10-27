@@ -1,0 +1,4 @@
+FoodID,FoodCode,FoodDescription,FoodDescriptionF,FoodGroupID,FoodSourceID
+10,100,Apple, Pomme,1,1
+20,200,Banana, Banane,1,1
+30,300,Carrot, Carotte,2,1

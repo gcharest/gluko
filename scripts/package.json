@@ -1,0 +1,19 @@
+{
+  "name": "cnf-etl-scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ETL Script package for CNF/FCEN datasets",
+  "scripts": {
+    "run:full": "node ./cnf-fcen-etl.js -f -o",
+    "test": "vitest --config ./vitest.config.js",
+    "test:ci": "vitest --config ./vitest.config.js --run"
+  },
+  "devDependencies": {
+    "csv-parse": "^6.1.0",
+    "vitest": "^3.2.4",
+    "@types/node": "^20.0.0",
+    "chardet": "^2.1.0",
+    "iconv-lite": "^0.6.3"
+  }
+}
