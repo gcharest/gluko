@@ -13,7 +13,18 @@ export default defineConfig({
     globals: true,
     // simulate DOM with happy-dom
     environment: 'happy-dom',
-    exclude: ['**/node_modules/**', '**/dist/**', '**/e2e/**', 'src/**/__tests__/unit.setup.ts'],
+    // Exclude helper script packages and their test folders so running
+    // vitest from the repository root does not pick up ETL/test helpers.
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/e2e/**',
+      'src/**/__tests__/unit.setup.ts',
+      '**/scripts/**',
+      '**/scripts-esm/**',
+      '**/scripts-esm/**/test/**',
+      '**/scripts/**/test/**'
+    ],
     root: fileURLToPath(new URL('./', import.meta.url)),
     setupFiles: ['./src/components/__tests__/unit.setup.ts'],
     coverage: {
@@ -31,7 +42,10 @@ export default defineConfig({
         '**/__tests__/**',
         '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
         '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}',
-        'src/assets/**'
+        'src/assets/**',
+        // don't try to collect coverage from standalone script packages
+        'scripts/**',
+        'scripts-esm/**'
       ]
     }
   },
