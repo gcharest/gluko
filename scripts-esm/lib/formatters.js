@@ -35,3 +35,42 @@ export function toFull(s) {
   if (s === null || typeof s !== 'object') return s
   return Object.assign({}, s)
 }
+
+export function toLegacy(s) {
+  // Produce the legacy flattened schema (numeric nutrient ids as top-level keys)
+  if (s === null || typeof s !== 'object') return s
+  const out = {}
+  if (typeof s.FoodID !== 'undefined') out.FoodID = s.FoodID
+  if (typeof s.FoodCode !== 'undefined') out.FoodCode = s.FoodCode
+  if (typeof s.FoodGroupID !== 'undefined') out.FoodGroupID = s.FoodGroupID
+  if (typeof s.FoodSourceID !== 'undefined') out.FoodSourceID = s.FoodSourceID
+  if (typeof s.FoodDescription !== 'undefined') out.FoodDescription = s.FoodDescription
+  if (typeof s.FoodDescriptionF !== 'undefined') out.FoodDescriptionF = s.FoodDescriptionF
+  if (typeof s.FoodGroupName !== 'undefined') out.FoodGroupName = s.FoodGroupName
+  if (typeof s.FoodGroupNameF !== 'undefined') out.FoodGroupNameF = s.FoodGroupNameF
+
+  // Pivot nutrient values: put numeric nutrient id keys at top-level with their numeric value
+  if (s.NutrientsById && typeof s.NutrientsById === 'object') {
+    for (const nid of Object.keys(s.NutrientsById)) {
+      const n = s.NutrientsById[nid]
+      out[nid] = n && typeof n.value !== 'undefined' ? n.value : null
+    }
+  }
+
+  // FctGluc: prefer derived value if available
+  if (s.Derived && s.Derived.FctGluc && typeof s.Derived.FctGluc.value !== 'undefined') {
+    out.FctGluc = s.Derived.FctGluc.value
+  } else if (typeof s.FctGluc !== 'undefined') {
+    out.FctGluc = s.FctGluc
+  }
+
+  return out
+}
+
+export function extractFctGluc(item) {
+  if (!item) return null
+  if (item.Derived && item.Derived.FctGluc && typeof item.Derived.FctGluc.value !== 'undefined')
+    return item.Derived.FctGluc.value
+  if (typeof item.FctGluc !== 'undefined') return item.FctGluc
+  return null
+}
