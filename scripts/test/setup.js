@@ -4,9 +4,9 @@ import { fileURLToPath } from 'url'
 import { setCsvDir, setUpdateDir } from '../lib/csv.js'
 
 // Resolve fixture locations relative to this package so tests are robust
-// whether run from the repo root or from inside the `scripts-esm` package.
+// whether run from the repo root or from inside the `scripts` package.
 const pkgDir = path.dirname(fileURLToPath(import.meta.url))
-const packageRoot = path.resolve(pkgDir, '..') // points to /workspaces/gluko/scripts-esm
+const packageRoot = path.resolve(pkgDir, '..') // points to /workspaces/gluko/scripts
 
 const testFixturesCsv = path.resolve(packageRoot, 'test', 'nutrient_file_raw', 'cnf-fcen-csv')
 const testFixturesUpdate = path.resolve(

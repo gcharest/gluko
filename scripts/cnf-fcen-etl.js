@@ -80,7 +80,7 @@ export { run as run } from './lib/run.js'
 // Minimal CLI help and parsing kept here so the binary remains usable.
 const __filename = fileURLToPath(import.meta.url)
 function printHelp() {
-  console.log('\nUsage: node scripts-esm/cnf-fcen-etl.js [options] [sampleLimit]\n')
+  console.log('\nUsage: node scripts/cnf-fcen-etl.js [options] [sampleLimit]\n')
   console.log('Options:')
   console.log('  --help, -h               Show this help and exit')
   console.log('  --full, -f               Process full dataset (sampleLimit=0)')

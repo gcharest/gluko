@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { safeTrimId, normalizeProvKeys } from '../lib/utils.js'
 
-describe('scripts-esm helpers', () => {
+describe('scripts helpers', () => {
   it('safeTrimId returns null for undefined/null/empty and trimmed strings otherwise', () => {
     expect(safeTrimId(undefined)).toBeNull()
     expect(safeTrimId(null)).toBeNull()

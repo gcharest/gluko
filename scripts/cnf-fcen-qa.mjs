@@ -12,7 +12,7 @@ import { computeFctGluc } from './lib/compute.js'
 import { loadFileSync, loadSamplePathSync } from './lib/loaders.js'
 
 // derive repository workspace root from this script file location so the
-// script works when invoked from `scripts-esm` (or any CWD)
+// script works when invoked from `scripts` (or any CWD)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const workspaceRoot = path.resolve(__dirname, '..')
@@ -30,7 +30,7 @@ const defaultOutReport = path.join(workspaceRoot, 'scripts', 'tmp', 'cnf-fcen-qa
 let logger = createLogger('info')
 
 function usage() {
-  logger.info('Usage: node scripts-esm/cnf-fcen-qa.mjs [options]')
+  logger.info('Usage: node scripts/cnf-fcen-qa.mjs [options]')
   logger.info('')
   logger.info('Options:')
   logger.info('  --shards-dir <path>       Path to a directory of shards (NDJSON/.br/.gz).')
@@ -88,12 +88,12 @@ function usage() {
   logger.info('Examples:')
   logger.info('  # compare shards to canonical (auto-detect schemas)')
   logger.info(
-    '  node scripts-esm/cnf-fcen-qa.mjs --shards-dir scripts/tmp/shards --canonical src/assets/canadian_nutrient_file.json --out scripts/tmp/report.json'
+    '  node scripts/cnf-fcen-qa.mjs --shards-dir scripts/tmp/shards --canonical src/assets/canadian_nutrient_file.json --out scripts/tmp/report.json'
   )
   logger.info('')
   logger.info('  # compare legacy flattened shards (CHOCDF=205, FIBTG=555) to canonical')
   logger.info(
-    '  node scripts-esm/cnf-fcen-qa.mjs --shards-dir legacy/shards --canonical src/assets/canadian_nutrient_file.json --chocdf-id 205 --fibtg-id 555 --out scripts/tmp/report.json'
+    '  node scripts/cnf-fcen-qa.mjs --shards-dir legacy/shards --canonical src/assets/canadian_nutrient_file.json --chocdf-id 205 --fibtg-id 555 --out scripts/tmp/report.json'
   )
 }
 

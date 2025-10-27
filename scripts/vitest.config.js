@@ -1,5 +1,5 @@
 // Vitest config for ESM scripts folder — keep config local so tests run only
-// when invoked from inside `scripts-esm`.
+// when invoked from inside `scripts`.
 import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('.', import.meta.url))

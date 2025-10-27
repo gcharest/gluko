@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { makeProvEvent } from '../lib/utils.js'
 
-describe('scripts-esm prov events', () => {
+describe('scripts prov events', () => {
   it('makeProvEvent normalizes keys and includes timestamp', () => {
     const inputKeys = { a: '  x ', b: '', c: null, d: 0 }
     const ev = makeProvEvent('file.csv', 'add', 'FOOD', inputKeys)

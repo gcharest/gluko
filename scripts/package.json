@@ -1,10 +1,11 @@
 {
-  "name": "cnf-etl-scripts-esm",
+  "name": "cnf-etl-scripts",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "ESM copy of scripts/ for experimentation and migration",
+  "description": "ETL Script package for CNF/FCEN datasets",
   "scripts": {
+    "run:full": "node ./cnf-fcen-etl.js -f -o",
     "test": "vitest --config ./vitest.config.js",
     "test:ci": "vitest --config ./vitest.config.js --run"
   },

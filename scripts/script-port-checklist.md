@@ -75,17 +75,17 @@ Notes:
 ## Detailed step-by-step implementation plan
 
 Assumptions:
-- We'll place new files under `scripts-esm/lib/` so tests and code remain local to the ESM copy and relative imports are simple.
+- We'll place new files under `scripts/lib/` so tests and code remain local to the ESM copy and relative imports are simple.
 - Existing tests import functions from cnf-fcen-etl.js. We can keep those imports working by re-exporting moved functions from the entry file (short-term). Alternatively update tests to import the new modules directly (preferred for clarity). I'll propose exact test edits below.
 - We won't change runtime behavior; we only move functions and wire imports/exports.
 
 Step 0 — Preparation
-- Create `scripts-esm/lib/` directory.
+- Create `scripts/lib/` directory.
 - Add minimal index files in each lib module exporting moved functions.
 - Keep code style exactly as in the original file (same indentation, same exports) to reduce diffs.
 
 Step 1 — Extract utils
-- Create `scripts-esm/lib/utils.js` (or .mjs if preferred by repo) and move:
+- Create `scripts/lib/utils.js` (or .mjs if preferred by repo) and move:
   - safeTrimId
   - normalizeProvKeys
   - mergeNonEmpty
@@ -97,7 +97,7 @@ Step 1 — Extract utils
 - Export these functions.
 
 Step 2 — Extract csv/FS helpers
-- Create `scripts-esm/lib/csv.js` and move:
+- Create `scripts/lib/csv.js` and move:
   - csvStream
   - updateCsvStream
   - existsInUpdateDir
@@ -105,11 +105,11 @@ Step 2 — Extract csv/FS helpers
 - Export them.
 
 Step 3 — Extract compute
-- Create `scripts-esm/lib/compute.js` and move `computeFctGluc`.
+- Create `scripts/lib/compute.js` and move `computeFctGluc`.
 - Export it.
 
 Step 4 — Extract loaders
-- Create `scripts-esm/lib/loaders.js` and move:
+- Create `scripts/lib/loaders.js` and move:
   - loadNutrientName
   - loadFoodNames
   - loadConversionFactors
@@ -119,7 +119,7 @@ Step 4 — Extract loaders
 - Export the loader functions.
 
 Step 5 — Extract appliers
-- Create `scripts-esm/lib/appliers.js` and move:
+- Create `scripts/lib/appliers.js` and move:
   - applyNutrientNameUpdates
   - applyFoodNameUpdates
   - applyConversionFactorUpdates
@@ -128,7 +128,7 @@ Step 5 — Extract appliers
 - Keep the same signature so entrypoint `run()` only changes imports.
 
 Step 6 — Extract writers
-- Create `scripts-esm/lib/writers.js` and move:
+- Create `scripts/lib/writers.js` and move:
   - ProvenanceWriter
   - ShardWriter
   - ensureDir if used here
@@ -149,7 +149,7 @@ Step 7 — Update cnf-fcen-etl.js (entrypoint)
 
 Step 8 — Update tests
 Two possible approaches:
-A) Update tests to import the functions from their new module paths under `scripts-esm/lib/` (preferred).
+A) Update tests to import the functions from their new module paths under `scripts/lib/` (preferred).
 B) Or keep tests unchanged because the entrypoint re-exports the moved functions. This is the least invasive approach initially and allows incremental changes.
 
 I recommend approach A for clarity, but to minimize churn we can do a mixed approach:
@@ -179,8 +179,8 @@ Step 9 — Run tests and iterate
 - Ensure all tests pass.
 
 Step 10 — Cleanup & optional improvements
-- Add `scripts-esm/lib/README.md` describing module boundaries.
-- Add index export `scripts-esm/lib/index.js` for convenience.
+- Add `scripts/lib/README.md` describing module boundaries.
+- Add index export `scripts/lib/index.js` for convenience.
 - Add new focused unit tests for modules that were previously only indirectly covered (especially writers, csv helpers).
 - Consider moving these `lib/` modules into src when/if centralizing ETL logic for the main app.
 
@@ -205,7 +205,7 @@ Example change 3 (writers.test.mjs)
   import { ShardWriter, ProvenanceWriter } from '../lib/writers.js'
 
 Notes about relative paths:
-- Tests are at `scripts-esm/test/*.mjs`. From there, module paths should be `../lib/appliers.js`, `../lib/loaders.js`, etc. Verify exact relative paths in the repository when implementing.
+- Tests are at `scripts/test/*.mjs`. From there, module paths should be `../lib/appliers.js`, `../lib/loaders.js`, etc. Verify exact relative paths in the repository when implementing.
 
 If you prefer to keep tests unchanged while moving code, then ensure cnf-fcen-etl.js re-exports every function that any test imports. This reduces test edits but is more transitional; still recommended to update tests to import directly later.
 
@@ -220,7 +220,7 @@ Run locally in the container (assuming repo root). Example commands (copyable):
 
 ```bash
 # From repo root
-cd scripts-esm
+cd scripts
 npm test            # or `npm run test` depending on package.json
 # If using vitest directly:
 npx vitest run
@@ -233,16 +233,16 @@ npx vitest run test/applyConversionFactorUpdates.test.mjs
 
 ## Quality gates & PR checklist (what I'll validate)
 - Unit tests: expect all tests in test to pass (or at least fail only for issues unrelated to refactor).
-- Lint/typecheck: run ESLint / tsc if configured for scripts-esm. If errors appear, fix small issues directly in modules.
+- Lint/typecheck: run ESLint / tsc if configured for scripts. If errors appear, fix small issues directly in modules.
 - Keep diffs small and modular: one commit per extracted module is ideal (easier review).
 
 ## Suggested commit plan (small steps for easier review)
-1. Create `scripts-esm/lib/utils.js` and move utils; add tests imports update where trivial.
-2. Create `scripts-esm/lib/csv.js` and move csv helpers.
-3. Create `scripts-esm/lib/compute.js`.
-4. Create `scripts-esm/lib/loaders.js`.
-5. Create `scripts-esm/lib/appliers.js`.
-6. Create `scripts-esm/lib/writers.js`.
+1. Create `scripts/lib/utils.js` and move utils; add tests imports update where trivial.
+2. Create `scripts/lib/csv.js` and move csv helpers.
+3. Create `scripts/lib/compute.js`.
+4. Create `scripts/lib/loaders.js`.
+5. Create `scripts/lib/appliers.js`.
+6. Create `scripts/lib/writers.js`.
 7. Update entrypoint `cnf-fcen-etl.js` to import & re-export; run tests & fix issues.
 8. Update tests to import directly from `lib/` modules (one test-folder at a time) and remove re-exports where no longer needed.
 9. Add README and optional additional small tests for the new modules.

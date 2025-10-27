@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { toCanonical, toFull, toLegacy } from '../lib/formatters.js'
 
-describe('scripts-esm/formatters', () => {
+describe('scripts/formatters', () => {
   it('toCanonical produces expected shape with nutrients', () => {
     const s = {
       FoodID: 123,
