@@ -21,8 +21,6 @@ export default defineConfig({
       '**/e2e/**',
       'src/**/__tests__/unit.setup.ts',
       '**/scripts/**',
-      '**/scripts-esm/**',
-      '**/scripts-esm/**/test/**',
       '**/scripts/**/test/**'
     ],
     root: fileURLToPath(new URL('./', import.meta.url)),
@@ -45,7 +43,7 @@ export default defineConfig({
         'src/assets/**',
         // don't try to collect coverage from standalone script packages
         'scripts/**',
-        'scripts-esm/**'
+        'scripts/**'
       ]
     }
   },
