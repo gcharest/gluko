@@ -9,4 +9,4 @@ The Canadian Nutrient File may be downloaded and used without further permission
 - Users understand that the CNF is intended as a reference tool only and not as medical advice.
 - Refer to [Crown Copyright](https://www.dfo-mpo.gc.ca/terms-avis/copyright-droits-FAQ-eng.htm) for more information.
 
-Source: https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/nutrient-data/copyright-guidelines-canadian-nutrient-file.html
+Source: <https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/nutrient-data/copyright-guidelines-canadian-nutrient-file.html>
