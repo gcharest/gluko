@@ -90,12 +90,15 @@ function printHelp() {
   console.log('  --log-level, -l <level>  Log level: error,warn,info,debug (default info)')
   console.log('  --max-shard-size, -M <s> Max uncompressed shard size (e.g. 512K, 1M)')
   console.log(
-    '  --format, -F <full|canonical>  Output object shape: full (internal) or canonical (canonical JSON)'
+    '  --format, -F <full|canonical|legacy>  Output object shape: full (internal), canonical (canonical JSON), or legacy (CNF flattened legacy schema) (default: legacy)'
   )
   console.log('  --inspect <N>            Print N transformed sample records (implies --dry-run)')
   console.log('  --csv-dir <path>         Override input CSV directory')
   console.log('  --update-dir <path>      Override update CSV directory')
   console.log('  --export-provenance, -e  Export provenance updates to a gzipped NDJSON')
+  console.log(
+    "  --compression, -c        Compression to use for outputs: 'br' (brotli) or 'gzip' (default 'br')"
+  )
 }
 
 function parseCli() {
@@ -107,8 +110,10 @@ function parseCli() {
     outDir: path.join(process.cwd(), 'tmp'),
     logLevel: 'info',
     maxShardBytes: 1024 * 1024,
-    outputFormat: 'full',
-    inspect: 0
+    outputFormat: 'legacy',
+    inspect: 0,
+    // compression: either 'br' (brotli) or 'gzip'
+    compression: 'br'
   }
   for (let i = 0; i < args.length; i++) {
     const a = args[i]
@@ -159,11 +164,26 @@ function parseCli() {
         i++
       }
     } else if (a === '--export-provenance' || a === '-e') opts.exportProvenance = true
-    else if (a === '--format' || a === '-F' || a === '--output-format') {
+    else if (a === '--compression' || a === '-c') {
       const v = args[i + 1]
       if (v) {
         const vv = String(v).trim().toLowerCase()
-        if (vv === 'full' || vv === 'canonical') {
+        if (vv === 'br' || vv === 'gzip') {
+          opts.compression = vv
+        } else {
+          console.warn(
+            'Unknown --compression value',
+            v,
+            "(expected 'br' or 'gzip'). Using default 'br'."
+          )
+        }
+        i++
+      }
+    } else if (a === '--format' || a === '-F' || a === '--output-format') {
+      const v = args[i + 1]
+      if (v) {
+        const vv = String(v).trim().toLowerCase()
+        if (vv === 'full' || vv === 'canonical' || vv === 'legacy') {
           opts.outputFormat = vv
           i++
         } else {
@@ -192,6 +212,8 @@ if (process.argv[1] === __filename) {
     dryRun: cli.dryRun,
     outDir: cli.outDir,
     logLevel: cli.logLevel,
+    // compression: 'br' (brotli) or 'gzip'
+    compression: cli.compression,
     exportProvenance: cli.exportProvenance,
     maxShardBytes: cli.maxShardBytes,
     outputFormat: cli.outputFormat,
