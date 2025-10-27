@@ -180,7 +180,7 @@ export function loadFileSync(p, debug = false) {
     if (!l || !l.trim()) continue
     try {
       out.push(JSON.parse(l))
-    } catch (e) {
+    } catch {
       if (debug) logger.warn('Skipping invalid JSON line in', p)
     }
   }
@@ -216,7 +216,6 @@ export function loadSamplePathSync(samplePath, debug = false) {
   return loadFileSync(samplePath, debug)
 }
 
-
 function createDecompressedStream(p) {
   const lower = String(p).toLowerCase()
   let rs = fs.createReadStream(p)
@@ -245,7 +244,7 @@ export async function* streamFileAsync(p, debug = false) {
     if (!t) return { ok: false }
     try {
       return { ok: true, value: JSON.parse(t) }
-    } catch (e) {
+    } catch {
       return { ok: false }
     }
   }
@@ -343,7 +342,7 @@ export async function* streamFileAsync(p, debug = false) {
     if (buffer && buffer.trim()) {
       try {
         yield JSON.parse(buffer)
-      } catch (e) {
+      } catch {
         if (debug) logger.warn('Skipping invalid trailing NDJSON buffer in', p)
       }
     }
@@ -353,7 +352,7 @@ export async function* streamFileAsync(p, debug = false) {
       try {
         const parsed = JSON.parse(buffer.slice(objStart))
         yield parsed
-      } catch (e) {
+      } catch {
         if (debug) logger.warn('Skipping leftover parse failure in', p)
       }
     }
@@ -369,7 +368,7 @@ export async function* streamShardsDirAsync(dir, debug = false) {
     if (!st.isFile()) continue
     try {
       for await (const rec of streamFileAsync(fp, debug)) yield rec
-    } catch (e) {
+    } catch {
       if (debug) logger.warn('Skipping file in streamShardsDirAsync', fp)
     }
   }

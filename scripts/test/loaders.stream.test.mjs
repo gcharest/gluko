@@ -1,3 +1,4 @@
+/* eslint-env node */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import fs from 'fs'
 import path from 'path'
@@ -35,7 +36,7 @@ describe('streaming loaders (large data)', () => {
     const p = path.join(tmpDir, 'large.ndjson')
     await writeLargeNdjsonFile(p, n)
 
-    const before = process.memoryUsage().heapUsed
+    const before = globalThis.process?.memoryUsage?.().heapUsed ?? 0
     let count = 0
     let last = null
     for await (const rec of streamFileAsync(p, true)) {
@@ -43,7 +44,7 @@ describe('streaming loaders (large data)', () => {
       last = rec
       // keep only tally and last to avoid storing all
     }
-    const after = process.memoryUsage().heapUsed
+    const after = globalThis.process?.memoryUsage?.().heapUsed ?? 0
     expect(count).toBe(n)
     expect(String(last.FoodID)).toBe(String(n - 1))
     // Ensure memory didn't spike excessively (allow generous headroom)
@@ -61,12 +62,13 @@ describe('streaming loaders (large data)', () => {
     fs.writeFileSync(brPath, zlib.brotliCompressSync(Buffer.from(nd)))
 
     for (const p of [gzPath, brPath]) {
-      const before = process.memoryUsage().heapUsed
+      const before = globalThis.process?.memoryUsage?.().heapUsed ?? 0
       let count = 0
-      for await (const rec of streamFileAsync(p, true)) {
+      for await (const _rec of streamFileAsync(p, true)) {
         count++
+        void _rec
       }
-      const after = process.memoryUsage().heapUsed
+      const after = globalThis.process?.memoryUsage?.().heapUsed ?? 0
       expect(count).toBe(n)
       expect(after - before).toBeLessThan(100 * 1024 * 1024)
     }
@@ -88,8 +90,9 @@ describe('streaming loaders (large data)', () => {
     }
 
     let count = 0
-    for await (const rec of streamShardsDirAsync(tmpDir, true)) {
+    for await (const _rec of streamShardsDirAsync(tmpDir, true)) {
       count++
+      void _rec
     }
     expect(count).toBe(expected)
   })
