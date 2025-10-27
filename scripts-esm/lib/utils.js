@@ -37,6 +37,23 @@ export function safeTrimId(v) {
   return s === '' ? null : s
 }
 
+// Normalize a FoodID/FoodCode-like object field to a string id or null.
+export function getFoodId(item) {
+  if (!item) return null
+  const f = item.FoodID !== undefined && item.FoodID !== null ? safeTrimId(item.FoodID) : null
+  if (f !== null) return String(f)
+  const c = item.FoodCode !== undefined && item.FoodCode !== null ? safeTrimId(item.FoodCode) : null
+  if (c !== null) return String(c)
+  return null
+}
+
+// Numeric approximate equality check (useful across QA scripts)
+export function almostEqual(a, b, tol = 1e-6) {
+  if (a === null || b === null) return false
+  if (Number.isNaN(a) || Number.isNaN(b)) return false
+  return Math.abs(a - b) <= tol
+}
+
 export function normalizeProvKeys(keys) {
   if (!keys || typeof keys !== 'object') return keys
   const out = {}
