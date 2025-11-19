@@ -28,7 +28,7 @@ Gluko is a **Progressive Web App (PWA)** with a **client-only architecture**. Th
 ### Data Layer
 
 - **IndexedDB** stores the nutrient dataset and user history
-- **Service Worker** caches compressed NDJSON shards and serves them offline
+- **Service Worker** caches NDJSON shards and serves them offline
 - Dataset downloaded once, updated rarely (5-10 year cadence)
 - Structured as **versioned records** to allow atomic dataset swaps without re-imports
 
@@ -114,4 +114,3 @@ public/
 - [Product Vision & Goals](./PRODUCT.md)
 - [Release Planning](./releases/)
 - [Implementation Details](./implementation/)
-- [Architecture Decisions](./adr/)

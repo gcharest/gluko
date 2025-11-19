@@ -1,109 +1,64 @@
 # Gluko Documentation
 
-Welcome to the Gluko documentation. This directory contains all project documentation organized by purpose and audience.
+This directory contains all project documentation organized by topic and purpose.
 
-## Quick Navigation
+## Documentation
 
-### For Everyone
+- [../README.md](../README.md) — Project overview and setup instructions
+- [PRODUCT.md](PRODUCT.md) — Project vision and goals
+- [ARCHITECTURE.md](ARCHITECTURE.md) — Technical architecture and design patterns
+- [releases/](releases/) — Release plans and roadmap
+- [implementation/](implementation/) — Technical specifications and implementation guides
 
-- **[Product Vision & Goals](PRODUCT.md)** — What Gluko is, why it exists, and how success is measured
-- **[Technical Architecture](ARCHITECTURE.md)** — High-level overview of how the app works (tech stack, data flow, PWA design)
+## Document Templates
 
-### For Product Managers & Planners
+**Strategic documents**:
 
-- **[Release Planning](releases/)** — Roadmap and planning documents for upcoming releases
+- `PRODUCT.md` — Vision, target users, goals, success metrics
 
-### For Engineers
+**Planning documents**:
 
-- **[Implementation Details](implementation/)** — Technical specifications, APIs, tasks, and acceptance criteria
-- **[Architecture Decisions](adr/)** — Record of significant architectural choices and their rationale
+- `releases/` — Goals, constraints, options, and success criteria for each release
 
-## Reading Order for New Contributors
+**Implementation documents**:
 
-**First time here?** Read these in order:
+- `implementation/` — Technical specifications, task breakdowns, and implementation guides
 
-1. [../README.md](../README.md) — Project overview and how to set up locally
-2. [PRODUCT.md](PRODUCT.md) — Understand the vision and who we're building for
-3. [ARCHITECTURE.md](ARCHITECTURE.md) — Get the mental model of how everything fits together
-4. [releases/](releases/) — See what's being planned next
+## Documentation Quality
 
-## Documentation Structure
+Documentation in this directory is:
 
-### Strategic Documents (Stable, rarely change)
+- **Factual**: Describes what is and will be
+- **Organized**: Grouped by topic and purpose
+- **Linked**: References related documents
+- **Current**: Updated to reflect actual state
+- **Complete**: Self-contained with necessary context
 
-- `PRODUCT.md` — Vision, target users, goals, and success metrics
+## Release Plan Format
 
-### Planning Documents (One per release)
+Release plans in `releases/` use the naming convention: `v{N}.{N}-{feature}.md`
 
-- `releases/` — Goals, constraints, and options for each release (without implementation details)
+Each release plan includes:
 
-### Implementation Documents
+- Goals for the release
+- Constraints specific to this release
+- Options considered (with pros/cons)
+- Selected option with rationale
+- Dependencies
+- Success criteria
+- Known risks and mitigations
+- Out of scope items
 
-- `implementation/` — Detailed technical specifications and implementation guides
-- `adr/` — Architecture Decision Records
+See `releases/README.md` for the template.
 
-## Documentation Principles
+## Implementation Documentation Format
 
-1. **Concise at the top**: Strategic documents are short and stable
-2. **Separation of concerns**: Planning doesn't include implementation; implementation links back to planning
-3. **One source of truth**: Each topic has one authoritative document
-4. **Discoverable**: Clear navigation and index every level
-5. **Status clear**: Documents are marked Current/Exploratory/Superseded/Archived
+Implementation documents include:
 
-## Adding New Documentation
-
-### Creating a Release Plan
-
-When planning a new release:
-
-1. Create a new file in `releases/` following the naming convention: `v{N}.{N}-{feature}.md`
-2. Use this structure:
-   - Goals
-   - Constraints specific to this release
-   - Options considered (with pros/cons for each)
-   - Selected option with rationale
-   - Dependencies
-   - Success criteria
-   - Risks & mitigations
-   - Out of scope
-
-3. See `releases/README.md` for examples and full template
-
-### Creating Implementation Documentation
-
-When starting implementation:
-
-1. Create a file in `implementation/` with a descriptive name
-2. Link back to the release document
-3. Include:
-   - Overview and connection to product goals
-   - Architecture/data flow diagrams
-   - API specifications
-   - Task breakdown with acceptance criteria
-   - Testing strategy
-   - Deployment steps
-   - Rollback procedures
-
-### Recording Architectural Decisions
-
-For significant technical decisions:
-
-1. Create an ADR in `adr/` following the [ADR template](adr/)
-2. Link the ADR from relevant implementation or release docs
-3. Document the decision, context, options considered, and consequences
-
-## Questions?
-
-- Check if someone has already documented your question in one of these files
-- Look at recent ADRs to understand past decisions
-- Ask in code reviews about undocumented decisions (they may need an ADR)
-
-## Documentation Status
-
-| Document        | Purpose                       | Status         |
-| --------------- | ----------------------------- | -------------- |
-| PRODUCT.md      | Product vision & goals        | Current ✅     |
-| ARCHITECTURE.md | High-level technical overview | Current ✅     |
-| releases/       | Release planning (TBD)        | In progress 🔄 |
-| implementation/ | Implementation details (TBD)  | In progress 🔄 |
-| adr/            | Architecture decisions        | Current ✅     |
+- Overview and connection to product goals
+- Architecture/data flow diagrams
+- API specifications
+- Task breakdown with acceptance criteria
+- Testing strategy
+- Deployment steps
+- Links to related release plans
