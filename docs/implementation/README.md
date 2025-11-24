@@ -11,15 +11,15 @@ This directory contains detailed technical specifications and implementation gui
 
 ## Current Implementations
 
-| Document | Release | Purpose |
-|----------|---------|----------|
-| v0.1-mvp.md | v0.1 | Establish baseline offline-capable carb calculator |
-| v0.2-pwa-installability.md | v0.2 | Complete PWA with manifest.json, icons, and quality gates |
-| v0.3-shard-loading.md | v0.3 | Implement NDJSON sharding and manifest versioning |
-| v0.4-pwa-optimization.md | v0.4 | Web Workers for background imports, performance optimization |
-| v0.5-ui-polish.md | v0.5 | UI refinement and WCAG AA accessibility compliance |
-| v0.6-history-export.md | v0.6 | History export/import for data portability |
-| v0.7-advanced-features.md | v0.7 | Optional advanced features (meal templates, advanced search) |
+| Document                   | Release | Purpose                                                      |
+| -------------------------- | ------- | ------------------------------------------------------------ |
+| v0.1-mvp.md                | v0.1    | Establish baseline offline-capable carb calculator           |
+| v0.2-pwa-installability.md | v0.2    | Complete PWA with manifest.json, icons, and quality gates    |
+| v0.3-shard-loading.md      | v0.3    | Implement NDJSON sharding and manifest versioning            |
+| v0.4-pwa-optimization.md   | v0.4    | Web Workers for background imports, performance optimization |
+| v0.5-ui-polish.md          | v0.5    | UI refinement and WCAG AA accessibility compliance           |
+| v0.6-history-export.md     | v0.6    | History export/import for data portability                   |
+| v0.7-advanced-features.md  | v0.7    | Optional advanced features (meal templates, advanced search) |
 
 ## Implementation Document Structure
 
