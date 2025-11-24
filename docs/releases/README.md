@@ -172,8 +172,6 @@ Maintain a `CHANGELOG.md` at the repo root to track releases:
 - Bilingual interface (EN/FR)
 ```
 
-
-
 ## Release Sequence
 
 Each release builds on the previous, from foundational features (v0.1) through production readiness (v1.0):

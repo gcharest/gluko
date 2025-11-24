@@ -41,7 +41,7 @@ Gluko is a **Progressive Web App (PWA)** with a **client-only architecture**. Th
 
 ## Key Components
 
-```
+```text
 src/
 ├── main.ts                 # App entry point
 ├── App.vue                 # Root component
