@@ -30,6 +30,20 @@ Managing Type 1 Diabetes requires constant attention to carbohydrate intake to d
 - Using official Canadian nutritional data
 - Supporting families and caregivers with multi-subject management and meal tracking
 
+## ⚠️ Important Disclaimer
+
+**Gluko is NOT a certified medical device or application.** This project is a carbohydrate counting reference and calculation tool only.
+
+**Do NOT use Gluko as a substitute for professional medical advice.** Always:
+
+- Consult with your healthcare provider before making any diabetes management decisions
+- Verify nutritional information against reliable sources
+- Exercise careful review of all calculations
+- Understand that nutritional data may contain errors or be incomplete
+- Use this app only as a supplementary guide tool
+
+This application is not approved by health authorities and should not be relied upon for medical purposes. Proper insulin dosing and diabetes management require professional medical guidance.
+
 ## Experimental
 
 This project is experimental and not intended for medical use. Always consult with a healthcare professional for medical advice and insulin dosing.
