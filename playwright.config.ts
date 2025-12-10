@@ -40,20 +40,29 @@ export default defineConfig({
   },
 
   // Browser configurations
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] }
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] }
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] }
-    }
-  ],
+  // In local dev, run only Chromium by default for speed
+  // Use --project=firefox or --project=webkit to test other browsers
+  projects: process.env.CI
+    ? [
+      {
+        name: 'chromium',
+        use: { ...devices['Desktop Chrome'] }
+      },
+      {
+        name: 'firefox',
+        use: { ...devices['Desktop Firefox'] }
+      },
+      {
+        name: 'webkit',
+        use: { ...devices['Desktop Safari'] }
+      }
+    ]
+    : [
+      {
+        name: 'chromium',
+        use: { ...devices['Desktop Chrome'] }
+      }
+    ],
 
   // Local dev server configuration
   webServer: {
