@@ -29,6 +29,25 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Start preview server
+        run: |
+          npm run preview > /tmp/server.log 2>&1 &
+          echo $! > /tmp/server.pid
+          
+          # Wait for server to start (retry up to 30 times, 2 second intervals)
+          for i in {1..30}; do
+            if curl -f http://localhost:4173/gluko/ > /dev/null 2>&1; then
+              echo "✓ Server started successfully"
+              exit 0
+            fi
+            echo "Waiting for server... ($i/30)"
+            sleep 2
+          done
+          
+          echo "✗ Server failed to start"
+          cat /tmp/server.log
+          exit 1
+
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v11
         with:
@@ -88,3 +107,10 @@ jobs:
           name: lighthouse-results
           path: '.lighthouseci'
           retention-days: 30
+
+      - name: Clean up server
+        if: always()
+        run: |
+          if [ -f /tmp/server.pid ]; then
+            kill $(cat /tmp/server.pid) 2>/dev/null || true
+          fi
