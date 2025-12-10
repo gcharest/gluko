@@ -22,10 +22,6 @@ permissions:
 jobs:
   accessibility:
     runs-on: ubuntu-latest
-    container:
-      # Use pre-built Playwright Docker image - includes all browser deps
-      image: mcr.microsoft.com/playwright:v1.57.0-jammy
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -42,21 +38,24 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Install wait-on
+        run: npm install -g wait-on
+
       - name: Start preview server and run tests
         run: |
           # Start the preview server
           npm run preview &
           SERVER_PID=$!
 
-          # Wait for server to be ready (simple polling approach)
-          for i in {1..30}; do
-            if curl -f http://localhost:4173/gluko/ > /dev/null 2>&1; then
-              echo "✓ Server is ready"
-              break
-            fi
-            echo "Waiting for server... ($i/30)"
-            sleep 2
-          done
+          # Wait for the server to be ready (timeout after 60s)
+          wait-on -t 60000 http://localhost:4173/gluko/ || {
+            echo "Server failed to start"
+            kill $SERVER_PID
+            exit 1
+          }
 
           # Run the tests
           npx playwright test e2e/accessibility.spec.ts
