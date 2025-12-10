@@ -20,14 +20,73 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'prompt',
+      includeAssets: ['favicon.ico', 'icons/*.png', 'manifest.json'],
+      manifest: false, // Use public/manifest.json instead of generating
       workbox: {
-        maximumFileSizeToCacheInBytes: 3000000 // 3MB limit instead of default 2MB
+        maximumFileSizeToCacheInBytes: 3000000, // 3MB limit instead of default 2MB
+        // Only specify glob patterns in production build
+        globPatterns: ['**/*.{js,css,html,woff2}'],
+        // More specific patterns to avoid warnings in dev mode
+        globIgnores: ['**/node_modules/**/*'],
+        runtimeCaching: [
+          {
+            // Cache API responses with network-first strategy
+            urlPattern: ({ url }) => url.pathname.endsWith('.json'),
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'api-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 // 24 hours
+              }
+            }
+          },
+          {
+            // Cache images with cache-first strategy
+            urlPattern: ({ url }) => /\.(png|jpg|jpeg|svg|gif|webp)$/.test(url.pathname),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'image-cache',
+              expiration: {
+                maxEntries: 60,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+              }
+            }
+          },
+          {
+            // Cache fonts
+            urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-stylesheets',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              }
+            }
+          }
+        ]
+      },
+      devOptions: {
+        enabled: true, // Enable SW in dev mode for testing
+        type: 'module',
+        navigateFallback: 'index.html'
       }
     })
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // Suppress Bootstrap deprecation warnings for Sass built-in functions
+        // These are Bootstrap's responsibility to fix, not ours
+        quietDeps: true,
+        silenceDeprecations: ['import', 'global-builtin', 'color-functions']
+      }
     }
   },
   build: {
