@@ -75,7 +75,7 @@ test.describe('PWA Installation', () => {
         try {
           const registration = await navigator.serviceWorker.ready
           return registration.active !== null
-        } catch (error) {
+        } catch {
           return false
         }
       }
@@ -117,7 +117,7 @@ test.describe('PWA Installation', () => {
     expect(title).toContain('gluko')
   })
 
-  test('app is installable (beforeinstallprompt)', async ({ page, context }) => {
+  test('app is installable (beforeinstallprompt)', async ({ page }) => {
     // Note: This test may not work in all browsers/contexts
     // The beforeinstallprompt event only fires under specific conditions
 
