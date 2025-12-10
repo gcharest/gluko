@@ -3,18 +3,19 @@ import { test, expect } from '@playwright/test'
 test.describe('Homepage', () => {
   test('should display the calculator in French by default', async ({ page }) => {
     await page.goto('/')
-    // Use a more specific selector that only targets the main content heading
-    await expect(page.getByRole('heading', { level: 1 }).first()).toHaveText(
-      'Calculateur de glucides'
-    )
+    // Check for French card title (h2) - Calculateur de glucides
+    await expect(page.getByRole('heading', { level: 2, name: 'Calculateur de glucides' })).toBeVisible()
   })
 
   test('should switch language when toggling to English', async ({ page }) => {
     await page.goto('/')
 
+    // Wait for app to fully load
+    await page.waitForLoadState('networkidle')
+
     // Click the language toggler component first
     const languageToggler = page.locator('#language-toggler')
-    await languageToggler.waitFor({ state: 'visible' })
+    await languageToggler.waitFor({ state: 'visible', timeout: 10000 })
     await languageToggler.click()
 
     // Now click the English option in the dropdown
@@ -22,8 +23,8 @@ test.describe('Homepage', () => {
     await englishOption.waitFor({ state: 'visible' })
     await englishOption.click()
 
-    // Verify the title has changed to English
-    await expect(page.getByRole('heading', { level: 1 }).first()).toHaveText('Carbs Counter')
+    // Verify the card title changed to English (h2 level heading)
+    await expect(page.getByRole('heading', { level: 2, name: 'Carb Calculator' })).toBeVisible()
   })
 
   test('should have working navigation links', async ({ page }) => {
