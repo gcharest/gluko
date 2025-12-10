@@ -40,22 +40,31 @@ export default defineConfig({
   },
 
   // Browser configurations
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] }
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] }
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] }
-    }
-  ],
-
-  // Local dev server configuration
+  projects: process.env.CI
+    ? [
+      {
+        name: 'chromium',
+        use: { ...devices['Desktop Chrome'] }
+      },
+      {
+        name: 'firefox',
+        use: { ...devices['Desktop Firefox'] }
+      },
+      {
+        name: 'webkit',
+        use: { ...devices['Desktop Safari'] }
+      }
+    ]
+    : [
+      {
+        name: 'chromium',
+        use: { ...devices['Desktop Chrome'] }
+      },
+      {
+        name: 'firefox',
+        use: { ...devices['Desktop Firefox'] }
+      }
+    ],  // Local dev server configuration
   webServer: {
     command: process.env.CI ? 'vite preview --port 5173' : 'vite dev',
     port: 5173,

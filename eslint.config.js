@@ -8,7 +8,7 @@ import globals from 'globals'
 
 export default [
   {
-    ignores: ['*.d.ts', '**/coverage', '**/dist', '**/node_modules']
+    ignores: ['*.d.ts', '**/coverage', '**/dist', '**/dev-dist', '**/node_modules']
   },
   eslint.configs.recommended,
   ...pluginVue.configs['flat/recommended'],

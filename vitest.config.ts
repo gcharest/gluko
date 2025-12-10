@@ -27,6 +27,12 @@ export default defineConfig({
     setupFiles: ['./src/components/__tests__/unit.setup.ts'],
     coverage: {
       provider: 'v8',
+      enabled: true,
+      reporter: ['text', 'json', 'html', 'lcov'],
+      include: [
+        'src/stores/**/*.ts',
+        'src/composables/**/*.ts'
+      ],
       exclude: [
         'coverage/**',
         'dist/**',
@@ -44,7 +50,13 @@ export default defineConfig({
         // don't try to collect coverage from standalone script packages
         'scripts/**',
         'scripts/**'
-      ]
+      ],
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 80,
+        statements: 80
+      }
     }
   },
   resolve: {
