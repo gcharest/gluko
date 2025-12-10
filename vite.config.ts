@@ -30,11 +30,12 @@ export default defineConfig({
         globIgnores: ['**/node_modules/**/*'],
         runtimeCaching: [
           {
-            // Cache API responses with network-first strategy
-            urlPattern: ({ url }) => url.pathname.endsWith('.json'),
+            // Cache app data JSON files with network-first strategy
+            // Only cache requests to /data/ endpoints for app-specific data
+            urlPattern: ({ url }) => url.pathname.startsWith('/gluko/data/') && url.pathname.endsWith('.json'),
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'api-cache',
+              cacheName: 'data-cache',
               expiration: {
                 maxEntries: 50,
                 maxAgeSeconds: 60 * 60 * 24 // 24 hours
