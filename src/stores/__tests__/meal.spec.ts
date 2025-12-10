@@ -278,7 +278,7 @@ describe('Meal Store', () => {
     it('handles missing subject gracefully', async () => {
       const store = useMealStore()
 
-      // Try to add nutrient without active subject  
+      // Try to add nutrient without active subject
       const result = await store.addEmptyNutrient()
 
       // Should return false but not throw
