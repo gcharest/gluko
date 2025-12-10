@@ -40,8 +40,6 @@ export default defineConfig({
   },
 
   // Browser configurations
-  // In local dev, run only Chromium by default for speed
-  // Use --project=firefox or --project=webkit to test other browsers
   projects: process.env.CI
     ? [
       {
@@ -61,10 +59,12 @@ export default defineConfig({
       {
         name: 'chromium',
         use: { ...devices['Desktop Chrome'] }
+      },
+      {
+        name: 'firefox',
+        use: { ...devices['Desktop Firefox'] }
       }
-    ],
-
-  // Local dev server configuration
+    ],  // Local dev server configuration
   webServer: {
     command: process.env.CI ? 'vite preview --port 5173' : 'vite dev',
     port: 5173,
