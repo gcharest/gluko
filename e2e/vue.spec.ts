@@ -13,8 +13,8 @@ test.describe('Homepage', () => {
     // Wait for app to fully load
     await page.waitForLoadState('networkidle')
 
-    // Click the language toggler component first
-    const languageToggler = page.locator('#language-toggler')
+    // Click the language toggler button (id="language")
+    const languageToggler = page.locator('#language')
     await languageToggler.waitFor({ state: 'visible', timeout: 10000 })
     await languageToggler.click()
 

@@ -86,22 +86,20 @@ test.describe('PWA Installation', () => {
   })
 
   test('app works offline (service worker caching)', async ({ page, context }) => {
+    // Skip this test in dev mode - service workers don't activate properly with vite dev
+    // This test is meant for production builds (vite preview or deployed)
+    test.skip(process.env.CI !== 'true', 'Service worker test requires production build')
+
     // First, load the page online to populate cache
     await page.waitForLoadState('networkidle')
 
-    // Wait for service worker to be ready (with longer timeout for dev mode)
-    // Note: SW may not be fully active in dev mode, this test is mainly for production builds
-    const swReady = await page.waitForFunction(
+    // Wait for service worker to be ready
+    await page.waitForFunction(
       () => {
         return 'serviceWorker' in navigator && navigator.serviceWorker.controller !== null
       },
-      { timeout: 10000 }
-    ).catch(() => false)
-
-    // Skip the rest if SW isn't ready (expected in dev mode)
-    if (!swReady) {
-      test.skip()
-    }
+      { timeout: 15000 }
+    )
 
     // Go offline
     await context.setOffline(true)
