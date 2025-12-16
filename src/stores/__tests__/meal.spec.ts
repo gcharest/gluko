@@ -30,7 +30,7 @@ describe('Meal Store', () => {
       const subjectStore = useSubjectStore()
 
       await subjectStore.createSubject('Test Subject')
-      await store.loadOrCreateSession(subjectStore.activeSubjectId)
+      await store.loadOrCreateSession(subjectStore.activeSubjectId!)
 
       // Add nutrient to session
       await store.addEmptyNutrient()
@@ -44,7 +44,7 @@ describe('Meal Store', () => {
       const subjectStore = useSubjectStore()
       const store = useMealStore()
       await subjectStore.createSubject('Test Subject')
-      await store.loadOrCreateSession(subjectStore.activeSubjectId)
+      await store.loadOrCreateSession(subjectStore.activeSubjectId!)
     })
 
     it('adds empty nutrient to session', async () => {
@@ -127,7 +127,7 @@ describe('Meal Store', () => {
       const subjectStore = useSubjectStore()
       const store = useMealStore()
       await subjectStore.createSubject('Test Subject')
-      await store.loadOrCreateSession(subjectStore.activeSubjectId)
+      await store.loadOrCreateSession(subjectStore.activeSubjectId!)
     })
 
     it('calculates total carbs from multiple nutrients', async () => {
@@ -199,7 +199,7 @@ describe('Meal Store', () => {
       const subjectStore = useSubjectStore()
       const store = useMealStore()
       await subjectStore.createSubject('Test Subject')
-      await store.loadOrCreateSession(subjectStore.activeSubjectId)
+      await store.loadOrCreateSession(subjectStore.activeSubjectId!)
     })
 
     it('clears all nutrients from session', async () => {
@@ -233,7 +233,7 @@ describe('Meal Store', () => {
       const subjectStore = useSubjectStore()
       const store = useMealStore()
       await subjectStore.createSubject('Test Subject')
-      await store.loadOrCreateSession(subjectStore.activeSubjectId)
+      await store.loadOrCreateSession(subjectStore.activeSubjectId!)
     })
 
     it('tracks nutrient count', async () => {

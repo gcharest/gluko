@@ -8,7 +8,7 @@ export const createMockIndexedDB = () => ({
   getAllByIndex: vi.fn().mockResolvedValue([]),
   getAllSubjects: vi.fn().mockResolvedValue([]),
   saveSubject: vi.fn().mockResolvedValue(undefined),
-  removeSubject: vi.fn((id: string) => {
+  removeSubject: vi.fn(() => {
     // remove from any subject store maps if present (no-op in this mock)
     return Promise.resolve()
   }),

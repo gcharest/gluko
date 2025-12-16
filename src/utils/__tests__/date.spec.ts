@@ -8,13 +8,15 @@ describe('date utils', () => {
       b: [new Date('2021-01-01T00:00:00.000Z'), { c: new Date('2022-01-01T00:00:00.000Z') }]
     }
 
-    const serialized = serializeDates(obj) as any
-    expect(typeof serialized.a).toBe('string')
-    expect(Array.isArray(serialized.b)).toBe(true)
+    const serialized = serializeDates(obj)
+    expect(typeof (serialized as { a: unknown }).a).toBe('string')
+    expect(Array.isArray((serialized as { b: unknown }).b)).toBe(true)
 
-    const deserialized = deserializeDates(serialized) as any
-    expect(deserialized.a instanceof Date).toBe(true)
-    expect(deserialized.b[0] instanceof Date).toBe(true)
-    expect(deserialized.b[1].c instanceof Date).toBe(true)
+    const deserialized = deserializeDates(serialized)
+    expect((deserialized as { a: unknown }).a instanceof Date).toBe(true)
+    expect(((deserialized as { b: unknown }).b as unknown[])[0] instanceof Date).toBe(true)
+    expect(((deserialized as { b: Array<unknown> }).b[1] as { c: unknown }).c instanceof Date).toBe(
+      true
+    )
   })
 })
