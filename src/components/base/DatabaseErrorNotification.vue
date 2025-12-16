@@ -59,7 +59,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div v-if="showToast" ref="toastRef" class="db-error-toast" role="alertdialog" aria-labelledby="db-error-title"
+  <div
+v-if="showToast" ref="toastRef" class="db-error-toast" role="alertdialog" aria-labelledby="db-error-title"
     aria-describedby="db-error-message" tabindex="-1">
     <div class="message">
       <span id="db-error-title" class="sr-only">{{ $t('databaseError.title') }}</span>
@@ -68,7 +69,8 @@ onUnmounted(() => {
       </p>
     </div>
     <div class="db-error-toast-actions">
-      <button v-if="needsRefresh" ref="refreshButtonRef" class="db-error-toast-button primary"
+      <button
+v-if="needsRefresh" ref="refreshButtonRef" class="db-error-toast-button primary"
         :aria-label="$t('databaseError.refreshAriaLabel')" @click="refresh">
         {{ $t('databaseError.refresh') }}
       </button>
