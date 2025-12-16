@@ -4,10 +4,20 @@ permissions:
   contents: read
 
 on:
+  # Only run on main branch pushes and manual triggers
   push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'vite.config.*'
+      - 'index.html'
+  workflow_dispatch:
+
+# Prevent concurrent runs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lighthouse:
@@ -20,85 +30,30 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --prefer-offline
 
       - name: Build application
         run: npm run build
 
       - name: Start preview server
-        run: |
-          npm run preview > /tmp/server.log 2>&1 &
-          echo $! > /tmp/server.pid
-          
-          # Wait for server to start (retry up to 30 times, 2 second intervals)
-          for i in {1..30}; do
-            if curl -f http://localhost:4173/gluko/ > /dev/null 2>&1; then
-              echo "✓ Server started successfully"
-              exit 0
-            fi
-            echo "Waiting for server... ($i/30)"
-            sleep 2
-          done
-          
-          echo "✗ Server failed to start"
-          cat /tmp/server.log
-          exit 1
+        run: npm run preview &
+        env:
+          PORT: 4173
+
+      - name: Wait for server
+        run: npx wait-on -t 30000 http://localhost:4173/gluko/
 
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v11
         with:
           configPath: ./lighthouse-budget.json
           temporaryPublicStorage: true
-          runs: 1
+          runs: 3  # Run 3 times and take median for more reliable results
           uploadArtifacts: true
-          # Use lighthouse-ci Docker image with Chromium pre-installed for faster execution
-          # This skips the slow package installation step
-          chartJson: true
-
-      - name: Comment PR with results
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const resultsPath = '.lighthouseci/lhr-latest.json';
-            
-            if (!fs.existsSync(resultsPath)) {
-              console.log('No Lighthouse results found');
-              return;
-            }
-            
-            const results = JSON.parse(fs.readFileSync(resultsPath, 'utf-8'));
-            const categories = results.categories || {};
-            
-            const formatScore = (score) => {
-              if (!score) return 'N/A';
-              return Math.round(score.score * 100);
-            };
-            
-            const comment = `## 📊 Lighthouse Report
-            
-| Metric | Score |
-|--------|-------|
-| Performance | ${formatScore(categories.performance)} |
-| Accessibility | ${formatScore(categories.accessibility)} |
-| Best Practices | ${formatScore(categories['best-practices'])} |
-| SEO | ${formatScore(categories.seo)} |
-| PWA | ${formatScore(categories.pwa)} |
-
-[View full report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`;
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
-            });
 
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v4
@@ -107,10 +62,3 @@ jobs:
           name: lighthouse-results
           path: '.lighthouseci'
           retention-days: 30
-
-      - name: Clean up server
-        if: always()
-        run: |
-          if [ -f /tmp/server.pid ]; then
-            kill $(cat /tmp/server.pid) 2>/dev/null || true
-          fi
