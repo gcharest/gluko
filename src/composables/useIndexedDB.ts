@@ -91,6 +91,54 @@ export const useIndexedDB = () => {
     return genericError
   }
 
+  /**
+   * Setup database lifecycle event handlers for multi-tab support and graceful degradation
+   * Implements MDN 2025 best practices for IndexedDB
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
+   */
+  const setupDatabaseLifecycleHandlers = (database: IDBDatabase): void => {
+    // Handle version changes (multi-tab scenario)
+    // When another tab upgrades the database, this tab must close its connection
+    database.onversionchange = (event: IDBVersionChangeEvent) => {
+      console.warn(
+        '[IndexedDB] Database version changed by another tab - closing connection',
+        event
+      )
+
+      // Close the connection immediately
+      database.close()
+      db.value = null
+      isInitialized.value = false
+
+      // Set error state to trigger UI notification
+      error.value = new Error(
+        'A new version of this application is available. Please refresh to continue.'
+      )
+
+      // Note: UI should display a prominent refresh prompt
+      // Example: Toast notification with "Refresh" button
+      // This prevents stale tabs from holding locks on old schema
+    }
+
+    // Handle unexpected closure
+    // Triggered by browser shutdown, permission revoked, or storage cleared
+    database.onclose = (event: Event) => {
+      console.error('[IndexedDB] Database connection closed unexpectedly', event)
+
+      // Clear references
+      db.value = null
+      isInitialized.value = false
+
+      // Set error state for UI notification
+      error.value = new Error(
+        'Database connection lost. The application will attempt to reconnect on the next action.'
+      )
+
+      // Note: On next user action that requires DB, initialize() will be called
+      // and will attempt to reconnect automatically
+    }
+  }
+
   const initializeDB = (): Promise<void> => {
     if (isInitialized.value) return Promise.resolve()
     if (initializationPromise.value) return initializationPromise.value
@@ -125,6 +173,9 @@ export const useIndexedDB = () => {
       request.onsuccess = () => {
         db.value = request.result
         isInitialized.value = true
+
+        setupDatabaseLifecycleHandlers(db.value)
+
         resolve()
       }
 
@@ -506,5 +557,5 @@ export const useIndexedDB = () => {
     // User account operations
     getUserAccount,
     saveUserAccount
-  }
+  } as const
 }
