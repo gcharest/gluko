@@ -24,7 +24,7 @@ export default defineConfig({
       '**/scripts/**/test/**'
     ],
     root: fileURLToPath(new URL('./', import.meta.url)),
-    setupFiles: ['./src/components/__tests__/unit.setup.ts'],
+    setupFiles: ['./src/components/__tests__/unit.setup.ts', './test/mocks/useIndexedDB.mock.ts'],
     coverage: {
       provider: 'v8',
       enabled: true,
@@ -34,6 +34,7 @@ export default defineConfig({
         'src/composables/**/*.ts'
       ],
       exclude: [
+        'src/composables/useIndexedDB.ts',
         'coverage/**',
         'dist/**',
         'packages/*/test{,s}/**',
@@ -61,7 +62,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@test': fileURLToPath(new URL('./test', import.meta.url))
     }
   }
 })

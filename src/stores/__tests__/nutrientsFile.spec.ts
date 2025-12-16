@@ -1,16 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useNutrientFileStore } from '../nutrientsFile'
-
-// Mock the useIndexedDB composable
-vi.mock('@/composables/useIndexedDB', () => ({
-  useIndexedDB: () => ({
-    get: vi.fn().mockResolvedValue(null),
-    put: vi.fn().mockResolvedValue(undefined),
-    remove: vi.fn().mockResolvedValue(undefined),
-    clear: vi.fn().mockResolvedValue(undefined)
-  })
-}))
 
 // Mock dataset
 vi.mock('@/assets/canadian_nutrient_file.json', () => ({
@@ -66,6 +56,11 @@ vi.mock('@/assets/canadian_nutrient_file.json', () => ({
 describe('nutrientsFile Store', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
+  })
+
+  beforeEach(async () => {
+    const store = useNutrientFileStore()
+    await store.initializeData()
   })
 
   describe('State Initialization', () => {

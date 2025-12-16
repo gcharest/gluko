@@ -1,30 +1,8 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useMealStore, type Nutrient } from '../meal'
 import { useSubjectStore } from '../subject'
-
-// Mock the useIndexedDB composable
-const mockSessions = new Map()
-
-vi.mock('@/composables/useIndexedDB', () => ({
-  useIndexedDB: () => ({
-    getAllByIndex: vi.fn().mockResolvedValue([]),
-    saveSession: vi.fn((session: { id: string }) => {
-      mockSessions.set(session.id, session)
-      return Promise.resolve()
-    }),
-    getSessionsBySubject: vi.fn((subjectId: string) => {
-      const sessions = Array.from(mockSessions.values()).filter(
-        (s: { subjectId: string }) => s.subjectId === subjectId
-      )
-      return Promise.resolve(sessions)
-    }),
-    deleteSession: vi.fn((id: string) => {
-      mockSessions.delete(id)
-      return Promise.resolve()
-    })
-  })
-}))
+import { mockSessions } from '@test/mocks/useIndexedDB.mock'
 
 describe('Meal Store', () => {
   beforeEach(() => {
@@ -52,6 +30,7 @@ describe('Meal Store', () => {
       const subjectStore = useSubjectStore()
 
       await subjectStore.createSubject('Test Subject')
+      await store.loadOrCreateSession(subjectStore.activeSubjectId)
 
       // Add nutrient to session
       await store.addEmptyNutrient()
@@ -63,7 +42,9 @@ describe('Meal Store', () => {
   describe('Nutrient Management', () => {
     beforeEach(async () => {
       const subjectStore = useSubjectStore()
+      const store = useMealStore()
       await subjectStore.createSubject('Test Subject')
+      await store.loadOrCreateSession(subjectStore.activeSubjectId)
     })
 
     it('adds empty nutrient to session', async () => {
@@ -144,7 +125,9 @@ describe('Meal Store', () => {
   describe('Carb Calculations', () => {
     beforeEach(async () => {
       const subjectStore = useSubjectStore()
+      const store = useMealStore()
       await subjectStore.createSubject('Test Subject')
+      await store.loadOrCreateSession(subjectStore.activeSubjectId)
     })
 
     it('calculates total carbs from multiple nutrients', async () => {
@@ -214,7 +197,9 @@ describe('Meal Store', () => {
   describe('Session Clearing', () => {
     beforeEach(async () => {
       const subjectStore = useSubjectStore()
+      const store = useMealStore()
       await subjectStore.createSubject('Test Subject')
+      await store.loadOrCreateSession(subjectStore.activeSubjectId)
     })
 
     it('clears all nutrients from session', async () => {
@@ -246,7 +231,9 @@ describe('Meal Store', () => {
   describe('Computed Properties', () => {
     beforeEach(async () => {
       const subjectStore = useSubjectStore()
+      const store = useMealStore()
       await subjectStore.createSubject('Test Subject')
+      await store.loadOrCreateSession(subjectStore.activeSubjectId)
     })
 
     it('tracks nutrient count', async () => {
