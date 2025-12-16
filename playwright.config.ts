@@ -26,14 +26,14 @@ export default defineConfig({
     // No timeout for actions like click
     actionTimeout: 0,
 
-    // Base URL for navigation
-    baseURL: 'http://localhost:5173',
+    // Base URL for navigation (using preview server in CI)
+    baseURL: process.env.CI ? 'http://localhost:4173/gluko' : 'http://localhost:5173',
 
     // Collect traces only on retry
     trace: 'on-first-retry',
 
-    // Always run headless in the dev container
-    headless: true,
+    // Always run headless in CI
+    headless: !!process.env.CI,
 
     // Viewport settings that ensure consistent testing
     viewport: { width: 1280, height: 720 }
@@ -64,10 +64,17 @@ export default defineConfig({
         name: 'firefox',
         use: { ...devices['Desktop Firefox'] }
       }
-    ],  // Local dev server configuration
-  webServer: {
-    command: process.env.CI ? 'vite preview --port 5173' : 'vite dev',
-    port: 5173,
-    reuseExistingServer: !process.env.CI
-  }
+    ],  // Dev server configuration
+  webServer: process.env.CI
+    ? {
+      command: 'npm run preview',
+      port: 4173,
+      reuseExistingServer: false,
+      timeout: 120000
+    }
+    : {
+      command: 'npm run dev',
+      port: 5173,
+      reuseExistingServer: true
+    }
 })
