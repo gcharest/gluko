@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import MealCalculator from '../MealCalculator.vue'
 import { createPinia, setActivePinia } from 'pinia'
-import { useMealStore } from '@/stores/meal'
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
@@ -11,11 +10,8 @@ vi.mock('vue-i18n', () => ({
 }))
 
 describe('MealCalculator.vue', () => {
-  let mealStore: ReturnType<typeof useMealStore>
-
   beforeEach(() => {
     setActivePinia(createPinia())
-    mealStore = useMealStore()
   })
 
   it('renders the component', () => {
@@ -194,7 +190,7 @@ describe('MealCalculator.vue', () => {
     })
 
     const button = wrapper.find('button.btn-primary')
-    expect(button.element.type).toBe('button')
+    expect((button.element as HTMLButtonElement).type).toBe('button')
   })
 
   it('modal title uses translation key', () => {

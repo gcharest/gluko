@@ -154,10 +154,10 @@ describe('MealHistoryView.vue', () => {
 
     const options = wrapper.findAll('#page-size-select option')
     expect(options.length).toBe(4) // 10, 25, 50, 100
-    expect(options[0].element.value).toBe('10')
-    expect(options[1].element.value).toBe('25')
-    expect(options[2].element.value).toBe('50')
-    expect(options[3].element.value).toBe('100')
+    expect((options[0].element as HTMLOptionElement).value).toBe('10')
+    expect((options[1].element as HTMLOptionElement).value).toBe('25')
+    expect((options[2].element as HTMLOptionElement).value).toBe('50')
+    expect((options[3].element as HTMLOptionElement).value).toBe('100')
   })
 
   it('renders results title', () => {
