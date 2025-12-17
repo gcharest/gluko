@@ -1,12 +1,11 @@
 {
   "name": "gluko",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "VERSION=$(git rev-parse --short HEAD) BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ) vite",
-    "dev:local": "node ./scripts/dev-with-meta.js",
-    "build": "VERSION=$(git rev-parse --short HEAD) BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ) run-p type-check build-only",
+    "dev": "vite",
+    "build": "run-p type-check build-only",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:unit:coverage": "vitest --coverage",

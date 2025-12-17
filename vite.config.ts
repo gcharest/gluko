@@ -2,16 +2,24 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import { dirname, resolve } from 'node:path'
+import { readFileSync } from 'node:fs'
 import vue from '@vitejs/plugin-vue'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+
+// Read version from package.json
+const packageJson = JSON.parse(
+  readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), './package.json'), 'utf-8')
+)
+const appVersion = packageJson.version
+const buildDate = new Date().toISOString()
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/gluko/',
   define: {
-    __APP_VERSION__: JSON.stringify(process.env.VERSION || 'dev'),
-    __BUILD_DATE__: JSON.stringify(process.env.BUILD_DATE || new Date().toISOString()),
+    __APP_VERSION__: JSON.stringify(appVersion),
+    __BUILD_DATE__: JSON.stringify(buildDate),
   },
   plugins: [
     vue(),

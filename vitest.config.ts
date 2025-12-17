@@ -1,12 +1,19 @@
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitest/config'
+import { readFileSync } from 'node:fs'
+import { resolve, dirname } from 'node:path'
 import vue from '@vitejs/plugin-vue'
+
+// Read version from package.json
+const packageJson = JSON.parse(
+  readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), './package.json'), 'utf-8')
+)
 
 export default defineConfig({
   plugins: [vue()],
   define: {
-    __APP_VERSION__: JSON.stringify('test-version'),
-    __BUILD_DATE__: JSON.stringify('2025-01-01'),
+    __APP_VERSION__: JSON.stringify(packageJson.version),
+    __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
   },
   test: {
     // enable jest-like global test APIs
