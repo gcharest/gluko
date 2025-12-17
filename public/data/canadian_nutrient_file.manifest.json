@@ -1,0 +1,90 @@
+{
+  "version": "1.0",
+  "generatedAt": "2025-12-17T22:58:02.402Z",
+  "shardKey": "FoodID_range",
+  "shardSize": 10000,
+  "compression": [
+    "none"
+  ],
+  "shards": [
+    {
+      "file": "shard-0000.ndjson",
+      "count": 859,
+      "bytes": 1048268,
+      "uncompressedBytes": 1048268,
+      "sha256": "51915d0dce42da43e3f1911e9b85961163e46cf77d6c9f278c262df53e9bfe9b",
+      "firstFoodID": "2",
+      "lastFoodID": "1512",
+      "minFoodID": 2,
+      "maxFoodID": 1512
+    },
+    {
+      "file": "shard-0001.ndjson",
+      "count": 944,
+      "bytes": 1048507,
+      "uncompressedBytes": 1048507,
+      "sha256": "48d9cf84794301e1f8d2ec1425bb4a2c7589abb6f7a04a2abdd110bdba0a67d0",
+      "firstFoodID": "1513",
+      "lastFoodID": "2525",
+      "minFoodID": 1513,
+      "maxFoodID": 2525
+    },
+    {
+      "file": "shard-0002.ndjson",
+      "count": 893,
+      "bytes": 1048543,
+      "uncompressedBytes": 1048543,
+      "sha256": "6ad703e826955628bbd5d1db18ea9232a15f8b5cd86ebe411fdab28f1f7b026d",
+      "firstFoodID": "2526",
+      "lastFoodID": "4075",
+      "minFoodID": 2526,
+      "maxFoodID": 4075
+    },
+    {
+      "file": "shard-0003.ndjson",
+      "count": 924,
+      "bytes": 1048537,
+      "uncompressedBytes": 1048537,
+      "sha256": "6ea9596e6db68958600b6d03ba0a78fbe7461b2c6b4e217deafd38e61c33b9d6",
+      "firstFoodID": "3640",
+      "lastFoodID": "4875",
+      "minFoodID": 3640,
+      "maxFoodID": 4875
+    },
+    {
+      "file": "shard-0004.ndjson",
+      "count": 958,
+      "bytes": 1033805,
+      "uncompressedBytes": 1033805,
+      "sha256": "ddc6fd93a8db898e7632a8ac3eebc74a1a10aa3dbaa553a205c64d0439d3ef0b",
+      "firstFoodID": "4872",
+      "lastFoodID": "6298",
+      "minFoodID": 4872,
+      "maxFoodID": 6298
+    },
+    {
+      "file": "shard-0050.ndjson",
+      "count": 899,
+      "bytes": 1048495,
+      "uncompressedBytes": 1048495,
+      "sha256": "7f2768db7601a0aafa264d50b63d4c7d468d79466bc28ef273067b9fdce3db4e",
+      "firstFoodID": "501097",
+      "lastFoodID": "502574",
+      "minFoodID": 501097,
+      "maxFoodID": 502574
+    },
+    {
+      "file": "shard-0051.ndjson",
+      "count": 213,
+      "bytes": 271301,
+      "uncompressedBytes": 271301,
+      "sha256": "5aaeb5bdaf5c6877d25653ee7145c96a751671b6bb22840e306d9108967a6d20",
+      "firstFoodID": "502575",
+      "lastFoodID": "503380",
+      "minFoodID": 502575,
+      "maxFoodID": 503380
+    }
+  ],
+  "totalRecords": 5690,
+  "totalBytes": 6547456
+}
