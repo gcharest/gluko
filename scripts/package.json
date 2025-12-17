@@ -5,7 +5,7 @@
   "type": "module",
   "description": "ETL Script package for CNF/FCEN datasets",
   "scripts": {
-    "run:full": "node ./cnf-fcen-etl.js -f -o",
+    "start:full": "node ./cnf-fcen-etl.js -f -o",
     "test": "vitest --config ./vitest.config.js",
     "test:ci": "vitest --config ./vitest.config.js --run"
   },

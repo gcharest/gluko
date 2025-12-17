@@ -38,16 +38,24 @@ class ProvenanceWriter {
 }
 
 class ShardWriter {
-  constructor(dir, shardSize = 10000, gzipLevel = 6) {
+  constructor(dir, shardSize = 10000, gzipLevel = 6, compression = 'br') {
     this.dir = dir
     this.shardSize = shardSize
     this.gzipLevel = gzipLevel
+    this.compression = compression  // 'none', 'gzip', or 'br'
     this.maxShardBytes = null
     this.opened = new Map()
   }
 
   _pathsForIdx(idx) {
     const base = `shard-${String(idx).padStart(4, '0')}.ndjson`
+
+    if (this.compression === 'none') {
+      const tmp = path.join(this.dir, `${base}.tmp`)
+      const final = path.join(this.dir, base)
+      return { tmp, final }
+    }
+
     const tmpGz = path.join(this.dir, `${base}.gz.tmp`)
     const finalGz = path.join(this.dir, `${base}.gz`)
     const tmpBr = path.join(this.dir, `${base}.br.tmp`)
@@ -58,6 +66,27 @@ class ShardWriter {
   open(idx) {
     if (this.opened.has(idx)) return this.opened.get(idx)
     ensureDir(this.dir)
+
+    if (this.compression === 'none') {
+      // Uncompressed output
+      const { tmp, final } = this._pathsForIdx(idx)
+      const out = fs.createWriteStream(tmp)
+      const state = {
+        out,
+        tmp,
+        final,
+        count: 0,
+        uncompressedBytes: 0,
+        firstFoodID: null,
+        lastFoodID: null,
+        minFoodID: null,
+        maxFoodID: null
+      }
+      this.opened.set(idx, state)
+      return state
+    }
+
+    // Compressed output (gzip + brotli)
     const { tmpGz, finalGz, tmpBr, finalBr } = this._pathsForIdx(idx)
     const outGz = fs.createWriteStream(tmpGz)
     const gz = zlib.createGzip({ level: this.gzipLevel })
@@ -103,13 +132,19 @@ class ShardWriter {
         )
       }
     }
-    state.gz.write(line)
-    // write to brotli stream as well
-    try {
-      if (state.br) state.br.write(line)
-    } catch {
-      // best-effort: if brotli write fails, continue with gzip
+
+    if (this.compression === 'none') {
+      state.out.write(line)
+    } else {
+      state.gz.write(line)
+      // write to brotli stream as well
+      try {
+        if (state.br) state.br.write(line)
+      } catch {
+        // best-effort: if brotli write fails, continue with gzip
+      }
     }
+
     state.count += 1
     state.uncompressedBytes += lineBytes
     const idStr = String(rec.FoodID || rec.FoodCode || '')
@@ -125,45 +160,69 @@ class ShardWriter {
   async closeAll() {
     const results = []
     for (const [, st] of this.opened.entries()) {
-      // finish gzip stream
-      await new Promise((res) => st.gz.end(res))
-      await new Promise((res) => st.outGz.on('finish', res))
-      // finish brotli stream
-      await new Promise((res) => st.br.end(res))
-      await new Promise((res) => st.outBr.on('finish', res))
+      if (this.compression === 'none') {
+        // Close uncompressed stream
+        await new Promise((res) => st.out.end(res))
 
-      // compute gzip metadata
-      const bufGz = fs.readFileSync(st.tmpGz)
-      const statsGz = fs.statSync(st.tmpGz)
-      const shaGz = crypto.createHash('sha256').update(bufGz).digest('hex')
-      fs.renameSync(st.tmpGz, st.finalGz)
+        // Calculate checksum on uncompressed data
+        const buf = fs.readFileSync(st.tmp)
+        const stats = fs.statSync(st.tmp)
+        const sha = crypto.createHash('sha256').update(buf).digest('hex')
+        fs.renameSync(st.tmp, st.final)
 
-      // compute brotli metadata
-      const bufBr = fs.readFileSync(st.tmpBr)
-      const statsBr = fs.statSync(st.tmpBr)
-      const shaBr = crypto.createHash('sha256').update(bufBr).digest('hex')
-      fs.renameSync(st.tmpBr, st.finalBr)
+        results.push({
+          file: path.basename(st.final),
+          count: st.count,
+          bytes: stats.size,
+          uncompressedBytes: st.uncompressedBytes,
+          sha256: sha,
+          firstFoodID: st.firstFoodID,
+          lastFoodID: st.lastFoodID,
+          minFoodID: st.minFoodID,
+          maxFoodID: st.maxFoodID
+          // No alternates for uncompressed
+        })
+      } else {
+        // finish gzip stream
+        await new Promise((res) => st.gz.end(res))
+        await new Promise((res) => st.outGz.on('finish', res))
+        // finish brotli stream
+        await new Promise((res) => st.br.end(res))
+        await new Promise((res) => st.outBr.on('finish', res))
 
-      results.push({
-        file: path.basename(st.finalGz),
-        count: st.count,
-        bytes: statsGz.size,
-        uncompressedBytes: st.uncompressedBytes,
-        sha256: shaGz,
-        firstFoodID: st.firstFoodID,
-        lastFoodID: st.lastFoodID,
-        minFoodID: st.minFoodID,
-        maxFoodID: st.maxFoodID,
-        // provide alternates (e.g., brotli) for consumers that want the preferred artifact
-        alternates: [
-          {
-            file: path.basename(st.finalBr),
-            bytes: statsBr.size,
-            sha256: shaBr,
-            compression: 'br'
-          }
-        ]
-      })
+        // compute gzip metadata
+        const bufGz = fs.readFileSync(st.tmpGz)
+        const statsGz = fs.statSync(st.tmpGz)
+        const shaGz = crypto.createHash('sha256').update(bufGz).digest('hex')
+        fs.renameSync(st.tmpGz, st.finalGz)
+
+        // compute brotli metadata
+        const bufBr = fs.readFileSync(st.tmpBr)
+        const statsBr = fs.statSync(st.tmpBr)
+        const shaBr = crypto.createHash('sha256').update(bufBr).digest('hex')
+        fs.renameSync(st.tmpBr, st.finalBr)
+
+        results.push({
+          file: path.basename(st.finalGz),
+          count: st.count,
+          bytes: statsGz.size,
+          uncompressedBytes: st.uncompressedBytes,
+          sha256: shaGz,
+          firstFoodID: st.firstFoodID,
+          lastFoodID: st.lastFoodID,
+          minFoodID: st.minFoodID,
+          maxFoodID: st.maxFoodID,
+          // provide alternates (e.g., brotli) for consumers that want the preferred artifact
+          alternates: [
+            {
+              file: path.basename(st.finalBr),
+              bytes: statsBr.size,
+              sha256: shaBr,
+              compression: 'br'
+            }
+          ]
+        })
+      }
     }
     return results.sort((a, b) => a.file.localeCompare(b.file))
   }

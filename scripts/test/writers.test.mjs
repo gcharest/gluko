@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import fs from 'fs/promises'
+import fsSync from 'fs'
 import path from 'path'
+import crypto from 'crypto'
 import { fileURLToPath } from 'url'
 import { ProvenanceWriter, ShardWriter } from '../lib/writers.js'
 
@@ -55,6 +57,93 @@ describe('Writers', () => {
       const st = await fs.stat(p)
       expect(st.isFile()).toBe(true)
     }
+    await fs.rm(outDir, { recursive: true, force: true })
+  })
+
+  it('ShardWriter with compression=none writes uncompressed NDJSON', async () => {
+    const outDir = path.join(packageRoot, 'tmp-writers-none')
+    await fs.rm(outDir, { recursive: true, force: true })
+    await fs.mkdir(outDir, { recursive: true })
+    const writer = new ShardWriter(outDir, 100, 6, 'none')
+
+    // Write test records
+    for (let i = 0; i < 50; i++) {
+      writer.writeRecord(0, { FoodID: i, FoodDescription: `Food ${i}` })
+    }
+
+    const shards = await writer.closeAll()
+
+    // Verify shard metadata
+    expect(shards.length).toBe(1)
+    expect(shards[0].count).toBe(50)
+    expect(shards[0].file.endsWith('.ndjson')).toBe(true)
+    expect(shards[0].file.includes('.gz')).toBe(false)
+    expect(shards[0].file.includes('.br')).toBe(false)
+
+    // Verify file exists on disk
+    const shardPath = path.join(outDir, shards[0].file)
+    const stat = await fs.stat(shardPath)
+    expect(stat.isFile()).toBe(true)
+
+    // Verify content is uncompressed NDJSON
+    const content = await fs.readFile(shardPath, 'utf8')
+    const lines = content.trim().split('\n')
+    expect(lines.length).toBe(50)
+
+    // Verify first line is valid JSON
+    const firstRecord = JSON.parse(lines[0])
+    expect(firstRecord.FoodID).toBe(0)
+
+    // Verify last line
+    const lastRecord = JSON.parse(lines[49])
+    expect(lastRecord.FoodID).toBe(49)
+
+    // Verify checksum
+    const buf = fsSync.readFileSync(shardPath)
+    const expectedSha = crypto.createHash('sha256').update(buf).digest('hex')
+    expect(shards[0].sha256).toBe(expectedSha)
+
+    // Verify bytes equals uncompressedBytes
+    expect(shards[0].bytes).toBe(shards[0].uncompressedBytes)
+
+    // Verify no alternates
+    expect(shards[0].alternates).toBeUndefined()
+
+    // Cleanup
+    await fs.rm(outDir, { recursive: true, force: true })
+  })
+
+  it('ShardWriter with compression=none respects maxShardBytes', async () => {
+    const outDir = path.join(packageRoot, 'tmp-writers-none-limit')
+    await fs.rm(outDir, { recursive: true, force: true })
+    await fs.mkdir(outDir, { recursive: true })
+    const writer = new ShardWriter(outDir, 10000, 6, 'none')
+    writer.maxShardBytes = 500 // Small limit to force splitting
+
+    // Write records until we get multiple shards
+    for (let i = 0; i < 100; i++) {
+      writer.writeRecord(0, {
+        FoodID: i,
+        FoodDescription: `Food with a longer description ${i}`.repeat(3)
+      })
+    }
+
+    const shards = await writer.closeAll()
+
+    // Should have created multiple shards due to size limit
+    expect(shards.length).toBeGreaterThan(1)
+
+    // Verify each shard respects the size limit (or has only 1 record)
+    for (const shard of shards) {
+      expect(shard.bytes <= writer.maxShardBytes || shard.count === 1).toBe(true)
+    }
+
+    // Verify all files are .ndjson
+    for (const shard of shards) {
+      expect(shard.file.endsWith('.ndjson')).toBe(true)
+    }
+
+    // Cleanup
     await fs.rm(outDir, { recursive: true, force: true })
   })
 })

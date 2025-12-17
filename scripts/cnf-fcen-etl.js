@@ -97,7 +97,7 @@ function printHelp() {
   console.log('  --update-dir <path>      Override update CSV directory')
   console.log('  --export-provenance, -e  Export provenance updates to a gzipped NDJSON')
   console.log(
-    "  --compression, -c        Compression to use for outputs: 'br' (brotli) or 'gzip' (default 'br')"
+    "  --compression, -c        Compression to use for outputs: 'none' (uncompressed), 'br' (brotli), or 'gzip' (default 'br')"
   )
 }
 
@@ -168,13 +168,13 @@ function parseCli() {
       const v = args[i + 1]
       if (v) {
         const vv = String(v).trim().toLowerCase()
-        if (vv === 'br' || vv === 'gzip') {
+        if (vv === 'none' || vv === 'br' || vv === 'gzip') {
           opts.compression = vv
         } else {
           console.warn(
             'Unknown --compression value',
             v,
-            "(expected 'br' or 'gzip'). Using default 'br'."
+            "(expected 'none', 'br' or 'gzip'). Using default 'br'."
           )
         }
         i++
