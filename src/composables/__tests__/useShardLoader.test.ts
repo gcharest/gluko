@@ -45,18 +45,19 @@ describe('useShardLoader', () => {
 
   it('should fetch manifest successfully', async () => {
     const mockManifest: ManifestFile = {
-      version: '0.3.0',
+      version: '1.0',
       generatedAt: '2025-01-01T00:00:00Z',
       totalRecords: 1000,
-      totalSizeBytes: 5000000,
+      totalBytes: 5000000,
       shards: [
         {
-          id: 'shard-0000',
-          filename: 'shard-0000.ndjson',
-          checksum: 'abc123',
-          sizeBytes: 2500000,
-          recordCount: 500,
-          recordRange: { start: 0, end: 499 }
+          file: 'shard-0000.ndjson',
+          count: 500,
+          bytes: 2500000,
+          uncompressedBytes: 2500000,
+          sha256: 'abc123',
+          minFoodID: 0,
+          maxFoodID: 499
         }
       ]
     }
@@ -105,10 +106,10 @@ describe('useShardLoader', () => {
 
   it('should detect when update is not needed based on manifest version', async () => {
     const mockManifest: ManifestFile = {
-      version: '0.3.0',
+      version: '1.0',
       generatedAt: '2025-01-01T00:00:00Z',
       totalRecords: 1000,
-      totalSizeBytes: 5000000,
+      totalBytes: 5000000,
       shards: []
     }
 
@@ -123,7 +124,7 @@ describe('useShardLoader', () => {
     // needsUpdate depends on getCurrentManifestVersion which is mocked to return undefined
     // So the test just verifies the function runs and returns a result
     expect(typeof result.needsUpdate).toBe('boolean')
-    expect(result.manifest?.version).toBe('0.3.0')
+    expect(result.manifest?.version).toBe('1.0')
   })
 
   it('should reset progress correctly', () => {
@@ -152,17 +153,17 @@ describe('useShardLoader', () => {
 
   it('should update progress during download', async () => {
     const mockManifest: ManifestFile = {
-      version: '0.3.0',
+      version: '1.0',
       generatedAt: '2025-01-01T00:00:00Z',
       totalRecords: 100,
-      totalSizeBytes: 1000,
+      totalBytes: 1000,
       shards: [
         {
-          id: 'shard-0000',
-          filename: 'shard-0000.ndjson',
-          checksum: '0000000000000000000000000000000000000000000000000000000000000000',
-          sizeBytes: 500,
-          recordCount: 50
+          file: 'shard-0000.ndjson',
+          count: 50,
+          bytes: 500,
+          uncompressedBytes: 500,
+          sha256: '0000000000000000000000000000000000000000000000000000000000000000'
         }
       ]
     }
