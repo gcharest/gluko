@@ -8,6 +8,7 @@ import type {
   MealHistoryEntry,
   UserAccount
 } from '@/types/meal-history'
+import type { ShardMetadata, ManifestVersion } from '@/types/shard-loading'
 
 interface DBSchema {
   favoriteNutrients: {
@@ -38,10 +39,18 @@ interface DBSchema {
     key: string
     value: UserAccount
   }
+  shardMetadata: {
+    key: string
+    value: ShardMetadata
+  }
+  manifestVersion: {
+    key: string
+    value: ManifestVersion
+  }
 }
 
 const DB_NAME = 'GlukoApp'
-const DB_VERSION = 3 // Incrementing version for multi-subject support
+const DB_VERSION = 4 // v4: Adding shard metadata stores for v0.3 shard-based dataset loading
 
 export const useIndexedDB = () => {
   const db = ref<IDBDatabase | null>(null)
@@ -214,6 +223,15 @@ export const useIndexedDB = () => {
           historyStore.createIndex('by-tags', 'tags', { unique: false, multiEntry: true })
 
           database.createObjectStore('userAccount', { keyPath: 'id' })
+        }
+
+        // v4: Add shard metadata stores for shard-based dataset loading
+        if (oldVersion < 4) {
+          const shardMetadataStore = database.createObjectStore('shardMetadata', { keyPath: 'id' })
+          shardMetadataStore.createIndex('by-status', 'status', { unique: false })
+          shardMetadataStore.createIndex('by-checksum', 'checksum', { unique: false })
+
+          database.createObjectStore('manifestVersion', { keyPath: 'version' })
         }
       }
 
@@ -482,6 +500,24 @@ export const useIndexedDB = () => {
   const getUserAccount = (id: string) => get('userAccount', id)
   const saveUserAccount = (account: UserAccount) => put('userAccount', account)
 
+  // Shard metadata methods
+  const getShardMetadata = (id: string) => get('shardMetadata', id)
+  const getAllShardMetadata = () => getAll('shardMetadata')
+  const getShardMetadataByStatus = (
+    status: 'pending' | 'downloading' | 'validating' | 'loaded' | 'error'
+  ) => getAllByIndex('shardMetadata', 'by-status', status)
+  const saveShardMetadata = (metadata: ShardMetadata) => put('shardMetadata', metadata)
+  const removeShardMetadata = (id: string) => remove('shardMetadata', id)
+
+  // Manifest version methods
+  const getManifestVersion = (version: string) => get('manifestVersion', version)
+  const getCurrentManifestVersion = async (): Promise<ManifestVersion | undefined> => {
+    const allVersions = await getAll('manifestVersion')
+    // Return the most recently installed version
+    return allVersions.sort((a, b) => b.installedAt.getTime() - a.installedAt.getTime())[0]
+  }
+  const saveManifestVersion = (manifest: ManifestVersion) => put('manifestVersion', manifest)
+
   return {
     // Base operations
     get,
@@ -519,6 +555,18 @@ export const useIndexedDB = () => {
 
     // User account operations
     getUserAccount,
-    saveUserAccount
+    saveUserAccount,
+
+    // Shard metadata operations
+    getShardMetadata,
+    getAllShardMetadata,
+    getShardMetadataByStatus,
+    saveShardMetadata,
+    removeShardMetadata,
+
+    // Manifest version operations
+    getManifestVersion,
+    getCurrentManifestVersion,
+    saveManifestVersion
   } as const
 }
