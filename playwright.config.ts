@@ -32,8 +32,8 @@ export default defineConfig({
     // Collect traces only on retry
     trace: 'on-first-retry',
 
-    // Always run headless in CI
-    headless: !!process.env.CI,
+    // Always run headless (no X server available in this environment)
+    headless: true,
 
     // Viewport settings that ensure consistent testing
     viewport: { width: 1280, height: 720 }
