@@ -2,11 +2,11 @@
   <div>
     <!-- Update Available Notification -->
     <Teleport to="body">
-      <div v-if="showUpdateNotification" class="update-notification">
+      <aside v-if="showUpdateNotification" class="update-notification" role="complementary" aria-label="Dataset update notification">
         <div class="notification-content">
-          <div class="notification-icon">📦</div>
+          <div class="notification-icon" aria-hidden="true">📦</div>
           <div class="notification-text">
-            <h4 class="notification-title">{{ $t('dataset.update.available') }}</h4>
+            <h2 class="notification-title">{{ $t('dataset.update.available') }}</h2>
             <p class="notification-message">
               {{ $t('dataset.update.message', { version: latestVersion }) }}
             </p>
@@ -20,7 +20,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </aside>
     </Teleport>
 
     <!-- Storage Quota Warning -->
