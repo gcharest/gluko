@@ -32,9 +32,10 @@ export default defineConfig({
       manifest: false, // Use public/manifest.json instead of generating
       workbox: {
         maximumFileSizeToCacheInBytes: 3000000, // 3MB limit instead of default 2MB
-        // Only specify glob patterns in production build
-        globPatterns: ['**/*.{js,css,html,woff2}'],
-        // More specific patterns to avoid warnings in dev mode
+        // Disable precaching in dev mode to avoid warnings
+        globPatterns: process.env.NODE_ENV === 'production'
+          ? ['**/*.{js,css,html,woff2}']
+          : [],
         globIgnores: ['**/node_modules/**/*'],
         runtimeCaching: [
           {
