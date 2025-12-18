@@ -1,57 +1,22 @@
-[
-  {
-    "path": "/*",
-    "resourceSizes": [
-      {
-        "resourceType": "document",
-        "budget": 50
-      },
-      {
-        "resourceType": "script",
-        "budget": 300
-      },
-      {
-        "resourceType": "stylesheet",
-        "budget": 50
-      },
-      {
-        "resourceType": "image",
-        "budget": 200
-      },
-      {
-        "resourceType": "font",
-        "budget": 100
-      },
-      {
-        "resourceType": "total",
-        "budget": 700
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 3,
+      "settings": {
+        "chromeFlags": "--disable-gpu --no-sandbox"
       }
-    ],
-    "timings": [
-      {
-        "metric": "first-contentful-paint",
-        "budget": 1800
-      },
-      {
-        "metric": "largest-contentful-paint",
-        "budget": 2500
-      },
-      {
-        "metric": "cumulative-layout-shift",
-        "budget": 0.1
-      },
-      {
-        "metric": "total-blocking-time",
-        "budget": 200
-      },
-      {
-        "metric": "interactive",
-        "budget": 3800
-      },
-      {
-        "metric": "speed-index",
-        "budget": 3400
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.75 }],
+        "categories:accessibility": ["error", { "minScore": 0.9 }],
+        "categories:best-practices": ["error", { "minScore": 0.9 }],
+        "categories:seo": ["error", { "minScore": 0.9 }]
       }
-    ]
+    }
   }
-]
+}
