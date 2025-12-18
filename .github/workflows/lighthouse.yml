@@ -51,8 +51,9 @@ jobs:
         uses: treosh/lighthouse-ci-action@v11
         with:
           configPath: ./lighthouse-budget.json
+          urls: |
+            http://localhost:4173/gluko/
           temporaryPublicStorage: true
-          runs: 3  # Run 3 times and take median for more reliable results
           uploadArtifacts: true
 
       - name: Upload Lighthouse results
