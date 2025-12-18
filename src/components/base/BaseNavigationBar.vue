@@ -116,6 +116,13 @@ onMounted(() => {
             >
               <RouterLink class="nav-link" to="/about">{{ $t('navigation.about') }}</RouterLink>
             </li>
+            <li
+              class="nav-item col-12 col-lg-auto mb-lg-1"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#navbarMain"
+            >
+              <RouterLink class="nav-link" to="/settings">{{ $t('navigation.settings') }}</RouterLink>
+            </li>
           </ul>
           <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
             <li class="nav-item col-6 col-lg-auto">
