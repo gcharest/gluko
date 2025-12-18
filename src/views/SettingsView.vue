@@ -52,6 +52,15 @@
     <section class="settings-section">
       <h2 class="section-title">{{ $t('settings.storage.title') }}</h2>
 
+      <div class="info-box mb-3">
+        <div class="info-box-icon">ℹ️</div>
+        <div class="info-box-content">
+          <p class="info-box-text">
+            {{ $t('settings.storage.info') }}
+          </p>
+        </div>
+      </div>
+
       <StorageQuotaDisplay
         :quota-info="quotaInfo"
         :is-persisted="isPersisted"
@@ -76,12 +85,14 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useNutrientFileStore } from '@/stores/nutrientsFile'
 import { useStorageQuota } from '@/composables/useStorageQuota'
 import { useIndexedDB } from '@/composables/useIndexedDB'
 import StorageQuotaDisplay from '@/components/StorageQuotaDisplay.vue'
 import DatasetUpdateProgress from '@/components/DatasetUpdateProgress.vue'
 
+const { t } = useI18n()
 const nutrientStore = useNutrientFileStore()
 const storageQuota = useStorageQuota()
 const db = useIndexedDB()
@@ -111,6 +122,12 @@ onMounted(async () => {
   if (manifestVersion) {
     datasetVersion.value = manifestVersion.version
     datasetInstalledAt.value = manifestVersion.installedAt
+  } else {
+    // Check if legacy v0.2 dataset exists
+    const legacyDataset = await db.get('nutrientsFile', 0)
+    if (legacyDataset && legacyDataset.length > 0) {
+      datasetVersion.value = t('settings.dataset.legacyVersion')
+    }
   }
 
   // Check storage quota
@@ -131,14 +148,16 @@ const checkForUpdates = async () => {
     if (result.needsUpdate) {
       updateAvailable.value = true
       latestVersion.value = result.latestVersion || ''
-      updateCheckMessage.value = `New version ${result.latestVersion} is available (current: ${result.currentVersion || 'none'})`
+      updateCheckMessage.value = result.currentVersion
+        ? t('settings.dataset.updateAvailable', { version: result.latestVersion, current: result.currentVersion })
+        : t('settings.dataset.updateAvailableNoCurrent', { version: result.latestVersion })
     } else {
       updateCheckMessage.value = result.currentVersion
-        ? `Dataset is up to date (version ${result.currentVersion})`
-        : 'No updates available'
+        ? t('settings.dataset.upToDate', { version: result.currentVersion })
+        : t('settings.dataset.noUpdates')
     }
   } catch (error) {
-    updateCheckMessage.value = 'Failed to check for updates. Please try again later.'
+    updateCheckMessage.value = t('settings.dataset.checkFailed')
     console.error('Update check failed:', error)
   } finally {
     isCheckingUpdates.value = false
@@ -154,7 +173,7 @@ const installUpdate = async () => {
     await storageQuota.checkQuota(estimate)
 
     if (!quotaInfo.value.hasEnoughSpace) {
-      updateCheckMessage.value = 'Not enough storage space available. Please free up space before updating.'
+      updateCheckMessage.value = t('settings.dataset.insufficientStorage')
       return
     }
 
@@ -169,9 +188,9 @@ const installUpdate = async () => {
     }
 
     updateAvailable.value = false
-    updateCheckMessage.value = 'Dataset updated successfully!'
+    updateCheckMessage.value = t('settings.dataset.updateSuccess')
   } catch (error) {
-    updateCheckMessage.value = 'Failed to update dataset. Please try again.'
+    updateCheckMessage.value = t('settings.dataset.updateFailed')
     console.error('Update failed:', error)
   } finally {
     isUpdating.value = false
@@ -180,7 +199,7 @@ const installUpdate = async () => {
 
 const handleUpdateComplete = () => {
   isUpdating.value = false
-  updateCheckMessage.value = 'Dataset updated successfully!'
+  updateCheckMessage.value = t('settings.dataset.updateSuccess')
 }
 
 const handleUpdateCancel = () => {
@@ -196,7 +215,7 @@ const handleRequestPersistence = async () => {
 
 const handleClearStorage = () => {
   // TODO: Implement with confirmation dialog
-  alert('Clear storage feature - to be implemented with confirmation dialog')
+  alert(t('settings.dataset.clearStoragePrompt'))
 }
 
 const formatNumber = (num: number): string => {
@@ -204,13 +223,13 @@ const formatNumber = (num: number): string => {
 }
 
 const formatDate = (date: Date): string => {
-  return new Intl.DateTimeFormat(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  }).format(date)
+  // ISO 8601 format: YYYY-MM-DD HH:MM
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  const hours = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+  return `${year}-${month}-${day} ${hours}:${minutes}`
 }
 </script>
 
@@ -224,6 +243,31 @@ const formatDate = (date: Date): string => {
   font-weight: 600;
   margin-bottom: 1rem;
   color: var(--color-heading);
+}
+
+.info-box {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+}
+
+.info-box-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.info-box-content {
+  flex: 1;
+}
+
+.info-box-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #1e40af;
 }
 
 .card {
