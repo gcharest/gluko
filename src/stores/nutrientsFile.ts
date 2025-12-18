@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { useIndexedDB } from '@/composables/useIndexedDB'
+import { useShardLoader } from '@/composables/useShardLoader'
 import dataset from '@/assets/canadian_nutrient_file.json'
 import Fuse from 'fuse.js'
 
@@ -33,20 +34,44 @@ export interface SearchResult {
 
 export const useNutrientFileStore = defineStore('nutrientsFile', () => {
   const db = useIndexedDB()
+  const shardLoader = useShardLoader()
   const nutrientsFile = ref<NutrientFile[]>([])
   const favoriteNutrients = ref<number[]>([])
   const searchCache = new Map<string, SearchResult[]>()
+  const isLoadingDataset = computed(() => shardLoader.isLoading.value)
+  const datasetLoadError = computed(() => shardLoader.error.value)
+  const loadProgress = computed(() => shardLoader.progress.value)
 
   const loadInitialData = async () => {
     try {
-      const storedNutrientsFile = await db.get('nutrientsFile', 0)
-      if (storedNutrientsFile) {
-        nutrientsFile.value = storedNutrientsFile
+      // Check if we have a manifest version installed (v0.3 shard-based dataset)
+      const manifestVersion = await db.getCurrentManifestVersion()
+
+      if (manifestVersion) {
+        // v0.3: Load from shards
+        console.log(`Loading dataset from shards (version ${manifestVersion.version})`)
+        const nutrients = await shardLoader.getAllNutrients()
+        if (nutrients.length > 0) {
+          nutrientsFile.value = nutrients
+        } else {
+          // Fallback to legacy if shards are empty
+          console.warn('No nutrients loaded from shards, falling back to legacy dataset')
+          await loadLegacyDataset()
+        }
       } else {
-        nutrientsFile.value = dataset as NutrientFile[]
-        await db.put('nutrientsFile', nutrientsFile.value, 0)
+        // Legacy: Check if we have old format data in IndexedDB
+        const storedNutrientsFile = await db.get('nutrientsFile', 0)
+        if (storedNutrientsFile && storedNutrientsFile.length > 0) {
+          console.log('Loading legacy dataset from IndexedDB')
+          nutrientsFile.value = storedNutrientsFile
+        } else {
+          // First time load - use bundled dataset as fallback
+          console.log('First time load - using bundled dataset')
+          await loadLegacyDataset()
+        }
       }
 
+      // Load favorites
       const storedFavorites = await db.get('favoriteNutrients', 'current')
       if (storedFavorites) {
         favoriteNutrients.value = storedFavorites
@@ -55,6 +80,11 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
       console.error('Failed to load initial data:', error)
       nutrientsFile.value = dataset as NutrientFile[]
     }
+  }
+
+  const loadLegacyDataset = async () => {
+    nutrientsFile.value = dataset as NutrientFile[]
+    await db.put('nutrientsFile', nutrientsFile.value, 0)
   }
 
   loadInitialData()
@@ -231,6 +261,38 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
     }
   }
 
+  async function checkForDatasetUpdates(): Promise<{
+    needsUpdate: boolean
+    currentVersion?: string
+    latestVersion?: string
+  }> {
+    try {
+      const result = await shardLoader.checkForUpdates()
+      return {
+        needsUpdate: result.needsUpdate,
+        currentVersion: result.currentVersion,
+        latestVersion: result.manifest?.version
+      }
+    } catch (error) {
+      console.error('Failed to check for dataset updates:', error)
+      return { needsUpdate: false }
+    }
+  }
+
+  async function updateDataset(): Promise<boolean> {
+    try {
+      await shardLoader.loadDataset()
+      // Reload nutrients from shards
+      const nutrients = await shardLoader.getAllNutrients()
+      nutrientsFile.value = nutrients
+      clearSearchCache()
+      return true
+    } catch (error) {
+      console.error('Failed to update dataset:', error)
+      return false
+    }
+  }
+
   return {
     // State
     nutrientsFile,
@@ -239,6 +301,9 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
     totalNutrients,
     favoriteCount,
     isDataLoaded,
+    isLoadingDataset,
+    datasetLoadError,
+    loadProgress,
     // Actions
     searchNutrients,
     getNutrientById,
@@ -250,6 +315,9 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
     clearSearchCache,
     initializeData,
     reloadData,
-    $reset
+    $reset,
+    // v0.3 shard-based dataset actions
+    checkForDatasetUpdates,
+    updateDataset
   }
 })

@@ -83,7 +83,7 @@ export async function run({
 
   const shardsDir = path.join(outDir, 'shards')
   const manifestPath = path.join(outDir, 'canadian_nutrient_file.manifest.json')
-  const shardWriter = new ShardWriter(shardsDir, shardSize, 6)
+  const shardWriter = new ShardWriter(shardsDir, shardSize, 6, compression)
   shardWriter.maxShardBytes = maxShardBytes
   let provenanceWriter = null
   let provenanceOutPath = path.join(outDir, 'provenance', 'provenance.ndjson.gz')
@@ -283,30 +283,33 @@ export async function run({
   ensureDir(path.dirname(manifestPath))
   let shards = dryRun ? [] : await shardWriter.closeAll()
 
-  // If caller requested a preferred compression, prefer it as the primary file in the manifest
-  const preferred = String(compression || 'br').toLowerCase() === 'gzip' ? 'gzip' : 'br'
-  if (shards && shards.length && preferred === 'br') {
-    shards = shards.map((s) => {
-      // find brotli alternate
-      const brAlt = (s.alternates || []).find((a) => a.compression === 'br')
-      if (brAlt) {
-        // make brotli the primary file and move the gzip info into alternates
-        const gzipAlt = {
-          file: s.file,
-          bytes: s.bytes,
-          sha256: s.sha256,
-          compression: 'gzip'
+  // Only apply compression preference logic for compressed outputs
+  if (shards && shards.length && compression !== 'none') {
+    // If caller requested a preferred compression, prefer it as the primary file in the manifest
+    const preferred = String(compression || 'br').toLowerCase() === 'gzip' ? 'gzip' : 'br'
+    if (preferred === 'br') {
+      shards = shards.map((s) => {
+        // find brotli alternate
+        const brAlt = (s.alternates || []).find((a) => a.compression === 'br')
+        if (brAlt) {
+          // make brotli the primary file and move the gzip info into alternates
+          const gzipAlt = {
+            file: s.file,
+            bytes: s.bytes,
+            sha256: s.sha256,
+            compression: 'gzip'
+          }
+          return {
+            ...s,
+            file: brAlt.file,
+            bytes: brAlt.bytes,
+            sha256: brAlt.sha256,
+            alternates: [gzipAlt]
+          }
         }
-        return {
-          ...s,
-          file: brAlt.file,
-          bytes: brAlt.bytes,
-          sha256: brAlt.sha256,
-          alternates: [gzipAlt]
-        }
-      }
-      return s
-    })
+        return s
+      })
+    }
   }
 
   const totalRecords = shards.reduce((sum, s) => sum + s.count, 0)
@@ -316,10 +319,10 @@ export async function run({
     generatedAt: new Date().toISOString(),
     shardKey: 'FoodID_range',
     shardSize,
-    // list compression priorities: prefer brotli (br) and keep gzip as fallback
-    compression: ['br', 'gzip'],
-    brotliQuality: 5,
-    gzipLevel: 6,
+    // Adjust compression array based on actual output
+    compression: compression === 'none' ? ['none'] : ['br', 'gzip'],
+    ...(compression === 'gzip' && { gzipLevel: 6 }),
+    ...(compression === 'br' && { brotliQuality: 5, gzipLevel: 6 }),
     shards,
     totalRecords,
     totalBytes

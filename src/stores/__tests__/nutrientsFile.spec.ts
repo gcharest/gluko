@@ -1,6 +1,25 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
+import { ref, computed } from 'vue'
 import { useNutrientFileStore } from '../nutrientsFile'
+
+// Create default mock functions
+const mockCheckForUpdates = vi.fn().mockResolvedValue({ needsUpdate: false })
+const mockLoadDataset = vi.fn().mockResolvedValue(undefined)
+const mockGetAllNutrients = vi.fn().mockResolvedValue([])
+
+// Mock useShardLoader
+vi.mock('@/composables/useShardLoader', () => ({
+  useShardLoader: () => ({
+    progress: ref({ status: 'idle' as const, currentShard: 0, totalShards: 0, recordsLoaded: 0, totalRecords: 0, bytesDownloaded: 0, totalBytes: 0, currentShardName: '' }),
+    error: ref(null),
+    isLoading: computed(() => false),
+    checkForUpdates: mockCheckForUpdates,
+    loadDataset: mockLoadDataset,
+    resetProgress: vi.fn(),
+    getAllNutrients: mockGetAllNutrients
+  })
+}))
 
 // Mock dataset
 vi.mock('@/assets/canadian_nutrient_file.json', () => ({
@@ -329,6 +348,73 @@ describe('nutrientsFile Store', () => {
       expect(() => store.addToFavorites(999)).not.toThrow()
       expect(() => store.removeFromFavorites(999)).not.toThrow()
       expect(() => store.isFavorite(999)).not.toThrow()
+    })
+  })
+
+  describe('Dataset Updates', () => {
+    beforeEach(() => {
+      vi.clearAllMocks()
+    })
+
+    it('checks for dataset updates when no update available', async () => {
+      mockCheckForUpdates.mockResolvedValueOnce({ needsUpdate: false })
+
+      const store = useNutrientFileStore()
+      const result = await store.checkForDatasetUpdates()
+
+      expect(result.needsUpdate).toBe(false)
+      expect(mockCheckForUpdates).toHaveBeenCalled()
+    })
+
+    it('checks for dataset updates when update is available', async () => {
+      mockCheckForUpdates.mockResolvedValueOnce({
+        needsUpdate: true,
+        currentVersion: '0.2.0',
+        manifest: { version: '0.3.0' }
+      })
+
+      const store = useNutrientFileStore()
+      const result = await store.checkForDatasetUpdates()
+
+      expect(result.needsUpdate).toBe(true)
+      expect(result.currentVersion).toBe('0.2.0')
+      expect(result.latestVersion).toBe('0.3.0')
+      expect(mockCheckForUpdates).toHaveBeenCalled()
+    })
+
+    it('handles dataset update check errors gracefully', async () => {
+      mockCheckForUpdates.mockRejectedValueOnce(new Error('Network error'))
+
+      const store = useNutrientFileStore()
+      const result = await store.checkForDatasetUpdates()
+
+      expect(result.needsUpdate).toBe(false)
+    })
+
+    it('updates dataset successfully', async () => {
+      mockLoadDataset.mockResolvedValueOnce(undefined)
+      mockGetAllNutrients.mockResolvedValueOnce([
+        { FoodID: 10, FoodDescription: 'New food item', FctGluc: 0.5 }
+      ])
+
+      const store = useNutrientFileStore()
+      const result = await store.updateDataset()
+
+      expect(result).toBe(true)
+      expect(mockLoadDataset).toHaveBeenCalled()
+      expect(mockGetAllNutrients).toHaveBeenCalled()
+      expect(store.nutrientsFile).toHaveLength(1)
+      expect(store.nutrientsFile[0].FoodID).toBe(10)
+    })
+
+    it('handles dataset update errors gracefully', async () => {
+      mockLoadDataset.mockRejectedValueOnce(new Error('Download failed'))
+
+      const store = useNutrientFileStore()
+      const result = await store.updateDataset()
+
+      expect(result).toBe(false)
+      expect(mockLoadDataset).toHaveBeenCalled()
     })
   })
 })

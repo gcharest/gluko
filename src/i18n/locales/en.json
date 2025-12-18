@@ -42,7 +42,8 @@
     "home": "Gluko",
     "history": "Meal History",
     "carbFactor": "Carb Factor",
-    "about": "About"
+    "about": "About",
+    "settings": "Settings"
   },
   "theme": {
     "toggle": "Toggle theme",
@@ -215,6 +216,64 @@
     "general": {
       "confirm": "Confirm",
       "cancel": "Cancel"
+    }
+  },
+  "dataset": {
+    "update": {
+      "available": "Dataset Update Available",
+      "message": "A new version ({version}) of the nutrition dataset is available.",
+      "install": "Update Now",
+      "later": "Later"
+    },
+    "status": {
+      "idle": "Ready",
+      "checking": "Checking for updates...",
+      "downloading": "Downloading dataset...",
+      "validating": "Validating data...",
+      "complete": "Update complete!",
+      "error": "Update failed"
+    },
+    "progress": {
+      "overall": "Overall Progress",
+      "shards": "Shards",
+      "records": "Records",
+      "size": "Downloaded",
+      "currentShard": "Current file",
+      "done": "Done",
+      "retry": "Retry",
+      "cancel": "Cancel"
+    }
+  },
+  "storage": {
+    "quota": {
+      "title": "Storage Usage",
+      "available": "Available",
+      "needed": "Space Needed",
+      "persistent": "Persistent Storage",
+      "yes": "Yes",
+      "no": "No",
+      "requestPersistence": "Enable Persistent Storage",
+      "clearStorage": "Free Up Space",
+      "messages": {
+        "healthy": "Storage space is healthy",
+        "warning": "Storage space is running low",
+        "critical": "Storage space is critically low"
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "dataset": {
+      "title": "Dataset Information",
+      "currentVersion": "Current Version",
+      "notInstalled": "Not installed",
+      "totalRecords": "Total Records",
+      "installedAt": "Installed At",
+      "checkUpdates": "Check for Updates",
+      "installUpdate": "Install Update ({version})"
+    },
+    "storage": {
+      "title": "Storage Management"
     }
   }
 }

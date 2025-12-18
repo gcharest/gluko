@@ -3,7 +3,8 @@ import { RouterView } from 'vue-router'
 import BaseNavigationBar from '@/components/base/BaseNavigationBar.vue'
 import BaseFooter from '@/components/base/BaseFooter.vue'
 import ReloadPrompt from '@/components/base/ReloadPrompt.vue'
-import DatabaseErrorNotification from './components/base/DatabaseErrorNotification.vue';
+import DatabaseErrorNotification from './components/base/DatabaseErrorNotification.vue'
+import DatasetUpdateManager from './components/base/DatasetUpdateManager.vue'
 </script>
 
 <template>
@@ -16,4 +17,5 @@ import DatabaseErrorNotification from './components/base/DatabaseErrorNotificati
   </Teleport>
   <ReloadPrompt />
   <DatabaseErrorNotification />
+  <DatasetUpdateManager />
 </template>
