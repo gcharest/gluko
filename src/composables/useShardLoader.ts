@@ -9,8 +9,8 @@ import type {
 } from '@/types/shard-loading'
 import type { NutrientFile } from '@/stores/nutrientsFile'
 
-const MANIFEST_URL = '/data/canadian_nutrient_file.manifest.json'
-const SHARD_BASE_URL = '/data/shards/'
+const MANIFEST_URL = '/gluko/data/canadian_nutrient_file.manifest.json'
+const SHARD_BASE_URL = '/gluko/data/shards/'
 
 export const useShardLoader = () => {
   const db = useIndexedDB()
@@ -65,13 +65,13 @@ export const useShardLoader = () => {
    */
   const downloadShard = async (shard: ShardDescriptor): Promise<string> => {
     try {
-      const response = await fetch(`${SHARD_BASE_URL}${shard.filename}`)
+      const response = await fetch(`${SHARD_BASE_URL}${shard.file}`)
       if (!response.ok) {
-        throw new Error(`Failed to download shard ${shard.id}: ${response.statusText}`)
+        throw new Error(`Failed to download shard ${shard.file}: ${response.statusText}`)
       }
       return await response.text()
     } catch (err) {
-      const error = err instanceof Error ? err : new Error(`Failed to download shard ${shard.id}`)
+      const error = err instanceof Error ? err : new Error(`Failed to download shard ${shard.file}`)
       throw error
     }
   }
@@ -97,30 +97,30 @@ export const useShardLoader = () => {
     try {
       // Check checksum
       const checksum = await calculateChecksum(data)
-      if (checksum !== shard.checksum) {
+      if (checksum !== shard.sha256) {
         return {
           valid: false,
-          error: `Checksum mismatch for shard ${shard.id}. Expected ${shard.checksum}, got ${checksum}`
+          error: `Checksum mismatch for shard ${shard.file}. Expected ${shard.sha256}, got ${checksum}`
         }
       }
 
       // Check record count
       const records = parseNDJSON(data)
-      if (records.length !== shard.recordCount) {
+      if (records.length !== shard.count) {
         return {
           valid: false,
-          error: `Record count mismatch for shard ${shard.id}. Expected ${shard.recordCount}, got ${records.length}`
+          error: `Record count mismatch for shard ${shard.file}. Expected ${shard.count}, got ${records.length}`
         }
       }
 
       // Check size (allow 1% tolerance for line endings)
       const sizeBytes = new Blob([data]).size
-      const sizeDiff = Math.abs(sizeBytes - shard.sizeBytes)
-      const tolerance = shard.sizeBytes * 0.01
+      const sizeDiff = Math.abs(sizeBytes - shard.bytes)
+      const tolerance = shard.bytes * 0.01
       if (sizeDiff > tolerance) {
         return {
           valid: false,
-          error: `Size mismatch for shard ${shard.id}. Expected ${shard.sizeBytes} bytes, got ${sizeBytes} bytes`
+          error: `Size mismatch for shard ${shard.file}. Expected ${shard.bytes} bytes, got ${sizeBytes} bytes`
         }
       }
 
@@ -137,26 +137,26 @@ export const useShardLoader = () => {
    * Load a single shard into IndexedDB
    */
   const loadShard = async (shard: ShardDescriptor): Promise<void> => {
-    progress.value.currentShardName = shard.filename
+    progress.value.currentShardName = shard.file
     progress.value.status = 'downloading'
 
     // Check if shard already loaded
-    const existingMetadata = await db.getShardMetadata(shard.id)
-    if (existingMetadata?.status === 'loaded' && existingMetadata.checksum === shard.checksum) {
-      console.log(`Shard ${shard.id} already loaded, skipping`)
+    const existingMetadata = await db.getShardMetadata(shard.file)
+    if (existingMetadata?.status === 'loaded' && existingMetadata.checksum === shard.sha256) {
+      console.log(`Shard ${shard.file} already loaded, skipping`)
       progress.value.currentShard++
-      progress.value.recordsLoaded += shard.recordCount
+      progress.value.recordsLoaded += shard.count
       return
     }
 
     // Update shard metadata to 'downloading'
     const metadata: ShardMetadata = {
-      id: shard.id,
-      filename: shard.filename,
-      checksum: shard.checksum,
+      id: shard.file,
+      filename: shard.file,
+      checksum: shard.sha256,
       status: 'downloading',
-      recordCount: shard.recordCount,
-      sizeBytes: shard.sizeBytes,
+      recordCount: shard.count,
+      sizeBytes: shard.bytes,
       retryCount: existingMetadata?.retryCount || 0
     }
     await db.saveShardMetadata(metadata)
@@ -164,7 +164,7 @@ export const useShardLoader = () => {
     try {
       // Download shard
       const data = await downloadShard(shard)
-      progress.value.bytesDownloaded += shard.sizeBytes
+      progress.value.bytesDownloaded += shard.bytes
 
       // Validate shard
       progress.value.status = 'validating'
@@ -181,16 +181,11 @@ export const useShardLoader = () => {
 
       // Store records in nutrientsFile store
       // We use the shard index as part of the key to avoid collisions
-      const shardIndex = parseInt(shard.id.replace('shard-', ''))
-      const existingData = await db.get('nutrientsFile', shardIndex)
+      const shardIndex = parseInt(shard.file.replace('shard-', '').replace('.ndjson', ''))
 
-      if (existingData) {
-        // Merge with existing data
-        const mergedData = [...existingData, ...records]
-        await db.put('nutrientsFile', mergedData, shardIndex)
-      } else {
-        await db.put('nutrientsFile', records, shardIndex)
-      }
+      // Always replace existing data for this shard (don't merge)
+      // The metadata check above already handles resuming interrupted downloads
+      await db.put('nutrientsFile', records, shardIndex)
 
       // Update metadata to 'loaded'
       metadata.status = 'loaded'
@@ -257,10 +252,17 @@ export const useShardLoader = () => {
       // Initialize progress
       progress.value.totalShards = datasetManifest.shards.length
       progress.value.totalRecords = datasetManifest.totalRecords
-      progress.value.totalBytes = datasetManifest.totalSizeBytes
+      progress.value.totalBytes = datasetManifest.totalBytes
       progress.value.currentShard = 0
       progress.value.bytesDownloaded = 0
       progress.value.recordsLoaded = 0
+
+      // Clear legacy data (key 0) if it exists to prevent duplicates
+      const legacyData = await db.get('nutrientsFile', 0)
+      if (legacyData && legacyData.length > 0) {
+        console.log('Clearing legacy v0.2 dataset before loading shards')
+        await db.remove('nutrientsFile', 0)
+      }
 
       // Load each shard sequentially
       for (const shard of datasetManifest.shards) {
@@ -272,7 +274,7 @@ export const useShardLoader = () => {
         version: datasetManifest.version,
         generatedAt: new Date(datasetManifest.generatedAt),
         totalRecords: datasetManifest.totalRecords,
-        totalSizeBytes: datasetManifest.totalSizeBytes,
+        totalBytes: datasetManifest.totalBytes,
         installedAt: new Date(),
         shardsLoaded: datasetManifest.shards.length,
         shardsTotal: datasetManifest.shards.length
@@ -316,7 +318,7 @@ export const useShardLoader = () => {
       const allRecords: NutrientFile[] = []
 
       for (const shard of loadedShards) {
-        const shardIndex = parseInt(shard.id.replace('shard-', ''))
+        const shardIndex = parseInt(shard.id.replace('shard-', '').replace('.ndjson', ''))
         const records = await db.get('nutrientsFile', shardIndex)
         if (records) {
           allRecords.push(...records)

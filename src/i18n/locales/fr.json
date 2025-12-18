@@ -261,13 +261,24 @@
       "title": "Informations sur les données",
       "currentVersion": "Version actuelle",
       "notInstalled": "Non installée",
+      "legacyVersion": "v0.2 (ancienne)",
       "totalRecords": "Nombre total d'enregistrements",
       "installedAt": "Installée le",
       "checkUpdates": "Vérifier les mises à jour",
-      "installUpdate": "Installer la mise à jour ({version})"
+      "installUpdate": "Installer la mise à jour ({version})",
+      "updateAvailable": "Nouvelle version {version} disponible (actuelle: {current})",
+      "updateAvailableNoCurrent": "Nouvelle version {version} disponible (actuelle: aucune)",
+      "upToDate": "Les données sont à jour (version {version})",
+      "noUpdates": "Aucune mise à jour disponible",
+      "checkFailed": "Échec de la vérification des mises à jour. Veuillez réessayer plus tard.",
+      "updateSuccess": "Mise à jour des données réussie!",
+      "updateFailed": "Échec de la mise à jour des données. Veuillez réessayer.",
+      "insufficientStorage": "Espace de stockage insuffisant. Veuillez libérer de l'espace avant de mettre à jour.",
+      "clearStoragePrompt": "Fonctionnalité de nettoyage du stockage - à implémenter avec dialogue de confirmation"
     },
     "storage": {
-      "title": "Gestion du stockage"
+      "title": "Gestion du stockage",
+      "info": "Le stockage persistant empêche le navigateur de supprimer automatiquement vos données lorsque l'espace de stockage est faible. Activez-le pour garantir que votre base de données nutritionnelles et votre historique de repas soient préservés."
     }
   }
 }

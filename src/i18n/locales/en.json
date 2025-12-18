@@ -267,13 +267,24 @@
       "title": "Dataset Information",
       "currentVersion": "Current Version",
       "notInstalled": "Not installed",
+      "legacyVersion": "v0.2 (legacy)",
       "totalRecords": "Total Records",
       "installedAt": "Installed At",
       "checkUpdates": "Check for Updates",
-      "installUpdate": "Install Update ({version})"
+      "installUpdate": "Install Update ({version})",
+      "updateAvailable": "New version {version} is available (current: {current})",
+      "updateAvailableNoCurrent": "New version {version} is available (current: none)",
+      "upToDate": "Dataset is up to date (version {version})",
+      "noUpdates": "No updates available",
+      "checkFailed": "Failed to check for updates. Please try again later.",
+      "updateSuccess": "Dataset updated successfully!",
+      "updateFailed": "Failed to update dataset. Please try again.",
+      "insufficientStorage": "Not enough storage space available. Please free up space before updating.",
+      "clearStoragePrompt": "Clear storage feature - to be implemented with confirmation dialog"
     },
     "storage": {
-      "title": "Storage Management"
+      "title": "Storage Management",
+      "info": "Persistent storage prevents the browser from automatically deleting your data when storage space is low. Enable it to ensure your nutrition dataset and meal history are preserved."
     }
   }
 }

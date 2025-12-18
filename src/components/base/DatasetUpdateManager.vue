@@ -2,11 +2,11 @@
   <div>
     <!-- Update Available Notification -->
     <Teleport to="body">
-      <div v-if="showUpdateNotification" class="update-notification">
+      <aside v-if="showUpdateNotification" class="update-notification" role="complementary" aria-label="Dataset update notification">
         <div class="notification-content">
-          <div class="notification-icon">📦</div>
+          <div class="notification-icon" aria-hidden="true">📦</div>
           <div class="notification-text">
-            <h4 class="notification-title">{{ $t('dataset.update.available') }}</h4>
+            <h2 class="notification-title">{{ $t('dataset.update.available') }}</h2>
             <p class="notification-message">
               {{ $t('dataset.update.message', { version: latestVersion }) }}
             </p>
@@ -20,7 +20,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </aside>
     </Teleport>
 
     <!-- Storage Quota Warning -->
@@ -163,10 +163,13 @@ const handleClearStorage = () => {
   right: 1rem;
   z-index: 9998;
   max-width: 400px;
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
+  background-color: #ffffff;
+  color: #1a202c;
+  border: 2px solid #2c5282;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   animation: slideIn 0.3s ease-out;
 }
 
@@ -200,13 +203,13 @@ const handleClearStorage = () => {
   margin: 0 0 0.5rem 0;
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--color-heading);
+  color: #1a202c;
 }
 
 .notification-message {
   margin: 0;
   font-size: 0.875rem;
-  color: var(--color-text-secondary);
+  color: #1a202c;
   line-height: 1.5;
 }
 
@@ -239,46 +242,63 @@ const handleClearStorage = () => {
 
 .modal-content {
   position: relative;
-  background: var(--color-background);
+  background-color: #ffffff;
+  color: #1a202c;
+  border: 2px solid #2c5282;
   border-radius: 8px;
   max-width: 600px;
   width: 100%;
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
 }
 
 .btn {
   padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
+  border: 2px solid #2c5282;
+  border-radius: 4px;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
-  color: white;
+  background-color: #2c5282;
+  color: #ffffff;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-dark);
+  background-color: #2a4365;
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
 
 .btn-secondary {
-  background-color: var(--color-background-soft);
-  color: var(--color-text);
+  background-color: #ffffff;
+  color: #2c5282;
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-border);
+  background-color: #ebf8ff;
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
 
 @media (max-width: 640px) {
