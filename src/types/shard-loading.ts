@@ -1,34 +1,38 @@
 /**
  * Type definitions for v0.3 shard-based dataset loading
+ * Updated to match ETL-generated manifest format
  */
 
 export interface ManifestFile {
-  version: string              // Semantic version (e.g., "0.3.0")
+  version: string              // Semantic version (e.g., "1.0")
   generatedAt: string          // ISO timestamp
   totalRecords: number         // Total food records across all shards
-  totalSizeBytes: number       // Uncompressed size of all shards
+  totalBytes: number           // Uncompressed size of all shards (from ETL)
+  shardKey?: string            // Optional: sharding strategy (e.g., "FoodID_range")
+  shardSize?: number           // Optional: target shard size
+  compression?: string[]       // Optional: compression methods used
   shards: ShardDescriptor[]
 }
 
 export interface ShardDescriptor {
-  id: string                   // Unique shard identifier (e.g., "shard-0000")
-  filename: string             // File name (e.g., "shard-0000.ndjson")
-  checksum: string             // SHA-256 hash
-  sizeBytes: number            // Uncompressed file size
-  recordCount: number          // Number of records in shard
-  recordRange?: {
-    start: number              // First FoodID in shard
-    end: number                // Last FoodID in shard
-  }
+  file: string                 // File name (e.g., "shard-0000.ndjson")
+  count: number                // Number of records in shard
+  bytes: number                // Uncompressed file size
+  uncompressedBytes: number    // Uncompressed size (same as bytes for uncompressed)
+  sha256: string               // SHA-256 hash
+  firstFoodID?: string         // First FoodID in shard (optional)
+  lastFoodID?: string          // Last FoodID in shard (optional)
+  minFoodID?: number           // Minimum FoodID (numeric, optional)
+  maxFoodID?: number           // Maximum FoodID (numeric, optional)
 }
 
 export interface ShardMetadata {
-  id: string                   // Matches ShardDescriptor.id
-  filename: string
-  checksum: string
+  id: string                   // Shard file name (e.g., "shard-0000.ndjson")
+  filename: string             // Same as id
+  checksum: string             // SHA-256 hash
   status: 'pending' | 'downloading' | 'validating' | 'loaded' | 'error'
-  recordCount: number
-  sizeBytes: number
+  recordCount: number          // Number of records
+  sizeBytes: number            // File size in bytes
   downloadedAt?: Date
   validatedAt?: Date
   errorMessage?: string
@@ -36,13 +40,13 @@ export interface ShardMetadata {
 }
 
 export interface ManifestVersion {
-  version: string
-  generatedAt: Date
-  totalRecords: number
-  totalSizeBytes: number
-  installedAt: Date
-  shardsLoaded: number
-  shardsTotal: number
+  version: string              // Manifest version (e.g., "1.0")
+  generatedAt: Date            // When manifest was generated
+  totalRecords: number         // Total records across all shards
+  totalBytes: number           // Total bytes (renamed from totalSizeBytes)
+  installedAt: Date            // When installed locally
+  shardsLoaded: number         // Number of shards loaded
+  shardsTotal: number          // Total number of shards
 }
 
 export interface ShardLoadProgress {
