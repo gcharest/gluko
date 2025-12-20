@@ -29,9 +29,6 @@ describe('Integration Tests - Multi-Store Workflows', () => {
       const mealStore = useMealStore()
       const historyStore = useMealHistoryStore()
 
-      // Wait for initial stores to load
-      await new Promise((resolve) => setTimeout(resolve, 50))
-
       // Step 1: Create a new subject (or use default)
       const subject = await subjectStore.createSubject('Test User')
       expect(subject).toBeDefined()
@@ -77,9 +74,6 @@ describe('Integration Tests - Multi-Store Workflows', () => {
     it('should isolate sessions between subjects', async () => {
       const subjectStore = useSubjectStore()
       const mealStore = useMealStore()
-
-      // Wait for initial load
-      await new Promise((resolve) => setTimeout(resolve, 50))
 
       // Create first subject
       const subject1 = await subjectStore.createSubject('Alice')
@@ -132,9 +126,6 @@ describe('Integration Tests - Multi-Store Workflows', () => {
       const mealStore = useMealStore()
       const historyStore = useMealHistoryStore()
 
-      // Wait for initialization
-      await new Promise((resolve) => setTimeout(resolve, 50))
-
       // Create subject
       const subject = await subjectStore.createSubject('Test User')
       await mealStore.loadOrCreateSession(subject!.id)
@@ -164,8 +155,6 @@ describe('Integration Tests - Multi-Store Workflows', () => {
       const subjectStore = useSubjectStore()
       const mealStore = useMealStore()
       const historyStore = useMealHistoryStore()
-
-      await new Promise((resolve) => setTimeout(resolve, 50))
 
       await subjectStore.createSubject('Test User')
       await mealStore.loadOrCreateSession(subjectStore.activeSubjectId!)
@@ -210,8 +199,6 @@ describe('Integration Tests - Multi-Store Workflows', () => {
     it('should handle clearing calculator', async () => {
       const subjectStore = useSubjectStore()
       const mealStore = useMealStore()
-
-      await new Promise((resolve) => setTimeout(resolve, 50))
 
       await subjectStore.createSubject('Test User')
       await mealStore.loadOrCreateSession(subjectStore.activeSubjectId!)
