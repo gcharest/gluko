@@ -49,11 +49,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 
 interface Props {
   modelValue: string | number
   type?: 'text' | 'email' | 'password' | 'search' | 'number' | 'tel'
+  id?: string
   label?: string
   placeholder?: string
   hint?: string
@@ -74,7 +75,7 @@ const emit = defineEmits<{
   'blur': []
 }>()
 
-const inputId = ref(`input-${Math.random().toString(36).substring(2, 9)}`)
+const inputId = computed(() => props.id || `input-${Math.random().toString(36).substring(2, 9)}`)
 
 const inputClasses = computed(() => [
   'block w-full rounded-lg',
