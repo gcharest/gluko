@@ -55,28 +55,28 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="progress-actions">
-          <button
+        <div class="flex gap-3 justify-end">
+          <BaseButton
             v-if="progress.status === 'complete'"
-            class="btn btn-primary"
+            variant="primary"
             @click="$emit('complete')"
           >
             {{ $t('dataset.progress.done') }}
-          </button>
-          <button
+          </BaseButton>
+          <BaseButton
             v-if="progress.status === 'error'"
-            class="btn btn-secondary"
+            variant="secondary"
             @click="$emit('retry')"
           >
             {{ $t('dataset.progress.retry') }}
-          </button>
-          <button
+          </BaseButton>
+          <BaseButton
             v-if="progress.status === 'error'"
-            class="btn btn-tertiary"
+            variant="ghost"
             @click="$emit('cancel')"
           >
             {{ $t('dataset.progress.cancel') }}
-          </button>
+          </BaseButton>
         </div>
       </div>
     </div>
@@ -86,6 +86,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { ShardLoadProgress } from '@/types/shard-loading'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 interface Props {
   progress: ShardLoadProgress
@@ -335,49 +336,5 @@ const formatNumber = (num: number): string => {
   color: #991b1b;
   font-size: 0.875rem;
   line-height: 1.5;
-}
-
-.progress-actions {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: flex-end;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-primary {
-  background-color: var(--color-primary);
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-primary-dark);
-}
-
-.btn-secondary {
-  background-color: var(--color-background-soft);
-  color: var(--color-text);
-}
-
-.btn-secondary:hover {
-  background-color: var(--color-border);
-}
-
-.btn-tertiary {
-  background-color: transparent;
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
-}
-
-.btn-tertiary:hover {
-  background-color: var(--color-background-soft);
 }
 </style>
