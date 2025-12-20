@@ -68,7 +68,7 @@ const navigateTo = (route: string) => {
             :href="$t('aboutText.url')"
             target="_blank"
             rel="noopener"
-            class="text-primary-700 dark:text-primary-400 hover:underline"
+            class="text-primary-700 dark:text-primary-400 underline hover:no-underline"
           >
             {{ $t('aboutText.CNF') }}
           </a>.

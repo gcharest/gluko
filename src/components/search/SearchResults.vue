@@ -60,7 +60,7 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
               v-if="showSourceLinks"
               :href="cnfLink(result.item.FoodCode, $i18n.locale)"
               target="_blank"
-              class="inline-flex items-center gap-1 text-sm text-primary-700 dark:text-primary-400 hover:underline"
+              class="inline-flex items-center gap-1 text-sm text-primary-700 dark:text-primary-400 underline hover:no-underline"
               @click.stop
             >
               {{ $t('components.search.source') }}

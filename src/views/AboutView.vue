@@ -34,7 +34,7 @@ import { InfoIcon, ExternalLinkIcon } from 'lucide-vue-next'
             :href="$t('aboutText.url')"
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center gap-1 text-primary-700 dark:text-primary-400 hover:underline font-medium"
+            class="inline-flex items-center gap-1 text-primary-700 dark:text-primary-400 underline hover:no-underline font-medium"
           >
             {{ $t('aboutText.CNF') }}
             <ExternalLinkIcon class="w-4 h-4" />
@@ -56,7 +56,7 @@ import { InfoIcon, ExternalLinkIcon } from 'lucide-vue-next'
           href="https://github.com/gcharest/gluko"
           target="_blank"
           rel="noopener"
-          class="inline-flex items-center gap-2 text-primary-700 dark:text-primary-400 hover:underline font-medium"
+          class="inline-flex items-center gap-2 text-primary-700 dark:text-primary-400 underline hover:no-underline font-medium"
         >
           View on GitHub
           <ExternalLinkIcon class="w-4 h-4" />
