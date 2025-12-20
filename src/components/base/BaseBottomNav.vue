@@ -14,7 +14,7 @@
         :aria-label="item.label"
       >
         <component :is="item.icon" class="w-6 h-6" />
-        <span class="text-xs mt-1 font-medium">{{ item.label }}</span>
+        <span class="sr-only">{{ item.label }}</span>
       </RouterLink>
     </div>
   </nav>
