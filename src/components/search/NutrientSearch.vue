@@ -2,6 +2,11 @@
 import { ref, computed, watch, nextTick } from 'vue'
 import { useNutrientFileStore } from '@/stores/nutrientsFile'
 import SearchResults from './SearchResults.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseSpinner from '@/components/base/BaseSpinner.vue'
+import BaseEmptyState from '@/components/base/BaseEmptyState.vue'
+import { SearchIcon } from 'lucide-vue-next'
 
 const props = defineProps({
   placeholder: { type: String, default: '' },
@@ -75,42 +80,44 @@ const handleSelect = (item: any) => {
 
 <template>
   <div class="nutrient-search">
-    <div class="input-group mb-3">
-      <input
+    <div class="flex gap-2 mb-4">
+      <BaseInput
         id="searchInput"
         ref="inputRef"
         v-model="searchInput"
         type="text"
-        class="form-control"
+        class="flex-1"
         :placeholder="placeholder || $t('components.search.placeholder')"
         :aria-label="placeholder || $t('components.search.placeholder')"
         @keydown="handleKeydown"
         @input="handleInput"
       />
-      <button
+      <BaseButton
         v-if="!autoSearch"
         id="button-search-nutrient"
-        class="btn btn-primary"
-        type="button"
+        variant="primary"
         :aria-label="searchButtonLabel || $t('common.actions.search')"
         @click="triggerSearch"
       >
-        <i class="bi bi-search" /> {{ searchButtonLabel || $t('common.actions.search') }}
-      </button>
+        <SearchIcon class="w-5 h-5 mr-2" />
+        {{ searchButtonLabel || $t('common.actions.search') }}
+      </BaseButton>
     </div>
 
     <div v-if="search" aria-live="polite">
-      <div v-if="loading" class="mt-2">{{ $t('common.labels.loading') }}...</div>
+      <BaseSpinner v-if="loading" :label="$t('common.labels.loading')" class="my-4" />
       <SearchResults
-        v-if="searchResults.length > 0"
+        v-else-if="searchResults.length > 0"
         :results="searchResults"
         :show-source-links="showSourceLinks"
         :compact="compactResults"
         @select="handleSelect"
       />
-      <p v-else class="mt-2 text-muted">
-        {{ $t('components.search.noResults') }}
-      </p>
+      <BaseEmptyState v-else :title="$t('components.search.noResults')" class="my-4">
+        <template #icon>
+          <SearchIcon class="w-12 h-12" />
+        </template>
+      </BaseEmptyState>
     </div>
   </div>
 </template>

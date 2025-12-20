@@ -108,7 +108,7 @@ jobs:
         run: npm ci --prefer-offline --ignore-scripts
 
       - name: Run unit tests
-        run: npm run test:unit
+        run: npm run test:unit:run
 
   # Quick accessibility check (Chromium only for speed)
   accessibility:

@@ -1,64 +1,64 @@
 <template>
   <div class="subject-selector">
-    <div v-if="allSubjectsOption" class="form-check">
+    <div v-if="allSubjectsOption" class="flex items-center mb-2">
       <input
         :id="allSubjectsId"
         v-model="selectedSubjectId"
-        class="form-check-input"
+        class="w-4 h-4 text-primary-600 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
         type="radio"
         name="subject"
         :value="null"
         @change="handleChange"
       />
-      <label class="form-check-label" :for="allSubjectsId">
+      <label class="ml-2 text-sm text-gray-900 dark:text-white" :for="allSubjectsId">
         {{ $t('components.subjectSelector.allSubjects') }}
       </label>
     </div>
 
     <!-- Loading state -->
-    <div v-if="loading" class="text-center py-2">
-      <div class="spinner-border spinner-border-sm" role="status">
-        <span class="visually-hidden">{{ $t('common.loading') }}</span>
+    <div v-if="loading" class="text-center py-3">
+      <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-primary-600" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
     </div>
 
     <!-- Error state -->
-    <div v-else-if="error" class="alert alert-danger py-2" role="alert">
+    <BaseAlert v-else-if="error" variant="danger" class="py-2">
       {{ error }}
-    </div>
+    </BaseAlert>
 
     <!-- No subjects state -->
-    <div v-else-if="!subjects.length" class="text-center py-2">
-      <p class="text-muted mb-2">{{ $t('components.subjectSelector.noSubjects') }}</p>
-      <button type="button" class="btn btn-primary btn-sm" @click="handleAddSubject">
+    <div v-else-if="!subjects.length" class="text-center py-3">
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ $t('components.subjectSelector.noSubjects') }}</p>
+      <BaseButton variant="primary" size="sm" @click="handleAddSubject">
         {{ $t('components.subjectSelector.addSubject') }}
-      </button>
+      </BaseButton>
     </div>
 
     <!-- Subject list -->
-    <div v-else class="subject-list">
-      <div v-for="subject in subjects" :key="subject.id" class="form-check">
+    <div v-else class="subject-list max-h-48 overflow-y-auto space-y-2">
+      <div v-for="subject in subjects" :key="subject.id" class="flex items-center">
         <input
           :id="getSubjectInputId(subject.id)"
           v-model="selectedSubjectId"
-          class="form-check-input"
+          class="w-4 h-4 text-primary-600 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
           type="radio"
           name="subject"
           :value="subject.id"
           @change="handleChange"
         />
-        <label class="form-check-label" :for="getSubjectInputId(subject.id)">
+        <label class="ml-2 text-sm text-gray-900 dark:text-white" :for="getSubjectInputId(subject.id)">
           {{ subject.name }}
         </label>
       </div>
     </div>
 
     <!-- Add subject button -->
-    <div class="mt-2">
-      <button type="button" class="btn btn-primary btn-sm w-100" @click="handleAddSubject">
-        <i class="bi bi-plus-circle me-1"></i>
+    <div class="mt-3">
+      <BaseButton variant="primary" size="sm" class="w-full" @click="handleAddSubject">
+        <PlusCircleIcon class="w-4 h-4 mr-1" />
         {{ $t('components.subjectSelector.addSubject') }}
-      </button>
+      </BaseButton>
     </div>
   </div>
 </template>
@@ -67,6 +67,9 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useSubjectStore } from '@/stores/subject'
 import type { Subject } from '@/types/meal-history'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseAlert from '@/components/base/BaseAlert.vue'
+import { PlusCircleIcon } from 'lucide-vue-next'
 
 interface Props {
   modelValue: string | null
@@ -126,14 +129,3 @@ onMounted(async () => {
   }
 })
 </script>
-
-<style scoped>
-.subject-selector {
-  width: 100%;
-}
-
-.subject-list {
-  max-height: 200px;
-  overflow-y: auto;
-}
-</style>

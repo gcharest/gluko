@@ -43,7 +43,10 @@
     "history": "Meal History",
     "carbFactor": "Carb Factor",
     "about": "About",
-    "settings": "Settings"
+    "settings": "Settings",
+    "toggleTheme": "Toggle theme",
+    "changeLanguage": "Change language",
+    "menu": "Menu"
   },
   "theme": {
     "toggle": "Toggle theme",

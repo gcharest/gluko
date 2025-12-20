@@ -1,6 +1,19 @@
 # Release v0.5: UI Polish & Accessibility
 
-## Release Summary
+**⚠️ STATUS: DEPRECATED - Replaced by Complete Redesign**
+
+This incremental polish approach has been superseded by [v0.5 Complete Redesign](v0.5-complete-redesign.md), which delivers all these improvements and more through a comprehensive UI/UX overhaul using modern design systems (Reka UI + Tailwind CSS).
+
+**Decision Date**: 2025-12-19
+**Rationale**: After completing v0.3's data infrastructure, the timing is optimal for a complete redesign that addresses both UI improvements AND performance optimization in a single cohesive release, rather than incremental Bootstrap enhancements.
+
+**All original goals exceeded in v0.5**: Modern design system, mobile-first navigation, WCAG AA+ accessibility, enhanced search/calculator/history views, dark mode, and v0.4 performance optimizations integrated
+
+See: [v0.5 Complete Redesign Release Plan](v0.5-complete-redesign.md)
+
+---
+
+## Original Release Summary (For Reference)
 
 Refine and optimize the user interface across all views (search, calculator, history, settings) to improve usability, accessibility, and visual consistency based on user feedback and accessibility testing.
 

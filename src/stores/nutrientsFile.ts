@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { useIndexedDB } from '@/composables/useIndexedDB'
 import { useShardLoader } from '@/composables/useShardLoader'
-import dataset from '@/assets/canadian_nutrient_file.json'
 import Fuse from 'fuse.js'
 
 export interface NutrientFile {
@@ -48,26 +47,30 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
       const manifestVersion = await db.getCurrentManifestVersion()
 
       if (manifestVersion) {
-        // v0.3: Load from shards
+        // v0.3: Load from shards in IndexedDB
         console.log(`Loading dataset from shards (version ${manifestVersion.version})`)
         const nutrients = await shardLoader.getAllNutrients()
         if (nutrients.length > 0) {
           nutrientsFile.value = nutrients
         } else {
-          // Fallback to legacy if shards are empty
-          console.warn('No nutrients loaded from shards, falling back to legacy dataset')
-          await loadLegacyDataset()
+          // Shards are empty - this shouldn't happen, but re-download if it does
+          console.warn('Shards are empty, re-downloading dataset')
+          await shardLoader.loadDataset()
+          const reloadedNutrients = await shardLoader.getAllNutrients()
+          nutrientsFile.value = reloadedNutrients
         }
       } else {
-        // Legacy: Check if we have old format data in IndexedDB
+        // Legacy: Check if we have old format data in IndexedDB (v0.2)
         const storedNutrientsFile = await db.get('nutrientsFile', 0)
         if (storedNutrientsFile && storedNutrientsFile.length > 0) {
-          console.log('Loading legacy dataset from IndexedDB')
+          console.log('Loading legacy v0.2 dataset from IndexedDB')
           nutrientsFile.value = storedNutrientsFile
         } else {
-          // First time load - use bundled dataset as fallback
-          console.log('First time load - using bundled dataset')
-          await loadLegacyDataset()
+          // First time load - download shards from GitHub
+          console.log('First time load - downloading shards from GitHub')
+          await shardLoader.loadDataset()
+          const nutrients = await shardLoader.getAllNutrients()
+          nutrientsFile.value = nutrients
         }
       }
 
@@ -78,13 +81,8 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
       }
     } catch (error) {
       console.error('Failed to load initial data:', error)
-      nutrientsFile.value = dataset as NutrientFile[]
+      throw error // Re-throw to let the app handle the error
     }
-  }
-
-  const loadLegacyDataset = async () => {
-    nutrientsFile.value = dataset as NutrientFile[]
-    await db.put('nutrientsFile', nutrientsFile.value, 0)
   }
 
   loadInitialData()
@@ -224,8 +222,10 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
 
   async function reloadData(): Promise<boolean> {
     try {
-      nutrientsFile.value = dataset as NutrientFile[]
-      await db.put('nutrientsFile', nutrientsFile.value, 0)
+      // Re-download shards from GitHub
+      await shardLoader.loadDataset()
+      const nutrients = await shardLoader.getAllNutrients()
+      nutrientsFile.value = nutrients
       clearSearchCache()
       return true
     } catch (error) {
@@ -237,8 +237,10 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
   async function initializeData(): Promise<boolean> {
     try {
       if (nutrientsFile.value.length === 0) {
-        nutrientsFile.value = dataset as NutrientFile[]
-        await db.put('nutrientsFile', nutrientsFile.value, 0)
+        // Download shards if no data loaded
+        await shardLoader.loadDataset()
+        const nutrients = await shardLoader.getAllNutrients()
+        nutrientsFile.value = nutrients
       }
       return true
     } catch (error) {
@@ -249,10 +251,15 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
 
   async function $reset(): Promise<boolean> {
     try {
-      nutrientsFile.value = dataset as NutrientFile[]
+      // Clear all data and re-download shards
       favoriteNutrients.value = []
-      await db.put('nutrientsFile', nutrientsFile.value, 0)
       await saveFavorites()
+
+      // Re-download dataset
+      await shardLoader.loadDataset()
+      const nutrients = await shardLoader.getAllNutrients()
+      nutrientsFile.value = nutrients
+
       clearSearchCache()
       return true
     } catch (error) {

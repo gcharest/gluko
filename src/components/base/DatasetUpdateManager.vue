@@ -11,13 +11,13 @@
               {{ $t('dataset.update.message', { version: latestVersion }) }}
             </p>
           </div>
-          <div class="notification-actions">
-            <button class="btn btn-primary" @click="handleUpdate">
+          <div class="flex gap-3">
+            <BaseButton variant="primary" @click="handleUpdate">
               {{ $t('dataset.update.install') }}
-            </button>
-            <button class="btn btn-secondary" @click="dismissUpdate">
+            </BaseButton>
+            <BaseButton variant="secondary" @click="dismissUpdate">
               {{ $t('dataset.update.later') }}
-            </button>
+            </BaseButton>
           </div>
         </div>
       </aside>
@@ -34,10 +34,10 @@
             @request-persistence="handleRequestPersistence"
             @clear-storage="handleClearStorage"
           />
-          <div class="modal-actions">
-            <button class="btn btn-secondary" @click="showQuotaWarning = false">
+          <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <BaseButton variant="secondary" @click="showQuotaWarning = false">
               {{ $t('common.actions.close') }}
-            </button>
+            </BaseButton>
           </div>
         </div>
       </div>
@@ -61,6 +61,7 @@ import { useNutrientFileStore } from '@/stores/nutrientsFile'
 import { useStorageQuota } from '@/composables/useStorageQuota'
 import DatasetUpdateProgress from '@/components/DatasetUpdateProgress.vue'
 import StorageQuotaDisplay from '@/components/StorageQuotaDisplay.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 const nutrientStore = useNutrientFileStore()
 const storageQuota = useStorageQuota()
@@ -213,11 +214,6 @@ const handleClearStorage = () => {
   line-height: 1.5;
 }
 
-.notification-actions {
-  display: flex;
-  gap: 0.75rem;
-}
-
 .quota-warning-modal {
   position: fixed;
   top: 0;
@@ -254,53 +250,6 @@ const handleClearStorage = () => {
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: 2px solid #2c5282;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-primary {
-  background-color: #2c5282;
-  color: #ffffff;
-}
-
-.btn-primary:hover {
-  background-color: #2a4365;
-}
-
-.btn-primary:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-}
-
-.btn-secondary {
-  background-color: #ffffff;
-  color: #2c5282;
-}
-
-.btn-secondary:hover {
-  background-color: #ebf8ff;
-}
-
-.btn-secondary:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-}
-
 @media (max-width: 640px) {
   .update-notification {
     top: auto;
@@ -308,14 +257,6 @@ const handleClearStorage = () => {
     right: 1rem;
     left: 1rem;
     max-width: none;
-  }
-
-  .notification-actions {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
   }
 }
 </style>

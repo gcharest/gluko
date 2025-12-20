@@ -43,7 +43,10 @@
     "history": "Historique des repas",
     "carbFactor": "Facteur glucidique",
     "about": "À propos",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "toggleTheme": "Changer le thème",
+    "changeLanguage": "Changer la langue",
+    "menu": "Menu"
   },
   "theme": {
     "toggle": "Changer le thème",

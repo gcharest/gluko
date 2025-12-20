@@ -90,22 +90,11 @@ export default defineConfig({
       '@test': fileURLToPath(new URL('./test', import.meta.url))
     }
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // Suppress Bootstrap deprecation warnings for Sass built-in functions
-        // These are Bootstrap's responsibility to fix, not ours
-        quietDeps: true,
-        silenceDeprecations: ['import', 'global-builtin', 'color-functions']
-      }
-    }
-  },
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['vue', 'vue-router', 'pinia'],
-          bootstrap: ['bootstrap'],
           utilities: ['@vueuse/core', 'fuse.js']
         }
       }

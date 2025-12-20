@@ -16,6 +16,9 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseCard: true,
+          BaseButton: true,
+          BaseInput: true,
         },
         mocks: {
           $t: (key: string) => key,
@@ -33,6 +36,9 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseButton: true,
+          BaseInput: true,
+          // Don't stub BaseCard so we can see its slot content
         },
         mocks: {
           $t: (key: string) => key,
@@ -50,13 +56,17 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseCard: true,
+          BaseButton: true,
+          BaseInput: true,
         },
         mocks: {
           $t: (key: string) => key,
         },
       },
     })
-    const buttons = wrapper.findAll('button.btn-secondary')
+    // The new design uses BaseButton component instead of .btn-secondary class
+    const buttons = wrapper.findAll('base-button-stub')
     expect(buttons.length).toBeGreaterThanOrEqual(2)
   })
 
@@ -68,15 +78,21 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseInput: true,
+          // Don't stub BaseButton so we can see its content
         },
         mocks: {
           $t: (key: string) => key,
         },
       },
     })
-    const exportButton = wrapper.findAll('button.btn-secondary')[0]
-    expect(exportButton.text()).toContain('views.mealHistory.actions.export')
-    expect(exportButton.find('i.bi-download').exists()).toBe(true)
+    // Find all buttons and look for the export button
+    const buttons = wrapper.findAllComponents({ name: 'BaseButton' })
+    const exportButton = buttons.find(b => b.text().includes('views.mealHistory.actions.export'))
+    expect(exportButton).toBeDefined()
+    expect(exportButton!.text()).toContain('views.mealHistory.actions.export')
+    // The new design uses lucide-vue-next DownloadIcon instead of Bootstrap icons
+    expect(exportButton!.html()).toContain('svg')
   })
 
   it('has import button with icon', () => {
@@ -87,15 +103,21 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseInput: true,
+          // Don't stub BaseButton so we can see its content
         },
         mocks: {
           $t: (key: string) => key,
         },
       },
     })
-    const importButton = wrapper.findAll('button.btn-secondary')[1]
-    expect(importButton.text()).toContain('views.mealHistory.actions.import')
-    expect(importButton.find('i.bi-upload').exists()).toBe(true)
+    // Find all buttons and look for the import button
+    const buttons = wrapper.findAllComponents({ name: 'BaseButton' })
+    const importButton = buttons.find(b => b.text().includes('views.mealHistory.actions.import'))
+    expect(importButton).toBeDefined()
+    expect(importButton!.text()).toContain('views.mealHistory.actions.import')
+    // The new design uses lucide-vue-next UploadIcon instead of Bootstrap icons
+    expect(importButton!.html()).toContain('svg')
   })
 
   it('renders search input', () => {
@@ -106,6 +128,7 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          // Don't stub BaseInput so we can see the input element
         },
         mocks: {
           $t: (key: string) => key,
@@ -126,6 +149,9 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseCard: true,
+          BaseButton: true,
+          BaseInput: true,
         },
         mocks: {
           $t: (key: string) => key,
@@ -145,6 +171,9 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseCard: true,
+          BaseButton: true,
+          BaseInput: true,
         },
         mocks: {
           $t: (key: string) => key,
@@ -168,6 +197,9 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseCard: true,
+          BaseButton: true,
+          BaseInput: true,
         },
         mocks: {
           $t: (key: string) => key,
@@ -185,17 +217,21 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseCard: true,
+          BaseButton: true,
+          BaseInput: true,
         },
         mocks: {
           $t: (key: string) => key,
         },
       },
     })
-    const container = wrapper.find('.container-fluid')
+    // The new design uses Tailwind max-w-7xl mx-auto instead of Bootstrap container-fluid
+    const container = wrapper.find('.max-w-7xl')
     expect(container.exists()).toBe(true)
   })
 
-  it('has filters sidebar with col-md-3 class', () => {
+  it('has filters sidebar with correct layout', () => {
     const wrapper = mount(MealHistoryView, {
       global: {
         plugins: [createPinia()],
@@ -203,17 +239,21 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseCard: true,
+          BaseButton: true,
+          BaseInput: true,
         },
         mocks: {
           $t: (key: string) => key,
         },
       },
     })
-    const sidebar = wrapper.find('.col-md-3')
+    // The new design uses Tailwind md:col-span-1 instead of Bootstrap col-md-3
+    const sidebar = wrapper.find('.md\\:col-span-1')
     expect(sidebar.exists()).toBe(true)
   })
 
-  it('has main content area with col-md-9 class', () => {
+  it('has main content area with correct layout', () => {
     const wrapper = mount(MealHistoryView, {
       global: {
         plugins: [createPinia()],
@@ -221,13 +261,17 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseCard: true,
+          BaseButton: true,
+          BaseInput: true,
         },
         mocks: {
           $t: (key: string) => key,
         },
       },
     })
-    const content = wrapper.find('.col-md-9')
+    // The new design uses Tailwind md:col-span-3 instead of Bootstrap col-md-9
+    const content = wrapper.find('.md\\:col-span-3')
     expect(content.exists()).toBe(true)
   })
 
@@ -239,6 +283,9 @@ describe('MealHistoryView.vue', () => {
           DateRangeFilter: true,
           SubjectSelector: true,
           MealHistoryCard: true,
+          BaseCard: true,
+          BaseButton: true,
+          BaseInput: true,
         },
         mocks: {
           $t: (key: string) => key,

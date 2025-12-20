@@ -1,80 +1,79 @@
 <template>
-  <div class="container-fluid">
-    <h1>{{ $t('navigation.history') }}</h1>
-    <div class="row">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ $t('navigation.history') }}</h1>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
       <!-- Filters Sidebar -->
-      <div class="col-md-3">
-        <div class="card">
-          <div class="card-header">
-            <h2 class="h5 card-title mb-0">{{ $t('views.mealHistory.filters.title') }}</h2>
-          </div>
-          <div class="card-body">
+      <div class="md:col-span-1">
+        <BaseCard>
+          <template #header>
+            <h2 class="text-lg font-semibold">{{ $t('views.mealHistory.filters.title') }}</h2>
+          </template>
+
+          <div class="space-y-4">
             <!-- Date Range Filter -->
-            <div class="mb-3">
-              <h3 class="h5">{{ $t('views.mealHistory.filters.dateRange') }}</h3>
+            <div>
+              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">{{ $t('views.mealHistory.filters.dateRange') }}</h3>
               <DateRangeFilter v-model="dateRange" />
             </div>
 
             <!-- Subject Filter -->
-            <div class="mb-3">
-              <h3 class="h5">{{ $t('views.mealHistory.filters.subject') }}</h3>
+            <div>
+              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">{{ $t('views.mealHistory.filters.subject') }}</h3>
               <SubjectSelector v-model="selectedSubjectId" @add="handleAddSubject" />
             </div>
 
             <!-- Tags Filter -->
-            <div class="mb-3">
-              <h3 class="h5">{{ $t('views.mealHistory.filters.tags') }}</h3>
+            <div>
+              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">{{ $t('views.mealHistory.filters.tags') }}</h3>
               <!-- TODO: Add tags selector component -->
             </div>
 
             <!-- Search Filter -->
-            <div class="mb-3">
-              <label for="searchInput" class="form-label">{{
+            <div>
+              <label for="searchInput" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
                 $t('views.mealHistory.filters.search')
               }}</label>
-              <input
+              <BaseInput
                 id="searchInput"
                 v-model="searchQuery"
                 type="search"
-                class="form-control"
                 :placeholder="$t('views.mealHistory.filters.searchPlaceholder')"
               />
             </div>
           </div>
-        </div>
+        </BaseCard>
       </div>
 
       <!-- Main Content -->
-      <div class="col-md-9">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h2 class="h4 mb-0">{{ $t('views.mealHistory.results.title') }}</h2>
-          <div class="d-flex gap-2">
+      <div class="md:col-span-3">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ $t('views.mealHistory.results.title') }}</h2>
+          <div class="flex gap-2">
             <!-- Export/Import buttons -->
-            <button type="button" class="btn btn-secondary" @click="handleExport">
-              <i class="bi bi-download me-1"></i>
+            <BaseButton variant="secondary" @click="handleExport">
+              <DownloadIcon class="w-4 h-4 mr-1" />
               {{ $t('views.mealHistory.actions.export') }}
-            </button>
-            <button type="button" class="btn btn-secondary" @click="handleImport">
-              <i class="bi bi-upload me-1"></i>
+            </BaseButton>
+            <BaseButton variant="secondary" @click="handleImport">
+              <UploadIcon class="w-4 h-4 mr-1" />
               {{ $t('views.mealHistory.actions.import') }}
-            </button>
+            </BaseButton>
           </div>
         </div>
 
         <!-- Results count and page size selector -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <p class="mb-0">
+        <div class="flex justify-between items-center mb-4">
+          <p class="text-sm text-gray-600 dark:text-gray-400">
             {{ $t('views.mealHistory.results.count', { count: totalResults }) }}
           </p>
-          <div class="d-flex align-items-center gap-2">
-            <label for="page-size-select" class="form-label mb-0">{{
+          <div class="flex items-center gap-2">
+            <label for="page-size-select" class="text-sm text-gray-700 dark:text-gray-300">{{
               $t('views.mealHistory.results.perPage')
             }}</label>
             <select
               id="page-size-select"
               v-model="pageSize"
-              class="form-select"
-              style="width: auto"
+              class="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
               :aria-label="$t('views.mealHistory.results.perPage')"
             >
               <option v-for="size in pageSizeOptions" :key="size" :value="size">
@@ -85,24 +84,24 @@
         </div>
 
         <!-- Loading state -->
-        <div v-if="loading" class="text-center py-5">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">{{ $t('common.loading') }}</span>
+        <div v-if="loading" class="text-center py-12">
+          <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600" role="status">
+            <span class="sr-only">Loading...</span>
           </div>
         </div>
 
         <!-- Error state -->
-        <div v-else-if="error" class="alert alert-danger" role="alert">
+        <BaseAlert v-else-if="error" variant="danger">
           {{ error }}
-        </div>
+        </BaseAlert>
 
         <!-- Empty state -->
-        <div v-else-if="!totalResults" class="text-center py-5">
-          <p class="mb-0">{{ $t('views.mealHistory.empty') }}</p>
+        <div v-else-if="!totalResults" class="text-center py-12">
+          <p class="text-gray-600 dark:text-gray-400">{{ $t('views.mealHistory.empty') }}</p>
         </div>
 
         <!-- Results list -->
-        <div v-else class="meal-history-list">
+        <div v-else class="space-y-3">
           <MealHistoryCard
             v-for="meal in paginatedMeals"
             :key="meal.id"
@@ -114,45 +113,49 @@
         </div>
 
         <!-- Pagination -->
-        <nav v-if="totalPages > 1" aria-label="Meal history pagination" class="mt-3">
-          <ul class="pagination justify-content-center">
+        <nav v-if="totalPages > 1" aria-label="Meal history pagination" class="mt-6">
+          <ul class="flex justify-center items-center gap-1">
             <!-- Previous page -->
-            <li :class="['page-item', { disabled: currentPage === 1 }]">
+            <li>
               <button
                 type="button"
-                class="page-link"
+                class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                :disabled="currentPage === 1"
                 :aria-label="$t('common.pagination.previous')"
                 @click="currentPage--"
               >
-                <i class="bi bi-chevron-left"></i>
+                <ChevronLeftIcon class="w-4 h-4" />
               </button>
             </li>
 
             <!-- Page numbers -->
-            <li
-              v-for="page in displayedPages"
-              :key="page"
-              :class="['page-item', { active: page === currentPage }]"
-            >
+            <li v-for="page in displayedPages" :key="page">
               <button
+                v-if="typeof page === 'number'"
                 type="button"
-                class="page-link"
-                :disabled="typeof page === 'string'"
-                @click="typeof page === 'number' ? (currentPage = page) : undefined"
+                class="px-4 py-2 rounded-lg border text-sm font-medium transition-colors"
+                :class="
+                  page === currentPage
+                    ? 'bg-primary-600 border-primary-600 text-white'
+                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                "
+                @click="currentPage = page"
               >
                 {{ page }}
               </button>
+              <span v-else class="px-2 text-gray-500">{{ page }}</span>
             </li>
 
             <!-- Next page -->
-            <li :class="['page-item', { disabled: currentPage === totalPages }]">
+            <li>
               <button
                 type="button"
-                class="page-link"
+                class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                :disabled="currentPage === totalPages"
                 :aria-label="$t('common.pagination.next')"
                 @click="currentPage++"
               >
-                <i class="bi bi-chevron-right"></i>
+                <ChevronRightIcon class="w-4 h-4" />
               </button>
             </li>
           </ul>
@@ -167,9 +170,14 @@ import { ref, computed } from 'vue'
 import { useMealHistoryStore } from '@/stores/mealHistory'
 import { useSubjectStore } from '@/stores/subject'
 import type { MealHistoryEntry } from '@/types/meal-history'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseAlert from '@/components/base/BaseAlert.vue'
 import DateRangeFilter from '@/components/filters/DateRangeFilter.vue'
 import SubjectSelector from '@/components/filters/SubjectSelector.vue'
 import MealHistoryCard from '@/components/history/MealHistoryCard.vue'
+import { DownloadIcon, UploadIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next'
 
 const mealHistoryStore = useMealHistoryStore()
 const subjectStore = useSubjectStore()
@@ -280,9 +288,3 @@ function handleImport() {
   console.log('Import clicked')
 }
 </script>
-
-<style scoped>
-.meal-history-list {
-  min-height: 200px;
-}
-</style>

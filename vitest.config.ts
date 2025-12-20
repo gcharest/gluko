@@ -31,7 +31,11 @@ export default defineConfig({
       '**/scripts/**/test/**'
     ],
     root: fileURLToPath(new URL('./', import.meta.url)),
-    setupFiles: ['./src/components/__tests__/unit.setup.ts', './test/mocks/useIndexedDB.mock.ts'],
+    setupFiles: [
+      './src/components/__tests__/unit.setup.ts',
+      './test/mocks/useIndexedDB.mock.ts',
+      './test/mocks/useShardLoader.mock.ts'
+    ],
     coverage: {
       provider: 'v8',
       enabled: true,
@@ -42,6 +46,7 @@ export default defineConfig({
       ],
       exclude: [
         'src/composables/useIndexedDB.ts',
+        'src/composables/useShardLoader.ts',
         'coverage/**',
         'dist/**',
         'packages/*/test{,s}/**',

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 import type { SearchResult } from '@/stores/nutrientsFile'
+import BaseCard from '@/components/base/BaseCard.vue'
+import { PlusCircleIcon, ExternalLinkIcon } from 'lucide-vue-next'
 
 const props = defineProps<{
   results: SearchResult[]
@@ -20,51 +22,42 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
 
 <template>
   <div class="search-results">
-    <h2 v-if="!compact">
+    <h2 v-if="!compact" class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
       {{ $t('components.search.results', { count: results?.length }) }}
     </h2>
-    <ul v-if="results?.length > 0" class="list-group search-results-list">
-      <li v-if="!compact" class="list-group-item">
-        <div class="row">
-          <div class="col-8 display-6">{{ $t('common.labels.nutrient') }}</div>
-          <div class="col-4 display-6 text-center">{{ $t('common.labels.factor') }}</div>
-        </div>
-      </li>
-      <li
-        v-for="result in results"
-        :key="result.refIndex"
-        class="list-group-item list-group-item-action"
-        role="button"
-        :aria-label="
-          $t('components.search.selectItem', {
-            name: $i18n.locale === 'fr' ? result.item.FoodDescriptionF : result.item.FoodDescription
-          })
-        "
-        tabindex="0"
-        @click="emit('select', result)"
-        @keydown.enter="emit('select', result)"
-        @keydown.space.prevent="emit('select', result)"
-      >
-        <div class="row">
-          <div class="col-8">
-            <p class="mb-1">
-              <i v-if="compact" class="bi bi-plus-circle me-2"></i>
+
+    <div v-if="results?.length > 0" class="space-y-2">
+      <!-- Header row (only in non-compact mode) -->
+      <div v-if="!compact"
+        class="grid grid-cols-12 gap-4 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        <div class="col-span-8">{{ $t('common.labels.nutrient') }}</div>
+        <div class="col-span-4 text-center">{{ $t('common.labels.factor') }}</div>
+      </div>
+
+      <!-- Results list -->
+      <BaseCard v-for="result in results" :key="result.refIndex"
+        class="cursor-pointer transition-all duration-200 hover:translate-x-1 hover:shadow-md focus-within:ring-2 focus-within:ring-primary-500"
+        role="button" :aria-label="$t('components.search.selectItem', {
+          name: $i18n.locale === 'fr' ? result.item.FoodDescriptionF : result.item.FoodDescription
+        })
+          " tabindex="0" @click="emit('select', result)" @keydown.enter="emit('select', result)"
+        @keydown.space.prevent="emit('select', result)">
+        <div class="grid grid-cols-12 gap-4 items-center">
+          <div class="col-span-8">
+            <p class="flex items-center gap-2 mb-1 text-gray-900 dark:text-white">
+              <PlusCircleIcon v-if="compact" class="w-4 h-4 text-primary-700 dark:text-primary-400 shrink-0" />
               <span v-if="$i18n.locale === 'fr'">{{ result.item.FoodDescriptionF }}</span>
               <span v-else>{{ result.item.FoodDescription }}</span>
             </p>
-            <a
-              v-if="showSourceLinks"
-              :href="cnfLink(result.item.FoodCode, $i18n.locale)"
-              target="_blank"
-              class="link-primary small"
-              @click.stop
-            >
+            <a v-if="showSourceLinks" :href="cnfLink(result.item.FoodCode, $i18n.locale)" target="_blank"
+              class="inline-flex items-center gap-1 text-sm text-primary-700 dark:text-primary-400 underline hover:no-underline"
+              @click.stop>
               {{ $t('components.search.source') }}
-              <i class="bi bi-box-arrow-up-right" />
+              <ExternalLinkIcon class="w-3 h-3" />
             </a>
           </div>
-          <div class="col-4">
-            <p class="text-center mb-0">
+          <div class="col-span-4 text-center">
+            <p class="font-semibold text-gray-900 dark:text-white">
               {{
                 result.item.FctGluc !== null
                   ? result.item.FctGluc.toFixed(2)
@@ -73,33 +66,8 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
             </p>
           </div>
         </div>
-      </li>
-    </ul>
-    <ul v-else class="list-group">
-      <li class="list-group-item">{{ $t('common.labels.noResults') }}</li>
-    </ul>
+      </BaseCard>
+    </div>
   </div>
 </template>
-
-<style scoped>
-.search-results-list .list-group-item-action {
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.search-results-list .list-group-item-action:hover,
-.search-results-list .list-group-item-action:focus {
-  transform: translateX(4px);
-  background-color: var(--bs-list-group-action-hover-bg);
-}
-
-.search-results-list .list-group-item-action:focus {
-  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
-  z-index: 1;
-}
-
-.search-results-list .list-group-item-action:active {
-  transform: translateX(2px);
-}
-</style>
 ]]>

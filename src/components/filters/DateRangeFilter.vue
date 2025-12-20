@@ -1,28 +1,28 @@
 <template>
   <div class="date-range-filter">
     <!-- Start Date -->
-    <div class="mb-2">
-      <label :for="startInputId" class="form-label">{{
+    <div class="mb-3">
+      <label :for="startInputId" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
         $t('components.dateRangeFilter.start')
       }}</label>
       <input
         :id="startInputId"
         v-model="startDate"
         type="date"
-        class="form-control"
+        class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
         :max="maxStartDate"
         @change="handleStartDateChange"
       />
     </div>
 
     <!-- End Date -->
-    <div class="mb-2">
-      <label :for="endInputId" class="form-label">{{ $t('components.dateRangeFilter.end') }}</label>
+    <div class="mb-3">
+      <label :for="endInputId" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ $t('components.dateRangeFilter.end') }}</label>
       <input
         :id="endInputId"
         v-model="endDate"
         type="date"
-        class="form-control"
+        class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
         :min="minEndDate"
         :max="todayFormatted"
         @change="handleEndDateChange"
@@ -30,12 +30,12 @@
     </div>
 
     <!-- Quick select buttons -->
-    <div class="d-flex gap-2 flex-wrap">
+    <div class="flex gap-2 flex-wrap">
       <button
         v-for="preset in presets"
         :key="preset.key"
         type="button"
-        class="btn btn-secondary btn-sm"
+        class="px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
         @click="applyPreset(preset.key)"
       >
         {{ $t(`components.dateRangeFilter.presets.${preset.key}`) }}
@@ -69,8 +69,6 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['update:modelValue'])
-
-// Generate unique IDs
 
 // Generate unique IDs for input fields to ensure proper label association
 const startInputId = `date-range-start-${Math.random().toString(36).substr(2, 9)}`
@@ -127,9 +125,3 @@ function applyPreset(presetKey: string) {
   })
 }
 </script>
-
-<style scoped>
-.date-range-filter {
-  width: 100%;
-}
-</style>

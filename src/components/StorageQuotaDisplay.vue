@@ -43,21 +43,21 @@
       </div>
     </div>
 
-    <div v-if="showActions" class="quota-actions">
-      <button
+    <div v-if="showActions" class="flex gap-3 justify-end flex-col sm:flex-row">
+      <BaseButton
         v-if="!isPersisted && canRequestPersistence"
-        class="btn btn-primary"
+        variant="primary"
         @click="$emit('request-persistence')"
       >
         {{ $t('storage.quota.requestPersistence') }}
-      </button>
-      <button
+      </BaseButton>
+      <BaseButton
         v-if="warningLevel === 'critical'"
-        class="btn btn-warning"
+        variant="danger"
         @click="$emit('clear-storage')"
       >
         {{ $t('storage.quota.clearStorage') }}
-      </button>
+      </BaseButton>
     </div>
   </div>
 </template>
@@ -66,6 +66,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { StorageQuotaInfo } from '@/types/shard-loading'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 const { t } = useI18n()
 
@@ -273,40 +274,6 @@ const formatBytes = (bytes: number): string => {
   color: var(--color-heading);
 }
 
-.quota-actions {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: flex-end;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-primary {
-  background-color: var(--color-primary);
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-primary-dark);
-}
-
-.btn-warning {
-  background-color: #f59e0b;
-  color: white;
-}
-
-.btn-warning:hover {
-  background-color: #d97706;
-}
-
 @media (max-width: 640px) {
   .storage-quota-display {
     padding: 1rem;
@@ -322,14 +289,6 @@ const formatBytes = (bytes: number): string => {
 
   .quota-title {
     font-size: 1rem;
-  }
-
-  .quota-actions {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
   }
 }
 </style>

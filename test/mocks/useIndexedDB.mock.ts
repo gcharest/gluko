@@ -18,6 +18,7 @@ export const createMockIndexedDB = () => ({
   put: vi.fn().mockResolvedValue(undefined),
   remove: vi.fn().mockResolvedValue(undefined),
   clear: vi.fn().mockResolvedValue(undefined),
+  getCurrentManifestVersion: vi.fn().mockResolvedValue(null),
   saveSession: vi.fn((session: { id: string }) => {
     mockSessions.set(session.id, session)
     return Promise.resolve()
