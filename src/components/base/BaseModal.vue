@@ -1,18 +1,9 @@
 <template>
   <DialogRoot v-model:open="isOpen">
     <DialogPortal>
-      <DialogOverlay
-        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
-        @click="handleClose"
-      />
-      <DialogContent
-        :class="modalClasses"
-        @escape-key-down="handleClose"
-      >
-        <DialogTitle
-          v-if="title"
-          class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4"
-        >
+      <DialogOverlay class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" @click="handleClose" />
+      <DialogContent :class="modalClasses" @escape-key-down="handleClose">
+        <DialogTitle v-if="title" class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           {{ title }}
         </DialogTitle>
 
@@ -25,10 +16,8 @@
         </div>
 
         <DialogClose
-          v-if="showClose"
-          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-          aria-label="Close"
-        >
+v-if="showClose"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" aria-label="Close">
           <XIcon class="w-5 h-5" />
         </DialogClose>
       </DialogContent>
@@ -58,6 +47,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  title: '',
+  description: '',
   size: 'md',
   showClose: true,
 })

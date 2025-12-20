@@ -28,6 +28,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  title: '',
   variant: 'default',
   padding: 'md',
 })

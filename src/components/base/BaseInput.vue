@@ -1,48 +1,27 @@
 <template>
   <div class="base-input">
-    <label
-      v-if="label"
-      :for="inputId"
-      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-    >
+    <label v-if="label" :for="inputId" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
       {{ label }}
       <span v-if="required" class="text-danger-500">*</span>
     </label>
 
     <div class="relative">
       <input
-        :id="inputId"
-        :type="type"
-        :value="modelValue"
-        :placeholder="placeholder"
-        :disabled="disabled"
-        :required="required"
-        :aria-label="ariaLabel || label"
-        :aria-invalid="!!error"
-        :aria-describedby="error ? `${inputId}-error` : undefined"
-        :class="inputClasses"
-        v-bind="$attrs"
-        @input="handleInput"
-        @blur="handleBlur"
-      />
+:id="inputId" :type="type" :value="modelValue" :placeholder="placeholder" :disabled="disabled"
+        :required="required" :aria-label="ariaLabel || label" :aria-invalid="!!error"
+        :aria-describedby="error ? `${inputId}-error` : undefined" :class="inputClasses" v-bind="$attrs"
+        @input="handleInput" @blur="handleBlur" />
 
       <div v-if="$slots.suffix" class="absolute inset-y-0 right-0 flex items-center pr-3">
         <slot name="suffix" />
       </div>
     </div>
 
-    <p
-      v-if="error"
-      :id="`${inputId}-error`"
-      class="mt-1 text-sm text-danger-600 dark:text-danger-400"
-    >
+    <p v-if="error" :id="`${inputId}-error`" class="mt-1 text-sm text-danger-600 dark:text-danger-400">
       {{ error }}
     </p>
 
-    <p
-      v-else-if="hint"
-      class="mt-1 text-sm text-gray-500 dark:text-gray-400"
-    >
+    <p v-else-if="hint" class="mt-1 text-sm text-gray-500 dark:text-gray-400">
       {{ hint }}
     </p>
   </div>
@@ -66,8 +45,14 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
+  id: '',
+  label: '',
+  placeholder: '',
+  hint: '',
+  error: '',
   disabled: false,
   required: false,
+  ariaLabel: '',
 })
 
 const emit = defineEmits<{

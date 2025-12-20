@@ -17,13 +17,7 @@
       </div>
 
       <!-- Close button -->
-      <button
-        v-if="dismissible"
-        type="button"
-        :class="closeButtonClasses"
-        aria-label="Close"
-        @click="handleClose"
-      >
+      <button v-if="dismissible" type="button" :class="closeButtonClasses" aria-label="Close" @click="handleClose">
         <XIcon class="w-5 h-5" />
       </button>
     </div>
@@ -48,6 +42,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   variant: 'info',
+  title: '',
   dismissible: false,
 })
 
