@@ -17,7 +17,9 @@ import { PercentIcon, AlertCircleIcon } from 'lucide-vue-next'
       </div>
 
       <!-- Experimental Notice -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 bg-warning-50 dark:bg-warning-950 text-warning-800 dark:text-warning-200 rounded-lg">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-2 bg-warning-50 dark:bg-warning-950 text-warning-800 dark:text-warning-200 rounded-lg"
+      >
         <AlertCircleIcon class="w-5 h-5" />
         <span class="text-sm font-medium">{{ $t('notices.experimental.title') }}</span>
       </div>

@@ -2,9 +2,11 @@
   <div class="date-range-filter">
     <!-- Start Date -->
     <div class="mb-3">
-      <label :for="startInputId" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
-        $t('components.dateRangeFilter.start')
-      }}</label>
+      <label
+        :for="startInputId"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+        >{{ $t('components.dateRangeFilter.start') }}</label
+      >
       <input
         :id="startInputId"
         v-model="startDate"
@@ -17,7 +19,11 @@
 
     <!-- End Date -->
     <div class="mb-3">
-      <label :for="endInputId" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ $t('components.dateRangeFilter.end') }}</label>
+      <label
+        :for="endInputId"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+        >{{ $t('components.dateRangeFilter.end') }}</label
+      >
       <input
         :id="endInputId"
         v-model="endDate"

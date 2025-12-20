@@ -17,7 +17,10 @@
 
     <!-- Loading state -->
     <div v-if="loading" class="text-center py-3">
-      <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-primary-600" role="status">
+      <div
+        class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-primary-600"
+        role="status"
+      >
         <span class="sr-only">Loading...</span>
       </div>
     </div>
@@ -29,7 +32,9 @@
 
     <!-- No subjects state -->
     <div v-else-if="!subjects.length" class="text-center py-3">
-      <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ $t('components.subjectSelector.noSubjects') }}</p>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+        {{ $t('components.subjectSelector.noSubjects') }}
+      </p>
       <BaseButton variant="primary" size="sm" @click="handleAddSubject">
         {{ $t('components.subjectSelector.addSubject') }}
       </BaseButton>
@@ -47,7 +52,10 @@
           :value="subject.id"
           @change="handleChange"
         />
-        <label class="ml-2 text-sm text-gray-900 dark:text-white" :for="getSubjectInputId(subject.id)">
+        <label
+          class="ml-2 text-sm text-gray-900 dark:text-white"
+          :for="getSubjectInputId(subject.id)"
+        >
           {{ subject.name }}
         </label>
       </div>

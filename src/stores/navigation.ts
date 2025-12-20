@@ -8,7 +8,7 @@ import {
   HistoryIcon,
   SettingsIcon,
   InfoIcon,
-  PercentIcon,
+  PercentIcon
 } from 'lucide-vue-next'
 
 export interface NavigationItem {
@@ -30,43 +30,43 @@ export const useNavigationStore = defineStore('navigation', () => {
       label: t('navigation.home'),
       icon: HomeIcon,
       showInBottomNav: true,
-      showInSideRail: true,
+      showInSideRail: true
     },
     {
       to: '/calculator',
       label: t('components.mealCalculator.title'),
       icon: CalculatorIcon,
       showInBottomNav: true,
-      showInSideRail: true,
+      showInSideRail: true
     },
     {
       to: '/history',
       label: t('navigation.history'),
       icon: HistoryIcon,
       showInBottomNav: true,
-      showInSideRail: true,
+      showInSideRail: true
     },
     {
       to: '/carb-factor',
       label: t('navigation.carbFactor'),
       icon: PercentIcon,
       showInBottomNav: false,
-      showInSideRail: true,
+      showInSideRail: true
     },
     {
       to: '/about',
       label: t('navigation.about'),
       icon: InfoIcon,
       showInBottomNav: false,
-      showInSideRail: true,
+      showInSideRail: true
     },
     {
       to: '/settings',
       label: t('navigation.settings'),
       icon: SettingsIcon,
       showInBottomNav: true,
-      showInSideRail: true,
-    },
+      showInSideRail: true
+    }
   ])
 
   // Filter items for bottom nav (mobile)
@@ -75,9 +75,7 @@ export const useNavigationStore = defineStore('navigation', () => {
   )
 
   // Filter items for side rail (desktop)
-  const sideRailItems = computed(() =>
-    navigationItems.value.filter((item) => item.showInSideRail)
-  )
+  const sideRailItems = computed(() => navigationItems.value.filter((item) => item.showInSideRail))
 
   function toggleSideRail() {
     isSideRailOpen.value = !isSideRailOpen.value
@@ -98,6 +96,6 @@ export const useNavigationStore = defineStore('navigation', () => {
     isSideRailOpen,
     toggleSideRail,
     closeSideRail,
-    openSideRail,
+    openSideRail
   }
 })

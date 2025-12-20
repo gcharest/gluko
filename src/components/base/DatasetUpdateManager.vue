@@ -2,7 +2,12 @@
   <div>
     <!-- Update Available Notification -->
     <Teleport to="body">
-      <aside v-if="showUpdateNotification" class="update-notification" role="complementary" aria-label="Dataset update notification">
+      <aside
+        v-if="showUpdateNotification"
+        class="update-notification"
+        role="complementary"
+        aria-label="Dataset update notification"
+      >
         <div class="notification-content">
           <div class="notification-icon" aria-hidden="true">📦</div>
           <div class="notification-text">
@@ -34,7 +39,9 @@
             @request-persistence="handleRequestPersistence"
             @clear-storage="handleClearStorage"
           />
-          <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <div
+            class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700"
+          >
             <BaseButton variant="secondary" @click="showQuotaWarning = false">
               {{ $t('common.actions.close') }}
             </BaseButton>

@@ -5,8 +5,8 @@ import { createPinia, setActivePinia } from 'pinia'
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
-    t: (key: string) => key,
-  }),
+    t: (key: string) => key
+  })
 }))
 
 describe('NutrientSearch.vue', () => {
@@ -19,9 +19,9 @@ describe('NutrientSearch.vue', () => {
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const input = wrapper.find('#searchInput')
     expect(input.exists()).toBe(true)
@@ -31,14 +31,14 @@ describe('NutrientSearch.vue', () => {
   it('renders with custom placeholder', () => {
     const wrapper = mount(NutrientSearch, {
       props: {
-        placeholder: 'Search for food',
+        placeholder: 'Search for food'
       },
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const input = wrapper.find('#searchInput')
     expect(input.attributes('placeholder')).toBe('Search for food')
@@ -47,14 +47,14 @@ describe('NutrientSearch.vue', () => {
   it('shows search button when autoSearch is false', () => {
     const wrapper = mount(NutrientSearch, {
       props: {
-        autoSearch: false,
+        autoSearch: false
       },
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const button = wrapper.find('#button-search-nutrient')
     expect(button.exists()).toBe(true)
@@ -63,14 +63,14 @@ describe('NutrientSearch.vue', () => {
   it('hides search button when autoSearch is true', () => {
     const wrapper = mount(NutrientSearch, {
       props: {
-        autoSearch: true,
+        autoSearch: true
       },
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const button = wrapper.find('#button-search-nutrient')
     expect(button.exists()).toBe(false)
@@ -81,9 +81,9 @@ describe('NutrientSearch.vue', () => {
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     // The aria-live region is only rendered when search.value is truthy
     // For now, just verify the component renders
@@ -93,14 +93,14 @@ describe('NutrientSearch.vue', () => {
   it('has correct ARIA labels on input', () => {
     const wrapper = mount(NutrientSearch, {
       props: {
-        placeholder: 'Find a food item',
+        placeholder: 'Find a food item'
       },
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const input = wrapper.find('#searchInput')
     expect(input.attributes('aria-label')).toBe('Find a food item')
@@ -110,14 +110,14 @@ describe('NutrientSearch.vue', () => {
     const wrapper = mount(NutrientSearch, {
       props: {
         autoSearch: false,
-        searchButtonLabel: 'Find Food',
+        searchButtonLabel: 'Find Food'
       },
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
 
     const button = wrapper.find('#button-search-nutrient')
@@ -129,12 +129,12 @@ describe('NutrientSearch.vue', () => {
       global: {
         plugins: [createPinia()],
         stubs: {
-          SearchResults: true,
+          SearchResults: true
         },
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
 
     // The component starts with no search query, so aria-live region is not rendered
@@ -148,9 +148,9 @@ describe('NutrientSearch.vue', () => {
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const input = wrapper.find('#searchInput')
     expect(input.attributes('type')).toBe('text')
@@ -161,9 +161,9 @@ describe('NutrientSearch.vue', () => {
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const input = wrapper.find('#searchInput')
     await input.setValue('apple')
@@ -173,14 +173,14 @@ describe('NutrientSearch.vue', () => {
   it('button has correct type attribute', () => {
     const wrapper = mount(NutrientSearch, {
       props: {
-        autoSearch: false,
+        autoSearch: false
       },
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const button = wrapper.find('#button-search-nutrient')
     expect(button.attributes('type')).toBe('button')
@@ -189,14 +189,14 @@ describe('NutrientSearch.vue', () => {
   it('renders search icon in button', () => {
     const wrapper = mount(NutrientSearch, {
       props: {
-        autoSearch: false,
+        autoSearch: false
       },
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const button = wrapper.find('#button-search-nutrient')
     // The button uses lucide-vue-next SearchIcon component, not Bootstrap icons
@@ -209,9 +209,9 @@ describe('NutrientSearch.vue', () => {
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const input = wrapper.find('#searchInput')
     expect(input.exists()).toBe(true)
@@ -222,9 +222,9 @@ describe('NutrientSearch.vue', () => {
       global: {
         plugins: [createPinia()],
         mocks: {
-          $t: (key: string) => key,
-        },
-      },
+          $t: (key: string) => key
+        }
+      }
     })
     const input = wrapper.find('#searchInput')
     // The new BaseInput component uses Tailwind classes instead of Bootstrap's form-control

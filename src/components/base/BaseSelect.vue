@@ -1,18 +1,33 @@
 <template>
   <div class="base-select">
-    <label v-if="label" :for="selectId" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+    <label
+      v-if="label"
+      :for="selectId"
+      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+    >
       {{ label }}
       <span v-if="required" class="text-danger-500">*</span>
     </label>
 
     <div class="relative">
       <select
-:id="selectId" :value="modelValue" :disabled="disabled" :required="required"
-        :aria-label="ariaLabel || label" :aria-invalid="!!error"
-        :aria-describedby="error ? `${selectId}-error` : undefined" :class="selectClasses" v-bind="$attrs"
-        @change="handleChange">
+        :id="selectId"
+        :value="modelValue"
+        :disabled="disabled"
+        :required="required"
+        :aria-label="ariaLabel || label"
+        :aria-invalid="!!error"
+        :aria-describedby="error ? `${selectId}-error` : undefined"
+        :class="selectClasses"
+        v-bind="$attrs"
+        @change="handleChange"
+      >
         <option v-if="placeholder" value="" disabled>{{ placeholder }}</option>
-        <option v-for="option in options" :key="getOptionValue(option)" :value="getOptionValue(option)">
+        <option
+          v-for="option in options"
+          :key="getOptionValue(option)"
+          :value="getOptionValue(option)"
+        >
           {{ getOptionLabel(option) }}
         </option>
       </select>
@@ -22,7 +37,11 @@
       </div>
     </div>
 
-    <p v-if="error" :id="`${selectId}-error`" class="mt-1 text-sm text-danger-600 dark:text-danger-400">
+    <p
+      v-if="error"
+      :id="`${selectId}-error`"
+      class="mt-1 text-sm text-danger-600 dark:text-danger-400"
+    >
       {{ error }}
     </p>
 
@@ -65,7 +84,7 @@ const props = withDefaults(defineProps<Props>(), {
   required: false,
   ariaLabel: '',
   valueKey: 'value',
-  labelKey: 'label',
+  labelKey: 'label'
 })
 
 const emit = defineEmits<{
@@ -86,7 +105,7 @@ const selectClasses = computed(() => [
   'appearance-none',
   'focus:outline-none focus:ring-2 focus:ring-offset-0',
   'disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed',
-  'transition-colors duration-150',
+  'transition-colors duration-150'
 ])
 
 function getOptionValue(option: string | number | Option): string | number {

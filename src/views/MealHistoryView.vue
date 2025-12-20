@@ -1,6 +1,8 @@
 <template>
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ $t('navigation.history') }}</h1>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+      {{ $t('navigation.history') }}
+    </h1>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
       <!-- Filters Sidebar -->
       <div class="md:col-span-1">
@@ -12,27 +14,35 @@
           <div class="space-y-4">
             <!-- Date Range Filter -->
             <div>
-              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">{{ $t('views.mealHistory.filters.dateRange') }}</h3>
+              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">
+                {{ $t('views.mealHistory.filters.dateRange') }}
+              </h3>
               <DateRangeFilter v-model="dateRange" />
             </div>
 
             <!-- Subject Filter -->
             <div>
-              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">{{ $t('views.mealHistory.filters.subject') }}</h3>
+              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">
+                {{ $t('views.mealHistory.filters.subject') }}
+              </h3>
               <SubjectSelector v-model="selectedSubjectId" @add="handleAddSubject" />
             </div>
 
             <!-- Tags Filter -->
             <div>
-              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">{{ $t('views.mealHistory.filters.tags') }}</h3>
+              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">
+                {{ $t('views.mealHistory.filters.tags') }}
+              </h3>
               <!-- TODO: Add tags selector component -->
             </div>
 
             <!-- Search Filter -->
             <div>
-              <label for="searchInput" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
-                $t('views.mealHistory.filters.search')
-              }}</label>
+              <label
+                for="searchInput"
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >{{ $t('views.mealHistory.filters.search') }}</label
+              >
               <BaseInput
                 id="searchInput"
                 v-model="searchQuery"
@@ -47,7 +57,9 @@
       <!-- Main Content -->
       <div class="md:col-span-3">
         <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ $t('views.mealHistory.results.title') }}</h2>
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+            {{ $t('views.mealHistory.results.title') }}
+          </h2>
           <div class="flex gap-2">
             <!-- Export/Import buttons -->
             <BaseButton variant="secondary" @click="handleExport">
@@ -85,7 +97,10 @@
 
         <!-- Loading state -->
         <div v-if="loading" class="text-center py-12">
-          <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600" role="status">
+          <div
+            class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"
+            role="status"
+          >
             <span class="sr-only">Loading...</span>
           </div>
         </div>

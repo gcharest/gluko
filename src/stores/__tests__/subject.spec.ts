@@ -34,7 +34,7 @@ describe('Subject Store', () => {
       const store = useSubjectStore()
       await store.loadInitialData()
       expect(store.activeSubjects.length).toBeGreaterThan(0)
-      store.activeSubjects.forEach(subject => {
+      store.activeSubjects.forEach((subject) => {
         expect(subject.active).toBe(true)
       })
     })
@@ -91,7 +91,7 @@ describe('Subject Store', () => {
         defaultMealTags: newTags
       })
       expect(result).toBe(true)
-      const updated = store.subjects.find(s => s.id === subject.id)
+      const updated = store.subjects.find((s) => s.id === subject.id)
       expect(updated).toBeDefined()
       expect(updated?.settings?.defaultMealTags).toEqual(newTags)
     })

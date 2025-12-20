@@ -1,24 +1,40 @@
 <template>
   <div class="max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ $t('settings.title') }}</h1>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+      {{ $t('settings.title') }}
+    </h1>
 
     <!-- Dataset Information Section -->
     <section class="mb-8">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{ $t('settings.dataset.title') }}</h2>
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+        {{ $t('settings.dataset.title') }}
+      </h2>
 
       <BaseCard>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div class="flex flex-col">
-            <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('settings.dataset.currentVersion') }}</span>
-            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">{{ datasetVersion || $t('settings.dataset.notInstalled') }}</span>
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{
+              $t('settings.dataset.currentVersion')
+            }}</span>
+            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">{{
+              datasetVersion || $t('settings.dataset.notInstalled')
+            }}</span>
           </div>
           <div class="flex flex-col">
-            <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('settings.dataset.totalRecords') }}</span>
-            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">{{ formatNumber(nutrientStore.totalNutrients) }}</span>
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{
+              $t('settings.dataset.totalRecords')
+            }}</span>
+            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">{{
+              formatNumber(nutrientStore.totalNutrients)
+            }}</span>
           </div>
           <div v-if="datasetInstalledAt" class="flex flex-col">
-            <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('settings.dataset.installedAt') }}</span>
-            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">{{ formatDate(datasetInstalledAt) }}</span>
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{
+              $t('settings.dataset.installedAt')
+            }}</span>
+            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">{{
+              formatDate(datasetInstalledAt)
+            }}</span>
           </div>
         </div>
 
@@ -31,20 +47,12 @@
           >
             {{ $t('settings.dataset.checkUpdates') }}
           </BaseButton>
-          <BaseButton
-            v-if="updateAvailable"
-            variant="primary"
-            @click="installUpdate"
-          >
+          <BaseButton v-if="updateAvailable" variant="primary" @click="installUpdate">
             {{ $t('settings.dataset.installUpdate', { version: latestVersion }) }}
           </BaseButton>
         </div>
 
-        <BaseAlert
-          v-if="updateCheckMessage"
-          :variant="updateCheckAlertVariant"
-          class="mt-4"
-        >
+        <BaseAlert v-if="updateCheckMessage" :variant="updateCheckAlertVariant" class="mt-4">
           {{ updateCheckMessage }}
         </BaseAlert>
       </BaseCard>
@@ -52,7 +60,9 @@
 
     <!-- Storage Management Section -->
     <section class="mb-8">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{ $t('settings.storage.title') }}</h2>
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+        {{ $t('settings.storage.title') }}
+      </h2>
 
       <BaseAlert variant="info" class="mb-4">
         {{ $t('settings.storage.info') }}
@@ -112,7 +122,8 @@ const loadProgress = computed(() => nutrientStore.loadProgress)
 const updateCheckAlertVariant = computed<'success' | 'warning' | 'danger' | 'info'>(() => {
   if (updateAvailable.value) return 'info'
   if (updateCheckMessage.value.includes('up to date')) return 'success'
-  if (updateCheckMessage.value.includes('error') || updateCheckMessage.value.includes('failed')) return 'danger'
+  if (updateCheckMessage.value.includes('error') || updateCheckMessage.value.includes('failed'))
+    return 'danger'
   return 'info'
 })
 
@@ -149,7 +160,10 @@ const checkForUpdates = async () => {
       updateAvailable.value = true
       latestVersion.value = result.latestVersion || ''
       updateCheckMessage.value = result.currentVersion
-        ? t('settings.dataset.updateAvailable', { version: result.latestVersion, current: result.currentVersion })
+        ? t('settings.dataset.updateAvailable', {
+            version: result.latestVersion,
+            current: result.currentVersion
+          })
         : t('settings.dataset.updateAvailableNoCurrent', { version: result.latestVersion })
     } else {
       updateCheckMessage.value = result.currentVersion

@@ -18,39 +18,33 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   size: 'md',
   label: '',
-  variant: 'primary',
+  variant: 'primary'
 })
 
-const containerClasses = computed(() => [
-  'inline-flex items-center gap-2',
-])
+const containerClasses = computed(() => ['inline-flex items-center gap-2'])
 
 const spinnerClasses = computed(() => {
   const sizes = {
     sm: 'w-4 h-4',
     md: 'w-6 h-6',
     lg: 'w-8 h-8',
-    xl: 'w-12 h-12',
+    xl: 'w-12 h-12'
   }
 
   const variants = {
     primary: 'text-primary-700 dark:text-primary-400',
     secondary: 'text-gray-600 dark:text-gray-400',
-    white: 'text-white',
+    white: 'text-white'
   }
 
-  return [
-    'animate-spin',
-    sizes[props.size],
-    variants[props.variant],
-  ]
+  return ['animate-spin', sizes[props.size], variants[props.variant]]
 })
 
 const labelClasses = computed(() => {
   const variants = {
     primary: 'text-gray-700 dark:text-gray-300',
     secondary: 'text-gray-600 dark:text-gray-400',
-    white: 'text-white',
+    white: 'text-white'
   }
 
   return ['text-sm font-medium', variants[props.variant]]

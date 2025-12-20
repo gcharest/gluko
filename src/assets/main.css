@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@variant dark (&:where(.dark, .dark *));
 
 @theme {
   /* Brand colors */
@@ -41,13 +43,23 @@
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slide-up {
-  from { transform: translateY(10px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Respect reduced motion */
@@ -67,7 +79,20 @@
   outline-offset: 2px;
 }
 
-/* Dark mode */
+/* Base styles - ensure html and body inherit bg colors */
+html {
+  color-scheme: light;
+  background-color: #f9fafb; /* gray-50 */
+  color: #111827; /* gray-900 */
+}
+
 html.dark {
   color-scheme: dark;
+  background-color: #030712; /* gray-950 */
+  color: #f9fafb; /* gray-100 */
+}
+
+body {
+  background-color: inherit;
+  color: inherit;
 }
