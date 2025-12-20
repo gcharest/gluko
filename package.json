@@ -8,6 +8,7 @@
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "test:unit": "vitest",
+    "test:unit:run": "vitest --run",
     "test:unit:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
     "test:e2e:a11y": "playwright test e2e/accessibility.spec.ts",
