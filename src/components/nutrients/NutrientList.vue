@@ -53,16 +53,16 @@ function handleModalClose() {
       @modify-current-nutrient="modifyCurrentNutrient"
     />
 
-    <!-- Add/Reset controls -->
-    <form class="position-sticky bottom-0">
-      <div class="card border-2">
+    <!-- Add/Reset controls - Sticky footer -->
+    <div class="sticky bottom-0 left-0 right-0 z-10 mt-6">
+      <div class="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden">
         <CalculatorSummary
           :total-carbs="nutrients.reduce((sum, n) => sum + n.quantity * n.factor, 0)"
           :nutrient-count="nutrients.length"
         />
         <CalculatorControls @add="handleAdd" @reset="emit('reset')" />
       </div>
-    </form>
+    </div>
 
     <!-- Nutrient editing modal -->
     <NutrientModal

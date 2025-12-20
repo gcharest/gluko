@@ -1,6 +1,6 @@
 <template>
   <div :class="cardClasses">
-    <div v-if="$slots.header || title" class="card-header">
+    <div v-if="$slots.header || title" class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
       <slot name="header">
         <h3 v-if="title" class="text-lg font-semibold text-gray-900 dark:text-gray-100">
           {{ title }}
@@ -8,11 +8,11 @@
       </slot>
     </div>
 
-    <div class="card-body">
+    <div class="px-4 py-3">
       <slot />
     </div>
 
-    <div v-if="$slots.footer" class="card-footer">
+    <div v-if="$slots.footer" class="px-4 py-3 border-t border-gray-200 dark:border-gray-700">
       <slot name="footer" />
     </div>
   </div>
@@ -51,17 +51,3 @@ const cardClasses = computed(() => {
   ]
 })
 </script>
-
-<style scoped>
-.card-header {
-  @apply px-4 py-3 border-b border-gray-200 dark:border-gray-700;
-}
-
-.card-body {
-  @apply px-4 py-3;
-}
-
-.card-footer {
-  @apply px-4 py-3 border-t border-gray-200 dark:border-gray-700;
-}
-</style>

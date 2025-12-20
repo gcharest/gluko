@@ -37,7 +37,7 @@
         <!-- Theme Toggle -->
         <button
           type="button"
-          class="action-button"
+          class="flex items-center justify-center w-full h-12 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-150 hover:scale-105"
           :aria-label="$t('navigation.toggleTheme')"
           :title="$t('navigation.toggleTheme')"
           @click="toggleTheme"
@@ -49,7 +49,7 @@
         <!-- Language Toggle -->
         <button
           type="button"
-          class="action-button"
+          class="flex items-center justify-center w-full h-12 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-150 hover:scale-105"
           :aria-label="$t('navigation.changeLanguage')"
           :title="$t('navigation.changeLanguage')"
           @click="toggleLanguage"
@@ -62,7 +62,7 @@
           href="https://github.com/gcharest/gluko"
           target="_blank"
           rel="noopener"
-          class="action-button"
+          class="flex items-center justify-center w-full h-12 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-150 hover:scale-105"
           :aria-label="$t('navigation.sourceCode')"
           :title="$t('navigation.sourceCode')"
         >
@@ -126,14 +126,3 @@ function toggleLanguage() {
   locale.value = locale.value === 'en' ? 'fr' : 'en'
 }
 </script>
-
-<style scoped>
-.action-button {
-  @apply flex items-center justify-center w-full h-12 rounded-lg;
-  @apply text-gray-600 dark:text-gray-400;
-  @apply hover:text-gray-900 dark:hover:text-gray-100;
-  @apply hover:bg-gray-100 dark:hover:bg-gray-800;
-  @apply transition-all duration-150;
-  @apply hover:scale-105;
-}
-</style>

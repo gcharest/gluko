@@ -27,7 +27,7 @@
         <!-- Theme Toggle -->
         <button
           type="button"
-          class="action-button"
+          class="flex items-center justify-center w-10 h-10 min-h-11 min-w-11 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
           :aria-label="$t('navigation.toggleTheme')"
           @click="toggleTheme"
         >
@@ -38,7 +38,7 @@
         <!-- Language Toggle -->
         <button
           type="button"
-          class="action-button"
+          class="flex items-center justify-center w-10 h-10 min-h-11 min-w-11 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
           :aria-label="$t('navigation.changeLanguage')"
           @click="toggleLanguage"
         >
@@ -48,7 +48,7 @@
         <!-- Menu Button (if we need overflow menu) -->
         <button
           type="button"
-          class="action-button"
+          class="flex items-center justify-center w-10 h-10 min-h-11 min-w-11 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
           :aria-label="$t('navigation.menu')"
           @click="showMenu = true"
         >
@@ -65,7 +65,7 @@
         v-for="item in overflowItems"
         :key="item.to"
         :to="item.to"
-        class="menu-item"
+        class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
         @click="showMenu = false"
       >
         <component :is="item.icon" class="w-5 h-5" />
@@ -77,7 +77,7 @@
         href="https://github.com/gcharest/gluko"
         target="_blank"
         rel="noopener"
-        class="menu-item"
+        class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-150"
         @click="showMenu = false"
       >
         <GithubIcon class="w-5 h-5" />
@@ -139,21 +139,3 @@ function toggleLanguage() {
   locale.value = locale.value === 'en' ? 'fr' : 'en'
 }
 </script>
-
-<style scoped>
-.action-button {
-  @apply flex items-center justify-center w-10 h-10 rounded-lg;
-  @apply text-gray-600 dark:text-gray-400;
-  @apply hover:text-gray-900 dark:hover:text-gray-100;
-  @apply hover:bg-gray-100 dark:hover:bg-gray-800;
-  @apply transition-colors duration-150;
-  @apply min-h-[44px] min-w-[44px];
-}
-
-.menu-item {
-  @apply flex items-center space-x-3 px-4 py-3 rounded-lg;
-  @apply text-gray-700 dark:text-gray-300;
-  @apply hover:bg-gray-100 dark:hover:bg-gray-800;
-  @apply transition-colors duration-150;
-}
-</style>

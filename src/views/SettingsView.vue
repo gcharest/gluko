@@ -1,65 +1,62 @@
 <template>
-  <div class="container py-4">
-    <h1 class="mb-4">{{ $t('settings.title') }}</h1>
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ $t('settings.title') }}</h1>
 
     <!-- Dataset Information Section -->
-    <section class="settings-section">
-      <h2 class="section-title">{{ $t('settings.dataset.title') }}</h2>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{ $t('settings.dataset.title') }}</h2>
 
-      <div class="card">
-        <div class="card-body">
-          <div class="info-grid">
-            <div class="info-item">
-              <span class="info-label">{{ $t('settings.dataset.currentVersion') }}</span>
-              <span class="info-value">{{ datasetVersion || $t('settings.dataset.notInstalled') }}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">{{ $t('settings.dataset.totalRecords') }}</span>
-              <span class="info-value">{{ formatNumber(nutrientStore.totalNutrients) }}</span>
-            </div>
-            <div v-if="datasetInstalledAt" class="info-item">
-              <span class="info-label">{{ $t('settings.dataset.installedAt') }}</span>
-              <span class="info-value">{{ formatDate(datasetInstalledAt) }}</span>
-            </div>
+      <BaseCard>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="flex flex-col">
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('settings.dataset.currentVersion') }}</span>
+            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">{{ datasetVersion || $t('settings.dataset.notInstalled') }}</span>
           </div>
-
-          <div class="mt-3">
-            <button
-              class="btn btn-primary me-2"
-              :disabled="isCheckingUpdates"
-              @click="checkForUpdates"
-            >
-              <span v-if="isCheckingUpdates" class="spinner-border spinner-border-sm me-2"></span>
-              {{ $t('settings.dataset.checkUpdates') }}
-            </button>
-            <button
-              v-if="updateAvailable"
-              class="btn btn-success"
-              @click="installUpdate"
-            >
-              {{ $t('settings.dataset.installUpdate', { version: latestVersion }) }}
-            </button>
+          <div class="flex flex-col">
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('settings.dataset.totalRecords') }}</span>
+            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">{{ formatNumber(nutrientStore.totalNutrients) }}</span>
           </div>
-
-          <div v-if="updateCheckMessage" class="alert mt-3" :class="updateCheckAlertClass">
-            {{ updateCheckMessage }}
+          <div v-if="datasetInstalledAt" class="flex flex-col">
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{ $t('settings.dataset.installedAt') }}</span>
+            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">{{ formatDate(datasetInstalledAt) }}</span>
           </div>
         </div>
-      </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <BaseButton
+            variant="primary"
+            :disabled="isCheckingUpdates"
+            :loading="isCheckingUpdates"
+            @click="checkForUpdates"
+          >
+            {{ $t('settings.dataset.checkUpdates') }}
+          </BaseButton>
+          <BaseButton
+            v-if="updateAvailable"
+            variant="primary"
+            @click="installUpdate"
+          >
+            {{ $t('settings.dataset.installUpdate', { version: latestVersion }) }}
+          </BaseButton>
+        </div>
+
+        <BaseAlert
+          v-if="updateCheckMessage"
+          :variant="updateCheckAlertVariant"
+          class="mt-4"
+        >
+          {{ updateCheckMessage }}
+        </BaseAlert>
+      </BaseCard>
     </section>
 
     <!-- Storage Management Section -->
-    <section class="settings-section">
-      <h2 class="section-title">{{ $t('settings.storage.title') }}</h2>
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{ $t('settings.storage.title') }}</h2>
 
-      <div class="info-box mb-3">
-        <div class="info-box-icon">ℹ️</div>
-        <div class="info-box-content">
-          <p class="info-box-text">
-            {{ $t('settings.storage.info') }}
-          </p>
-        </div>
-      </div>
+      <BaseAlert variant="info" class="mb-4">
+        {{ $t('settings.storage.info') }}
+      </BaseAlert>
 
       <StorageQuotaDisplay
         :quota-info="quotaInfo"
@@ -89,6 +86,9 @@ import { useI18n } from 'vue-i18n'
 import { useNutrientFileStore } from '@/stores/nutrientsFile'
 import { useStorageQuota } from '@/composables/useStorageQuota'
 import { useIndexedDB } from '@/composables/useIndexedDB'
+import BaseCard from '@/components/base/BaseCard.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseAlert from '@/components/base/BaseAlert.vue'
 import StorageQuotaDisplay from '@/components/StorageQuotaDisplay.vue'
 import DatasetUpdateProgress from '@/components/DatasetUpdateProgress.vue'
 
@@ -109,11 +109,11 @@ const updateCheckMessage = ref<string>('')
 const quotaInfo = computed(() => storageQuota.quotaInfo.value)
 const loadProgress = computed(() => nutrientStore.loadProgress)
 
-const updateCheckAlertClass = computed(() => {
-  if (updateAvailable.value) return 'alert-info'
-  if (updateCheckMessage.value.includes('up to date')) return 'alert-success'
-  if (updateCheckMessage.value.includes('error') || updateCheckMessage.value.includes('failed')) return 'alert-danger'
-  return 'alert-info'
+const updateCheckAlertVariant = computed<'success' | 'warning' | 'danger' | 'info'>(() => {
+  if (updateAvailable.value) return 'info'
+  if (updateCheckMessage.value.includes('up to date')) return 'success'
+  if (updateCheckMessage.value.includes('error') || updateCheckMessage.value.includes('failed')) return 'danger'
+  return 'info'
 })
 
 onMounted(async () => {
@@ -232,171 +232,3 @@ const formatDate = (date: Date): string => {
   return `${year}-${month}-${day} ${hours}:${minutes}`
 }
 </script>
-
-<style scoped>
-.settings-section {
-  margin-bottom: 2rem;
-}
-
-.section-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--color-heading);
-}
-
-.info-box {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #eff6ff;
-  border: 1px solid #bfdbfe;
-  border-radius: 8px;
-}
-
-.info-box-icon {
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-
-.info-box-content {
-  flex: 1;
-}
-
-.info-box-text {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: #1e40af;
-}
-
-.card {
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-}
-
-.card-body {
-  padding: 1.5rem;
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.info-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.info-label {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
-}
-
-.info-value {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-heading);
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background-color: var(--color-primary);
-  color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background-color: var(--color-primary-dark);
-}
-
-.btn-success {
-  background-color: #10b981;
-  color: white;
-}
-
-.btn-success:hover {
-  background-color: #059669;
-}
-
-.alert {
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  margin-bottom: 0;
-}
-
-.alert-info {
-  background-color: #dbeafe;
-  border: 1px solid #93c5fd;
-  color: #1e40af;
-}
-
-.alert-success {
-  background-color: #d1fae5;
-  border: 1px solid #6ee7b7;
-  color: #065f46;
-}
-
-.alert-danger {
-  background-color: #fee2e2;
-  border: 1px solid #fecaca;
-  color: #991b1b;
-}
-
-.spinner-border {
-  display: inline-block;
-  width: 1rem;
-  height: 1rem;
-  vertical-align: text-bottom;
-  border: 0.2em solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: spinner-border 0.75s linear infinite;
-}
-
-.spinner-border-sm {
-  width: 0.875rem;
-  height: 0.875rem;
-  border-width: 0.15em;
-}
-
-@keyframes spinner-border {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 768px) {
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .btn {
-    width: 100%;
-    margin-bottom: 0.5rem;
-  }
-
-  .me-2 {
-    margin-right: 0 !important;
-  }
-}
-</style>

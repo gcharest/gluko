@@ -2,9 +2,11 @@
 import { onBeforeMount, ref } from 'vue'
 import NutrientList from '@/components/nutrients/NutrientList.vue'
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 import { useMealStore } from '@/stores/meal'
 import { useMealHistoryStore } from '@/stores/mealHistory'
 import type { Nutrient } from '@/types/meal-history'
+import { BookPlusIcon } from 'lucide-vue-next'
 
 const store = useMealStore()
 const showResetConfirmation = ref(false)
@@ -46,21 +48,21 @@ async function handleSaveToHistory() {
 </script>
 
 <template>
-  <div class="d-flex flex-column gap-3">
+  <div class="flex flex-col gap-4">
     <NutrientList :nutrients="store.currentNutrients" @add="handleAdd" @reset="handleReset" />
 
     <!-- Save to history button -->
-    <button
-      type="button"
-      class="btn btn-primary"
+    <BaseButton
+      variant="primary"
+      class="w-full"
       :disabled="
         !store.currentNutrients.length || store.currentNutrients.every((n: Nutrient) => !n.quantity)
       "
       @click="handleSaveToHistory"
     >
-      <i class="bi bi-journal-plus me-1"></i>
+      <BookPlusIcon class="w-5 h-5 mr-2" />
       {{ $t('components.mealCalculator.actions.saveToHistory') }}
-    </button>
+    </BaseButton>
   </div>
 
   <ConfirmationModal
