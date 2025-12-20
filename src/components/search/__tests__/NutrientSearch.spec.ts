@@ -198,8 +198,10 @@ describe('NutrientSearch.vue', () => {
         },
       },
     })
-    const icon = wrapper.find('button.btn-primary i.bi-search')
-    expect(icon.exists()).toBe(true)
+    const button = wrapper.find('#button-search-nutrient')
+    // The button uses lucide-vue-next SearchIcon component, not Bootstrap icons
+    expect(button.exists()).toBe(true)
+    expect(button.html()).toContain('svg')
   })
 
   it('has input with id searchInput', () => {
@@ -215,7 +217,7 @@ describe('NutrientSearch.vue', () => {
     expect(input.exists()).toBe(true)
   })
 
-  it('input has form-control class', () => {
+  it('input has proper styling classes', () => {
     const wrapper = mount(NutrientSearch, {
       global: {
         plugins: [createPinia()],
@@ -225,6 +227,8 @@ describe('NutrientSearch.vue', () => {
       },
     })
     const input = wrapper.find('#searchInput')
-    expect(input.classes()).toContain('form-control')
+    // The new BaseInput component uses Tailwind classes instead of Bootstrap's form-control
+    expect(input.classes()).toContain('w-full')
+    expect(input.classes()).toContain('rounded-lg')
   })
 })

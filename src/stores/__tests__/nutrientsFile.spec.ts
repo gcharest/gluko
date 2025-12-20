@@ -3,10 +3,68 @@ import { setActivePinia, createPinia } from 'pinia'
 import { ref, computed } from 'vue'
 import { useNutrientFileStore } from '../nutrientsFile'
 
+// Mock data
+const mockNutrients = [
+  {
+    FoodID: 1,
+    FoodCode: 101,
+    FoodGroupID: 1,
+    FoodSourceID: 1,
+    FoodDescription: 'Cheddar cheese',
+    FoodDescriptionF: 'Fromage cheddar',
+    '203': 24.9,
+    '204': 33.1,
+    '205': 1.3,
+    '291': null,
+    FoodGroupName: 'Dairy',
+    FoodGroupNameF: 'Produits laitiers',
+    FctGluc: 0.013
+  },
+  {
+    FoodID: 2,
+    FoodCode: 102,
+    FoodGroupID: 2,
+    FoodSourceID: 1,
+    FoodDescription: 'Whole wheat bread',
+    FoodDescriptionF: 'Pain de blé entier',
+    '203': 10.7,
+    '204': 3.4,
+    '205': 41.3,
+    '291': null,
+    FoodGroupName: 'Grains',
+    FoodGroupNameF: 'Céréales',
+    FctGluc: 0.413
+  },
+  {
+    FoodID: 3,
+    FoodCode: 103,
+    FoodGroupID: 3,
+    FoodSourceID: 1,
+    FoodDescription: 'Banana, raw',
+    FoodDescriptionF: 'Banane, crue',
+    '203': 1.1,
+    '204': 0.3,
+    '205': 22.8,
+    '291': null,
+    FoodGroupName: 'Fruits',
+    FoodGroupNameF: 'Fruits',
+    FctGluc: 0.228
+  }
+]
+
 // Create default mock functions
 const mockCheckForUpdates = vi.fn().mockResolvedValue({ needsUpdate: false })
 const mockLoadDataset = vi.fn().mockResolvedValue(undefined)
-const mockGetAllNutrients = vi.fn().mockResolvedValue([])
+const mockGetAllNutrients = vi.fn().mockResolvedValue(mockNutrients)
+
+// Mock IndexedDB
+vi.mock('@/composables/useIndexedDB', () => ({
+  useIndexedDB: () => ({
+    get: vi.fn().mockResolvedValue(null),
+    put: vi.fn().mockResolvedValue(undefined),
+    getCurrentManifestVersion: vi.fn().mockResolvedValue(null),
+  })
+}))
 
 // Mock useShardLoader
 vi.mock('@/composables/useShardLoader', () => ({
@@ -21,56 +79,6 @@ vi.mock('@/composables/useShardLoader', () => ({
   })
 }))
 
-// Mock dataset
-vi.mock('@/assets/canadian_nutrient_file.json', () => ({
-  default: [
-    {
-      FoodID: 1,
-      FoodCode: 101,
-      FoodGroupID: 1,
-      FoodSourceID: 1,
-      FoodDescription: 'Cheddar cheese',
-      FoodDescriptionF: 'Fromage cheddar',
-      '203': 24.9,
-      '204': 33.1,
-      '205': 1.3,
-      '291': null,
-      FoodGroupName: 'Dairy',
-      FoodGroupNameF: 'Produits laitiers',
-      FctGluc: 0.013
-    },
-    {
-      FoodID: 2,
-      FoodCode: 102,
-      FoodGroupID: 2,
-      FoodSourceID: 1,
-      FoodDescription: 'Whole wheat bread',
-      FoodDescriptionF: 'Pain de blé entier',
-      '203': 10.7,
-      '204': 3.4,
-      '205': 41.3,
-      '291': null,
-      FoodGroupName: 'Grains',
-      FoodGroupNameF: 'Céréales',
-      FctGluc: 0.413
-    },
-    {
-      FoodID: 3,
-      FoodCode: 103,
-      FoodGroupID: 3,
-      FoodSourceID: 1,
-      FoodDescription: 'Banana, raw',
-      FoodDescriptionF: 'Banane, crue',
-      '203': 1.1,
-      '204': 0.3,
-      '205': 22.8,
-      '291': null,
-      FoodGroupName: 'Fruits',
-      FoodGroupNameF: 'Fruits',
-      FctGluc: 0.228
-    }
-  ]
-}))
 
 describe('nutrientsFile Store', () => {
   beforeEach(() => {
