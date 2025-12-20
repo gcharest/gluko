@@ -23,7 +23,8 @@ const navigateTo = (route: string) => {
       </p>
 
       <!-- Experimental Notice -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 bg-warning-50 dark:bg-warning-950 text-warning-800 dark:text-warning-200 rounded-lg">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-2 bg-warning-50 dark:bg-warning-950 text-warning-800 dark:text-warning-200 rounded-lg">
         <AlertCircleIcon class="w-5 h-5" />
         <span class="text-sm font-medium">{{ $t('notices.experimental.title') }}</span>
       </div>
@@ -64,12 +65,8 @@ const navigateTo = (route: string) => {
 
         <p class="text-gray-600 dark:text-gray-300 mb-2">
           {{ $t('aboutText.para3') }}
-          <a
-            :href="$t('aboutText.url')"
-            target="_blank"
-            rel="noopener"
-            class="text-primary-700 dark:text-primary-400 underline hover:no-underline"
-          >
+          <a :href="$t('aboutText.url')" target="_blank" rel="noopener"
+            class="text-primary-700 dark:text-primary-400 underline hover:no-underline">
             {{ $t('aboutText.CNF') }}
           </a>.
         </p>

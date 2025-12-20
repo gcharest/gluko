@@ -30,12 +30,8 @@ import { InfoIcon, ExternalLinkIcon } from 'lucide-vue-next'
 
         <p class="text-lg text-gray-700 dark:text-gray-300">
           {{ $t('aboutText.para3') }}
-          <a
-            :href="$t('aboutText.url')"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-1 text-primary-700 dark:text-primary-400 underline hover:no-underline font-medium"
-          >
+          <a :href="$t('aboutText.url')" target="_blank" rel="noopener"
+            class="inline-flex items-center gap-1 text-primary-700 dark:text-primary-400 underline hover:no-underline font-medium">
             {{ $t('aboutText.CNF') }}
             <ExternalLinkIcon class="w-4 h-4" />
           </a>
@@ -52,12 +48,8 @@ import { InfoIcon, ExternalLinkIcon } from 'lucide-vue-next'
         <p class="text-gray-600 dark:text-gray-300 mb-4">
           This project is open source and available on GitHub.
         </p>
-        <a
-          href="https://github.com/gcharest/gluko"
-          target="_blank"
-          rel="noopener"
-          class="inline-flex items-center gap-2 text-primary-700 dark:text-primary-400 underline hover:no-underline font-medium"
-        >
+        <a href="https://github.com/gcharest/gluko" target="_blank" rel="noopener"
+          class="inline-flex items-center gap-2 text-primary-700 dark:text-primary-400 underline hover:no-underline font-medium">
           View on GitHub
           <ExternalLinkIcon class="w-4 h-4" />
         </a>

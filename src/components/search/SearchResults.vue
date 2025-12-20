@@ -28,27 +28,20 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
 
     <div v-if="results?.length > 0" class="space-y-2">
       <!-- Header row (only in non-compact mode) -->
-      <div v-if="!compact" class="grid grid-cols-12 gap-4 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+      <div v-if="!compact"
+        class="grid grid-cols-12 gap-4 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">
         <div class="col-span-8">{{ $t('common.labels.nutrient') }}</div>
         <div class="col-span-4 text-center">{{ $t('common.labels.factor') }}</div>
       </div>
 
       <!-- Results list -->
-      <BaseCard
-        v-for="result in results"
-        :key="result.refIndex"
+      <BaseCard v-for="result in results" :key="result.refIndex"
         class="cursor-pointer transition-all duration-200 hover:translate-x-1 hover:shadow-md focus-within:ring-2 focus-within:ring-primary-500"
-        role="button"
-        :aria-label="
-          $t('components.search.selectItem', {
-            name: $i18n.locale === 'fr' ? result.item.FoodDescriptionF : result.item.FoodDescription
-          })
-        "
-        tabindex="0"
-        @click="emit('select', result)"
-        @keydown.enter="emit('select', result)"
-        @keydown.space.prevent="emit('select', result)"
-      >
+        role="button" :aria-label="$t('components.search.selectItem', {
+          name: $i18n.locale === 'fr' ? result.item.FoodDescriptionF : result.item.FoodDescription
+        })
+          " tabindex="0" @click="emit('select', result)" @keydown.enter="emit('select', result)"
+        @keydown.space.prevent="emit('select', result)">
         <div class="grid grid-cols-12 gap-4 items-center">
           <div class="col-span-8">
             <p class="flex items-center gap-2 mb-1 text-gray-900 dark:text-white">
@@ -56,13 +49,9 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
               <span v-if="$i18n.locale === 'fr'">{{ result.item.FoodDescriptionF }}</span>
               <span v-else>{{ result.item.FoodDescription }}</span>
             </p>
-            <a
-              v-if="showSourceLinks"
-              :href="cnfLink(result.item.FoodCode, $i18n.locale)"
-              target="_blank"
+            <a v-if="showSourceLinks" :href="cnfLink(result.item.FoodCode, $i18n.locale)" target="_blank"
               class="inline-flex items-center gap-1 text-sm text-primary-700 dark:text-primary-400 underline hover:no-underline"
-              @click.stop
-            >
+              @click.stop>
               {{ $t('components.search.source') }}
               <ExternalLinkIcon class="w-3 h-3" />
             </a>
