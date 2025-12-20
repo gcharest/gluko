@@ -9,7 +9,7 @@ import { PercentIcon, AlertCircleIcon } from 'lucide-vue-next'
     <div class="mb-6">
       <div class="flex items-center gap-3 mb-4">
         <div class="p-3 bg-primary-100 dark:bg-primary-950 rounded-lg">
-          <PercentIcon class="w-8 h-8 text-primary-600 dark:text-primary-400" />
+          <PercentIcon class="w-8 h-8 text-primary-700 dark:text-primary-400" />
         </div>
         <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
           {{ $t('navigation.carbFactor') }}

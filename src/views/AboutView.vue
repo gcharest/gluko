@@ -9,7 +9,7 @@ import { InfoIcon, ExternalLinkIcon } from 'lucide-vue-next'
     <div class="mb-8">
       <div class="flex items-center gap-3 mb-4">
         <div class="p-3 bg-primary-100 dark:bg-primary-950 rounded-lg">
-          <InfoIcon class="w-8 h-8 text-primary-600 dark:text-primary-400" />
+          <InfoIcon class="w-8 h-8 text-primary-700 dark:text-primary-400" />
         </div>
         <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
           {{ $t('navigation.about') }}
@@ -34,7 +34,7 @@ import { InfoIcon, ExternalLinkIcon } from 'lucide-vue-next'
             :href="$t('aboutText.url')"
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center gap-1 text-primary-600 dark:text-primary-400 hover:underline font-medium"
+            class="inline-flex items-center gap-1 text-primary-700 dark:text-primary-400 hover:underline font-medium"
           >
             {{ $t('aboutText.CNF') }}
             <ExternalLinkIcon class="w-4 h-4" />
@@ -46,9 +46,9 @@ import { InfoIcon, ExternalLinkIcon } from 'lucide-vue-next'
     <!-- Additional Info Cards -->
     <div class="grid md:grid-cols-2 gap-6 mt-8">
       <BaseCard>
-        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
           Open Source
-        </h3>
+        </h2>
         <p class="text-gray-600 dark:text-gray-300 mb-4">
           This project is open source and available on GitHub.
         </p>
@@ -56,7 +56,7 @@ import { InfoIcon, ExternalLinkIcon } from 'lucide-vue-next'
           href="https://github.com/gcharest/gluko"
           target="_blank"
           rel="noopener"
-          class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:underline font-medium"
+          class="inline-flex items-center gap-2 text-primary-700 dark:text-primary-400 hover:underline font-medium"
         >
           View on GitHub
           <ExternalLinkIcon class="w-4 h-4" />
@@ -64,9 +64,9 @@ import { InfoIcon, ExternalLinkIcon } from 'lucide-vue-next'
       </BaseCard>
 
       <BaseCard>
-        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
           Author
-        </h3>
+        </h2>
         <p class="text-gray-600 dark:text-gray-300">
           Created by Guillaume Charest
         </p>

@@ -14,7 +14,7 @@ defineProps<{
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">
           {{ $t('components.mealCalculator.totalCarbs') }}
         </h2>
-        <p class="text-3xl font-bold text-primary-600 dark:text-primary-400">
+        <p class="text-3xl font-bold text-primary-700 dark:text-primary-400">
           {{ (Math.round(totalCarbs * 100) / 100).toFixed(2) }} g
         </p>
       </div>

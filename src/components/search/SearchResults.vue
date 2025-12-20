@@ -52,7 +52,7 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
         <div class="grid grid-cols-12 gap-4 items-center">
           <div class="col-span-8">
             <p class="flex items-center gap-2 mb-1 text-gray-900 dark:text-white">
-              <PlusCircleIcon v-if="compact" class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" />
+              <PlusCircleIcon v-if="compact" class="w-4 h-4 text-primary-700 dark:text-primary-400 shrink-0" />
               <span v-if="$i18n.locale === 'fr'">{{ result.item.FoodDescriptionF }}</span>
               <span v-else>{{ result.item.FoodDescription }}</span>
             </p>
@@ -60,7 +60,7 @@ const cnfLink = computed(() => (foodID: number, locale: string) => {
               v-if="showSourceLinks"
               :href="cnfLink(result.item.FoodCode, $i18n.locale)"
               target="_blank"
-              class="inline-flex items-center gap-1 text-sm text-primary-600 dark:text-primary-400 hover:underline"
+              class="inline-flex items-center gap-1 text-sm text-primary-700 dark:text-primary-400 hover:underline"
               @click.stop
             >
               {{ $t('components.search.source') }}

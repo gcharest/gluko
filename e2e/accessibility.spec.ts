@@ -98,7 +98,7 @@ test.describe('Component-specific Accessibility Tests', () => {
   test('Language toggler should be properly labeled', async ({ page }) => {
     await page.goto('/gluko/', { waitUntil: 'networkidle' })
     const languageToggler = await page.getByRole('button', {
-      name: /Change Language|Changer la langue/
+      name: /Change language|Changer la langue/
     })
     expect(await languageToggler.isVisible()).toBeTruthy()
   })

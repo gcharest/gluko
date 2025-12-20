@@ -143,7 +143,7 @@ function handleNutrientSelect(result: SearchResult) {
     <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg mb-6">
       <p class="text-lg font-semibold text-gray-900 dark:text-white">
         {{ $t('common.labels.subtotal') }}:
-        <span class="text-primary-600 dark:text-primary-400">
+        <span class="text-primary-700 dark:text-primary-400">
           {{ (currentNutrient.quantity * currentNutrient.factor).toFixed(2) }} g
         </span>
       </p>

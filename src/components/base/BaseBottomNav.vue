@@ -44,7 +44,7 @@ function navItemClasses(to: string) {
     'transition-colors duration-150',
     'rounded-lg mx-1',
     isActive
-      ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950'
+      ? 'text-primary-700 dark:text-primary-400 bg-primary-50 dark:bg-primary-950'
       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100',
   ]
 }

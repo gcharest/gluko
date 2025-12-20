@@ -109,7 +109,7 @@ function navItemClasses(to: string) {
     'transition-all duration-150',
     'hover:scale-105',
     isActive
-      ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950'
+      ? 'text-primary-700 dark:text-primary-400 bg-primary-50 dark:bg-primary-950'
       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800',
   ]
 }

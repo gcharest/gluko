@@ -36,7 +36,7 @@ const navigateTo = (route: string) => {
         <template #header>
           <div class="flex items-center gap-3">
             <div class="p-2 bg-primary-100 dark:bg-primary-950 rounded-lg">
-              <CalculatorIcon class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+              <CalculatorIcon class="w-6 h-6 text-primary-700 dark:text-primary-400" />
             </div>
             <h2 class="text-2xl font-bold">{{ $t('components.mealCalculator.title') }}</h2>
           </div>
@@ -56,7 +56,7 @@ const navigateTo = (route: string) => {
         <template #header>
           <div class="flex items-center gap-3">
             <div class="p-2 bg-primary-100 dark:bg-primary-950 rounded-lg">
-              <SearchIcon class="w-6 h-6 text-primary-600 dark:text-primary-400" />
+              <SearchIcon class="w-6 h-6 text-primary-700 dark:text-primary-400" />
             </div>
             <h2 class="text-2xl font-bold">{{ $t('components.search.title') }}</h2>
           </div>
@@ -68,7 +68,7 @@ const navigateTo = (route: string) => {
             :href="$t('aboutText.url')"
             target="_blank"
             rel="noopener"
-            class="text-primary-600 dark:text-primary-400 hover:underline"
+            class="text-primary-700 dark:text-primary-400 hover:underline"
           >
             {{ $t('aboutText.CNF') }}
           </a>.

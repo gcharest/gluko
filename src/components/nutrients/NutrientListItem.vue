@@ -40,7 +40,7 @@ const handleModifyKeydown = (event: KeyboardEvent) => {
   >
     <template #header>
       <div class="flex items-center gap-2">
-        <span class="font-bold text-primary-600 dark:text-primary-400">{{ props.index + 1 }}:</span>
+        <span class="font-bold text-primary-700 dark:text-primary-400">{{ props.index + 1 }}:</span>
         <span class="font-medium">{{ props.nutrient.name || $t('common.labels.nutrient') }}</span>
       </div>
     </template>
@@ -72,7 +72,7 @@ const handleModifyKeydown = (event: KeyboardEvent) => {
         <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
           {{ $t('common.labels.subtotal') }}:
         </p>
-        <p class="text-lg font-bold text-primary-600 dark:text-primary-400">
+        <p class="text-lg font-bold text-primary-700 dark:text-primary-400">
           {{ (props.nutrient.quantity * props.nutrient.factor).toFixed(2) }} g
         </p>
       </div>
