@@ -84,7 +84,10 @@ function handleNutrientSelect(result: SearchResult) {
   >
     <!-- Search Section -->
     <div class="mb-6">
-      <label for="searchInput" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <label
+        for="searchInput"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+      >
         {{ $t('components.nutrientModal.search.label') }}
       </label>
       <NutrientSearch

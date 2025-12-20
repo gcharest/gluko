@@ -1,23 +1,41 @@
 <template>
   <div class="base-input">
-    <label v-if="label" :for="inputId" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+    <label
+      v-if="label"
+      :for="inputId"
+      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+    >
       {{ label }}
       <span v-if="required" class="text-danger-500">*</span>
     </label>
 
     <div class="relative">
       <input
-:id="inputId" :type="type" :value="modelValue" :placeholder="placeholder" :disabled="disabled"
-        :required="required" :aria-label="ariaLabel || label" :aria-invalid="!!error"
-        :aria-describedby="error ? `${inputId}-error` : undefined" :class="inputClasses" v-bind="$attrs"
-        @input="handleInput" @blur="handleBlur" />
+        :id="inputId"
+        :type="type"
+        :value="modelValue"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :required="required"
+        :aria-label="ariaLabel || label"
+        :aria-invalid="!!error"
+        :aria-describedby="error ? `${inputId}-error` : undefined"
+        :class="inputClasses"
+        v-bind="$attrs"
+        @input="handleInput"
+        @blur="handleBlur"
+      />
 
       <div v-if="$slots.suffix" class="absolute inset-y-0 right-0 flex items-center pr-3">
         <slot name="suffix" />
       </div>
     </div>
 
-    <p v-if="error" :id="`${inputId}-error`" class="mt-1 text-sm text-danger-600 dark:text-danger-400">
+    <p
+      v-if="error"
+      :id="`${inputId}-error`"
+      class="mt-1 text-sm text-danger-600 dark:text-danger-400"
+    >
       {{ error }}
     </p>
 
@@ -52,12 +70,12 @@ const props = withDefaults(defineProps<Props>(), {
   error: '',
   disabled: false,
   required: false,
-  ariaLabel: '',
+  ariaLabel: ''
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: string | number]
-  'blur': []
+  blur: []
 }>()
 
 const inputId = computed(() => props.id || `input-${Math.random().toString(36).substring(2, 9)}`)
@@ -74,7 +92,7 @@ const inputClasses = computed(() => [
   'placeholder-gray-400 dark:placeholder-gray-500',
   'focus:outline-none focus:ring-2 focus:ring-offset-0',
   'disabled:bg-gray-100 dark:disabled:bg-gray-900 disabled:cursor-not-allowed',
-  'transition-colors duration-150',
+  'transition-colors duration-150'
 ])
 
 function handleInput(event: Event) {

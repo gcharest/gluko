@@ -206,7 +206,9 @@ const formatBytes = (bytes: number): string => {
 
 .quota-bar-fill {
   height: 100%;
-  transition: width 0.3s ease, background-color 0.3s ease;
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
   border-radius: 6px;
 }
 

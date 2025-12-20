@@ -30,7 +30,7 @@ watch(showToast, (newValue) => {
     }, 100)
   } else if (previousActiveElement && 'focus' in previousActiveElement) {
     // Restore focus when toast is closed
-    ; (previousActiveElement as HTMLElement).focus()
+    ;(previousActiveElement as HTMLElement).focus()
   }
 })
 
@@ -60,8 +60,14 @@ onUnmounted(() => {
 
 <template>
   <div
-v-if="showToast" ref="toastRef" class="db-error-toast" role="alertdialog" aria-labelledby="db-error-title"
-    aria-describedby="db-error-message" tabindex="-1">
+    v-if="showToast"
+    ref="toastRef"
+    class="db-error-toast"
+    role="alertdialog"
+    aria-labelledby="db-error-title"
+    aria-describedby="db-error-message"
+    tabindex="-1"
+  >
     <div class="message">
       <span id="db-error-title" class="sr-only">{{ $t('databaseError.title') }}</span>
       <p id="db-error-message">
@@ -70,11 +76,19 @@ v-if="showToast" ref="toastRef" class="db-error-toast" role="alertdialog" aria-l
     </div>
     <div class="db-error-toast-actions">
       <button
-v-if="needsRefresh" ref="refreshButtonRef" class="db-error-toast-button primary"
-        :aria-label="$t('databaseError.refreshAriaLabel')" @click="refresh">
+        v-if="needsRefresh"
+        ref="refreshButtonRef"
+        class="db-error-toast-button primary"
+        :aria-label="$t('databaseError.refreshAriaLabel')"
+        @click="refresh"
+      >
         {{ $t('databaseError.refresh') }}
       </button>
-      <button class="db-error-toast-button" :aria-label="$t('databaseError.closeAriaLabel')" @click="close">
+      <button
+        class="db-error-toast-button"
+        :aria-label="$t('databaseError.closeAriaLabel')"
+        @click="close"
+      >
         {{ $t('common.actions.close') }}
       </button>
     </div>

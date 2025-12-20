@@ -3,7 +3,10 @@
     <DialogPortal>
       <DialogOverlay class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" @click="handleClose" />
       <DialogContent :class="modalClasses" @escape-key-down="handleClose">
-        <DialogTitle v-if="title" class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+        <DialogTitle
+          v-if="title"
+          class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4"
+        >
           {{ title }}
         </DialogTitle>
 
@@ -16,8 +19,10 @@
         </div>
 
         <DialogClose
-v-if="showClose"
-          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" aria-label="Close">
+          v-if="showClose"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+          aria-label="Close"
+        >
           <XIcon class="w-5 h-5" />
         </DialogClose>
       </DialogContent>
@@ -34,7 +39,7 @@ import {
   DialogContent,
   DialogTitle,
   DialogDescription,
-  DialogClose,
+  DialogClose
 } from 'reka-ui'
 import { XIcon } from 'lucide-vue-next'
 
@@ -50,7 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
   title: '',
   description: '',
   size: 'md',
-  showClose: true,
+  showClose: true
 })
 
 const emit = defineEmits<{
@@ -59,7 +64,7 @@ const emit = defineEmits<{
 
 const isOpen = computed({
   get: () => props.open,
-  set: (value) => emit('update:open', value),
+  set: (value) => emit('update:open', value)
 })
 
 const modalClasses = computed(() => {
@@ -69,20 +74,17 @@ const modalClasses = computed(() => {
     'bg-white dark:bg-gray-800',
     'rounded-lg shadow-xl',
     'p-6',
-    'max-h-[90vh] overflow-y-auto',
+    'max-h-[90vh] overflow-y-auto'
   ]
 
   const sizes = {
     sm: 'w-full max-w-sm',
     md: 'w-full max-w-md',
     lg: 'w-full max-w-lg',
-    xl: 'w-full max-w-xl',
+    xl: 'w-full max-w-xl'
   }
 
-  return [
-    ...base,
-    sizes[props.size],
-  ]
+  return [...base, sizes[props.size]]
 })
 
 function handleClose() {

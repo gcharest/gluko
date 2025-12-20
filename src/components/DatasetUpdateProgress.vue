@@ -34,16 +34,25 @@
           </div>
           <div class="stat-item">
             <span class="stat-label">{{ $t('dataset.progress.records') }}</span>
-            <span class="stat-value">{{ formatNumber(progress.recordsLoaded) }} / {{ formatNumber(progress.totalRecords) }}</span>
+            <span class="stat-value"
+              >{{ formatNumber(progress.recordsLoaded) }} /
+              {{ formatNumber(progress.totalRecords) }}</span
+            >
           </div>
           <div class="stat-item">
             <span class="stat-label">{{ $t('dataset.progress.size') }}</span>
-            <span class="stat-value">{{ formatBytes(progress.bytesDownloaded) }} / {{ formatBytes(progress.totalBytes) }}</span>
+            <span class="stat-value"
+              >{{ formatBytes(progress.bytesDownloaded) }} /
+              {{ formatBytes(progress.totalBytes) }}</span
+            >
           </div>
         </div>
 
         <!-- Current Shard -->
-        <div v-if="progress.currentShardName && progress.status === 'downloading'" class="current-shard">
+        <div
+          v-if="progress.currentShardName && progress.status === 'downloading'"
+          class="current-shard"
+        >
           <span class="current-shard-label">{{ $t('dataset.progress.currentShard') }}:</span>
           <span class="current-shard-name">{{ progress.currentShardName }}</span>
         </div>
@@ -70,11 +79,7 @@
           >
             {{ $t('dataset.progress.retry') }}
           </BaseButton>
-          <BaseButton
-            v-if="progress.status === 'error'"
-            variant="ghost"
-            @click="$emit('cancel')"
-          >
+          <BaseButton v-if="progress.status === 'error'" variant="ghost" @click="$emit('cancel')">
             {{ $t('dataset.progress.cancel') }}
           </BaseButton>
         </div>

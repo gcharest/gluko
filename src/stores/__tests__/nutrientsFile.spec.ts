@@ -62,14 +62,23 @@ vi.mock('@/composables/useIndexedDB', () => ({
   useIndexedDB: () => ({
     get: vi.fn().mockResolvedValue(null),
     put: vi.fn().mockResolvedValue(undefined),
-    getCurrentManifestVersion: vi.fn().mockResolvedValue(null),
+    getCurrentManifestVersion: vi.fn().mockResolvedValue(null)
   })
 }))
 
 // Mock useShardLoader
 vi.mock('@/composables/useShardLoader', () => ({
   useShardLoader: () => ({
-    progress: ref({ status: 'idle' as const, currentShard: 0, totalShards: 0, recordsLoaded: 0, totalRecords: 0, bytesDownloaded: 0, totalBytes: 0, currentShardName: '' }),
+    progress: ref({
+      status: 'idle' as const,
+      currentShard: 0,
+      totalShards: 0,
+      recordsLoaded: 0,
+      totalRecords: 0,
+      bytesDownloaded: 0,
+      totalBytes: 0,
+      currentShardName: ''
+    }),
     error: ref(null),
     isLoading: computed(() => false),
     checkForUpdates: mockCheckForUpdates,
@@ -78,7 +87,6 @@ vi.mock('@/composables/useShardLoader', () => ({
     getAllNutrients: mockGetAllNutrients
   })
 }))
-
 
 describe('nutrientsFile Store', () => {
   beforeEach(() => {

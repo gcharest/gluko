@@ -31,7 +31,12 @@ function handleCancel() {
 </script>
 
 <template>
-  <BaseModal :open="modelValue" :title="title" :show-close="false" @update:open="emit('update:modelValue', $event)">
+  <BaseModal
+    :open="modelValue"
+    :title="title"
+    :show-close="false"
+    @update:open="emit('update:modelValue', $event)"
+  >
     <p class="text-gray-700 dark:text-gray-300 mb-6">
       {{ message }}
     </p>

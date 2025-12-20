@@ -79,12 +79,7 @@ import { useRoute } from 'vue-router'
 import { useNavigationStore } from '@/stores/navigation'
 import { useDarkMode } from '@/composables/useDarkMode'
 import { useI18n } from 'vue-i18n'
-import {
-  SunIcon,
-  MoonIcon,
-  LanguagesIcon,
-  GithubIcon,
-} from 'lucide-vue-next'
+import { SunIcon, MoonIcon, LanguagesIcon, GithubIcon } from 'lucide-vue-next'
 
 const route = useRoute()
 const navigationStore = useNavigationStore()
@@ -97,7 +92,7 @@ const sideRailClasses = computed(() => [
   'w-20',
   'bg-white dark:bg-gray-900',
   'border-r border-gray-200 dark:border-gray-800',
-  'shadow-sm',
+  'shadow-sm'
 ])
 
 function navItemClasses(to: string) {
@@ -110,7 +105,7 @@ function navItemClasses(to: string) {
     'hover:scale-105',
     isActive
       ? 'text-primary-700 dark:text-primary-400 bg-primary-50 dark:bg-primary-950'
-      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800',
+      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800'
   ]
 }
 

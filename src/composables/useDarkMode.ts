@@ -9,6 +9,8 @@ export function useDarkMode() {
       auto: 'auto'
     },
     storageKey: 'gluko-theme',
+    attribute: 'class',
+    selector: 'html'
   })
 
   return {
@@ -16,8 +18,14 @@ export function useDarkMode() {
     isDark: computed(() => mode.value === 'dark'),
     isLight: computed(() => mode.value === 'light'),
     isAuto: computed(() => mode.value === 'auto'),
-    setLight: () => { mode.value = 'light' },
-    setDark: () => { mode.value = 'dark' },
-    setAuto: () => { mode.value = 'auto' },
+    setLight: () => {
+      mode.value = 'light'
+    },
+    setDark: () => {
+      mode.value = 'dark'
+    },
+    setAuto: () => {
+      mode.value = 'auto'
+    }
   }
 }

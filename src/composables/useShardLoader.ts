@@ -27,10 +27,11 @@ export const useShardLoader = () => {
   })
 
   const error = ref<Error | null>(null)
-  const isLoading = computed(() =>
-    progress.value.status === 'checking' ||
-    progress.value.status === 'downloading' ||
-    progress.value.status === 'validating'
+  const isLoading = computed(
+    () =>
+      progress.value.status === 'checking' ||
+      progress.value.status === 'downloading' ||
+      progress.value.status === 'validating'
   )
 
   /**
@@ -41,7 +42,7 @@ export const useShardLoader = () => {
     const dataBuffer = encoder.encode(data)
     const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer)
     const hashArray = Array.from(new Uint8Array(hashBuffer))
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+    return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
   }
 
   /**
@@ -83,8 +84,8 @@ export const useShardLoader = () => {
     return ndjson
       .trim()
       .split('\n')
-      .filter(line => line.trim().length > 0)
-      .map(line => JSON.parse(line))
+      .filter((line) => line.trim().length > 0)
+      .map((line) => JSON.parse(line))
   }
 
   /**
@@ -196,7 +197,6 @@ export const useShardLoader = () => {
       // Update progress
       progress.value.currentShard++
       progress.value.recordsLoaded += records.length
-
     } catch (err) {
       // Update metadata to 'error'
       metadata.status = 'error'
@@ -247,7 +247,7 @@ export const useShardLoader = () => {
       error.value = null
 
       // Fetch manifest if not provided
-      const datasetManifest = manifest || await fetchManifest()
+      const datasetManifest = manifest || (await fetchManifest())
 
       // Initialize progress
       progress.value.totalShards = datasetManifest.shards.length
@@ -313,7 +313,7 @@ export const useShardLoader = () => {
   const getAllNutrients = async (): Promise<NutrientFile[]> => {
     try {
       const allShards = await db.getAllShardMetadata()
-      const loadedShards = allShards.filter(s => s.status === 'loaded')
+      const loadedShards = allShards.filter((s) => s.status === 'loaded')
 
       const allRecords: NutrientFile[] = []
 

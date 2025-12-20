@@ -5,8 +5,8 @@ import { useNavigationStore } from '../navigation'
 // Mock vue-i18n
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
-    t: (key: string) => key,
-  }),
+    t: (key: string) => key
+  })
 }))
 
 describe('navigation Store', () => {
@@ -28,7 +28,7 @@ describe('navigation Store', () => {
 
     it('navigation items have required properties', () => {
       const store = useNavigationStore()
-      store.navigationItems.forEach(item => {
+      store.navigationItems.forEach((item) => {
         expect(item).toHaveProperty('to')
         expect(item).toHaveProperty('label')
         expect(item).toHaveProperty('icon')
@@ -41,42 +41,42 @@ describe('navigation Store', () => {
   describe('Navigation Items', () => {
     it('includes home navigation item', () => {
       const store = useNavigationStore()
-      const homeItem = store.navigationItems.find(item => item.to === '/')
+      const homeItem = store.navigationItems.find((item) => item.to === '/')
       expect(homeItem).toBeDefined()
       expect(homeItem!.label).toBe('navigation.home')
     })
 
     it('includes calculator navigation item', () => {
       const store = useNavigationStore()
-      const calcItem = store.navigationItems.find(item => item.to === '/calculator')
+      const calcItem = store.navigationItems.find((item) => item.to === '/calculator')
       expect(calcItem).toBeDefined()
       expect(calcItem!.label).toBe('components.mealCalculator.title')
     })
 
     it('includes history navigation item', () => {
       const store = useNavigationStore()
-      const historyItem = store.navigationItems.find(item => item.to === '/history')
+      const historyItem = store.navigationItems.find((item) => item.to === '/history')
       expect(historyItem).toBeDefined()
       expect(historyItem!.label).toBe('navigation.history')
     })
 
     it('includes settings navigation item', () => {
       const store = useNavigationStore()
-      const settingsItem = store.navigationItems.find(item => item.to === '/settings')
+      const settingsItem = store.navigationItems.find((item) => item.to === '/settings')
       expect(settingsItem).toBeDefined()
       expect(settingsItem!.label).toBe('navigation.settings')
     })
 
     it('includes carb factor navigation item', () => {
       const store = useNavigationStore()
-      const carbFactorItem = store.navigationItems.find(item => item.to === '/carb-factor')
+      const carbFactorItem = store.navigationItems.find((item) => item.to === '/carb-factor')
       expect(carbFactorItem).toBeDefined()
       expect(carbFactorItem!.label).toBe('navigation.carbFactor')
     })
 
     it('includes about navigation item', () => {
       const store = useNavigationStore()
-      const aboutItem = store.navigationItems.find(item => item.to === '/about')
+      const aboutItem = store.navigationItems.find((item) => item.to === '/about')
       expect(aboutItem).toBeDefined()
       expect(aboutItem!.label).toBe('navigation.about')
     })
@@ -91,14 +91,14 @@ describe('navigation Store', () => {
 
     it('only includes items with showInBottomNav=true', () => {
       const store = useNavigationStore()
-      store.bottomNavItems.forEach(item => {
+      store.bottomNavItems.forEach((item) => {
         expect(item.showInBottomNav).toBe(true)
       })
     })
 
     it('includes home, calculator, history, and settings in bottom nav', () => {
       const store = useNavigationStore()
-      const paths = store.bottomNavItems.map(item => item.to)
+      const paths = store.bottomNavItems.map((item) => item.to)
       expect(paths).toContain('/')
       expect(paths).toContain('/calculator')
       expect(paths).toContain('/history')
@@ -107,7 +107,7 @@ describe('navigation Store', () => {
 
     it('excludes carb factor and about from bottom nav', () => {
       const store = useNavigationStore()
-      const paths = store.bottomNavItems.map(item => item.to)
+      const paths = store.bottomNavItems.map((item) => item.to)
       expect(paths).not.toContain('/carb-factor')
       expect(paths).not.toContain('/about')
     })
@@ -121,7 +121,7 @@ describe('navigation Store', () => {
 
     it('only includes items with showInSideRail=true', () => {
       const store = useNavigationStore()
-      store.sideRailItems.forEach(item => {
+      store.sideRailItems.forEach((item) => {
         expect(item.showInSideRail).toBe(true)
       })
     })

@@ -1,8 +1,5 @@
 <template>
-  <header
-    class="sticky top-0 z-20 lg:hidden"
-    :class="topBarClasses"
-  >
+  <header class="sticky top-0 z-20 lg:hidden" :class="topBarClasses">
     <!-- Skip to content link -->
     <a
       href="#content"
@@ -14,10 +11,7 @@
     <div class="flex items-center justify-between h-14 px-4">
       <!-- Left: Menu Button (if needed) or Brand -->
       <div class="flex items-center">
-        <RouterLink
-          to="/"
-          class="text-xl font-bold text-gray-900 dark:text-white"
-        >
+        <RouterLink to="/" class="text-xl font-bold text-gray-900 dark:text-white">
           Gluko
         </RouterLink>
       </div>
@@ -86,7 +80,9 @@
     </nav>
 
     <!-- Version Info -->
-    <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400">
+    <div
+      class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400"
+    >
       <p>Gluko © Guillaume Charest 2021-2023</p>
       <p class="text-xs">ver. {{ version }} ({{ buildDate }})</p>
     </div>
@@ -99,13 +95,7 @@ import { useNavigationStore } from '@/stores/navigation'
 import { useDarkMode } from '@/composables/useDarkMode'
 import { useI18n } from 'vue-i18n'
 import BaseModal from './BaseModal.vue'
-import {
-  SunIcon,
-  MoonIcon,
-  LanguagesIcon,
-  MoreVerticalIcon,
-  GithubIcon,
-} from 'lucide-vue-next'
+import { SunIcon, MoonIcon, LanguagesIcon, MoreVerticalIcon, GithubIcon } from 'lucide-vue-next'
 
 const navigationStore = useNavigationStore()
 const { isDark, setLight, setDark } = useDarkMode()
@@ -119,7 +109,7 @@ const buildDate = new Date(__BUILD_DATE__).toISOString().slice(0, 10)
 const topBarClasses = computed(() => [
   'bg-white dark:bg-gray-900',
   'border-b border-gray-200 dark:border-gray-800',
-  'shadow-sm',
+  'shadow-sm'
 ])
 
 // Items that don't fit in bottom nav (overflow items)
