@@ -1,11 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { ref } from 'vue'
 import { useDarkMode } from '../useDarkMode'
 
 // Mock @vueuse/core
 vi.mock('@vueuse/core', () => {
   return {
-    useColorMode: (config: any) => {
+    useColorMode: () => {
       // Import ref at runtime within the mock
       const { ref } = require('vue')
       const mode = ref('light')
