@@ -1,6 +1,19 @@
 # Release v0.4: PWA Performance Optimization
 
-## Release Summary
+**⚠️ STATUS: DEPRECATED - Merged into v0.5**
+
+This release has been superseded by [v0.5 Complete Redesign](v0.5-complete-redesign.md), which combines these performance optimizations with a comprehensive UI/UX redesign to minimize rework and deliver both improvements in a single cohesive release.
+
+**Decision Date**: 2025-12-19
+**Rationale**: Building performance optimizations with the final UI from the start saves 3-6 weeks of duplicate work compared to optimizing Bootstrap components that would be discarded during redesign.
+
+**All original goals preserved in v0.5**: Web Workers, Service Worker caching, streaming NDJSON, chunked IndexedDB writes, Web Vitals targets
+
+See: [v0.5 Complete Redesign Release Plan](v0.5-complete-redesign.md)
+
+---
+
+## Original Release Summary (For Reference)
 
 Optimize the PWA's dataset loading and Web Vitals performance by implementing streaming NDJSON imports with Web Workers, enhanced Service Worker caching strategies, and chunked IndexedDB writes—achieving target Web Vitals and providing non-blocking user experience.
 
