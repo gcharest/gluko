@@ -2,13 +2,17 @@
 import BaseModal from '@/components/base/BaseModal.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 
-const props = defineProps({
-  modelValue: { type: Boolean, required: true },
-  title: { type: String, required: true },
-  message: { type: String, required: true },
-  confirmLabel: { type: String, default: undefined },
-  cancelLabel: { type: String, default: undefined },
-  confirmVariant: { type: String, default: 'danger' }
+interface Props {
+  modelValue: boolean
+  title: string
+  message: string
+  confirmLabel?: string
+  cancelLabel?: string
+  confirmVariant?: 'primary' | 'secondary' | 'danger' | 'ghost'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  confirmVariant: 'danger'
 })
 
 const emit = defineEmits(['update:modelValue', 'confirm', 'cancel'])
@@ -43,7 +47,7 @@ function handleCancel() {
         {{ cancelLabel || $t('modals.general.cancel') }}
       </BaseButton>
       <BaseButton
-        :variant="confirmVariant as 'primary' | 'secondary' | 'danger' | 'ghost'"
+        :variant="props.confirmVariant"
         @click="handleConfirm"
       >
         {{ confirmLabel || $t('modals.general.confirm') }}

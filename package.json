@@ -41,7 +41,6 @@
     "@tailwindcss/typography": "^0.5.19",
     "@testing-library/vue": "^8.1.0",
     "@tsconfig/node22": "^22.0.2",
-    "@types/bootstrap": "^5.2.10",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.18.6",
     "@typescript-eslint/eslint-plugin": "^8.44.1",

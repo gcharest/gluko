@@ -21,9 +21,9 @@
         :aria-invalid="!!error"
         :aria-describedby="error ? `${inputId}-error` : undefined"
         :class="inputClasses"
+        v-bind="$attrs"
         @input="handleInput"
         @blur="handleBlur"
-        v-bind="$attrs"
       />
 
       <div v-if="$slots.suffix" class="absolute inset-y-0 right-0 flex items-center pr-3">

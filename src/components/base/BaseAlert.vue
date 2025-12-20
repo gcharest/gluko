@@ -21,8 +21,8 @@
         v-if="dismissible"
         type="button"
         :class="closeButtonClasses"
-        @click="handleClose"
         aria-label="Close"
+        @click="handleClose"
       >
         <XIcon class="w-5 h-5" />
       </button>

@@ -71,7 +71,7 @@ async function handleSaveToHistory() {
     :message="$t('modals.confirmation.reset.message')"
     :confirm-label="$t('modals.confirmation.reset.confirmLabel')"
     :cancel-label="$t('modals.confirmation.reset.cancelLabel')"
-    confirm-variant="warning"
+    confirm-variant="danger"
     @confirm="handleResetConfirm"
   />
 </template>

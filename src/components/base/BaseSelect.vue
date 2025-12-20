@@ -19,8 +19,8 @@
         :aria-invalid="!!error"
         :aria-describedby="error ? `${selectId}-error` : undefined"
         :class="selectClasses"
-        @change="handleChange"
         v-bind="$attrs"
+        @change="handleChange"
       >
         <option v-if="placeholder" value="" disabled>{{ placeholder }}</option>
         <option
