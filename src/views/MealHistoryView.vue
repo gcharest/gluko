@@ -84,11 +84,11 @@
           <div class="flex gap-2">
             <!-- Export/Import buttons -->
             <BaseButton variant="secondary" @click="handleExport">
-              <DownloadIcon class="w-4 h-4 mr-1" />
+              <DownloadIcon class="w-4 h-4" />
               {{ $t('views.mealHistory.actions.export') }}
             </BaseButton>
             <BaseButton variant="secondary" @click="handleImport">
-              <UploadIcon class="w-4 h-4 mr-1" />
+              <UploadIcon class="w-4 h-4" />
               {{ $t('views.mealHistory.actions.import') }}
             </BaseButton>
           </div>

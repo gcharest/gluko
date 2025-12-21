@@ -66,13 +66,13 @@
     <div class="flex flex-col gap-2 w-full sm:flex-row-reverse mt-6">
       <!-- Merge (recommended) -->
       <BaseButton variant="primary" class="w-full sm:w-auto" @click="handleMerge">
-        <DatabaseIcon class="w-4 h-4 mr-2" />
+        <DatabaseIcon class="w-4 h-4" />
         {{ $t('dialogs.importConfirm.actions.merge') }}
       </BaseButton>
 
       <!-- Replace -->
       <BaseButton variant="danger" class="w-full sm:w-auto" @click="handleReplace">
-        <Trash2Icon class="w-4 h-4 mr-2" />
+        <Trash2Icon class="w-4 h-4" />
         {{ $t('dialogs.importConfirm.actions.replace') }}
       </BaseButton>
 

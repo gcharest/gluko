@@ -10,7 +10,7 @@
     <span v-if="loading" class="absolute inset-0 flex items-center justify-center">
       <LoaderIcon class="w-5 h-5 animate-spin" />
     </span>
-    <span :class="{ 'opacity-0': loading }">
+    <span :class="{ 'opacity-0': loading }" class="inline-flex items-center justify-center gap-2">
       <slot />
     </span>
   </button>

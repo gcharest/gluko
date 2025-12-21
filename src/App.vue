@@ -27,7 +27,7 @@ import ToastContainer from '@/components/base/ToastContainer.vue'
         'pb-20 lg:pb-4' // Mobile: Add bottom padding for bottom nav
       ]"
     >
-      <div class="container mx-auto px-4 py-6">
+      <div class="container mx-auto px-4 py-3">
         <RouterView />
       </div>
     </main>

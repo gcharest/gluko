@@ -99,7 +99,7 @@ const handleSelect = (item: any) => {
         :aria-label="searchButtonLabel || $t('common.actions.search')"
         @click="triggerSearch"
       >
-        <SearchIcon class="w-5 h-5 mr-2" />
+        <SearchIcon class="w-5 h-5" />
         {{ searchButtonLabel || $t('common.actions.search') }}
       </BaseButton>
     </div>

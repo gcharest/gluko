@@ -76,13 +76,13 @@ function handleCancel() {
     <div class="flex flex-col gap-2 w-full sm:flex-row-reverse mt-6">
       <!-- Save & Load -->
       <BaseButton variant="primary" class="w-full sm:w-auto" @click="handleSaveAndLoad">
-        <SaveIcon class="w-4 h-4 mr-2" />
+        <SaveIcon class="w-4 h-4" />
         {{ $t('dialogs.unsavedChanges.actions.saveAndLoad') }}
       </BaseButton>
 
       <!-- Discard & Load -->
       <BaseButton variant="danger" class="w-full sm:w-auto" @click="handleDiscardAndLoad">
-        <Trash2Icon class="w-4 h-4 mr-2" />
+        <Trash2Icon class="w-4 h-4" />
         {{ $t('dialogs.unsavedChanges.actions.discardAndLoad') }}
       </BaseButton>
 

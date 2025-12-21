@@ -97,7 +97,7 @@
     <!-- Action Buttons -->
     <div class="flex flex-col gap-2 w-full sm:flex-row-reverse mt-6">
       <BaseButton variant="primary" class="w-full sm:w-auto" @click="handleSave">
-        <BookPlusIcon class="w-4 h-4 mr-2" />
+        <BookPlusIcon class="w-4 h-4" />
         {{ isEditing ? $t('common.actions.save') : $t('dialogs.saveMeal.saveButton') }}
       </BaseButton>
       <BaseButton

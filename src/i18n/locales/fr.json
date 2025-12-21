@@ -72,7 +72,8 @@
     "subjectSelector": {
       "allSubjects": "Tous les sujets",
       "noSubjects": "Aucun sujet trouvé",
-      "addSubject": "Ajouter un sujet"
+      "addSubject": "Ajouter un sujet",
+      "manageSubjects": "Gérer les sujets"
     },
     "mealHistoryCard": {
       "actions": {

@@ -72,7 +72,8 @@
     "subjectSelector": {
       "allSubjects": "All Subjects",
       "noSubjects": "No subjects found",
-      "addSubject": "Add Subject"
+      "addSubject": "Add Subject",
+      "manageSubjects": "Manage Subjects"
     },
     "mealHistoryCard": {
       "actions": {
