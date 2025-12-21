@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useMealHistoryStore } from '../mealHistory'
 import { useSubjectStore } from '../subject'
-import type { MealHistoryEntry } from '@/types/meal-history'
 
 describe('Meal History Store - Expanded', () => {
   beforeEach(() => {
@@ -167,7 +166,9 @@ describe('Meal History Store - Expanded', () => {
 
       history.setSearchQuery('Meal 5')
 
-      expect(history.filteredEntries.some((e) => e.name.includes('Meal 5'))).toBe(true)
+      expect(
+        history.filteredEntries.some((e) => (e.name ?? '').includes('Meal 5'))
+      ).toBe(true)
     })
 
     it('filters entries by tags', () => {
@@ -390,8 +391,8 @@ describe('Meal History Store - Expanded', () => {
       const yesterday = new Date(today)
       yesterday.setDate(yesterday.getDate() - 1)
 
-      const e1 = await history.addEntry([], 100, { name: 'S1' })
-      const e2 = await history.addEntry([], 200, { name: 'S2' })
+      await history.addEntry([], 100, { name: 'S1' })
+      await history.addEntry([], 200, { name: 'S2' })
       const e3 = await history.addEntry([], 50, { name: 'S3' })
 
       // Move e3 to yesterday to create two days
