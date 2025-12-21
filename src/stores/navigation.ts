@@ -8,7 +8,7 @@ import {
   HistoryIcon,
   SettingsIcon,
   InfoIcon,
-  PercentIcon
+  SearchIcon
 } from 'lucide-vue-next'
 
 export interface NavigationItem {
@@ -29,7 +29,7 @@ export const useNavigationStore = defineStore('navigation', () => {
       to: '/',
       label: t('navigation.home'),
       icon: HomeIcon,
-      showInBottomNav: true,
+      showInBottomNav: false,
       showInSideRail: true
     },
     {
@@ -49,8 +49,8 @@ export const useNavigationStore = defineStore('navigation', () => {
     {
       to: '/carb-factor',
       label: t('navigation.carbFactor'),
-      icon: PercentIcon,
-      showInBottomNav: false,
+      icon: SearchIcon,
+      showInBottomNav: true,
       showInSideRail: true
     },
     {

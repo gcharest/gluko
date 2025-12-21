@@ -8,10 +8,21 @@
       <div class="md:col-span-1">
         <BaseCard>
           <template #header>
-            <h2 class="text-lg font-semibold">{{ $t('views.mealHistory.filters.title') }}</h2>
+            <button
+              type="button"
+              class="flex items-center justify-between w-full text-left md:cursor-default"
+              :class="{ 'md:pointer-events-none': true }"
+              @click="toggleFilters"
+            >
+              <h2 class="text-lg font-semibold">{{ $t('views.mealHistory.filters.title') }}</h2>
+              <ChevronDownIcon
+                class="w-5 h-5 transition-transform duration-200 md:hidden"
+                :class="{ 'rotate-180': filtersExpanded }"
+              />
+            </button>
           </template>
 
-          <div class="space-y-4">
+          <div v-show="filtersExpanded || isDesktop" class="space-y-4">
             <!-- Date Range Filter -->
             <div>
               <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">
@@ -191,7 +202,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useMealHistoryStore } from '@/stores/mealHistory'
@@ -207,7 +218,13 @@ import DateRangeFilter from '@/components/filters/DateRangeFilter.vue'
 import SubjectSelector from '@/components/filters/SubjectSelector.vue'
 import MealHistoryCard from '@/components/history/MealHistoryCard.vue'
 import UnsavedChangesModal from '@/components/modals/UnsavedChangesModal.vue'
-import { DownloadIcon, UploadIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next'
+import {
+  DownloadIcon,
+  UploadIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronDownIcon
+} from 'lucide-vue-next'
 
 const router = useRouter()
 const { t } = useI18n()
@@ -215,6 +232,28 @@ const mealHistoryStore = useMealHistoryStore()
 const subjectStore = useSubjectStore()
 const mealStore = useMealStore()
 const toast = useToast()
+
+// Filters collapse state (mobile)
+const filtersExpanded = ref(false)
+const isDesktop = ref(window.innerWidth >= 768) // md breakpoint
+
+function toggleFilters() {
+  if (!isDesktop.value) {
+    filtersExpanded.value = !filtersExpanded.value
+  }
+}
+
+function handleResize() {
+  isDesktop.value = window.innerWidth >= 768
+}
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
+})
 
 // Pagination state
 const currentPage = computed({
