@@ -28,12 +28,21 @@ test.describe('Homepage', () => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto('/')
 
-    // Dismiss update dialogs via CSS hide (avoids hang from excessive waits/clicks)
+    // Dismiss update dialogs by hiding them and disabling pointer events
+    await page.waitForTimeout(300) // Allow dialogs to render
     await page.evaluate(() => {
       const datasetNotif = document.querySelector('[aria-label="Dataset update notification"]')
-      if (datasetNotif) (datasetNotif as HTMLElement).style.display = 'none'
+      if (datasetNotif) {
+        const el = datasetNotif as HTMLElement
+        el.style.display = 'none'
+        el.style.pointerEvents = 'none'
+      }
       const appUpdate = document.querySelector('[role="alertdialog"]')
-      if (appUpdate) (appUpdate as HTMLElement).style.display = 'none'
+      if (appUpdate) {
+        const el = appUpdate as HTMLElement
+        el.style.display = 'none'
+        el.style.pointerEvents = 'none'
+      }
     }).catch(() => { })
 
     // Navigate to Carb Factor via CTA button

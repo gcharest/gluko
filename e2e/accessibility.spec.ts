@@ -2,15 +2,25 @@ import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
 const dismissUpdateDialogs = async (page: import('@playwright/test').Page) => {
-  // Hide notification overlays immediately via CSS
+  // Hide notification overlays by disabling visibility and pointer events
   await page.evaluate(() => {
     // Hide dataset update notification
     const datasetNotif = document.querySelector('[aria-label="Dataset update notification"]')
-    if (datasetNotif) (datasetNotif as HTMLElement).style.display = 'none'
+    if (datasetNotif) {
+      const el = datasetNotif as HTMLElement
+      el.style.display = 'none'
+      el.style.pointerEvents = 'none'
+      el.style.visibility = 'hidden'
+    }
 
     // Hide app update dialog
     const appUpdate = document.querySelector('[role="alertdialog"]')
-    if (appUpdate) (appUpdate as HTMLElement).style.display = 'none'
+    if (appUpdate) {
+      const el = appUpdate as HTMLElement
+      el.style.display = 'none'
+      el.style.pointerEvents = 'none'
+      el.style.visibility = 'hidden'
+    }
   }).catch(() => { })
 }
 
