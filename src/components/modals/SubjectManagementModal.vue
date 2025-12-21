@@ -10,7 +10,7 @@
       <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-3">
         {{ $t('dialogs.subjectManagement.addNew') }}
       </h3>
-      <form @submit.prevent="handleCreateSubject" class="flex gap-2">
+      <form class="flex gap-2" @submit.prevent="handleCreateSubject">
         <BaseInput
           v-model="newSubjectName"
           type="text"
@@ -42,7 +42,7 @@
           {{ $t('common.actions.cancel') }}
         </button>
       </div>
-      <form @submit.prevent="handleUpdateSubject" class="flex gap-2">
+      <form class="flex gap-2" @submit.prevent="handleUpdateSubject">
         <BaseInput
           v-model="editSubjectName"
           type="text"

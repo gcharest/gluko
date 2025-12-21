@@ -10,7 +10,7 @@
       <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-3">
         {{ $t('dialogs.tagManagement.addNew') }}
       </h3>
-      <form @submit.prevent="handleCreateTag" class="flex gap-2">
+      <form class="flex gap-2" @submit.prevent="handleCreateTag">
         <BaseInput
           v-model="newTagName"
           type="text"
@@ -42,7 +42,7 @@
           {{ $t('common.actions.cancel') }}
         </button>
       </div>
-      <form @submit.prevent="handleUpdateTag" class="flex gap-2">
+      <form class="flex gap-2" @submit.prevent="handleUpdateTag">
         <BaseInput
           v-model="editTagName"
           type="text"
