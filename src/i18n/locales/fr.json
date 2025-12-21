@@ -239,6 +239,51 @@
         "saveAndLoad": "Sauvegarder et charger",
         "discardAndLoad": "Abandonner et charger"
       }
+    },
+    "importConfirm": {
+      "title": "Importer l'historique des repas",
+      "message": "Vous êtes sur le point d'importer des données d'historique de repas",
+      "description": "Choisissez comment gérer les données existantes:",
+      "importSummary": "Le fichier contient:",
+      "entryCount": "{count} entrées de repas",
+      "version": "Version du schéma: {version}",
+      "strategyLabel": "Stratégie d'importation:",
+      "mergeStrategy": "Fusionner (Recommandé)",
+      "mergeDescription": "Conserver les repas existants et ajouter les nouveaux. Les doublons seront ignorés.",
+      "replaceStrategy": "Tout remplacer",
+      "replaceWarning": "⚠️ Cela supprimera tout l'historique des repas existant!",
+      "actions": {
+        "merge": "Fusionner",
+        "replace": "Tout remplacer"
+      }
+    },
+    "subjectManagement": {
+      "title": "Gérer les sujets",
+      "addNew": "Ajouter un nouveau sujet",
+      "namePlaceholder": "Entrez le nom du sujet",
+      "editing": "Modification du sujet",
+      "currentSubjects": "Sujets actuels",
+      "noSubjects": "Aucun sujet pour le moment. Ajoutez-en un ci-dessus.",
+      "activeSubject": "Sujet actif",
+      "active": "Actif",
+      "setActive": "Définir comme actif",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer '{name}'? Cette action est irréversible.",
+      "info": "Le sujet actif est utilisé par défaut lors de l'enregistrement de nouveaux repas. Vous pouvez toujours le changer plus tard."
+    },
+    "saveMeal": {
+      "title": "Enregistrer le repas dans l'historique",
+      "titleEdit": "Mettre à jour le repas",
+      "subject": "Sujet",
+      "default": "Par défaut",
+      "mealName": "Nom du repas",
+      "optional": "facultatif",
+      "mealNamePlaceholder": "ex: Petit-déjeuner, Déjeuner, Collation",
+      "notes": "Notes",
+      "notesPlaceholder": "Ajoutez des notes sur ce repas...",
+      "tags": "Étiquettes",
+      "nutrientCount": "Aliments",
+      "totalCarbs": "Glucides totaux",
+      "saveButton": "Enregistrer dans l'historique"
     }
   },
   "toasts": {
@@ -254,6 +299,16 @@
     "calculator": {
       "mealSaved": "Repas enregistré dans l'historique",
       "mealUpdated": "Repas mis à jour avec succès"
+    },
+    "subjects": {
+      "created": "Sujet '{name}' créé",
+      "createError": "Échec de la création du sujet",
+      "updated": "Sujet '{name}' mis à jour",
+      "updateError": "Échec de la mise à jour du sujet",
+      "deleted": "Sujet '{name}' supprimé",
+      "deleteError": "Échec de la suppression du sujet",
+      "setActive": "'{name}' est maintenant le sujet actif",
+      "setActiveError": "Échec de la définition du sujet actif"
     }
   },
   "dataset": {

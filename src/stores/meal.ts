@@ -387,6 +387,7 @@ export const useMealStore = defineStore('mealStore', () => {
 
   // Action: Save current meal (update history if editing, create new otherwise)
   async function saveMealToHistory(options?: {
+    subjectId?: string
     name?: string
     notes?: string
     tags?: string[]
@@ -434,7 +435,7 @@ export const useMealStore = defineStore('mealStore', () => {
       // Otherwise, create new entry
       const newEntry: MealHistoryEntry = {
         id: getUUID(),
-        subjectId: session.subjectId,
+        subjectId: options?.subjectId || session.subjectId,
         date: now,
         name: options?.name,
         notes: options?.notes,

@@ -1,15 +1,25 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import NutrientList from '@/components/nutrients/NutrientList.vue'
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue'
+import SaveMealModal from '@/components/modals/SaveMealModal.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { useMealStore } from '@/stores/meal'
-import { useMealHistoryStore } from '@/stores/mealHistory'
+import { useToast } from '@/composables/useToast'
 import type { Nutrient } from '@/types/meal-history'
 import { BookPlusIcon } from 'lucide-vue-next'
 
 const store = useMealStore()
+const toast = useToast()
+const { t } = useI18n()
+
 const showResetConfirmation = ref(false)
+const showSaveDialog = ref(false)
+
+const nutrientCount = computed(() => store.nutrientCount)
+const totalCarbs = computed(() => store.mealCarbs)
+const isEditing = computed(() => !!store.editingHistoryId)
 
 onBeforeMount(async () => {
   if (store.nutrientEmpty) {
@@ -31,19 +41,27 @@ async function handleAdd() {
   await store.addEmptyNutrient()
 }
 
-async function handleSaveToHistory() {
-  const mealHistoryStore = useMealHistoryStore()
-  const totalCarbs = store.currentNutrients.reduce((total: number, nutrient: Nutrient) => {
-    return total + nutrient.quantity * nutrient.factor
-  }, 0)
+function handleSaveToHistory() {
+  showSaveDialog.value = true
+}
 
-  await mealHistoryStore.addEntry(store.currentNutrients, totalCarbs, {
-    tags: []
-  })
+async function handleSaveConfirm(data: {
+  subjectId: string
+  name?: string
+  notes?: string
+  tags?: string[]
+}) {
+  const result = await store.saveMealToHistory(data)
 
-  // Clear the calculator after saving
-  await store.clearSession()
-  await store.addEmptyNutrient()
+  if (result.success) {
+    if (isEditing.value) {
+      toast.success(t('toasts.calculator.mealUpdated'))
+    } else {
+      toast.success(t('toasts.calculator.mealSaved'))
+    }
+  } else {
+    toast.error(t('toasts.history.exportError'))
+  }
 }
 </script>
 
@@ -73,5 +91,13 @@ async function handleSaveToHistory() {
     :cancel-label="$t('modals.confirmation.reset.cancelLabel')"
     confirm-variant="danger"
     @confirm="handleResetConfirm"
+  />
+
+  <SaveMealModal
+    v-model="showSaveDialog"
+    :nutrient-count="nutrientCount"
+    :total-carbs="totalCarbs"
+    :is-editing="isEditing"
+    @save="handleSaveConfirm"
   />
 </template>

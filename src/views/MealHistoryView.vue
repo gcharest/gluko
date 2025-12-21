@@ -198,6 +198,19 @@
       @discard-and-load="handleDiscardAndLoad"
       @cancel="handleCancelDialog"
     />
+
+    <!-- Import Confirmation Modal -->
+    <ImportConfirmModal
+      v-model="showImportDialog"
+      :entry-count="importValidation?.entryCount"
+      :version="importValidation?.version"
+      @merge="handleImportMerge"
+      @replace="handleImportReplace"
+      @cancel="handleImportCancel"
+    />
+
+    <!-- Subject Management Modal -->
+    <SubjectManagementModal v-model="showSubjectManagementDialog" />
   </div>
 </template>
 
@@ -210,6 +223,8 @@ import { useSubjectStore } from '@/stores/subject'
 import { useMealStore } from '@/stores/meal'
 import { useToast } from '@/composables/useToast'
 import type { MealHistoryEntry } from '@/types/meal-history'
+import type { HistoryExport } from '@/types/history-export'
+import { downloadJSON, pickFile, readJSONFile, generateExportFilename } from '@/utils/fileHandling'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
@@ -218,6 +233,8 @@ import DateRangeFilter from '@/components/filters/DateRangeFilter.vue'
 import SubjectSelector from '@/components/filters/SubjectSelector.vue'
 import MealHistoryCard from '@/components/history/MealHistoryCard.vue'
 import UnsavedChangesModal from '@/components/modals/UnsavedChangesModal.vue'
+import ImportConfirmModal from '@/components/modals/ImportConfirmModal.vue'
+import SubjectManagementModal from '@/components/modals/SubjectManagementModal.vue'
 import {
   DownloadIcon,
   UploadIcon,
@@ -338,10 +355,17 @@ const showUnsavedDialog = ref(false)
 const pendingHistoryId = ref<string | null>(null)
 const pendingAction = ref<'edit' | 'duplicate'>('edit')
 
+// Import dialog state
+const showImportDialog = ref(false)
+const pendingImportData = ref<HistoryExport | null>(null)
+const importValidation = ref<{ version?: string; entryCount?: number } | null>(null)
+
+// Subject management dialog state
+const showSubjectManagementDialog = ref(false)
+
 // Event handlers
 function handleAddSubject() {
-  // TODO: Show subject creation modal
-  console.log('Add subject clicked')
+  showSubjectManagementDialog.value = true
 }
 
 async function handleEditMeal(meal: MealHistoryEntry) {
@@ -442,12 +466,128 @@ async function handleDeleteMeal(meal: MealHistoryEntry) {
 }
 
 function handleExport() {
-  // TODO: Implement export functionality
-  console.log('Export clicked')
+  try {
+    // Get current subject name for filename
+    const currentSubject = selectedSubjectId.value
+      ? subjectStore.subjects.find((s) => s.id === selectedSubjectId.value)
+      : null
+    const subjectSuffix = currentSubject ? currentSubject.name : undefined
+
+    // Export history data
+    const exportData = mealHistoryStore.exportHistory(
+      currentSubject ? { subjectId: currentSubject.id } : undefined
+    )
+
+    // Generate filename and download
+    const filename = generateExportFilename('gluko-history', subjectSuffix)
+    downloadJSON(exportData, filename)
+
+    // Show success toast
+    toast.success(
+      t('toasts.history.exportSuccess', {
+        count: exportData.metadata.entryCount
+      })
+    )
+  } catch (err) {
+    console.error('Export failed:', err)
+    toast.error(t('toasts.history.exportError'))
+  }
 }
 
-function handleImport() {
-  // TODO: Implement import functionality
-  console.log('Import clicked')
+async function handleImport() {
+  try {
+    // Pick file
+    const file = await pickFile('.json')
+    if (!file) return // User cancelled
+
+    // Read and parse JSON
+    const data = await readJSONFile(file)
+
+    // Validate import data
+    const validation = mealHistoryStore.validateImport(data)
+
+    if (!validation.valid) {
+      // Show validation errors
+      const errorMessage = validation.errors.join(', ')
+      toast.error(`Import failed: ${errorMessage}`)
+      return
+    }
+
+    // Store data and show confirmation modal
+    pendingImportData.value = data as HistoryExport
+    importValidation.value = {
+      version: validation.version,
+      entryCount: validation.entryCount
+    }
+    showImportDialog.value = true
+  } catch (err) {
+    console.error('Import failed:', err)
+    toast.error(t('toasts.history.exportError'))
+  }
+}
+
+async function handleImportMerge() {
+  if (!pendingImportData.value) return
+
+  try {
+    const result = await mealHistoryStore.importHistory(pendingImportData.value, 'merge')
+
+    if (result.errors.length > 0) {
+      toast.warning(
+        t('toasts.history.importPartialError', {
+          imported: result.imported,
+          failed: result.errors.length
+        })
+      )
+    } else {
+      toast.success(
+        t('toasts.history.importSuccess', {
+          imported: result.imported,
+          skipped: result.skipped
+        })
+      )
+    }
+  } catch (err) {
+    console.error('Merge import failed:', err)
+    toast.error(t('toasts.history.exportError'))
+  } finally {
+    pendingImportData.value = null
+    importValidation.value = null
+  }
+}
+
+async function handleImportReplace() {
+  if (!pendingImportData.value) return
+
+  try {
+    const result = await mealHistoryStore.importHistory(pendingImportData.value, 'replace')
+
+    if (result.errors.length > 0) {
+      toast.warning(
+        t('toasts.history.importPartialError', {
+          imported: result.imported,
+          failed: result.errors.length
+        })
+      )
+    } else {
+      toast.success(
+        t('toasts.history.importSuccess', {
+          imported: result.imported,
+          skipped: result.skipped
+        })
+      )
+    }
+  } catch (err) {
+    console.error('Replace import failed:', err)
+    toast.error(t('toasts.history.exportError'))
+  } finally {
+    pendingImportData.value = null
+    importValidation.value = null
+  }
+}
+
+function handleImportCancel() {
+  pendingImportData.value = null
+  importValidation.value = null
 }
 </script>

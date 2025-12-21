@@ -245,6 +245,51 @@
         "saveAndLoad": "Save & Load",
         "discardAndLoad": "Discard & Load"
       }
+    },
+    "importConfirm": {
+      "title": "Import Meal History",
+      "message": "You're about to import meal history data",
+      "description": "Choose how to handle existing data:",
+      "importSummary": "File contains:",
+      "entryCount": "{count} meal entries",
+      "version": "Schema version: {version}",
+      "strategyLabel": "Import strategy:",
+      "mergeStrategy": "Merge (Recommended)",
+      "mergeDescription": "Keep existing meals and add new ones. Duplicates will be skipped.",
+      "replaceStrategy": "Replace All",
+      "replaceWarning": "⚠️ This will delete all existing meal history!",
+      "actions": {
+        "merge": "Merge",
+        "replace": "Replace All"
+      }
+    },
+    "subjectManagement": {
+      "title": "Manage Subjects",
+      "addNew": "Add New Subject",
+      "namePlaceholder": "Enter subject name",
+      "editing": "Editing Subject",
+      "currentSubjects": "Current Subjects",
+      "noSubjects": "No subjects yet. Add one above.",
+      "activeSubject": "Active subject",
+      "active": "Active",
+      "setActive": "Set as active",
+      "deleteConfirm": "Are you sure you want to delete '{name}'? This cannot be undone.",
+      "info": "The active subject is used as the default when saving new meals. You can always change it later."
+    },
+    "saveMeal": {
+      "title": "Save Meal to History",
+      "titleEdit": "Update Meal",
+      "subject": "Subject",
+      "default": "Default",
+      "mealName": "Meal Name",
+      "optional": "optional",
+      "mealNamePlaceholder": "e.g., Breakfast, Lunch, Snack",
+      "notes": "Notes",
+      "notesPlaceholder": "Add any notes about this meal...",
+      "tags": "Tags",
+      "nutrientCount": "Nutrients",
+      "totalCarbs": "Total Carbs",
+      "saveButton": "Save to History"
     }
   },
   "toasts": {
@@ -260,6 +305,16 @@
     "calculator": {
       "mealSaved": "Meal saved to history",
       "mealUpdated": "Meal updated successfully"
+    },
+    "subjects": {
+      "created": "Subject '{name}' created",
+      "createError": "Failed to create subject",
+      "updated": "Subject '{name}' updated",
+      "updateError": "Failed to update subject",
+      "deleted": "Subject '{name}' deleted",
+      "deleteError": "Failed to delete subject",
+      "setActive": "'{name}' is now the active subject",
+      "setActiveError": "Failed to set active subject"
     }
   },
   "dataset": {
