@@ -8,7 +8,7 @@ const emit = defineEmits(['add', 'reset'])
 <template>
   <div class="p-4 flex gap-3">
     <BaseButton variant="primary" class="flex-1" @click="emit('add')">
-      <PlusIcon class="w-5 h-5 mr-2" />
+      <PlusIcon class="w-5 h-5" />
       {{ $t('components.mealCalculator.actions.addNutrient') }}
     </BaseButton>
     <BaseButton variant="secondary" @click="emit('reset')">

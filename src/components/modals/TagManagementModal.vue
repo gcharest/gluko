@@ -19,7 +19,7 @@
           required
         />
         <BaseButton type="submit" variant="primary" :disabled="!newTagName.trim()">
-          <PlusCircleIcon class="w-4 h-4 mr-1" />
+          <PlusCircleIcon class="w-4 h-4" />
           {{ $t('common.actions.add') }}
         </BaseButton>
       </form>
@@ -51,7 +51,7 @@
           required
         />
         <BaseButton type="submit" variant="primary" :disabled="!editTagName.trim()">
-          <CheckIcon class="w-4 h-4 mr-1" />
+          <CheckIcon class="w-4 h-4" />
           {{ $t('common.actions.save') }}
         </BaseButton>
       </form>

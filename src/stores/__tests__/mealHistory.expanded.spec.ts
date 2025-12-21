@@ -166,9 +166,7 @@ describe('Meal History Store - Expanded', () => {
 
       history.setSearchQuery('Meal 5')
 
-      expect(
-        history.filteredEntries.some((e) => (e.name ?? '').includes('Meal 5'))
-      ).toBe(true)
+      expect(history.filteredEntries.some((e) => (e.name ?? '').includes('Meal 5'))).toBe(true)
     })
 
     it('filters entries by tags', () => {

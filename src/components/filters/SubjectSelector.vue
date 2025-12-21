@@ -1,20 +1,5 @@
 <template>
   <div class="subject-selector">
-    <div v-if="allSubjectsOption" class="flex items-center mb-2">
-      <input
-        :id="allSubjectsId"
-        v-model="selectedSubjectId"
-        class="w-4 h-4 text-primary-600 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
-        type="radio"
-        name="subject"
-        :value="null"
-        @change="handleChange"
-      />
-      <label class="ml-2 text-sm text-gray-900 dark:text-white" :for="allSubjectsId">
-        {{ $t('components.subjectSelector.allSubjects') }}
-      </label>
-    </div>
-
     <!-- Loading state -->
     <div v-if="loading" class="text-center py-3">
       <div
@@ -36,37 +21,67 @@
         {{ $t('components.subjectSelector.noSubjects') }}
       </p>
       <BaseButton variant="primary" size="sm" @click="handleAddSubject">
-        {{ $t('components.subjectSelector.addSubject') }}
+        <SettingsIcon class="w-4 h-4" />
+        {{ $t('components.subjectSelector.manageSubjects') }}
       </BaseButton>
     </div>
 
-    <!-- Subject list -->
-    <div v-else class="subject-list max-h-48 overflow-y-auto space-y-2">
-      <div v-for="subject in subjects" :key="subject.id" class="flex items-center">
+    <!-- Single subject: show only manage button -->
+    <div v-else-if="subjects.length === 1" class="text-center py-2">
+      <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">
+        {{ subjects[0].name }}
+      </p>
+      <BaseButton variant="secondary" size="sm" class="w-full" @click="handleAddSubject">
+        <SettingsIcon class="w-4 h-4" />
+        {{ $t('components.subjectSelector.manageSubjects') }}
+      </BaseButton>
+    </div>
+
+    <!-- Multiple subjects: show radio list -->
+    <div v-else>
+      <div v-if="allSubjectsOption" class="flex items-center mb-2">
         <input
-          :id="getSubjectInputId(subject.id)"
+          :id="allSubjectsId"
           v-model="selectedSubjectId"
           class="w-4 h-4 text-primary-600 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
           type="radio"
           name="subject"
-          :value="subject.id"
+          :value="null"
           @change="handleChange"
         />
-        <label
-          class="ml-2 text-sm text-gray-900 dark:text-white"
-          :for="getSubjectInputId(subject.id)"
-        >
-          {{ subject.name }}
+        <label class="ml-2 text-sm text-gray-900 dark:text-white" :for="allSubjectsId">
+          {{ $t('components.subjectSelector.allSubjects') }}
         </label>
       </div>
-    </div>
 
-    <!-- Add subject button -->
-    <div class="mt-3">
-      <BaseButton variant="primary" size="sm" class="w-full" @click="handleAddSubject">
-        <PlusCircleIcon class="w-4 h-4 mr-1" />
-        {{ $t('components.subjectSelector.addSubject') }}
-      </BaseButton>
+      <!-- Subject list -->
+      <div class="subject-list max-h-48 overflow-y-auto space-y-2">
+        <div v-for="subject in subjects" :key="subject.id" class="flex items-center">
+          <input
+            :id="getSubjectInputId(subject.id)"
+            v-model="selectedSubjectId"
+            class="w-4 h-4 text-primary-600 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-primary-500 focus:ring-2"
+            type="radio"
+            name="subject"
+            :value="subject.id"
+            @change="handleChange"
+          />
+          <label
+            class="ml-2 text-sm text-gray-900 dark:text-white"
+            :for="getSubjectInputId(subject.id)"
+          >
+            {{ subject.name }}
+          </label>
+        </div>
+      </div>
+
+      <!-- Manage subjects button -->
+      <div class="mt-3">
+        <BaseButton variant="secondary" size="sm" class="w-full" @click="handleAddSubject">
+          <SettingsIcon class="w-4 h-4" />
+          {{ $t('components.subjectSelector.manageSubjects') }}
+        </BaseButton>
+      </div>
     </div>
   </div>
 </template>
@@ -77,7 +92,7 @@ import { useSubjectStore } from '@/stores/subject'
 import type { Subject } from '@/types/meal-history'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseAlert from '@/components/base/BaseAlert.vue'
-import { PlusCircleIcon } from 'lucide-vue-next'
+import { SettingsIcon } from 'lucide-vue-next'
 
 interface Props {
   modelValue: string | null

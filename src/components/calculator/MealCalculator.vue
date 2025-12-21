@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import NutrientList from '@/components/nutrients/NutrientList.vue'
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue'
@@ -23,15 +23,10 @@ const nutrientCount = computed(() => store.nutrientCount)
 const totalCarbs = computed(() => store.mealCarbs)
 const isEditing = computed(() => !!store.editingHistoryId)
 
-onBeforeMount(async () => {
-  if (store.nutrientEmpty) {
-    await store.addEmptyNutrient()
-  }
-})
+// Meal calculator starts empty - no automatic nutrient addition
 
 async function handleResetConfirm() {
   await store.clearSession()
-  await store.addEmptyNutrient()
   showResetConfirmation.value = false
 }
 
@@ -84,7 +79,7 @@ function handleManageTags() {
       "
       @click="handleSaveToHistory"
     >
-      <BookPlusIcon class="w-5 h-5 mr-2" />
+      <BookPlusIcon class="w-5 h-5" />
       {{ $t('components.mealCalculator.actions.saveToHistory') }}
     </BaseButton>
   </div>

@@ -4,6 +4,7 @@ import NutrientListItem from './NutrientListItem.vue'
 import NutrientModal from '../modals/NutrientModal.vue'
 import CalculatorSummary from '../calculator/CalculatorSummary.vue'
 import CalculatorControls from '../calculator/CalculatorControls.vue'
+import { useMealStore } from '@/stores/meal'
 import type { Nutrient } from '@/stores/meal'
 
 const props = defineProps<{
@@ -12,8 +13,16 @@ const props = defineProps<{
 
 const emit = defineEmits(['add', 'reset'])
 
+const store = useMealStore()
 const currentNutrient: Ref<Nutrient | null> = ref(null)
 const isModalOpen = ref(false)
+
+// Helper to check if a nutrient is empty/unmodified
+function isNutrientEmpty(nutrient: Nutrient): boolean {
+  const hasNoData = nutrient.quantity === 0 && nutrient.factor === 0
+  const hasDefaultName = nutrient.name === '' || nutrient.name === 'Aliment'
+  return hasNoData && hasDefaultName
+}
 
 async function handleAdd() {
   // Reset currentNutrient to ensure we get a fresh one from props
@@ -31,12 +40,16 @@ function modifyCurrentNutrient(id: string) {
   }
 }
 
-function handleModalClose() {
+async function handleModalClose() {
   isModalOpen.value = false
   if (!currentNutrient.value) return
 
+  // Check if the nutrient is still empty/unmodified
   const nutrientData = props.nutrients.find((item) => item.id === currentNutrient.value?.id)
-  if (nutrientData) {
+  if (nutrientData && isNutrientEmpty(nutrientData)) {
+    // Remove empty nutrient when cancelled
+    await store.removeNutrient(nutrientData.id)
+  } else if (nutrientData) {
     currentNutrient.value = nutrientData
   }
 }

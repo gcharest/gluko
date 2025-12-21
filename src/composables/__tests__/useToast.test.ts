@@ -1,8 +1,19 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { setActivePinia, createPinia } from 'pinia'
 import { useToast } from '@/composables/useToast'
+
+// Mock the notification store
+vi.mock('@/stores/notification', () => ({
+  useNotificationStore: () => ({
+    addNotification: vi.fn(() => 'mock-notification-id'),
+    removeNotification: vi.fn(),
+    markAsSeen: vi.fn()
+  })
+}))
 
 describe('useToast', () => {
   beforeEach(() => {
+    setActivePinia(createPinia())
     vi.clearAllTimers()
     vi.useFakeTimers()
   })

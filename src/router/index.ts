@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useNotificationStore } from '@/stores/notification'
 import HomeView from '../views/HomeView.vue'
 import CarbFactor from '@/views/CarbFactor.vue'
 import CalculatorView from '@/views/CalculatorView.vue'
@@ -46,6 +47,18 @@ const router = createRouter({
       component: () => import('../views/NotFoundView.vue')
     }
   ]
+})
+
+/**
+ * Global navigation guard to clear view-related notifications
+ * When a user visits a view, clear any notifications that should be cleared on visit
+ */
+router.afterEach((to) => {
+  const notificationStore = useNotificationStore()
+  // Clear notifications for the view being visited
+  if (to.path) {
+    notificationStore.clearNotificationsForView(to.path)
+  }
 })
 
 export default router

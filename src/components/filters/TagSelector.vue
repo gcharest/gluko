@@ -20,9 +20,9 @@
       <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
         {{ $t('dialogs.tagManagement.noTags') }}
       </p>
-      <BaseButton variant="primary" size="sm" @click="handleManageTags">
-        <PlusCircleIcon class="w-4 h-4 mr-1" />
-        {{ $t('dialogs.tagManagement.addNew') }}
+      <BaseButton variant="primary" size="sm" class="w-full" @click="handleManageTags">
+        <SettingsIcon class="w-4 h-4" />
+        {{ $t('dialogs.tagManagement.title') }}
       </BaseButton>
     </div>
 
@@ -54,7 +54,7 @@
     <!-- Manage tags button -->
     <div v-if="tags.length" class="mt-3">
       <BaseButton variant="secondary" size="sm" class="w-full" @click="handleManageTags">
-        <TagIcon class="w-4 h-4 mr-1" />
+        <TagIcon class="w-4 h-4" />
         {{ $t('dialogs.tagManagement.title') }}
       </BaseButton>
     </div>
@@ -66,7 +66,7 @@ import { ref, computed, onMounted, watch } from 'vue'
 import { useTagStore } from '@/stores/tag'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseAlert from '@/components/base/BaseAlert.vue'
-import { PlusCircleIcon, TagIcon } from 'lucide-vue-next'
+import { SettingsIcon, TagIcon } from 'lucide-vue-next'
 
 interface Props {
   modelValue: string[]

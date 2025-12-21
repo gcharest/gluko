@@ -72,7 +72,8 @@
     "subjectSelector": {
       "allSubjects": "Tous les sujets",
       "noSubjects": "Aucun sujet trouvé",
-      "addSubject": "Ajouter un sujet"
+      "addSubject": "Ajouter un sujet",
+      "manageSubjects": "Gérer les sujets"
     },
     "mealHistoryCard": {
       "actions": {
@@ -158,6 +159,9 @@
     "newContentAvailable": "Nouveau contenu disponible. Cliquez sur le bouton de rechargement pour mettre à jour.",
     "reload": "Recharger",
     "close": "Fermer"
+  },
+  "notifications": {
+    "clickToView": "Cliquez pour voir"
   },
   "pwa": {
     "updateAvailable": "Une nouvelle version de l'application est disponible. Allez dans Paramètres pour mettre à jour.",

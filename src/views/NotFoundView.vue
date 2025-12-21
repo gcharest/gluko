@@ -32,7 +32,7 @@ const goHome = () => {
 
       <!-- Action Button -->
       <BaseButton variant="primary" size="lg" @click="goHome">
-        <HomeIcon class="w-5 h-5 mr-2" />
+        <HomeIcon class="w-5 h-5" />
         {{ $t('navigation.home') }}
       </BaseButton>
     </BaseCard>
