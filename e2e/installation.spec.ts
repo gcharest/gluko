@@ -80,15 +80,26 @@ test.describe('PWA Installation', () => {
     }
   })
 
-  test('registers service worker', async ({ context }) => {
+  test('registers service worker', async ({ page }) => {
     test.skip(process.env.CI !== 'true', 'Service worker registration only asserted in CI preview/prod builds')
 
-    // Grant notification permission (optional for PWA but good practice)
-    await context.grantPermissions(['notifications'])
+    // Wait for page to fully load
+    await page.waitForLoadState('networkidle')
 
-    // Wait for service worker registration via browser context (more stable than page.evaluate)
-    const sw = await context.waitForEvent('serviceworker', { timeout: 20000 })
-    expect(sw.url()).toContain('sw.js')
+    // Check that service worker is registered via page evaluation
+    // Note: The 'serviceworker' event on context doesn't fire reliably with registerType: 'prompt'
+    const registration = await page.evaluate(async () => {
+      if (!('serviceWorker' in navigator)) return null
+      // Wait for registration to complete
+      const reg = await navigator.serviceWorker.getRegistration()
+      return reg ? { scope: reg.scope, active: !!reg.active, waiting: !!reg.waiting, installing: !!reg.installing } : null
+    })
+
+    // Verify service worker is registered
+    expect(registration).not.toBeNull()
+    expect(registration?.scope).toContain('/gluko/')
+    // At least one of these should be true (active, waiting, or installing)
+    expect(registration?.active || registration?.waiting || registration?.installing).toBeTruthy()
   })
 
   test('app works offline (service worker caching)', async ({ page, context }) => {
@@ -99,13 +110,57 @@ test.describe('PWA Installation', () => {
     // First, load the page online to populate cache
     await page.waitForLoadState('networkidle')
 
-    // Wait for service worker to be ready
+    // Wait for service worker to be registered and ready
+    // With registerType: 'prompt', the SW may be in 'waiting' state, so we need to
+    // check for either controller (active) or waiting state
     await page.waitForFunction(
-      () => {
-        return 'serviceWorker' in navigator && navigator.serviceWorker.controller !== null
+      async () => {
+        if (!('serviceWorker' in navigator)) return false
+        // Try to get the registration - if it exists, SW is at least registered
+        const registration = await navigator.serviceWorker.getRegistration()
+        return registration !== undefined
       },
       { timeout: 30000 }
     )
+
+    // Force the waiting service worker to activate by simulating a skipWaiting scenario
+    // This ensures the SW is actually controlling the page for offline testing
+    const hasController = await page.evaluate(async () => {
+      if (!navigator.serviceWorker.controller) {
+        // Wait for registration and try to get the waiting SW to activate
+        const reg = await navigator.serviceWorker.getRegistration()
+        if (reg?.waiting) {
+          // Send a message to skip waiting (if the SW supports it)
+          reg.waiting.postMessage({ type: 'SKIP_WAITING' })
+          // Wait a bit for activation
+          await new Promise(resolve => setTimeout(resolve, 2000))
+        }
+        // Also try refreshing the registration
+        await reg?.update()
+        // Wait for controller to be available
+        await new Promise((resolve) => {
+          if (navigator.serviceWorker.controller) {
+            resolve(true)
+            return
+          }
+          navigator.serviceWorker.addEventListener('controllerchange', () => resolve(true), { once: true })
+          // Timeout after 5 seconds
+          setTimeout(() => resolve(false), 5000)
+        })
+      }
+      return navigator.serviceWorker.controller !== null
+    })
+
+    // If we still don't have a controller, reload once to activate the SW
+    if (!hasController) {
+      await page.reload()
+      await page.waitForLoadState('networkidle')
+      // Now check again
+      await page.waitForFunction(
+        () => navigator.serviceWorker.controller !== null,
+        { timeout: 10000 }
+      )
+    }
 
     // Go offline
     await context.setOffline(true)
@@ -117,8 +172,8 @@ test.describe('PWA Installation', () => {
     const title = await page.title()
     expect(title).toBeTruthy()
 
-    // Check that main app element exists
-    const app = page.locator('#app')
+    // Check that main app element exists and is rendered (use .first() to handle potential duplicates)
+    const app = page.locator('#app').first()
     await expect(app).toBeVisible({ timeout: 10000 })
 
     // Go back online
