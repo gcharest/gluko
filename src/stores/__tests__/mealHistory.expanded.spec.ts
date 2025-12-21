@@ -34,7 +34,7 @@ describe('Meal History Store - Expanded', () => {
       expect(entry?.nutrients.length).toBe(2)
       expect(entry?.name).toBe('Breakfast')
       expect(entry?.tags).toContain('morning')
-      expect(entry?.carbs).toBe(100)
+      expect(entry?.totalCarbs).toBe(100)
     })
 
     it('updates entry completely', async () => {
@@ -50,14 +50,14 @@ describe('Meal History Store - Expanded', () => {
         ...entry!,
         name: 'Updated',
         notes: 'Updated notes',
-        carbs: 75,
+        totalCarbs: 75,
         tags: ['lunch']
       })
 
       expect(updated).toBe(true)
       const found = history.entries.find((e) => e.id === entry!.id)
       expect(found?.name).toBe('Updated')
-      expect(found?.carbs).toBe(75)
+      expect(found?.totalCarbs).toBe(75)
       expect(found?.tags).toContain('lunch')
     })
 
@@ -70,11 +70,15 @@ describe('Meal History Store - Expanded', () => {
         date: new Date(),
         name: 'Test',
         nutrients: [],
-        carbs: 0,
+        totalCarbs: 0,
         tags: [],
         notes: '',
-        created: new Date(),
-        lastModified: new Date()
+        metadata: {
+          created: new Date(),
+          lastModified: new Date(),
+          version: 1,
+          calculatedBy: 'current'
+        }
       })
 
       expect(result).toBe(false)
@@ -102,7 +106,7 @@ describe('Meal History Store - Expanded', () => {
 
       expect(duplicate).toBeDefined()
       expect(duplicate?.name).toBe('Original')
-      expect(duplicate?.carbs).toBe(original!.carbs)
+      expect(duplicate?.totalCarbs).toBe(original!.totalCarbs)
       expect(duplicate?.nutrients.length).toBe(original!.nutrients.length)
       expect(duplicate?.tags).toEqual(original!.tags)
       expect(duplicate?.id).not.toBe(original!.id)
@@ -175,13 +179,13 @@ describe('Meal History Store - Expanded', () => {
       expect(hasOnlyEven).toBe(true)
     })
 
-    it('filters entries by multiple tags', () => {
+    it('filters entries by multiple tags (AND match)', () => {
       const history = useMealHistoryStore()
 
       history.setSelectedTags(['even', 'special'])
 
-      const hasCorrectTags = history.filteredEntries.every(
-        (e) => e.tags.includes('even') || e.tags.includes('special')
+      const hasCorrectTags = history.filteredEntries.every((e) =>
+        ['even', 'special'].every((tag) => e.tags.includes(tag))
       )
       expect(hasCorrectTags).toBe(true)
     })
@@ -189,31 +193,27 @@ describe('Meal History Store - Expanded', () => {
     it('paginates filtered entries', () => {
       const history = useMealHistoryStore()
 
-      history.setPageSize(5)
-      expect(history.pageSize).toBe(5)
-
       history.setPage(2)
       expect(history.currentPage).toBe(2)
 
       const pageEntries = history.paginatedEntries
-      expect(pageEntries.length).toBeLessThanOrEqual(5)
+      // With fixed page size of 10 and 15 total entries, page 2 has 5
+      expect(pageEntries.length).toBe(5)
     })
 
     it('calculates total pages correctly', () => {
       const history = useMealHistoryStore()
 
-      history.setPageSize(4)
-
       const totalEntries = history.filteredEntries.length
-      const expectedPages = Math.ceil(totalEntries / 4)
+      const expectedPages = Math.ceil(totalEntries / 10)
       expect(history.totalPages).toBe(expectedPages)
     })
 
     it('resets page when filters change', () => {
       const history = useMealHistoryStore()
 
-      history.setPage(3)
-      expect(history.currentPage).toBe(3)
+      history.setPage(2)
+      expect(history.currentPage).toBe(2)
 
       history.setSearchQuery('Meal 1')
 
@@ -250,10 +250,7 @@ describe('Meal History Store - Expanded', () => {
         await history.updateEntry(historicalEntry)
       }
 
-      history.setDateRange({
-        start: yesterday,
-        end: today
-      })
+      history.setDateRange(yesterday, today)
 
       // Should include entries within range
       expect(history.filteredEntries.length).toBeGreaterThan(0)
@@ -275,7 +272,7 @@ describe('Meal History Store - Expanded', () => {
     it('provides total filtered entries count', () => {
       const history = useMealHistoryStore()
 
-      expect(history.totalFilteredEntries).toBeGreaterThan(0)
+      expect(history.filteredEntries.length).toBeGreaterThan(0)
     })
 
     it('sorts entries by date descending', () => {
@@ -311,9 +308,104 @@ describe('Meal History Store - Expanded', () => {
       expect(entry?.id).toBeDefined()
       expect(entry?.subjectId).toBeDefined()
       expect(entry?.date).toBeInstanceOf(Date)
-      expect(entry?.created).toBeInstanceOf(Date)
-      expect(entry?.lastModified).toBeInstanceOf(Date)
+      expect(entry?.metadata.created).toBeInstanceOf(Date)
+      expect(entry?.metadata.lastModified).toBeInstanceOf(Date)
       expect(entry?.nutrients).toBeInstanceOf(Array)
+    })
+
+    it('validates export data structure and imports with replace strategy', async () => {
+      const history = useMealHistoryStore()
+      const subjectStore = useSubjectStore()
+
+      await subjectStore.createSubject('ImportExportTest')
+
+      // Add some entries
+      await history.addEntry([], 10, { name: 'IE1', tags: ['x'] })
+      await history.addEntry([], 20, { name: 'IE2', tags: ['y'] })
+
+      const exportData = history.exportHistory()
+      const validation = history.validateImport(exportData)
+
+      expect(validation.valid).toBe(true)
+      expect(validation.entryCount).toBe(exportData.entries.length)
+
+      // Import with replace should keep same count
+      const result = await history.importHistory(exportData, 'replace')
+      expect(result.errors.length).toBe(0)
+      expect(result.imported).toBe(exportData.entries.length)
+      expect(history.entries.length).toBe(exportData.entries.length)
+    })
+
+    it('imports with merge strategy skipping duplicates', async () => {
+      const history = useMealHistoryStore()
+      const subjectStore = useSubjectStore()
+
+      await subjectStore.createSubject('MergeTest')
+
+      // Create a single entry and export it
+      const entry = await history.addEntry([], 33, { name: 'MergeEntry', tags: ['m'] })
+      expect(entry).toBeDefined()
+      const exportData = history.exportHistory()
+
+      // Import with merge should skip duplicates
+      const mergeResult = await history.importHistory(exportData, 'merge')
+      expect(mergeResult.skipped).toBeGreaterThan(0)
+      expect(mergeResult.imported).toBeGreaterThanOrEqual(0)
+      expect(mergeResult.errors.length).toBe(0)
+    })
+
+    it('validation fails for malformed import data', () => {
+      const history = useMealHistoryStore()
+
+      const invalid1 = history.validateImport(null as unknown)
+      expect(invalid1.valid).toBe(false)
+
+      const invalid2 = history.validateImport({} as unknown)
+      expect(invalid2.valid).toBe(false)
+      expect(invalid2.errors.length).toBeGreaterThan(0)
+    })
+  })
+
+  describe('Tags and Statistics', () => {
+    it('returns unique sorted tags', async () => {
+      const history = useMealHistoryStore()
+      const subjectStore = useSubjectStore()
+
+      await subjectStore.createSubject('TagsStatsTest')
+
+      await history.addEntry([], 10, { name: 'T1', tags: ['b', 'a'] })
+      await history.addEntry([], 20, { name: 'T2', tags: ['a', 'c'] })
+      await history.addEntry([], 30, { name: 'T3', tags: ['c', 'b'] })
+
+      expect(history.allTags).toEqual(['a', 'b', 'c'])
+    })
+
+    it('computes statistics correctly across days', async () => {
+      const history = useMealHistoryStore()
+      const subjectStore = useSubjectStore()
+
+      await subjectStore.createSubject('StatsTest')
+
+      const today = new Date()
+      const yesterday = new Date(today)
+      yesterday.setDate(yesterday.getDate() - 1)
+
+      const e1 = await history.addEntry([], 100, { name: 'S1' })
+      const e2 = await history.addEntry([], 200, { name: 'S2' })
+      const e3 = await history.addEntry([], 50, { name: 'S3' })
+
+      // Move e3 to yesterday to create two days
+      if (e3) {
+        await history.updateEntry({ ...e3, date: yesterday })
+      }
+
+      const stats = history.statistics
+      expect(stats.total).toBeGreaterThan(0)
+      expect(stats.totalCarbs).toBe(350)
+      expect(Math.round(stats.avgCarbs)).toBe(Math.round(350 / stats.total))
+      expect(stats.daysTracked).toBeGreaterThanOrEqual(2)
+      // Avg per day = average of per-day averages: ((150) + (50)) / 2 = 100
+      expect(Math.round(stats.avgCarbsPerDay)).toBe(100)
     })
   })
 })

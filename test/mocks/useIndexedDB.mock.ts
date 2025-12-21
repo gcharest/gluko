@@ -38,6 +38,9 @@ export const createMockIndexedDB = () => ({
     mockMealHistory.set(entry.id, entry)
     return Promise.resolve()
   }),
+  getMealHistory: vi.fn((id: string) => {
+    return Promise.resolve(mockMealHistory.get(id) || null)
+  }),
   getMealHistoryBySubject: vi.fn((subjectId: string) => {
     const entries = Array.from(mockMealHistory.values()).filter(
       (e: { subjectId: string }) => e.subjectId === subjectId
