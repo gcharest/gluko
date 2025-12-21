@@ -47,15 +47,17 @@ interface Props {
   open: boolean
   title?: string
   description?: string
-  size?: 'sm' | 'md' | 'lg' | 'xl'
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   showClose?: boolean
+  mobilePosition?: 'center' | 'top'
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: '',
   description: '',
   size: 'md',
-  showClose: true
+  showClose: true,
+  mobilePosition: 'center'
 })
 
 const emit = defineEmits<{
@@ -68,23 +70,33 @@ const isOpen = computed({
 })
 
 const modalClasses = computed(() => {
-  const base = [
-    'fixed left-1/2 top-1/2 z-50',
-    'transform -translate-x-1/2 -translate-y-1/2',
-    'bg-white dark:bg-gray-800',
-    'rounded-lg shadow-xl',
-    'p-6',
-    'max-h-[90vh] overflow-y-auto'
-  ]
+  // Base positioning - different for mobile vs desktop
+  const positioning =
+    props.mobilePosition === 'top'
+      ? [
+          'fixed left-1/2 z-50',
+          'transform -translate-x-1/2',
+          // Mobile: top with safe area, Desktop: centered
+          'top-4 md:top-1/2 md:-translate-y-1/2',
+          'max-h-[calc(100vh-2rem)] md:max-h-[90vh]'
+        ]
+      : [
+          'fixed left-1/2 top-1/2 z-50',
+          'transform -translate-x-1/2 -translate-y-1/2',
+          'max-h-[90vh]'
+        ]
+
+  const base = ['bg-white dark:bg-gray-800', 'rounded-lg shadow-xl', 'p-6', 'overflow-y-auto']
 
   const sizes = {
     sm: 'w-full max-w-sm',
     md: 'w-full max-w-md',
     lg: 'w-full max-w-lg',
-    xl: 'w-full max-w-xl'
+    xl: 'w-full max-w-xl',
+    '2xl': 'w-full max-w-2xl'
   }
 
-  return [...base, sizes[props.size]]
+  return [...positioning, ...base, sizes[props.size]]
 })
 
 function handleClose() {

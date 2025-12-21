@@ -4,6 +4,12 @@ import { useIndexedDB } from '@/composables/useIndexedDB'
 import { useSubjectStore } from './subject'
 import type { MealHistoryEntry } from '@/types/meal-history'
 import type { Nutrient } from '@/stores/meal'
+import type {
+  HistoryExport,
+  ImportValidationResult,
+  ImportResult,
+  ImportStrategy
+} from '@/types/history-export'
 
 const ENTRIES_PER_PAGE = 10
 
@@ -186,11 +192,29 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
 
       await db.saveMealHistory(updatedEntry)
       entries.value[index] = updatedEntry
+      // Re-sort entries in case date changed
+      entries.value.sort((a, b) => b.date.getTime() - a.date.getTime())
       return true
     } catch (err) {
       console.error('Failed to update meal history entry:', err)
       error.value = err instanceof Error ? err : new Error(String(err))
       return false
+    }
+  }
+
+  // Add entry to store (used when meal store creates new history entry)
+  function addEntryToStore(entry: MealHistoryEntry) {
+    entries.value.push(entry)
+    entries.value.sort((a, b) => b.date.getTime() - a.date.getTime())
+  }
+
+  // Update entry in store (used when meal store updates history entry)
+  function updateEntryInStore(updatedEntry: MealHistoryEntry) {
+    const index = entries.value.findIndex((e) => e.id === updatedEntry.id)
+    if (index !== -1) {
+      entries.value[index] = updatedEntry
+      // Re-sort if date changed
+      entries.value.sort((a, b) => b.date.getTime() - a.date.getTime())
     }
   }
 
@@ -258,6 +282,135 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
     currentPage.value = 1
   }
 
+  // Export history to JSON
+  function exportHistory(options?: { subjectId?: string }): HistoryExport {
+    const entriesToExport = options?.subjectId
+      ? entries.value.filter((e) => e.subjectId === options.subjectId)
+      : entries.value
+
+    // Get unique subjects
+    const subjectIds = new Set(entriesToExport.map((e) => e.subjectId))
+    const subjects = Array.from(subjectIds)
+      .map((id) => {
+        const subject = subjectStore.subjects.find((s) => s.id === id)
+        return subject ? { id: subject.id, name: subject.name } : null
+      })
+      .filter((s): s is { id: string; name: string } => s !== null)
+
+    const exportData: HistoryExport = {
+      version: '1.0',
+      exportedAt: new Date().toISOString(),
+      metadata: {
+        appVersion: import.meta.env.VITE_APP_VERSION || '0.6.0',
+        entryCount: entriesToExport.length,
+        subjects,
+        exportDate: new Date().toISOString()
+      },
+      entries: entriesToExport
+    }
+
+    return exportData
+  }
+
+  // Validate import data structure
+  function validateImport(data: unknown): ImportValidationResult {
+    const errors: string[] = []
+
+    if (!data || typeof data !== 'object') {
+      errors.push('Invalid file format')
+      return { valid: false, errors }
+    }
+
+    const importData = data as Partial<HistoryExport>
+
+    if (!importData.version) {
+      errors.push('Missing schema version')
+    }
+
+    if (!importData.exportedAt) {
+      errors.push('Missing export timestamp')
+    }
+
+    if (!importData.entries || !Array.isArray(importData.entries)) {
+      errors.push('Missing or invalid entries array')
+    }
+
+    if (!importData.metadata) {
+      errors.push('Missing metadata')
+    }
+
+    // Check version compatibility
+    if (importData.version && importData.version !== '1.0') {
+      errors.push(`Unsupported schema version: ${importData.version}`)
+    }
+
+    return {
+      valid: errors.length === 0,
+      errors,
+      version: importData.version,
+      entryCount: importData.entries?.length
+    }
+  }
+
+  // Import history from JSON
+  async function importHistory(
+    data: HistoryExport,
+    strategy: ImportStrategy
+  ): Promise<ImportResult> {
+    const result: ImportResult = {
+      imported: 0,
+      skipped: 0,
+      errors: []
+    }
+
+    try {
+      if (strategy === 'replace') {
+        // Clear existing entries
+        for (const entry of entries.value) {
+          await db.removeMealHistory(entry.id)
+        }
+        entries.value = []
+      }
+
+      // Import entries
+      for (const entry of data.entries) {
+        try {
+          // Check if entry already exists (for merge strategy)
+          const existing = entries.value.find((e) => e.id === entry.id)
+
+          if (existing && strategy === 'merge') {
+            result.skipped++
+            continue
+          }
+
+          // Ensure dates are Date objects
+          const importedEntry: MealHistoryEntry = {
+            ...entry,
+            date: new Date(entry.date),
+            metadata: {
+              ...entry.metadata,
+              created: new Date(entry.metadata.created),
+              lastModified: new Date(entry.metadata.lastModified)
+            }
+          }
+
+          await db.saveMealHistory(importedEntry)
+          entries.value.push(importedEntry)
+          result.imported++
+        } catch (err) {
+          result.errors.push(`Failed to import entry ${entry.id}: ${err}`)
+        }
+      }
+
+      // Re-sort entries
+      entries.value.sort((a, b) => b.date.getTime() - a.date.getTime())
+    } catch (err) {
+      result.errors.push(`Import failed: ${err}`)
+    }
+
+    return result
+  }
+
   return {
     // State
     entries,
@@ -283,6 +436,11 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
     setSearchQuery,
     setSelectedTags,
     setDateRange,
-    loadInitialData
+    loadInitialData,
+    addEntryToStore,
+    updateEntryInStore,
+    exportHistory,
+    validateImport,
+    importHistory
   }
 })

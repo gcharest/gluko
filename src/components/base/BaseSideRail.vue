@@ -22,12 +22,17 @@
           v-for="item in sideRailItems"
           :key="item.to"
           :to="item.to"
-          class="nav-item"
+          class="nav-item relative"
           :class="navItemClasses(item.to)"
           :aria-label="item.label"
           :title="item.label"
         >
           <component :is="item.icon" class="w-6 h-6" />
+          <span
+            v-if="item.showBadge"
+            class="absolute top-1 right-1 w-2 h-2 bg-primary-600 dark:bg-primary-400 rounded-full"
+            aria-hidden="true"
+          />
           <span class="text-xs mt-1 font-medium">{{ item.label }}</span>
         </RouterLink>
       </nav>

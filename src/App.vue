@@ -6,6 +6,7 @@ import BaseSideRail from '@/components/base/BaseSideRail.vue'
 import ReloadPrompt from '@/components/base/ReloadPrompt.vue'
 import DatabaseErrorNotification from './components/base/DatabaseErrorNotification.vue'
 import DatasetUpdateManager from './components/base/DatasetUpdateManager.vue'
+import ToastContainer from '@/components/base/ToastContainer.vue'
 </script>
 
 <template>
@@ -38,6 +39,7 @@ import DatasetUpdateManager from './components/base/DatasetUpdateManager.vue'
     <ReloadPrompt />
     <DatabaseErrorNotification />
     <DatasetUpdateManager />
+    <ToastContainer />
   </div>
 </template>
 

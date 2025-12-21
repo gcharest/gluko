@@ -16,6 +16,10 @@
       "close": "Close",
       "search": "Search"
     },
+    "navigation": {
+      "backToHistory": "Back to history",
+      "viewHistory": "View history"
+    },
     "labels": {
       "quantity": "Quantity",
       "factor": "Factor",
@@ -72,12 +76,18 @@
     },
     "mealHistoryCard": {
       "actions": {
+        "menu": "Meal actions",
         "edit": "Edit Meal",
         "duplicate": "Duplicate Meal",
         "delete": "Delete Meal"
       },
       "nutrients": "nutrients",
-      "tags": "tags"
+      "tags": "tags",
+      "showDetails": "Show details",
+      "hideDetails": "Hide details",
+      "nutrientDetails": "Nutrient Details",
+      "total": "Total",
+      "carbs": "carbs"
     },
     "nutrientList": {
       "item": {
@@ -149,6 +159,15 @@
     "reload": "Reload",
     "close": "Close"
   },
+  "pwa": {
+    "updateAvailable": "A new version of the app is available. Go to Settings to update.",
+    "offlineReady": "App is ready to work offline",
+    "updateReady": "Update ready to install",
+    "checkingForUpdates": "Checking for updates...",
+    "noUpdatesAvailable": "You're running the latest version",
+    "updateCheckFailed": "Failed to check for updates. Please try again.",
+    "applyUpdate": "Install Update"
+  },
   "databaseError": {
     "title": "Database Connection Issue",
     "refresh": "Refresh Now",
@@ -184,6 +203,7 @@
         "dateRange": "Date Range",
         "subject": "Subject",
         "tags": "Tags",
+        "manageTags": "Manage tags",
         "search": "Search",
         "searchPlaceholder": "Search meals..."
       },
@@ -198,6 +218,9 @@
         "loading": "Loading meals..."
       },
       "empty": "No meals found matching your criteria."
+    },
+    "calculator": {
+      "editingHistory": "Editing saved meal"
     }
   },
   "modals": {
@@ -219,6 +242,108 @@
     "general": {
       "confirm": "Confirm",
       "cancel": "Cancel"
+    }
+  },
+  "dialogs": {
+    "unsavedChanges": {
+      "title": "Unsaved Changes",
+      "message": "You have unsaved changes in your current calculation",
+      "description": "What would you like to do with your current work?",
+      "currentCalculation": "Current calculation:",
+      "nutrients": "nutrients",
+      "carbs": "carbs",
+      "actions": {
+        "saveAndLoad": "Save & Load",
+        "discardAndLoad": "Discard & Load"
+      }
+    },
+    "importConfirm": {
+      "title": "Import Meal History",
+      "message": "You're about to import meal history data",
+      "description": "Choose how to handle existing data:",
+      "importSummary": "File contains:",
+      "entryCount": "{count} meal entries",
+      "version": "Schema version: {version}",
+      "strategyLabel": "Import strategy:",
+      "mergeStrategy": "Merge (Recommended)",
+      "mergeDescription": "Keep existing meals and add new ones. Duplicates will be skipped.",
+      "replaceStrategy": "Replace All",
+      "replaceWarning": "⚠️ This will delete all existing meal history!",
+      "actions": {
+        "merge": "Merge",
+        "replace": "Replace All"
+      }
+    },
+    "subjectManagement": {
+      "title": "Manage Subjects",
+      "addNew": "Add New Subject",
+      "namePlaceholder": "Enter subject name",
+      "editing": "Editing Subject",
+      "currentSubjects": "Current Subjects",
+      "noSubjects": "No subjects yet. Add one above.",
+      "activeSubject": "Active subject",
+      "active": "Active",
+      "setActive": "Set as active",
+      "deleteConfirm": "Are you sure you want to delete '{name}'? This cannot be undone.",
+      "info": "The active subject is used as the default when saving new meals. You can always change it later."
+    },
+    "saveMeal": {
+      "title": "Save Meal to History",
+      "titleEdit": "Update Meal",
+      "subject": "Subject",
+      "default": "Default",
+      "mealName": "Meal Name",
+      "optional": "optional",
+      "mealNamePlaceholder": "e.g., Breakfast, Lunch, Snack",
+      "notes": "Notes",
+      "notesPlaceholder": "Add any notes about this meal...",
+      "tags": "Tags",
+      "nutrientCount": "Nutrients",
+      "totalCarbs": "Total Carbs",
+      "saveButton": "Save to History"
+    },
+    "tagManagement": {
+      "title": "Manage Tags",
+      "addNew": "Add New Tag",
+      "namePlaceholder": "Enter tag name (e.g., breakfast, snack)",
+      "editing": "Editing Tag",
+      "currentTags": "Current Tags",
+      "noTags": "No tags yet. Add one above.",
+      "deleteConfirm": "Are you sure you want to delete the tag '{name}'? It will be removed from all meals.",
+      "info": "Tags help you organize and filter your meals by type, time of day, or any category you choose."
+    }
+  },
+  "toasts": {
+    "history": {
+      "exportSuccess": "Exported {count} meals successfully",
+      "exportError": "Failed to export history",
+      "importSuccess": "Imported {imported} meals ({skipped} skipped)",
+      "importPartialError": "Imported {imported} meals, {failed} failed",
+      "loadedForEditing": "Meal loaded for editing",
+      "duplicated": "Meal duplicated. Make changes and save as new.",
+      "mealDeleted": "Meal deleted successfully"
+    },
+    "calculator": {
+      "mealSaved": "Meal saved to history",
+      "mealUpdated": "Meal updated successfully"
+    },
+    "subjects": {
+      "created": "Subject '{name}' created",
+      "createError": "Failed to create subject",
+      "updated": "Subject '{name}' updated",
+      "updateError": "Failed to update subject",
+      "deleted": "Subject '{name}' deleted",
+      "deleteError": "Failed to delete subject",
+      "setActive": "'{name}' is now the active subject",
+      "setActiveError": "Failed to set active subject"
+    },
+    "tags": {
+      "created": "Tag '{name}' created",
+      "createError": "Failed to create tag",
+      "updated": "Tag '{name}' updated",
+      "updateError": "Failed to update tag",
+      "deleted": "Tag '{name}' deleted",
+      "deleteError": "Failed to delete tag"
     }
   },
   "dataset": {
@@ -266,6 +391,14 @@
   },
   "settings": {
     "title": "Settings",
+    "app": {
+      "title": "Application",
+      "currentVersion": "App Version",
+      "checkForUpdates": "Check for Updates",
+      "updateAvailable": "Update available",
+      "installUpdate": "Install Update",
+      "upToDate": "App is up to date"
+    },
     "dataset": {
       "title": "Dataset Information",
       "currentVersion": "Current Version",

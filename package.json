@@ -1,6 +1,6 @@
 {
   "name": "gluko",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,6 +11,7 @@
     "test:unit:run": "vitest --run",
     "test:unit:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
+    "test:e2e:ci": "CI=true npm run build && CI=true playwright test",
     "test:e2e:a11y": "playwright test e2e/accessibility.spec.ts",
     "test:e2e:a11y:ci": "CI=true npm run build && CI=true playwright test e2e/accessibility.spec.ts",
     "build-only": "vite build",

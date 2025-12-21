@@ -16,6 +16,10 @@
       "close": "Fermer",
       "search": "Chercher"
     },
+    "navigation": {
+      "backToHistory": "Retour à l'historique",
+      "viewHistory": "Voir l'historique"
+    },
     "labels": {
       "quantity": "Quantité",
       "factor": "Facteur",
@@ -72,12 +76,18 @@
     },
     "mealHistoryCard": {
       "actions": {
+        "menu": "Actions du repas",
         "edit": "Modifier le repas",
         "duplicate": "Dupliquer le repas",
         "delete": "Supprimer le repas"
       },
       "nutrients": "aliments",
-      "tags": "étiquettes"
+      "tags": "étiquettes",
+      "showDetails": "Afficher les détails",
+      "hideDetails": "Masquer les détails",
+      "nutrientDetails": "Détails des aliments",
+      "total": "Total",
+      "carbs": "glucides"
     },
     "nutrientList": {
       "item": {
@@ -149,6 +159,15 @@
     "reload": "Recharger",
     "close": "Fermer"
   },
+  "pwa": {
+    "updateAvailable": "Une nouvelle version de l'application est disponible. Allez dans Paramètres pour mettre à jour.",
+    "offlineReady": "L'application est prête à fonctionner hors ligne",
+    "updateReady": "Mise à jour prête à installer",
+    "checkingForUpdates": "Vérification des mises à jour...",
+    "noUpdatesAvailable": "Vous utilisez la dernière version",
+    "updateCheckFailed": "Échec de la vérification des mises à jour. Veuillez réessayer.",
+    "applyUpdate": "Installer la mise à jour"
+  },
   "aboutText": {
     "para1": "Cette application a pour objectif de faciliter le calcul des glucides.",
     "para2": "Le calculateur de glucides permet d'ajouter des aliments dans une liste, d'indiquer la quantité en gramme ainsi que le facteur glucidique. Le calculateur de glucides affichera le total des glucides de la liste d'aliments saisis.",
@@ -178,6 +197,7 @@
         "dateRange": "Période",
         "subject": "Sujet",
         "tags": "Étiquettes",
+        "manageTags": "Gérer les étiquettes",
         "search": "Rechercher",
         "searchPlaceholder": "Rechercher des repas..."
       },
@@ -192,6 +212,9 @@
         "loading": "Chargement des repas..."
       },
       "empty": "Aucun repas ne correspond à vos critères."
+    },
+    "calculator": {
+      "editingHistory": "Modification d'un repas enregistré"
     }
   },
   "modals": {
@@ -213,6 +236,108 @@
     "general": {
       "confirm": "Confirmer",
       "cancel": "Annuler"
+    }
+  },
+  "dialogs": {
+    "unsavedChanges": {
+      "title": "Modifications non enregistrées",
+      "message": "Vous avez des modifications non enregistrées dans votre calcul actuel",
+      "description": "Que souhaitez-vous faire avec votre travail actuel?",
+      "currentCalculation": "Calcul actuel:",
+      "nutrients": "aliments",
+      "carbs": "glucides",
+      "actions": {
+        "saveAndLoad": "Sauvegarder et charger",
+        "discardAndLoad": "Abandonner et charger"
+      }
+    },
+    "importConfirm": {
+      "title": "Importer l'historique des repas",
+      "message": "Vous êtes sur le point d'importer des données d'historique de repas",
+      "description": "Choisissez comment gérer les données existantes:",
+      "importSummary": "Le fichier contient:",
+      "entryCount": "{count} entrées de repas",
+      "version": "Version du schéma: {version}",
+      "strategyLabel": "Stratégie d'importation:",
+      "mergeStrategy": "Fusionner (Recommandé)",
+      "mergeDescription": "Conserver les repas existants et ajouter les nouveaux. Les doublons seront ignorés.",
+      "replaceStrategy": "Tout remplacer",
+      "replaceWarning": "⚠️ Cela supprimera tout l'historique des repas existant!",
+      "actions": {
+        "merge": "Fusionner",
+        "replace": "Tout remplacer"
+      }
+    },
+    "subjectManagement": {
+      "title": "Gérer les sujets",
+      "addNew": "Ajouter un nouveau sujet",
+      "namePlaceholder": "Entrez le nom du sujet",
+      "editing": "Modification du sujet",
+      "currentSubjects": "Sujets actuels",
+      "noSubjects": "Aucun sujet pour le moment. Ajoutez-en un ci-dessus.",
+      "activeSubject": "Sujet actif",
+      "active": "Actif",
+      "setActive": "Définir comme actif",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer '{name}'? Cette action est irréversible.",
+      "info": "Le sujet actif est utilisé par défaut lors de l'enregistrement de nouveaux repas. Vous pouvez toujours le changer plus tard."
+    },
+    "saveMeal": {
+      "title": "Enregistrer le repas dans l'historique",
+      "titleEdit": "Mettre à jour le repas",
+      "subject": "Sujet",
+      "default": "Par défaut",
+      "mealName": "Nom du repas",
+      "optional": "facultatif",
+      "mealNamePlaceholder": "ex: Petit-déjeuner, Déjeuner, Collation",
+      "notes": "Notes",
+      "notesPlaceholder": "Ajoutez des notes sur ce repas...",
+      "tags": "Étiquettes",
+      "nutrientCount": "Aliments",
+      "totalCarbs": "Glucides totaux",
+      "saveButton": "Enregistrer dans l'historique"
+    },
+    "tagManagement": {
+      "title": "Gérer les étiquettes",
+      "addNew": "Ajouter une nouvelle étiquette",
+      "namePlaceholder": "Entrez le nom de l'étiquette (ex: petit-déjeuner, collation)",
+      "editing": "Modification de l'étiquette",
+      "currentTags": "Étiquettes actuelles",
+      "noTags": "Aucune étiquette pour le moment. Ajoutez-en une ci-dessus.",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer l'étiquette '{name}'? Elle sera retirée de tous les repas.",
+      "info": "Les étiquettes vous aident à organiser et filtrer vos repas par type, moment de la journée, ou toute catégorie de votre choix."
+    }
+  },
+  "toasts": {
+    "history": {
+      "exportSuccess": "{count} repas exportés avec succès",
+      "exportError": "Échec de l'exportation de l'historique",
+      "importSuccess": "{imported} repas importés ({skipped} ignorés)",
+      "importPartialError": "{imported} repas importés, {failed} échoués",
+      "loadedForEditing": "Repas chargé pour modification",
+      "duplicated": "Repas dupliqué. Effectuez les modifications et enregistrez comme nouveau.",
+      "mealDeleted": "Repas supprimé avec succès"
+    },
+    "calculator": {
+      "mealSaved": "Repas enregistré dans l'historique",
+      "mealUpdated": "Repas mis à jour avec succès"
+    },
+    "subjects": {
+      "created": "Sujet '{name}' créé",
+      "createError": "Échec de la création du sujet",
+      "updated": "Sujet '{name}' mis à jour",
+      "updateError": "Échec de la mise à jour du sujet",
+      "deleted": "Sujet '{name}' supprimé",
+      "deleteError": "Échec de la suppression du sujet",
+      "setActive": "'{name}' est maintenant le sujet actif",
+      "setActiveError": "Échec de la définition du sujet actif"
+    },
+    "tags": {
+      "created": "Étiquette '{name}' créée",
+      "createError": "Échec de la création de l'étiquette",
+      "updated": "Étiquette '{name}' mise à jour",
+      "updateError": "Échec de la mise à jour de l'étiquette",
+      "deleted": "Étiquette '{name}' supprimée",
+      "deleteError": "Échec de la suppression de l'étiquette"
     }
   },
   "dataset": {
@@ -260,6 +385,14 @@
   },
   "settings": {
     "title": "Paramètres",
+    "app": {
+      "title": "Application",
+      "currentVersion": "Version de l'application",
+      "checkForUpdates": "Vérifier les mises à jour",
+      "updateAvailable": "Mise à jour disponible",
+      "installUpdate": "Installer la mise à jour",
+      "upToDate": "L'application est à jour"
+    },
     "dataset": {
       "title": "Informations sur les données",
       "currentVersion": "Version actuelle",

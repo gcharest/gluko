@@ -4,6 +4,51 @@
       {{ $t('settings.title') }}
     </h1>
 
+    <!-- Application Update Section -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+        {{ $t('settings.app.title') }}
+      </h2>
+
+      <BaseCard>
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex flex-col">
+            <span class="text-sm text-gray-600 dark:text-gray-400">{{
+              $t('settings.app.currentVersion')
+            }}</span>
+            <span class="text-base font-semibold text-gray-900 dark:text-white mt-1">
+              {{ appVersion }}
+            </span>
+          </div>
+          <div v-if="hasPWAUpdate" class="flex items-center gap-2">
+            <span
+              class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300"
+            >
+              {{ $t('settings.app.updateAvailable') }}
+            </span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <BaseButton
+            variant="secondary"
+            :disabled="isCheckingPWAUpdates"
+            :loading="isCheckingPWAUpdates"
+            @click="checkForPWAUpdates"
+          >
+            {{ $t('settings.app.checkForUpdates') }}
+          </BaseButton>
+          <BaseButton v-if="hasPWAUpdate" variant="primary" @click="installPWAUpdate">
+            {{ $t('settings.app.installUpdate') }}
+          </BaseButton>
+        </div>
+
+        <BaseAlert v-if="pwaUpdateMessage" :variant="pwaUpdateAlertVariant" class="mt-4">
+          {{ pwaUpdateMessage }}
+        </BaseAlert>
+      </BaseCard>
+    </section>
+
     <!-- Dataset Information Section -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
@@ -40,7 +85,7 @@
 
         <div class="flex flex-col sm:flex-row gap-3">
           <BaseButton
-            variant="primary"
+            variant="secondary"
             :disabled="isCheckingUpdates"
             :loading="isCheckingUpdates"
             @click="checkForUpdates"
@@ -96,6 +141,7 @@ import { useI18n } from 'vue-i18n'
 import { useNutrientFileStore } from '@/stores/nutrientsFile'
 import { useStorageQuota } from '@/composables/useStorageQuota'
 import { useIndexedDB } from '@/composables/useIndexedDB'
+import { usePWAUpdate } from '@/composables/usePWAUpdate'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseAlert from '@/components/base/BaseAlert.vue'
@@ -106,6 +152,7 @@ const { t } = useI18n()
 const nutrientStore = useNutrientFileStore()
 const storageQuota = useStorageQuota()
 const db = useIndexedDB()
+const pwaUpdate = usePWAUpdate()
 
 const datasetVersion = ref<string>('')
 const datasetInstalledAt = ref<Date | null>(null)
@@ -116,6 +163,12 @@ const updateAvailable = ref(false)
 const latestVersion = ref<string>('')
 const updateCheckMessage = ref<string>('')
 
+// PWA Update state
+const appVersion = ref<string>(import.meta.env.VITE_APP_VERSION || '0.6.0')
+const isCheckingPWAUpdates = ref(false)
+const pwaUpdateMessage = ref<string>('')
+const hasPWAUpdate = computed(() => pwaUpdate.hasUpdate.value)
+
 const quotaInfo = computed(() => storageQuota.quotaInfo.value)
 const loadProgress = computed(() => nutrientStore.loadProgress)
 
@@ -123,6 +176,15 @@ const updateCheckAlertVariant = computed<'success' | 'warning' | 'danger' | 'inf
   if (updateAvailable.value) return 'info'
   if (updateCheckMessage.value.includes('up to date')) return 'success'
   if (updateCheckMessage.value.includes('error') || updateCheckMessage.value.includes('failed'))
+    return 'danger'
+  return 'info'
+})
+
+const pwaUpdateAlertVariant = computed<'success' | 'warning' | 'danger' | 'info'>(() => {
+  if (hasPWAUpdate.value) return 'info'
+  if (pwaUpdateMessage.value.includes('up to date') || pwaUpdateMessage.value.includes('latest'))
+    return 'success'
+  if (pwaUpdateMessage.value.includes('error') || pwaUpdateMessage.value.includes('failed'))
     return 'danger'
   return 'info'
 })
@@ -230,6 +292,32 @@ const handleRequestPersistence = async () => {
 const handleClearStorage = () => {
   // TODO: Implement with confirmation dialog
   alert(t('settings.dataset.clearStoragePrompt'))
+}
+
+// PWA Update functions
+const checkForPWAUpdates = async () => {
+  isCheckingPWAUpdates.value = true
+  pwaUpdateMessage.value = ''
+
+  try {
+    const hasUpdate = await pwaUpdate.checkForUpdates()
+
+    if (hasUpdate) {
+      pwaUpdateMessage.value = t('settings.app.updateAvailable')
+    } else {
+      pwaUpdateMessage.value = t('settings.app.upToDate')
+    }
+  } catch (error) {
+    console.error('PWA update check failed:', error)
+    pwaUpdateMessage.value = t('pwa.updateCheckFailed')
+  } finally {
+    isCheckingPWAUpdates.value = false
+  }
+}
+
+const installPWAUpdate = async () => {
+  await pwaUpdate.applyUpdate()
+  // Page will reload automatically
 }
 
 const formatNumber = (num: number): string => {
