@@ -41,10 +41,15 @@
 
             <!-- Tags Filter -->
             <div>
-              <h3 class="text-base font-medium text-gray-900 dark:text-white mb-2">
-                {{ $t('views.mealHistory.filters.tags') }}
-              </h3>
-              <!-- TODO: Add tags selector component -->
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-base font-medium text-gray-900 dark:text-white">
+                  {{ $t('views.mealHistory.filters.tags') }}
+                </h3>
+                <BaseButton variant="ghost" size="sm" @click="handleManageTags">
+                  <TagIcon class="w-4 h-4" />
+                </BaseButton>
+              </div>
+              <TagSelector v-model="selectedTagIds" @manage="handleManageTags" />
             </div>
 
             <!-- Search Filter -->
@@ -211,6 +216,9 @@
 
     <!-- Subject Management Modal -->
     <SubjectManagementModal v-model="showSubjectManagementDialog" />
+
+    <!-- Tag Management Modal -->
+    <TagManagementModal v-model="showTagManagementDialog" />
   </div>
 </template>
 
@@ -231,16 +239,19 @@ import BaseInput from '@/components/base/BaseInput.vue'
 import BaseAlert from '@/components/base/BaseAlert.vue'
 import DateRangeFilter from '@/components/filters/DateRangeFilter.vue'
 import SubjectSelector from '@/components/filters/SubjectSelector.vue'
+import TagSelector from '@/components/filters/TagSelector.vue'
 import MealHistoryCard from '@/components/history/MealHistoryCard.vue'
 import UnsavedChangesModal from '@/components/modals/UnsavedChangesModal.vue'
 import ImportConfirmModal from '@/components/modals/ImportConfirmModal.vue'
 import SubjectManagementModal from '@/components/modals/SubjectManagementModal.vue'
+import TagManagementModal from '@/components/modals/TagManagementModal.vue'
 import {
   DownloadIcon,
   UploadIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ChevronDownIcon
+  ChevronDownIcon,
+  TagIcon
 } from 'lucide-vue-next'
 
 const router = useRouter()
@@ -305,6 +316,10 @@ const selectedSubjectId = computed({
     if (val) subjectStore.setActiveSubject(val)
   }
 })
+const selectedTagIds = computed({
+  get: () => mealHistoryStore.selectedTags,
+  set: (val: string[]) => mealHistoryStore.setSelectedTags(val)
+})
 
 // Get paginated meals from store
 const paginatedMeals = computed(() => mealHistoryStore.paginatedEntries)
@@ -363,9 +378,16 @@ const importValidation = ref<{ version?: string; entryCount?: number } | null>(n
 // Subject management dialog state
 const showSubjectManagementDialog = ref(false)
 
+// Tag management dialog state
+const showTagManagementDialog = ref(false)
+
 // Event handlers
 function handleAddSubject() {
   showSubjectManagementDialog.value = true
+}
+
+function handleManageTags() {
+  showTagManagementDialog.value = true
 }
 
 async function handleEditMeal(meal: MealHistoryEntry) {

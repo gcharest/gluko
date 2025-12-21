@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import NutrientList from '@/components/nutrients/NutrientList.vue'
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue'
 import SaveMealModal from '@/components/modals/SaveMealModal.vue'
+import TagManagementModal from '@/components/modals/TagManagementModal.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { useMealStore } from '@/stores/meal'
 import { useToast } from '@/composables/useToast'
@@ -16,6 +17,7 @@ const { t } = useI18n()
 
 const showResetConfirmation = ref(false)
 const showSaveDialog = ref(false)
+const showTagManagementDialog = ref(false)
 
 const nutrientCount = computed(() => store.nutrientCount)
 const totalCarbs = computed(() => store.mealCarbs)
@@ -63,6 +65,10 @@ async function handleSaveConfirm(data: {
     toast.error(t('toasts.history.exportError'))
   }
 }
+
+function handleManageTags() {
+  showTagManagementDialog.value = true
+}
 </script>
 
 <template>
@@ -99,5 +105,8 @@ async function handleSaveConfirm(data: {
     :total-carbs="totalCarbs"
     :is-editing="isEditing"
     @save="handleSaveConfirm"
+    @manage-tags="handleManageTags"
   />
+
+  <TagManagementModal v-model="showTagManagementDialog" />
 </template>

@@ -59,12 +59,15 @@
         />
       </div>
 
-      <!-- Tags (placeholder for future) -->
-      <div v-if="false">
+      <!-- Tags -->
+      <div>
         <label class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
           {{ $t('dialogs.saveMeal.tags') }}
+          <span class="text-gray-500 dark:text-gray-400 font-normal">
+            ({{ $t('dialogs.saveMeal.optional') }})
+          </span>
         </label>
-        <!-- TODO: Tag selector component -->
+        <TagSelector v-model="selectedTags" @manage="handleManageTags" />
       </div>
 
       <!-- Summary info -->
@@ -105,6 +108,7 @@ import { useSubjectStore } from '@/stores/subject'
 import BaseModal from '@/components/base/BaseModal.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
+import TagSelector from '@/components/filters/TagSelector.vue'
 import { BookPlusIcon } from 'lucide-vue-next'
 
 interface Props {
@@ -128,6 +132,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   'update:modelValue': [value: boolean]
   save: [data: { subjectId: string; name?: string; notes?: string; tags?: string[] }]
+  'manage-tags': []
 }>()
 
 const subjectStore = useSubjectStore()
@@ -136,6 +141,7 @@ const subjectStore = useSubjectStore()
 const selectedSubjectId = ref<string>('')
 const mealName = ref('')
 const mealNotes = ref('')
+const selectedTags = ref<string[]>([])
 
 // Computed
 const subjects = computed(() => subjectStore.sortedSubjects.filter((s) => s.active))
@@ -151,6 +157,7 @@ watch(
         props.initialSubjectId || subjectStore.activeSubjectId || subjects.value[0]?.id || ''
       mealName.value = props.initialName || ''
       mealNotes.value = props.initialNotes || ''
+      selectedTags.value = [...props.initialTags]
     }
   },
   { immediate: true }
@@ -163,9 +170,13 @@ function handleSave() {
     subjectId: selectedSubjectId.value,
     name: mealName.value.trim() || undefined,
     notes: mealNotes.value.trim() || undefined,
-    tags: props.initialTags.length > 0 ? props.initialTags : []
+    tags: selectedTags.value.length > 0 ? selectedTags.value : undefined
   })
 
   emit('update:modelValue', false)
+}
+
+function handleManageTags() {
+  emit('manage-tags')
 }
 </script>

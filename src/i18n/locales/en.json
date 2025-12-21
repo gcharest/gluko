@@ -290,6 +290,16 @@
       "nutrientCount": "Nutrients",
       "totalCarbs": "Total Carbs",
       "saveButton": "Save to History"
+    },
+    "tagManagement": {
+      "title": "Manage Tags",
+      "addNew": "Add New Tag",
+      "namePlaceholder": "Enter tag name (e.g., breakfast, snack)",
+      "editing": "Editing Tag",
+      "currentTags": "Current Tags",
+      "noTags": "No tags yet. Add one above.",
+      "deleteConfirm": "Are you sure you want to delete the tag '{name}'? It will be removed from all meals.",
+      "info": "Tags help you organize and filter your meals by type, time of day, or any category you choose."
     }
   },
   "toasts": {
@@ -315,6 +325,14 @@
       "deleteError": "Failed to delete subject",
       "setActive": "'{name}' is now the active subject",
       "setActiveError": "Failed to set active subject"
+    },
+    "tags": {
+      "created": "Tag '{name}' created",
+      "createError": "Failed to create tag",
+      "updated": "Tag '{name}' updated",
+      "updateError": "Failed to update tag",
+      "deleted": "Tag '{name}' deleted",
+      "deleteError": "Failed to delete tag"
     }
   },
   "dataset": {

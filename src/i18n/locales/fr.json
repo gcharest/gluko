@@ -284,6 +284,16 @@
       "nutrientCount": "Aliments",
       "totalCarbs": "Glucides totaux",
       "saveButton": "Enregistrer dans l'historique"
+    },
+    "tagManagement": {
+      "title": "Gérer les étiquettes",
+      "addNew": "Ajouter une nouvelle étiquette",
+      "namePlaceholder": "Entrez le nom de l'étiquette (ex: petit-déjeuner, collation)",
+      "editing": "Modification de l'étiquette",
+      "currentTags": "Étiquettes actuelles",
+      "noTags": "Aucune étiquette pour le moment. Ajoutez-en une ci-dessus.",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer l'étiquette '{name}'? Elle sera retirée de tous les repas.",
+      "info": "Les étiquettes vous aident à organiser et filtrer vos repas par type, moment de la journée, ou toute catégorie de votre choix."
     }
   },
   "toasts": {
@@ -309,6 +319,14 @@
       "deleteError": "Échec de la suppression du sujet",
       "setActive": "'{name}' est maintenant le sujet actif",
       "setActiveError": "Échec de la définition du sujet actif"
+    },
+    "tags": {
+      "created": "Étiquette '{name}' créée",
+      "createError": "Échec de la création de l'étiquette",
+      "updated": "Étiquette '{name}' mise à jour",
+      "updateError": "Échec de la mise à jour de l'étiquette",
+      "deleted": "Étiquette '{name}' supprimée",
+      "deleteError": "Échec de la suppression de l'étiquette"
     }
   },
   "dataset": {

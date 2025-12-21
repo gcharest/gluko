@@ -9,6 +9,7 @@ import type {
   UserAccount
 } from '@/types/meal-history'
 import type { ShardMetadata, ManifestVersion } from '@/types/shard-loading'
+import type { Tag } from '@/types/tag'
 
 interface DBSchema {
   favoriteNutrients: {
@@ -47,10 +48,14 @@ interface DBSchema {
     key: string
     value: ManifestVersion
   }
+  tags: {
+    key: string
+    value: Tag
+  }
 }
 
 const DB_NAME = 'GlukoApp'
-const DB_VERSION = 4 // v4: Adding shard metadata stores for v0.3 shard-based dataset loading
+const DB_VERSION = 5 // v5: Adding tags store for v0.6 tag system
 
 export const useIndexedDB = () => {
   const db = ref<IDBDatabase | null>(null)
@@ -232,6 +237,12 @@ export const useIndexedDB = () => {
           shardMetadataStore.createIndex('by-checksum', 'checksum', { unique: false })
 
           database.createObjectStore('manifestVersion', { keyPath: 'version' })
+        }
+
+        // v5: Add tags store for tag system
+        if (oldVersion < 5) {
+          const tagsStore = database.createObjectStore('tags', { keyPath: 'id' })
+          tagsStore.createIndex('by-name', 'name', { unique: false })
         }
       }
 
@@ -478,6 +489,12 @@ export const useIndexedDB = () => {
   const saveSubject = (subject: Subject) => put('subjects', subject)
   const removeSubject = (id: string) => remove('subjects', id)
 
+  // Tag management methods
+  const getTag = (id: string) => get('tags', id)
+  const getAllTags = () => getAll('tags')
+  const saveTag = (tag: Tag) => put('tags', tag)
+  const removeTag = (id: string) => remove('tags', id)
+
   // Calculation session methods
   const getSession = (id: string) => get('activeSessions', id)
   const getSessionsBySubject = (subjectId: string) =>
@@ -537,6 +554,12 @@ export const useIndexedDB = () => {
     getActiveSubjects,
     saveSubject,
     removeSubject,
+
+    // Tag operations
+    getTag,
+    getAllTags,
+    saveTag,
+    removeTag,
 
     // Session operations
     getSession,

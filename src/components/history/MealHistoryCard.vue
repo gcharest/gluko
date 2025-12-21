@@ -74,13 +74,13 @@
     </div>
 
     <!-- Tags -->
-    <div v-if="meal.tags?.length" class="flex flex-wrap gap-2 mb-3">
+    <div v-if="tagNames.length" class="flex flex-wrap gap-2 mb-3">
       <span
-        v-for="tag in meal.tags"
-        :key="tag"
+        v-for="tagName in tagNames"
+        :key="tagName"
         class="px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 rounded-full"
       >
-        {{ tag }}
+        {{ tagName }}
       </span>
     </div>
 
@@ -147,6 +147,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useSubjectStore } from '@/stores/subject'
+import { useTagStore } from '@/stores/tag'
 import type { MealHistoryEntry } from '@/types/meal-history'
 import BaseCard from '@/components/base/BaseCard.vue'
 import NutrientListItem from '@/components/history/NutrientListItem.vue'
@@ -166,6 +167,7 @@ interface Props {
 
 const props = defineProps<Props>()
 const subjectStore = useSubjectStore()
+const tagStore = useTagStore()
 
 defineEmits(['edit', 'duplicate', 'delete'])
 
@@ -176,6 +178,17 @@ const expanded = ref(false)
 const subjectName = computed(() => {
   const subject = subjectStore.subjectById(props.meal.subjectId)
   return subject?.name
+})
+
+// Get tag names from tag IDs
+const tagNames = computed(() => {
+  if (!props.meal.tags?.length) return []
+  return props.meal.tags
+    .map((tagId) => {
+      const tag = tagStore.tagById(tagId)
+      return tag?.name
+    })
+    .filter((name): name is string => !!name)
 })
 
 // Format date based on current locale
