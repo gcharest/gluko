@@ -88,6 +88,68 @@
     <p v-if="meal.notes" class="text-sm text-gray-600 dark:text-gray-400">
       {{ meal.notes }}
     </p>
+
+    <!-- Expand/Collapse Button -->
+    <button
+      v-if="meal.nutrients.length > 0"
+      type="button"
+      class="mt-3 w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+      :aria-expanded="expanded"
+      :aria-controls="`nutrient-list-${meal.id}`"
+      @click="toggleExpand"
+    >
+      <ChevronDownIcon
+        class="w-4 h-4 transition-transform"
+        :class="{ 'rotate-180': expanded }"
+      />
+      <span>
+        {{
+          expanded
+            ? $t('components.mealHistoryCard.hideDetails')
+            : $t('components.mealHistoryCard.showDetails')
+        }}
+      </span>
+    </button>
+
+    <!-- Expandable Nutrient List -->
+    <Transition
+      enter-active-class="transition-all duration-200 ease-out"
+      enter-from-class="opacity-0 max-h-0"
+      enter-to-class="opacity-100 max-h-[1000px]"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="opacity-100 max-h-[1000px]"
+      leave-to-class="opacity-0 max-h-0"
+    >
+      <div
+        v-if="expanded"
+        :id="`nutrient-list-${meal.id}`"
+        class="mt-3 overflow-hidden"
+      >
+        <div class="border-t border-gray-200 dark:border-gray-700 pt-3">
+          <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+            {{ $t('components.mealHistoryCard.nutrientDetails') }}
+          </h3>
+          <div class="space-y-2">
+            <NutrientListItem
+              v-for="(nutrient, index) in meal.nutrients"
+              :key="`${meal.id}-nutrient-${index}`"
+              :nutrient="nutrient"
+              :index="index"
+            />
+          </div>
+
+          <!-- Total row -->
+          <div
+            class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center font-semibold text-gray-900 dark:text-white"
+          >
+            <span>{{ $t('components.mealHistoryCard.total') }}</span>
+            <span
+              >{{ totalCarbs.toFixed(1) }}g {{ $t('components.mealHistoryCard.carbs') }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </Transition>
   </BaseCard>
 </template>
 
@@ -96,13 +158,15 @@ import { ref, computed } from 'vue'
 import { useSubjectStore } from '@/stores/subject'
 import type { MealHistoryEntry } from '@/types/meal-history'
 import BaseCard from '@/components/base/BaseCard.vue'
+import NutrientListItem from '@/components/history/NutrientListItem.vue'
 import {
   MoreVerticalIcon,
   PencilIcon,
   CopyIcon,
   Trash2Icon,
   PackageIcon,
-  TagIcon
+  TagIcon,
+  ChevronDownIcon
 } from 'lucide-vue-next'
 
 interface Props {
@@ -115,6 +179,7 @@ const subjectStore = useSubjectStore()
 defineEmits(['edit', 'duplicate', 'delete'])
 
 const showMenu = ref(false)
+const expanded = ref(false)
 
 // Get subject name from store
 const subjectName = computed(() => {
@@ -137,4 +202,23 @@ const totalCarbs = computed(() => {
     return total + nutrient.quantity * nutrient.factor
   }, 0)
 })
+
+function toggleExpand() {
+  expanded.value = !expanded.value
+}
 </script>
+
+<style scoped>
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .transition-transform,
+  .transition-all,
+  button {
+    transition: none !important;
+  }
+
+  .rotate-180 {
+    transform: none;
+  }
+}
+</style>

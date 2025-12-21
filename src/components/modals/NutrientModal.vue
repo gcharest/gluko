@@ -80,6 +80,8 @@ function handleNutrientSelect(result: SearchResult) {
   <BaseModal
     :open="modelValue"
     :title="currentNutrient.name || $t('components.nutrientModal.fields.name')"
+    size="2xl"
+    mobile-position="top"
     @update:open="(val) => emit('update:modelValue', val)"
   >
     <!-- Search Section -->
@@ -105,8 +107,8 @@ function handleNutrientSelect(result: SearchResult) {
     </div>
 
     <!-- Form Fields -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-6">
-      <div class="md:col-span-2 lg:col-span-3">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-6">
+      <div class="md:col-span-6 lg:col-span-3">
         <BaseInput
           id="nutrient-name"
           v-model="currentNutrient.name"
@@ -116,11 +118,12 @@ function handleNutrientSelect(result: SearchResult) {
           @focus="handleInputFocus"
         />
       </div>
-      <div class="lg:col-span-1.5">
+      <div class="md:col-span-3 lg:col-span-1.5">
         <BaseInput
           id="nutrient-quantity"
           v-model.number="currentNutrient.quantity"
           type="number"
+          step="any"
           pattern="[0-9]*"
           inputmode="decimal"
           :label="$t('components.nutrientModal.fields.quantity')"
@@ -128,11 +131,12 @@ function handleNutrientSelect(result: SearchResult) {
           @focus="handleInputFocus"
         />
       </div>
-      <div class="lg:col-span-1.5">
+      <div class="md:col-span-3 lg:col-span-1.5">
         <BaseInput
           id="nutrient-factor"
           v-model.number="currentNutrient.factor"
           type="number"
+          step="any"
           pattern="[0-9]*"
           inputmode="decimal"
           :label="$t('components.nutrientModal.fields.factor')"

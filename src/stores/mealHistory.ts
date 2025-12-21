@@ -186,11 +186,29 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
 
       await db.saveMealHistory(updatedEntry)
       entries.value[index] = updatedEntry
+      // Re-sort entries in case date changed
+      entries.value.sort((a, b) => b.date.getTime() - a.date.getTime())
       return true
     } catch (err) {
       console.error('Failed to update meal history entry:', err)
       error.value = err instanceof Error ? err : new Error(String(err))
       return false
+    }
+  }
+
+  // Add entry to store (used when meal store creates new history entry)
+  function addEntryToStore(entry: MealHistoryEntry) {
+    entries.value.push(entry)
+    entries.value.sort((a, b) => b.date.getTime() - a.date.getTime())
+  }
+
+  // Update entry in store (used when meal store updates history entry)
+  function updateEntryInStore(updatedEntry: MealHistoryEntry) {
+    const index = entries.value.findIndex((e) => e.id === updatedEntry.id)
+    if (index !== -1) {
+      entries.value[index] = updatedEntry
+      // Re-sort if date changed
+      entries.value.sort((a, b) => b.date.getTime() - a.date.getTime())
     }
   }
 
@@ -283,6 +301,8 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
     setSearchQuery,
     setSelectedTags,
     setDateRange,
-    loadInitialData
+    loadInitialData,
+    addEntryToStore,
+    updateEntryInStore
   }
 })

@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 import { useIndexedDB } from '@/composables/useIndexedDB'
 import { useSubjectStore } from './subject'
-import type { CalculationSession } from '@/types/meal-history'
+import { useMealHistoryStore } from './mealHistory'
+import type { CalculationSession, MealHistoryEntry } from '@/types/meal-history'
 
 export interface Nutrient {
   id: string
@@ -19,6 +20,8 @@ export const useMealStore = defineStore('mealStore', () => {
   // State
   const activeSessions = ref<Map<string, CalculationSession>>(new Map())
   const error = ref<Error | null>(null)
+  const editingHistoryId = ref<string | null>(null)
+  const initialNutrientsHash = ref<string | null>(null)
 
   // Load initial data
   const loadInitialData = async () => {
@@ -290,6 +293,212 @@ export const useMealStore = defineStore('mealStore', () => {
     }
   }
 
+  // Helper: Create hash of nutrients array for comparison
+  function hashNutrients(nutrients: Nutrient[]): string {
+    return JSON.stringify(
+      nutrients.map((n) => ({ id: n.id, quantity: n.quantity, factor: n.factor }))
+    )
+  }
+
+  // Computed: Check if current session has unsaved changes
+  const hasUnsavedChanges = computed(() => {
+    const session = getCurrentSession()
+    if (!session || session.nutrients.length === 0) return false
+
+    // Check if all nutrients are empty (default values with 0 quantity/factor and default/empty name)
+    const hasNonEmptyNutrients = session.nutrients.some((n) => {
+      const hasData = n.quantity !== 0 || n.factor !== 0
+      const hasCustomName = n.name !== '' && n.name !== 'Aliment'
+      return hasData || hasCustomName
+    })
+    if (!hasNonEmptyNutrients) return false
+
+    // Compare current state to initial state
+    const currentHash = hashNutrients(session.nutrients)
+    return initialNutrientsHash.value !== currentHash
+  })
+
+  // Action: Set initial hash when session starts/loads
+  function setInitialHash() {
+    const session = getCurrentSession()
+    if (session) {
+      initialNutrientsHash.value = hashNutrients(session.nutrients)
+    } else {
+      initialNutrientsHash.value = null
+    }
+  }
+
+  // Action: Load history entry into calculator
+  async function loadFromHistory(
+    historyId: string,
+    options?: { skipConfirmation?: boolean }
+  ): Promise<{ success: boolean; reason?: string }> {
+    // Check for unsaved changes
+    if (!options?.skipConfirmation && hasUnsavedChanges.value) {
+      return {
+        success: false,
+        reason: 'unsaved-changes'
+      }
+    }
+
+    try {
+      // Get history entry
+      const entry = await db.getMealHistory(historyId)
+      if (!entry) {
+        throw new Error(`History entry not found: ${historyId}`)
+      }
+
+      // Ensure subject matches or switch subject
+      if (subjectStore.activeSubjectId !== entry.subjectId) {
+        await subjectStore.setActiveSubject(entry.subjectId)
+      }
+
+      // Clear current session
+      await clearSession()
+
+      // Load nutrients from history
+      const session = getCurrentSession()
+      if (!session) {
+        throw new Error('No active session after clear')
+      }
+
+      // Deep copy nutrients to avoid mutation
+      session.nutrients = entry.nutrients.map((n) => ({ ...n }))
+      session.lastModified = new Date()
+
+      // Set editing mode
+      editingHistoryId.value = historyId
+
+      // Save to IndexedDB
+      await db.saveSession(session)
+
+      // Set initial hash to track future changes
+      setInitialHash()
+
+      return { success: true }
+    } catch (err) {
+      console.error('Failed to load history entry:', err)
+      return {
+        success: false,
+        reason: err instanceof Error ? err.message : 'unknown-error'
+      }
+    }
+  }
+
+  // Action: Save current meal (update history if editing, create new otherwise)
+  async function saveMealToHistory(options?: {
+    name?: string
+    notes?: string
+    tags?: string[]
+  }): Promise<{ success: boolean; entryId?: string }> {
+    const session = getCurrentSession()
+    if (!session || session.nutrients.length === 0) {
+      return { success: false }
+    }
+
+    try {
+      const now = new Date()
+      const historyStore = useMealHistoryStore()
+
+      // If editing existing entry, update it
+      if (editingHistoryId.value) {
+        const existingEntry = await db.getMealHistory(editingHistoryId.value)
+        if (existingEntry) {
+          const updatedEntry: MealHistoryEntry = {
+            ...existingEntry,
+            nutrients: session.nutrients,
+            totalCarbs: mealCarbs.value,
+            name: options?.name ?? existingEntry.name,
+            notes: options?.notes ?? existingEntry.notes,
+            tags: options?.tags ?? existingEntry.tags,
+            metadata: {
+              ...existingEntry.metadata,
+              lastModified: now,
+              version: existingEntry.metadata.version + 1
+            }
+          }
+
+          await db.saveMealHistory(updatedEntry)
+
+          // Update history store
+          historyStore.updateEntryInStore(updatedEntry)
+
+          // Clear editing mode
+          editingHistoryId.value = null
+          setInitialHash() // Reset dirty state
+
+          return { success: true, entryId: updatedEntry.id }
+        }
+      }
+
+      // Otherwise, create new entry
+      const newEntry: MealHistoryEntry = {
+        id: getUUID(),
+        subjectId: session.subjectId,
+        date: now,
+        name: options?.name,
+        notes: options?.notes,
+        tags: options?.tags || [],
+        nutrients: session.nutrients,
+        totalCarbs: mealCarbs.value,
+        metadata: {
+          created: now,
+          lastModified: now,
+          version: 1,
+          calculatedBy: 'user',
+          createdFrom: session.id
+        }
+      }
+
+      await db.saveMealHistory(newEntry)
+
+      // Add to history store
+      historyStore.addEntryToStore(newEntry)
+
+      // Clear calculator
+      await clearSession()
+      editingHistoryId.value = null
+      setInitialHash()
+
+      return { success: true, entryId: newEntry.id }
+    } catch (err) {
+      console.error('Failed to save meal:', err)
+      return { success: false }
+    }
+  }
+
+  // Action: Discard current changes and optionally load history
+  async function discardAndLoad(historyId?: string): Promise<boolean> {
+    await clearSession()
+    initialNutrientsHash.value = null
+    editingHistoryId.value = null
+
+    if (historyId) {
+      const result = await loadFromHistory(historyId, { skipConfirmation: true })
+      return result.success
+    }
+
+    return true
+  }
+
+  // Action: Save current then load history
+  async function saveAndLoad(
+    historyId: string,
+    saveOptions?: { name?: string; notes?: string; tags?: string[] }
+  ): Promise<boolean> {
+    const saveResult = await saveMealToHistory(saveOptions)
+    if (!saveResult.success) return false
+
+    const loadResult = await loadFromHistory(historyId, { skipConfirmation: true })
+    return loadResult.success
+  }
+
+  // Action: Clear editing mode (for duplicate flow)
+  function clearEditingMode() {
+    editingHistoryId.value = null
+    setInitialHash() // Reset dirty tracking
+  }
+
   return {
     // State
     currentNutrients,
@@ -299,6 +508,8 @@ export const useMealStore = defineStore('mealStore', () => {
     nutrientEmpty,
     mealCarbs,
     nutrientCount,
+    hasUnsavedChanges,
+    editingHistoryId: computed(() => editingHistoryId.value),
 
     // Actions
     addNutrient,
@@ -308,6 +519,12 @@ export const useMealStore = defineStore('mealStore', () => {
     clearSession,
     duplicateSessionTo,
     loadOrCreateSession,
-    saveSession
+    saveSession,
+    loadFromHistory,
+    saveMealToHistory,
+    discardAndLoad,
+    saveAndLoad,
+    clearEditingMode,
+    setInitialHash
   }
 })

@@ -16,6 +16,10 @@
       "close": "Fermer",
       "search": "Chercher"
     },
+    "navigation": {
+      "backToHistory": "Retour à l'historique",
+      "viewHistory": "Voir l'historique"
+    },
     "labels": {
       "quantity": "Quantité",
       "factor": "Facteur",
@@ -77,7 +81,12 @@
         "delete": "Supprimer le repas"
       },
       "nutrients": "aliments",
-      "tags": "étiquettes"
+      "tags": "étiquettes",
+      "showDetails": "Afficher les détails",
+      "hideDetails": "Masquer les détails",
+      "nutrientDetails": "Détails des aliments",
+      "total": "Total",
+      "carbs": "glucides"
     },
     "nutrientList": {
       "item": {
@@ -192,6 +201,9 @@
         "loading": "Chargement des repas..."
       },
       "empty": "Aucun repas ne correspond à vos critères."
+    },
+    "calculator": {
+      "editingHistory": "Modification d'un repas enregistré"
     }
   },
   "modals": {
@@ -213,6 +225,35 @@
     "general": {
       "confirm": "Confirmer",
       "cancel": "Annuler"
+    }
+  },
+  "dialogs": {
+    "unsavedChanges": {
+      "title": "Modifications non enregistrées",
+      "message": "Vous avez des modifications non enregistrées dans votre calcul actuel",
+      "description": "Que souhaitez-vous faire avec votre travail actuel?",
+      "currentCalculation": "Calcul actuel:",
+      "nutrients": "aliments",
+      "carbs": "glucides",
+      "actions": {
+        "saveAndLoad": "Sauvegarder et charger",
+        "discardAndLoad": "Abandonner et charger"
+      }
+    }
+  },
+  "toasts": {
+    "history": {
+      "exportSuccess": "{count} repas exportés avec succès",
+      "exportError": "Échec de l'exportation de l'historique",
+      "importSuccess": "{imported} repas importés ({skipped} ignorés)",
+      "importPartialError": "{imported} repas importés, {failed} échoués",
+      "loadedForEditing": "Repas chargé pour modification",
+      "duplicated": "Repas dupliqué. Effectuez les modifications et enregistrez comme nouveau.",
+      "mealDeleted": "Repas supprimé avec succès"
+    },
+    "calculator": {
+      "mealSaved": "Repas enregistré dans l'historique",
+      "mealUpdated": "Repas mis à jour avec succès"
     }
   },
   "dataset": {

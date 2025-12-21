@@ -177,13 +177,27 @@
         </nav>
       </div>
     </div>
+
+    <!-- Unsaved Changes Modal -->
+    <UnsavedChangesModal
+      v-model="showUnsavedDialog"
+      :current-nutrient-count="mealStore.nutrientCount"
+      :current-total-carbs="mealStore.mealCarbs"
+      @save-and-load="handleSaveAndLoad"
+      @discard-and-load="handleDiscardAndLoad"
+      @cancel="handleCancelDialog"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useMealHistoryStore } from '@/stores/mealHistory'
 import { useSubjectStore } from '@/stores/subject'
+import { useMealStore } from '@/stores/meal'
+import { useToast } from '@/composables/useToast'
 import type { MealHistoryEntry } from '@/types/meal-history'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
@@ -192,10 +206,15 @@ import BaseAlert from '@/components/base/BaseAlert.vue'
 import DateRangeFilter from '@/components/filters/DateRangeFilter.vue'
 import SubjectSelector from '@/components/filters/SubjectSelector.vue'
 import MealHistoryCard from '@/components/history/MealHistoryCard.vue'
+import UnsavedChangesModal from '@/components/modals/UnsavedChangesModal.vue'
 import { DownloadIcon, UploadIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next'
 
+const router = useRouter()
+const { t } = useI18n()
 const mealHistoryStore = useMealHistoryStore()
 const subjectStore = useSubjectStore()
+const mealStore = useMealStore()
+const toast = useToast()
 
 // Pagination state
 const currentPage = computed({
@@ -236,7 +255,8 @@ const paginatedMeals = computed(() => mealHistoryStore.paginatedEntries)
 
 // UI state
 const loading = ref(false) // Could be set from store if async
-const error = computed(() => mealHistoryStore.error?.message || null)
+const localError = ref<Error | null>(null)
+const error = computed(() => localError.value?.message || mealHistoryStore.error?.message || null)
 
 // Results and pagination
 const totalResults = computed(() => mealHistoryStore.filteredEntries.length)
@@ -274,23 +294,112 @@ const displayedPages = computed<(number | '...')[]>(() => {
   return rangeWithDots
 })
 
+// Unsaved changes dialog state
+const showUnsavedDialog = ref(false)
+const pendingHistoryId = ref<string | null>(null)
+const pendingAction = ref<'edit' | 'duplicate'>('edit')
+
 // Event handlers
 function handleAddSubject() {
   // TODO: Show subject creation modal
   console.log('Add subject clicked')
 }
 
-function handleEditMeal(meal: MealHistoryEntry) {
-  // TODO: Implement edit meal
-  console.log('Edit meal:', meal)
+async function handleEditMeal(meal: MealHistoryEntry) {
+  // Attempt to load history entry into calculator
+  const result = await mealStore.loadFromHistory(meal.id)
+
+  if (!result.success && result.reason === 'unsaved-changes') {
+    // Show confirmation dialog
+    pendingHistoryId.value = meal.id
+    pendingAction.value = 'edit'
+    showUnsavedDialog.value = true
+  } else if (result.success) {
+    // Navigate to calculator
+    toast.success(t('toasts.history.loadedForEditing'))
+    router.push('/calculator')
+  } else {
+    // Show error
+    console.error('Failed to load meal:', result.reason)
+    localError.value = new Error(result.reason || 'Failed to load meal')
+  }
 }
 
-function handleDuplicateMeal(meal: MealHistoryEntry) {
-  mealHistoryStore.duplicateEntry(meal.id)
+async function handleSaveAndLoad() {
+  if (!pendingHistoryId.value) return
+
+  const success = await mealStore.saveAndLoad(pendingHistoryId.value)
+
+  showUnsavedDialog.value = false
+
+  if (success) {
+    // If duplicating, clear editing mode so it saves as new
+    if (pendingAction.value === 'duplicate') {
+      mealStore.clearEditingMode()
+      toast.info(t('toasts.history.duplicated'))
+    } else {
+      toast.success(t('toasts.history.loadedForEditing'))
+    }
+    router.push('/calculator')
+  } else {
+    localError.value = new Error('Failed to save and load meal')
+    toast.error(t('toasts.history.exportError'))
+  }
+
+  pendingHistoryId.value = null
+  pendingAction.value = 'edit'
 }
 
-function handleDeleteMeal(meal: MealHistoryEntry) {
-  mealHistoryStore.deleteEntry(meal.id)
+async function handleDiscardAndLoad() {
+  if (!pendingHistoryId.value) return
+
+  const success = await mealStore.discardAndLoad(pendingHistoryId.value)
+
+  showUnsavedDialog.value = false
+
+  if (success) {
+    // If duplicating, clear editing mode so it saves as new
+    if (pendingAction.value === 'duplicate') {
+      mealStore.clearEditingMode()
+      toast.info(t('toasts.history.duplicated'))
+    } else {
+      toast.success(t('toasts.history.loadedForEditing'))
+    }
+    router.push('/calculator')
+  }
+
+  pendingHistoryId.value = null
+  pendingAction.value = 'edit'
+}
+
+function handleCancelDialog() {
+  showUnsavedDialog.value = false
+  pendingHistoryId.value = null
+  pendingAction.value = 'edit'
+}
+
+async function handleDuplicateMeal(meal: MealHistoryEntry) {
+  // Check for unsaved changes (same as edit)
+  const result = await mealStore.loadFromHistory(meal.id)
+
+  if (!result.success && result.reason === 'unsaved-changes') {
+    // Show confirmation dialog with duplicate action
+    pendingHistoryId.value = meal.id
+    pendingAction.value = 'duplicate'
+    showUnsavedDialog.value = true
+  } else if (result.success) {
+    // Clear editing mode (so it saves as new)
+    mealStore.clearEditingMode()
+    toast.info(t('toasts.history.duplicated'))
+    router.push('/calculator')
+  }
+}
+
+async function handleDeleteMeal(meal: MealHistoryEntry) {
+  const success = await mealHistoryStore.deleteEntry(meal.id)
+  if (success) {
+    toast.success(t('toasts.history.mealDeleted'))
+  }
 }
 
 function handleExport() {

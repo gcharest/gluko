@@ -16,6 +16,10 @@
       "close": "Close",
       "search": "Search"
     },
+    "navigation": {
+      "backToHistory": "Back to history",
+      "viewHistory": "View history"
+    },
     "labels": {
       "quantity": "Quantity",
       "factor": "Factor",
@@ -77,7 +81,12 @@
         "delete": "Delete Meal"
       },
       "nutrients": "nutrients",
-      "tags": "tags"
+      "tags": "tags",
+      "showDetails": "Show details",
+      "hideDetails": "Hide details",
+      "nutrientDetails": "Nutrient Details",
+      "total": "Total",
+      "carbs": "carbs"
     },
     "nutrientList": {
       "item": {
@@ -198,6 +207,9 @@
         "loading": "Loading meals..."
       },
       "empty": "No meals found matching your criteria."
+    },
+    "calculator": {
+      "editingHistory": "Editing saved meal"
     }
   },
   "modals": {
@@ -219,6 +231,35 @@
     "general": {
       "confirm": "Confirm",
       "cancel": "Cancel"
+    }
+  },
+  "dialogs": {
+    "unsavedChanges": {
+      "title": "Unsaved Changes",
+      "message": "You have unsaved changes in your current calculation",
+      "description": "What would you like to do with your current work?",
+      "currentCalculation": "Current calculation:",
+      "nutrients": "nutrients",
+      "carbs": "carbs",
+      "actions": {
+        "saveAndLoad": "Save & Load",
+        "discardAndLoad": "Discard & Load"
+      }
+    }
+  },
+  "toasts": {
+    "history": {
+      "exportSuccess": "Exported {count} meals successfully",
+      "exportError": "Failed to export history",
+      "importSuccess": "Imported {imported} meals ({skipped} skipped)",
+      "importPartialError": "Imported {imported} meals, {failed} failed",
+      "loadedForEditing": "Meal loaded for editing",
+      "duplicated": "Meal duplicated. Make changes and save as new.",
+      "mealDeleted": "Meal deleted successfully"
+    },
+    "calculator": {
+      "mealSaved": "Meal saved to history",
+      "mealUpdated": "Meal updated successfully"
     }
   },
   "dataset": {
