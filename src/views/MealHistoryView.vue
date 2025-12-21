@@ -45,7 +45,12 @@
                 <h3 class="text-base font-medium text-gray-900 dark:text-white">
                   {{ $t('views.mealHistory.filters.tags') }}
                 </h3>
-                <BaseButton variant="ghost" size="sm" @click="handleManageTags">
+                <BaseButton
+                  variant="ghost"
+                  size="sm"
+                  :aria-label="$t('views.mealHistory.filters.manageTags')"
+                  @click="handleManageTags"
+                >
                   <TagIcon class="w-4 h-4" />
                 </BaseButton>
               </div>

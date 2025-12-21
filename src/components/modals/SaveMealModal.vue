@@ -135,7 +135,8 @@ const props = withDefaults(defineProps<Props>(), {
   isEditing: false,
   initialName: '',
   initialNotes: '',
-  initialTags: () => []
+  initialTags: () => [],
+  initialSubjectId: ''
 })
 
 const emit = defineEmits<{

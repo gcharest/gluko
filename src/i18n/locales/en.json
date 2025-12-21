@@ -76,6 +76,7 @@
     },
     "mealHistoryCard": {
       "actions": {
+        "menu": "Meal actions",
         "edit": "Edit Meal",
         "duplicate": "Duplicate Meal",
         "delete": "Delete Meal"
@@ -202,6 +203,7 @@
         "dateRange": "Date Range",
         "subject": "Subject",
         "tags": "Tags",
+        "manageTags": "Manage tags",
         "search": "Search",
         "searchPlaceholder": "Search meals..."
       },

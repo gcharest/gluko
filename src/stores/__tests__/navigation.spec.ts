@@ -96,19 +96,19 @@ describe('navigation Store', () => {
       })
     })
 
-    it('includes home, calculator, history, and settings in bottom nav', () => {
+    it('includes calculator, history, carb factor, and settings in bottom nav', () => {
       const store = useNavigationStore()
       const paths = store.bottomNavItems.map((item) => item.to)
-      expect(paths).toContain('/')
       expect(paths).toContain('/calculator')
       expect(paths).toContain('/history')
+      expect(paths).toContain('/carb-factor')
       expect(paths).toContain('/settings')
     })
 
-    it('excludes carb factor and about from bottom nav', () => {
+    it('excludes home and about from bottom nav', () => {
       const store = useNavigationStore()
       const paths = store.bottomNavItems.map((item) => item.to)
-      expect(paths).not.toContain('/carb-factor')
+      expect(paths).not.toContain('/')
       expect(paths).not.toContain('/about')
     })
   })

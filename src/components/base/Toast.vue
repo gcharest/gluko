@@ -91,7 +91,7 @@ const iconClasses = computed(() => {
 
 const messageClasses = computed(() => {
   const variants = {
-    success: 'text-green-900 dark:text-green-100',
+    success: 'text-gray-900 dark:text-green-100',
     error: 'text-danger-900 dark:text-danger-100',
     warning: 'text-warning-900 dark:text-warning-100',
     info: 'text-blue-900 dark:text-blue-100'

@@ -76,6 +76,7 @@
     },
     "mealHistoryCard": {
       "actions": {
+        "menu": "Actions du repas",
         "edit": "Modifier le repas",
         "duplicate": "Dupliquer le repas",
         "delete": "Supprimer le repas"
@@ -196,6 +197,7 @@
         "dateRange": "Période",
         "subject": "Sujet",
         "tags": "Étiquettes",
+        "manageTags": "Gérer les étiquettes",
         "search": "Rechercher",
         "searchPlaceholder": "Rechercher des repas..."
       },
