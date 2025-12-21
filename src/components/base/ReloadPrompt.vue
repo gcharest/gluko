@@ -3,16 +3,21 @@
 import { watch, onMounted } from 'vue'
 import { usePWAUpdate } from '@/composables/usePWAUpdate'
 import { useNavigationStore } from '@/stores/navigation'
+import { useToast } from '@/composables/useToast'
+import { useI18n } from 'vue-i18n'
 
 const pwaUpdate = usePWAUpdate()
 const navigationStore = useNavigationStore()
+const toast = useToast()
+const { t } = useI18n()
 
 // Watch for offline ready state and show toast
 watch(
   () => pwaUpdate.isOfflineReady.value,
   (isReady) => {
     if (isReady) {
-      pwaUpdate.notifyOfflineReady()
+      // Offline ready notification doesn't need a view context
+      toast.success(t('pwa.offlineReady'))
     }
   }
 )
@@ -22,7 +27,14 @@ watch(
   () => pwaUpdate.hasUpdate.value,
   (hasUpdate) => {
     if (hasUpdate) {
-      pwaUpdate.notifyUpdateAvailable()
+      // Show toast with context pointing to settings view
+      toast.info(t('pwa.updateAvailable'), {
+        context: {
+          viewPath: '/settings',
+          clearOnVisit: true
+        },
+        duration: 10000 // Show longer for important updates
+      })
       navigationStore.setSettingsBadge(true)
     } else {
       navigationStore.setSettingsBadge(false)
@@ -33,10 +45,16 @@ watch(
 onMounted(() => {
   // Check initial states
   if (pwaUpdate.isOfflineReady.value) {
-    pwaUpdate.notifyOfflineReady()
+    toast.success(t('pwa.offlineReady'))
   }
   if (pwaUpdate.hasUpdate.value) {
-    pwaUpdate.notifyUpdateAvailable()
+    toast.info(t('pwa.updateAvailable'), {
+      context: {
+        viewPath: '/settings',
+        clearOnVisit: true
+      },
+      duration: 10000
+    })
     navigationStore.setSettingsBadge(true)
   }
 })

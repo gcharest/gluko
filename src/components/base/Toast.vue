@@ -4,6 +4,7 @@
     role="status"
     :aria-live="toast.variant === 'error' ? 'assertive' : 'polite'"
     class="pointer-events-auto"
+    @click="handleToastClick"
   >
     <div class="flex items-start gap-3">
       <!-- Icon -->
@@ -14,10 +15,13 @@
         <p :class="messageClasses">
           {{ toast.message }}
         </p>
+        <p v-if="toast.context?.viewPath" class="text-xs mt-1 opacity-70">
+          {{ $t('notifications.clickToView') }}
+        </p>
       </div>
 
       <!-- Action button (optional) -->
-      <button v-if="toast.action" type="button" :class="actionButtonClasses" @click="handleAction">
+      <button v-if="toast.action" type="button" :class="actionButtonClasses" @click.stop="handleAction">
         {{ toast.action.label }}
       </button>
 
@@ -26,7 +30,7 @@
         type="button"
         :class="closeButtonClasses"
         :aria-label="$t('common.actions.close')"
-        @click="handleClose"
+        @click.stop="handleClose"
       >
         <XIcon class="w-4 h-4" />
       </button>
@@ -36,6 +40,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useNotificationStore } from '@/stores/notification'
 import {
   CheckCircleIcon,
   AlertCircleIcon,
@@ -55,6 +61,9 @@ const emit = defineEmits<{
   close: []
 }>()
 
+const router = useRouter()
+const notificationStore = useNotificationStore()
+
 const iconComponent = computed(() => {
   const icons = {
     success: CheckCircleIcon,
@@ -66,7 +75,16 @@ const iconComponent = computed(() => {
 })
 
 const toastClasses = computed(() => {
-  const base = ['flex items-start gap-3 p-4 rounded-lg shadow-lg border', 'min-w-[320px] max-w-md']
+  const base = [
+    'flex items-start gap-3 p-4 rounded-lg shadow-lg border',
+    'min-w-[320px] max-w-md',
+    'transition-all duration-150'
+  ]
+
+  // Add cursor pointer if toast has a navigation context
+  if (props.toast.context?.viewPath) {
+    base.push('cursor-pointer hover:scale-[1.02]')
+  }
 
   const variants = {
     success: 'bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800',
@@ -141,5 +159,22 @@ function handleAction() {
 
 function handleClose() {
   emit('close')
+}
+
+/**
+ * Handle clicking on the toast body (not close button)
+ * If the toast has a view context, navigate to that view
+ */
+function handleToastClick() {
+  if (props.toast.context?.viewPath) {
+    // Navigate to the related view
+    router.push(props.toast.context.viewPath)
+    // Remove the notification from the store (user is taking action)
+    if (props.toast.notificationId) {
+      notificationStore.removeNotification(props.toast.notificationId)
+    }
+    // Close the toast
+    emit('close')
+  }
 }
 </script>

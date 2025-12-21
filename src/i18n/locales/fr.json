@@ -160,6 +160,9 @@
     "reload": "Recharger",
     "close": "Fermer"
   },
+  "notifications": {
+    "clickToView": "Cliquez pour voir"
+  },
   "pwa": {
     "updateAvailable": "Une nouvelle version de l'application est disponible. Allez dans Paramètres pour mettre à jour.",
     "offlineReady": "L'application est prête à fonctionner hors ligne",
