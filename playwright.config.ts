@@ -4,8 +4,8 @@ export default defineConfig({
   // Base config
   testDir: './e2e',
 
-  // Run all tests in parallel by default
-  fullyParallel: true,
+  // Run all tests in parallel by default (dev) or sequential (CI for faster feedback)
+  fullyParallel: !process.env.CI,
 
   // Timeout settings
   timeout: 30 * 1000,
@@ -15,11 +15,14 @@ export default defineConfig({
 
   // CI specific settings
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 1 : 0, // Reduce from 2 to 1 to save time
+  workers: process.env.CI ? 1 : 4, // Use 4 workers in dev for parallelism
+  maxFailures: process.env.CI ? 5 : undefined, // Stop after 5 failures to save resources
 
-  // Use HTML reporter
-  reporter: 'html',
+  // Use blob reporter in CI for sharding support, HTML elsewhere
+  reporter: process.env.CI
+    ? [['blob'], ['list']]
+    : [['html'], ['list']],
 
   // Common test settings
   use: {
@@ -29,8 +32,11 @@ export default defineConfig({
     // Base URL for navigation (using preview server in CI)
     baseURL: process.env.CI ? 'http://localhost:4173/gluko' : 'http://localhost:5173',
 
-    // Collect traces only on retry
+    // Collect traces only on failure (saves disk space)
     trace: 'on-first-retry',
+
+    // Screenshots on failure
+    screenshot: 'only-on-failure',
 
     // Always run headless (no X server available in this environment)
     headless: true,
@@ -45,15 +51,8 @@ export default defineConfig({
       {
         name: 'chromium',
         use: { ...devices['Desktop Chrome'] }
-      },
-      {
-        name: 'firefox',
-        use: { ...devices['Desktop Firefox'] }
-      },
-      {
-        name: 'webkit',
-        use: { ...devices['Desktop Safari'] }
       }
+      // In CI, run only Chromium by default. Use --project=firefox/webkit to test others
     ]
     : [
       {

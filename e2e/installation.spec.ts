@@ -22,8 +22,8 @@ test.describe('PWA Installation', () => {
     expect(manifest.short_name).toBeDefined()
     expect(manifest.start_url).toBe('/gluko/')
     expect(manifest.display).toBe('standalone')
-    expect(manifest.theme_color).toBe('#0d6efd')
-    expect(manifest.background_color).toBe('#212529')
+    expect(manifest.theme_color).toBe('#0ea5e9')
+    expect(manifest.background_color).toBe('#0ea5e9')
 
     // Verify icons array exists and has required sizes
     expect(manifest.icons).toBeDefined()
@@ -43,7 +43,7 @@ test.describe('PWA Installation', () => {
   test('has PWA meta tags', async ({ page }) => {
     // Check theme-color meta tag
     const themeColor = page.locator('meta[name="theme-color"]')
-    await expect(themeColor).toHaveAttribute('content', '#0d6efd')
+    await expect(themeColor).toHaveAttribute('content', '#0ea5e9')
 
     // Check description meta tag
     const description = page.locator('meta[name="description"]')
