@@ -158,6 +158,15 @@
     "reload": "Reload",
     "close": "Close"
   },
+  "pwa": {
+    "updateAvailable": "A new version of the app is available. Go to Settings to update.",
+    "offlineReady": "App is ready to work offline",
+    "updateReady": "Update ready to install",
+    "checkingForUpdates": "Checking for updates...",
+    "noUpdatesAvailable": "You're running the latest version",
+    "updateCheckFailed": "Failed to check for updates. Please try again.",
+    "applyUpdate": "Install Update"
+  },
   "databaseError": {
     "title": "Database Connection Issue",
     "refresh": "Refresh Now",
@@ -380,6 +389,14 @@
   },
   "settings": {
     "title": "Settings",
+    "app": {
+      "title": "Application",
+      "currentVersion": "App Version",
+      "checkForUpdates": "Check for Updates",
+      "updateAvailable": "Update available",
+      "installUpdate": "Install Update",
+      "upToDate": "App is up to date"
+    },
     "dataset": {
       "title": "Dataset Information",
       "currentVersion": "Current Version",

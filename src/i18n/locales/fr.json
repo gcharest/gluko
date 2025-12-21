@@ -158,6 +158,15 @@
     "reload": "Recharger",
     "close": "Fermer"
   },
+  "pwa": {
+    "updateAvailable": "Une nouvelle version de l'application est disponible. Allez dans Paramètres pour mettre à jour.",
+    "offlineReady": "L'application est prête à fonctionner hors ligne",
+    "updateReady": "Mise à jour prête à installer",
+    "checkingForUpdates": "Vérification des mises à jour...",
+    "noUpdatesAvailable": "Vous utilisez la dernière version",
+    "updateCheckFailed": "Échec de la vérification des mises à jour. Veuillez réessayer.",
+    "applyUpdate": "Installer la mise à jour"
+  },
   "aboutText": {
     "para1": "Cette application a pour objectif de faciliter le calcul des glucides.",
     "para2": "Le calculateur de glucides permet d'ajouter des aliments dans une liste, d'indiquer la quantité en gramme ainsi que le facteur glucidique. Le calculateur de glucides affichera le total des glucides de la liste d'aliments saisis.",
@@ -374,6 +383,14 @@
   },
   "settings": {
     "title": "Paramètres",
+    "app": {
+      "title": "Application",
+      "currentVersion": "Version de l'application",
+      "checkForUpdates": "Vérifier les mises à jour",
+      "updateAvailable": "Mise à jour disponible",
+      "installUpdate": "Installer la mise à jour",
+      "upToDate": "L'application est à jour"
+    },
     "dataset": {
       "title": "Informations sur les données",
       "currentVersion": "Version actuelle",

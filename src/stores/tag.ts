@@ -28,9 +28,7 @@ export const useTagStore = defineStore('tagStore', () => {
   loadInitialData()
 
   // Getters
-  const sortedTags = computed(() =>
-    [...tags.value].sort((a, b) => a.name.localeCompare(b.name))
-  )
+  const sortedTags = computed(() => [...tags.value].sort((a, b) => a.name.localeCompare(b.name)))
 
   const tagById = computed(() => (id: string) => tags.value.find((tag) => tag.id === id))
 

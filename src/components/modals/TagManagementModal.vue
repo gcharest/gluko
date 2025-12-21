@@ -64,10 +64,7 @@
       </h3>
 
       <!-- Empty state -->
-      <div
-        v-if="!tags.length"
-        class="text-center py-6 text-gray-500 dark:text-gray-400"
-      >
+      <div v-if="!tags.length" class="text-center py-6 text-gray-500 dark:text-gray-400">
         {{ $t('dialogs.tagManagement.noTags') }}
       </div>
 
@@ -130,7 +127,11 @@
 
     <!-- Action Buttons -->
     <div class="flex flex-col gap-2 w-full sm:flex-row-reverse mt-6">
-      <BaseButton variant="secondary" class="w-full sm:w-auto" @click="emit('update:modelValue', false)">
+      <BaseButton
+        variant="secondary"
+        class="w-full sm:w-auto"
+        @click="emit('update:modelValue', false)"
+      >
         {{ $t('common.actions.close') }}
       </BaseButton>
     </div>
@@ -146,13 +147,7 @@ import type { Tag } from '@/types/tag'
 import BaseModal from '@/components/base/BaseModal.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
-import {
-  PlusCircleIcon,
-  PencilIcon,
-  Trash2Icon,
-  CheckIcon,
-  InfoIcon
-} from 'lucide-vue-next'
+import { PlusCircleIcon, PencilIcon, Trash2Icon, CheckIcon, InfoIcon } from 'lucide-vue-next'
 
 interface Props {
   modelValue: boolean

@@ -26,7 +26,10 @@
     </div>
 
     <!-- Edit subject form -->
-    <div v-if="editingSubject" class="mb-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+    <div
+      v-if="editingSubject"
+      class="mb-6 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800"
+    >
       <div class="flex items-center justify-between mb-3">
         <h3 class="text-sm font-medium text-blue-900 dark:text-blue-100">
           {{ $t('dialogs.subjectManagement.editing') }}
@@ -86,7 +89,10 @@
             <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
               {{ subject.name }}
             </p>
-            <p v-if="subject.id === activeSubjectId" class="text-xs text-primary-600 dark:text-primary-400">
+            <p
+              v-if="subject.id === activeSubjectId"
+              class="text-xs text-primary-600 dark:text-primary-400"
+            >
               {{ $t('dialogs.subjectManagement.active') }}
             </p>
           </div>
@@ -130,7 +136,9 @@
     </div>
 
     <!-- Info message -->
-    <div class="mt-4 p-3 rounded-lg bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
+    <div
+      class="mt-4 p-3 rounded-lg bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800"
+    >
       <div class="flex items-start gap-2">
         <InfoIcon class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
         <p class="text-xs text-blue-900 dark:text-blue-100">

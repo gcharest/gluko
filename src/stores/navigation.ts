@@ -17,11 +17,13 @@ export interface NavigationItem {
   icon: Component
   showInBottomNav?: boolean
   showInSideRail?: boolean
+  showBadge?: boolean
 }
 
 export const useNavigationStore = defineStore('navigation', () => {
   const { t } = useI18n()
   const isSideRailOpen = ref(false)
+  const settingsBadge = ref(false)
 
   // Define navigation items
   const navigationItems = computed<NavigationItem[]>(() => [
@@ -65,7 +67,8 @@ export const useNavigationStore = defineStore('navigation', () => {
       label: t('navigation.settings'),
       icon: SettingsIcon,
       showInBottomNav: true,
-      showInSideRail: true
+      showInSideRail: true,
+      showBadge: settingsBadge.value
     }
   ])
 
@@ -89,13 +92,19 @@ export const useNavigationStore = defineStore('navigation', () => {
     isSideRailOpen.value = true
   }
 
+  function setSettingsBadge(show: boolean) {
+    settingsBadge.value = show
+  }
+
   return {
     navigationItems,
     bottomNavItems,
     sideRailItems,
     isSideRailOpen,
+    settingsBadge,
     toggleSideRail,
     closeSideRail,
-    openSideRail
+    openSideRail,
+    setSettingsBadge
   }
 })

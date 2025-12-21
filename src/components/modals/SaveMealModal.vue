@@ -44,7 +44,10 @@
 
       <!-- Notes (optional) -->
       <div>
-        <label for="meal-notes" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+        <label
+          for="meal-notes"
+          class="block text-sm font-medium text-gray-900 dark:text-white mb-2"
+        >
           {{ $t('dialogs.saveMeal.notes') }}
           <span class="text-gray-500 dark:text-gray-400 font-normal">
             ({{ $t('dialogs.saveMeal.optional') }})
@@ -71,7 +74,9 @@
       </div>
 
       <!-- Summary info -->
-      <div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+      <div
+        class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+      >
         <div class="flex items-center justify-between text-sm">
           <span class="text-gray-600 dark:text-gray-400">
             {{ $t('dialogs.saveMeal.nutrientCount') }}
@@ -95,7 +100,11 @@
         <BookPlusIcon class="w-4 h-4 mr-2" />
         {{ isEditing ? $t('common.actions.save') : $t('dialogs.saveMeal.saveButton') }}
       </BaseButton>
-      <BaseButton variant="secondary" class="w-full sm:w-auto" @click="emit('update:modelValue', false)">
+      <BaseButton
+        variant="secondary"
+        class="w-full sm:w-auto"
+        @click="emit('update:modelValue', false)"
+      >
         {{ $t('common.actions.cancel') }}
       </BaseButton>
     </div>
