@@ -34,12 +34,19 @@ function handleCancel() {
 
 <template>
   <BaseModal
-:open="modelValue" :title="$t('dialogs.unsavedChanges.title')" :show-close="false" size="lg"
-    @update:open="emit('update:modelValue', $event)">
+    :open="modelValue"
+    :title="$t('dialogs.unsavedChanges.title')"
+    :show-close="false"
+    size="lg"
+    @update:open="emit('update:modelValue', $event)"
+  >
     <div class="space-y-4">
       <div
-        class="flex items-start gap-3 p-3 rounded-lg bg-warning-50 border-warning-200 dark:bg-warning-950 dark:border-warning-800 border">
-        <AlertTriangleIcon class="w-5 h-5 text-warning-600 dark:text-warning-400 flex-shrink-0 mt-0.5" />
+        class="flex items-start gap-3 p-3 rounded-lg bg-warning-50 border-warning-200 dark:bg-warning-950 dark:border-warning-800 border"
+      >
+        <AlertTriangleIcon
+          class="w-5 h-5 text-warning-600 dark:text-warning-400 flex-shrink-0 mt-0.5"
+        />
         <div>
           <p class="text-sm font-medium text-warning-900 dark:text-warning-100">
             {{ $t('dialogs.unsavedChanges.message') }}
@@ -52,8 +59,9 @@ function handleCancel() {
 
       <!-- Current calculation summary -->
       <div
-v-if="currentNutrientCount > 0"
-        class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        v-if="currentNutrientCount > 0"
+        class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+      >
         <p class="text-sm text-gray-600 dark:text-gray-400">
           {{ $t('dialogs.unsavedChanges.currentCalculation') }}
         </p>

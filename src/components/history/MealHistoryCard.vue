@@ -98,10 +98,7 @@
       :aria-controls="`nutrient-list-${meal.id}`"
       @click="toggleExpand"
     >
-      <ChevronDownIcon
-        class="w-4 h-4 transition-transform"
-        :class="{ 'rotate-180': expanded }"
-      />
+      <ChevronDownIcon class="w-4 h-4 transition-transform" :class="{ 'rotate-180': expanded }" />
       <span>
         {{
           expanded
@@ -120,11 +117,7 @@
       leave-from-class="opacity-100 max-h-[1000px]"
       leave-to-class="opacity-0 max-h-0"
     >
-      <div
-        v-if="expanded"
-        :id="`nutrient-list-${meal.id}`"
-        class="mt-3 overflow-hidden"
-      >
+      <div v-if="expanded" :id="`nutrient-list-${meal.id}`" class="mt-3 overflow-hidden">
         <div class="border-t border-gray-200 dark:border-gray-700 pt-3">
           <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">
             {{ $t('components.mealHistoryCard.nutrientDetails') }}
@@ -143,9 +136,7 @@
             class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center font-semibold text-gray-900 dark:text-white"
           >
             <span>{{ $t('components.mealHistoryCard.total') }}</span>
-            <span
-              >{{ totalCarbs.toFixed(1) }}g {{ $t('components.mealHistoryCard.carbs') }}</span
-            >
+            <span>{{ totalCarbs.toFixed(1) }}g {{ $t('components.mealHistoryCard.carbs') }}</span>
           </div>
         </div>
       </div>

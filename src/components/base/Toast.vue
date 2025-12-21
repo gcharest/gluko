@@ -17,12 +17,7 @@
       </div>
 
       <!-- Action button (optional) -->
-      <button
-        v-if="toast.action"
-        type="button"
-        :class="actionButtonClasses"
-        @click="handleAction"
-      >
+      <button v-if="toast.action" type="button" :class="actionButtonClasses" @click="handleAction">
         {{ toast.action.label }}
       </button>
 
@@ -107,8 +102,7 @@ const messageClasses = computed(() => {
 
 const actionButtonClasses = computed(() => {
   const variants = {
-    success:
-      'text-green-700 hover:text-green-900 dark:text-green-300 dark:hover:text-green-100',
+    success: 'text-green-700 hover:text-green-900 dark:text-green-300 dark:hover:text-green-100',
     error: 'text-danger-700 hover:text-danger-900 dark:text-danger-300 dark:hover:text-danger-100',
     warning:
       'text-warning-700 hover:text-warning-900 dark:text-warning-300 dark:hover:text-warning-100',
@@ -125,8 +119,7 @@ const actionButtonClasses = computed(() => {
 
 const closeButtonClasses = computed(() => {
   const variants = {
-    success:
-      'text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-200',
+    success: 'text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-200',
     error: 'text-danger-600 hover:text-danger-800 dark:text-danger-400 dark:hover:text-danger-200',
     warning:
       'text-warning-600 hover:text-warning-800 dark:text-warning-400 dark:hover:text-warning-200',
