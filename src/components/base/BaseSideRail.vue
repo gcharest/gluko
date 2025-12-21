@@ -33,7 +33,9 @@
             class="absolute top-1 right-1 w-2 h-2 bg-primary-600 dark:bg-primary-400 rounded-full"
             aria-hidden="true"
           />
-          <span class="text-xs mt-1 font-medium text-center">{{ item.shortLabel || item.label }}</span>
+          <span class="text-xs mt-1 font-medium text-center">{{
+            item.shortLabel || item.label
+          }}</span>
         </RouterLink>
       </nav>
 

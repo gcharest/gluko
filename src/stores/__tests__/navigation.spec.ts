@@ -96,13 +96,14 @@ describe('navigation Store', () => {
       })
     })
 
-    it('includes calculator, history, carb factor, and settings in bottom nav', () => {
+    it('includes calculator, history, and carb factor in bottom nav', () => {
       const store = useNavigationStore()
       const paths = store.bottomNavItems.map((item) => item.to)
       expect(paths).toContain('/calculator')
       expect(paths).toContain('/history')
       expect(paths).toContain('/carb-factor')
-      expect(paths).toContain('/settings')
+      // Settings was moved to the overflow menu
+      expect(paths).not.toContain('/settings')
     })
 
     it('excludes home and about from bottom nav', () => {

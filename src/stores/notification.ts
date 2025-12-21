@@ -143,9 +143,7 @@ export const useNotificationStore = defineStore('notification', () => {
   /**
    * Computed: Count of all unseen notifications
    */
-  const totalUnseenCount = computed(() =>
-    notifications.value.filter((n) => !n.seen).length
-  )
+  const totalUnseenCount = computed(() => notifications.value.filter((n) => !n.seen).length)
 
   return {
     notifications: activeNotifications,
