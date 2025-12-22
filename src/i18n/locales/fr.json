@@ -51,7 +51,15 @@
     "settings": "Paramètres",
     "toggleTheme": "Changer le thème",
     "changeLanguage": "Changer la langue",
-    "menu": "Menu"
+    "menu": "Menu",
+    "short": {
+      "home": "Accueil",
+      "calculator": "Calc",
+      "history": "Historique",
+      "search": "Recherche",
+      "about": "À propos",
+      "settings": "Paramètres"
+    }
   },
   "theme": {
     "toggle": "Changer le thème",
@@ -220,6 +228,93 @@
     },
     "calculator": {
       "editingHistory": "Modification d'un repas enregistré"
+    },
+    "about": {
+      "title": "À propos",
+      "what": {
+        "title": "Qu'est-ce que Gluko?",
+        "description": "Gluko est une application web conçue pour aider les personnes et les familles à calculer plus précisément le contenu en glucides de leurs repas pour une meilleure gestion du diabète.",
+        "source": "Elle utilise le",
+        "cnf": "Fichier canadien sur les éléments nutritifs officiel"
+      },
+      "why": {
+        "title": "Pourquoi Gluko?",
+        "description": "La gestion du diabète de type 1 nécessite une attention constante à l'apport en glucides pour déterminer le dosage d'insuline approprié. Gluko vise à faciliter ce processus en :",
+        "benefit1": "Fournissant un accès rapide à des informations nutritionnelles fiables",
+        "benefit2": "Permettant un calcul facile des repas complexes",
+        "benefit3": "Offrant une interface conviviale pour une utilisation quotidienne",
+        "benefit4": "Soutenant les familles et les soignants avec la gestion multi-sujets"
+      },
+      "features": {
+        "title": "Fonctionnalités",
+        "calculator": {
+          "title": "Calculateur de repas",
+          "description": "Calculez les glucides totaux en combinant les ingrédients"
+        },
+        "search": {
+          "title": "Recherche de facteur glucidique",
+          "description": "Accès rapide au contenu en glucides des aliments"
+        },
+        "history": {
+          "title": "Historique des repas",
+          "description": "Sauvegardez et suivez les repas avec filtrage avancé"
+        },
+        "multiSubject": {
+          "title": "Support multi-sujets",
+          "description": "Gérez l'historique des repas pour plusieurs membres de la famille"
+        },
+        "bilingual": {
+          "title": "Bilingue",
+          "description": "Disponible en anglais et en français"
+        },
+        "darkMode": {
+          "title": "Mode sombre",
+          "description": "Affichage confortable dans toutes les conditions d'éclairage"
+        }
+      },
+      "install": {
+        "title": "Installer comme application",
+        "description": "Installez Gluko sur votre appareil pour une expérience d'application native. Vous pouvez y accéder hors ligne et le lancer depuis votre écran d'accueil.",
+        "ios": {
+          "title": "iPhone ou iPad",
+          "step1": "Appuyez sur le bouton Partager",
+          "step1b": "dans la barre d'outils de Safari",
+          "step2": "Faites défiler vers le bas et appuyez sur",
+          "step2b": "\"Sur l'écran d'accueil\"",
+          "step3": "Appuyez sur \"Ajouter\" pour confirmer. Gluko apparaîtra sur votre écran d'accueil."
+        },
+        "android": {
+          "title": "Téléphone ou tablette Android",
+          "step1": "Appuyez sur le bouton menu",
+          "step1b": "dans Chrome",
+          "step2": "Appuyez sur \"Ajouter à l'écran d'accueil\" ou \"Installer l'application\"",
+          "step3": "Suivez les instructions pour installer. Gluko apparaîtra dans votre tiroir d'applications."
+        },
+        "desktop": {
+          "title": "Ordinateur de bureau",
+          "step1": "Recherchez l'icône d'installation (⊕ ou ⬇) dans la barre d'adresse de Chrome, Edge ou Safari",
+          "step2": "Cliquez dessus et suivez les instructions. Gluko sera disponible comme application de bureau."
+        },
+        "benefit": "Une fois installé, Gluko fonctionne hors ligne et offre une expérience plus rapide et plus proche d'une application."
+      },
+      "disclaimer": {
+        "title": "Avertissement important",
+        "notMedical": "Gluko n'est PAS un dispositif ou une application médicale certifiée.",
+        "point1": "Consultez toujours votre professionnel de la santé avant de prendre des décisions concernant la gestion du diabète",
+        "point2": "Vérifiez les informations nutritionnelles auprès de sources fiables",
+        "point3": "Examinez attentivement tous les calculs",
+        "point4": "Utilisez cette application uniquement comme outil de guide complémentaire"
+      },
+      "opensource": {
+        "title": "Code source ouvert",
+        "description": "Ce projet est open source et disponible sur GitHub. Les contributions sont les bienvenues!",
+        "github": "Voir sur GitHub"
+      },
+      "author": {
+        "title": "Auteur",
+        "name": "Créé par Guillaume Charest",
+        "copyright": "© 2021-2025"
+      }
     }
   },
   "modals": {

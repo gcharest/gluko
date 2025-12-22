@@ -51,7 +51,15 @@
     "settings": "Settings",
     "toggleTheme": "Toggle theme",
     "changeLanguage": "Change language",
-    "menu": "Menu"
+    "menu": "Menu",
+    "short": {
+      "home": "Home",
+      "calculator": "Calc",
+      "history": "History",
+      "search": "Search",
+      "about": "About",
+      "settings": "Settings"
+    }
   },
   "theme": {
     "toggle": "Toggle theme",
@@ -226,6 +234,93 @@
     },
     "calculator": {
       "editingHistory": "Editing saved meal"
+    },
+    "about": {
+      "title": "About",
+      "what": {
+        "title": "What is Gluko?",
+        "description": "Gluko is a web application designed to help individuals and families more accurately calculate the carbohydrate content in their meals for better diabetes management.",
+        "source": "It leverages the official",
+        "cnf": "Canadian Nutrient File database"
+      },
+      "why": {
+        "title": "Why Gluko?",
+        "description": "Managing Type 1 Diabetes requires constant attention to carbohydrate intake to determine proper insulin dosing. Gluko aims to make this process easier by:",
+        "benefit1": "Providing quick access to reliable nutritional information",
+        "benefit2": "Enabling easy calculation of complex meals",
+        "benefit3": "Offering a user-friendly interface for daily use",
+        "benefit4": "Supporting families and caregivers with multi-subject management"
+      },
+      "features": {
+        "title": "Features",
+        "calculator": {
+          "title": "Meal Calculator",
+          "description": "Calculate total carbohydrates by combining ingredients"
+        },
+        "search": {
+          "title": "Carb Factor Search",
+          "description": "Quick access to carbohydrate content of foods"
+        },
+        "history": {
+          "title": "Meal History",
+          "description": "Save and track meals with advanced filtering"
+        },
+        "multiSubject": {
+          "title": "Multi-Subject Support",
+          "description": "Manage meal history for multiple family members"
+        },
+        "bilingual": {
+          "title": "Bilingual",
+          "description": "Available in English and French"
+        },
+        "darkMode": {
+          "title": "Dark Mode",
+          "description": "Comfortable viewing in any lighting condition"
+        }
+      },
+      "install": {
+        "title": "Install as an App",
+        "description": "Install Gluko on your device for a native app experience. You can access it offline and launch it from your home screen.",
+        "ios": {
+          "title": "iPhone or iPad",
+          "step1": "Tap the Share button",
+          "step1b": "in Safari's toolbar",
+          "step2": "Scroll down and tap",
+          "step2b": "\"Add to Home Screen\"",
+          "step3": "Tap \"Add\" to confirm. Gluko will appear on your home screen."
+        },
+        "android": {
+          "title": "Android Phone or Tablet",
+          "step1": "Tap the menu button",
+          "step1b": "in Chrome",
+          "step2": "Tap \"Add to Home screen\" or \"Install app\"",
+          "step3": "Follow the prompts to install. Gluko will appear in your app drawer."
+        },
+        "desktop": {
+          "title": "Desktop Computer",
+          "step1": "Look for the install icon (⊕ or ⬇) in the address bar of Chrome, Edge, or Safari",
+          "step2": "Click it and follow the prompts. Gluko will be available as a desktop app."
+        },
+        "benefit": "Once installed, Gluko works offline and provides a faster, more app-like experience."
+      },
+      "disclaimer": {
+        "title": "Important Disclaimer",
+        "notMedical": "Gluko is NOT a certified medical device or application.",
+        "point1": "Always consult with your healthcare provider before making any diabetes management decisions",
+        "point2": "Verify nutritional information against reliable sources",
+        "point3": "Exercise careful review of all calculations",
+        "point4": "Use this app only as a supplementary guide tool"
+      },
+      "opensource": {
+        "title": "Open Source",
+        "description": "This project is open source and available on GitHub. Contributions are welcome!",
+        "github": "View on GitHub"
+      },
+      "author": {
+        "title": "Author",
+        "name": "Created by Guillaume Charest",
+        "copyright": "© 2021-2025"
+      }
     }
   },
   "modals": {

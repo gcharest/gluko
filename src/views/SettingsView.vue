@@ -170,7 +170,8 @@ const latestVersion = ref<string>('')
 const updateCheckMessage = ref<string>('')
 
 // PWA Update state
-const appVersion = ref<string>(import.meta.env.VITE_APP_VERSION || '0.6.0')
+// @ts-expect-error __APP_VERSION__ is defined globally by vite config
+const appVersion = ref<string>(__APP_VERSION__ || '0.6.0')
 const isCheckingPWAUpdates = ref(false)
 const pwaUpdateMessage = ref<string>('')
 const hasPWAUpdate = computed(() => pwaUpdate.hasUpdate.value)
