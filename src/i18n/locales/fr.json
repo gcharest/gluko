@@ -277,25 +277,29 @@
         "description": "Installez Gluko sur votre appareil pour une expérience d'application native. Vous pouvez y accéder hors ligne et le lancer depuis votre écran d'accueil.",
         "ios": {
           "title": "iPhone ou iPad",
-          "step1": "Appuyez sur le bouton Partager",
-          "step1b": "dans la barre d'outils de Safari",
-          "step2": "Faites défiler vers le bas et appuyez sur",
-          "step2b": "\"Sur l'écran d'accueil\"",
-          "step3": "Appuyez sur \"Ajouter\" pour confirmer. Gluko apparaîtra sur votre écran d'accueil."
+          "step1": "Ouvrez cette page dans Safari",
+          "step2": "Appuyez sur le bouton Partager",
+          "step2b": "en haut ou en bas de l'écran",
+          "step3": "Faites défiler vers le bas et sélectionnez \"Sur l'écran d'accueil\"",
+          "step4": "Confirmez ou modifiez le nom de l'application, puis appuyez sur \"Ajouter\"",
+          "note": "Remarque : iOS ne prend en charge l'installation que via Safari. Aucune invite automatique n'apparaîtra - vous devez installer manuellement en suivant ces étapes."
         },
         "android": {
           "title": "Téléphone ou tablette Android",
-          "step1": "Appuyez sur le bouton menu",
-          "step1b": "dans Chrome",
-          "step2": "Appuyez sur \"Ajouter à l'écran d'accueil\" ou \"Installer l'application\"",
-          "step3": "Suivez les instructions pour installer. Gluko apparaîtra dans votre tiroir d'applications."
+          "step1": "Ouvrez cette page dans Chrome, Samsung Internet ou votre navigateur préféré",
+          "step2": "Recherchez une bannière ou une invite d'installation (peut apparaître automatiquement)",
+          "step3": "Alternativement, appuyez sur le bouton menu (⋮) et sélectionnez \"Installer l'application\" ou \"Ajouter à l'écran d'accueil\"",
+          "step4": "Suivez les instructions pour terminer l'installation",
+          "note": "Remarque : L'application installée apparaîtra dans votre tiroir d'applications aux côtés d'autres applications. Vous pouvez également la trouver via la recherche d'applications de votre appareil."
         },
         "desktop": {
           "title": "Ordinateur de bureau",
-          "step1": "Recherchez l'icône d'installation (⊕ ou ⬇) dans la barre d'adresse de Chrome, Edge ou Safari",
-          "step2": "Cliquez dessus et suivez les instructions. Gluko sera disponible comme application de bureau."
+          "step1": "Recherchez l'icône d'installation dans la barre d'adresse (Chrome et Edge affichent ⊕ ou un badge d'installation)",
+          "step2": "Cliquez sur l'icône et sélectionnez \"Installer\" dans l'invite",
+          "step3": "Gluko s'ouvrira dans une fenêtre d'application autonome",
+          "note": "Remarque : Une fois installée, vous pouvez lancer Gluko depuis votre menu Démarrer (Windows), dock (macOS) ou lanceur d'applications (Chrome OS/Linux). L'application apparaîtra également dans la recherche de votre système."
         },
-        "benefit": "Une fois installé, Gluko fonctionne hors ligne et offre une expérience plus rapide et plus proche d'une application."
+        "benefit": "Une fois installé, Gluko fonctionne hors ligne et offre une expérience plus rapide et plus proche d'une application avec un accès rapide depuis votre écran d'accueil ou votre lanceur d'applications."
       },
       "disclaimer": {
         "title": "Avertissement important",

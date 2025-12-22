@@ -33,7 +33,9 @@
             class="absolute top-1 right-1 w-2 h-2 bg-primary-600 dark:bg-primary-400 rounded-full"
             aria-hidden="true"
           />
-          <span class="text-xs mt-1 font-medium text-center">{{ item.shortLabel || item.label }}</span>
+          <span class="text-xs mt-1 font-medium text-center w-full px-1">{{
+            item.shortLabel || item.label
+          }}</span>
         </RouterLink>
       </nav>
 
@@ -104,7 +106,7 @@ const { locale } = useI18n()
 const sideRailItems = computed(() => navigationStore.sideRailItems)
 
 const sideRailClasses = computed(() => [
-  'w-20',
+  'w-24',
   'bg-white dark:bg-gray-900',
   'border-r border-gray-200 dark:border-gray-800',
   'shadow-sm'

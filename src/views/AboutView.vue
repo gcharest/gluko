@@ -12,20 +12,29 @@ import {
   MoonIcon,
   SmartphoneIcon,
   MonitorIcon,
+  TabletIcon,
   DownloadIcon,
   ShareIcon,
-  PlusIcon,
   MoreVerticalIcon
 } from 'lucide-vue-next'
-import { computed } from 'vue'
+import { ref, onMounted } from 'vue'
 
-// Detect user platform for installation instructions
-const userPlatform = computed(() => {
+type InstallTab = 'ios' | 'android' | 'desktop'
+
+// Active tab for installation instructions
+const activeInstallTab = ref<InstallTab>('ios')
+
+// Detect user platform to set default tab
+const detectPlatform = (): InstallTab => {
   const ua = navigator.userAgent.toLowerCase()
   if (/iphone|ipad|ipod/.test(ua)) return 'ios'
   if (/android/.test(ua)) return 'android'
-  if (/mac/.test(ua)) return 'desktop-mac'
   return 'desktop'
+}
+
+// Set default tab based on platform on mount
+onMounted(() => {
+  activeInstallTab.value = detectPlatform()
 })
 </script>
 
@@ -190,90 +199,173 @@ const userPlatform = computed(() => {
         {{ $t('views.about.install.description') }}
       </p>
 
+      <!-- Tab Navigation -->
+      <div
+        class="flex gap-2 mb-6 border-b border-gray-200 dark:border-gray-700 overflow-x-auto -mx-6 px-6 sm:mx-0 sm:px-0 snap-x snap-mandatory scrollbar-hide"
+      >
+        <button
+          type="button"
+          :class="[
+            'flex items-center gap-2 px-4 py-3 font-medium text-sm border-b-2 transition-colors whitespace-nowrap shrink-0 snap-start',
+            activeInstallTab === 'ios'
+              ? 'border-primary-600 text-primary-700 dark:text-primary-400'
+              : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+          ]"
+          @click="activeInstallTab = 'ios'"
+        >
+          <SmartphoneIcon class="w-4 h-4" />
+          {{ $t('views.about.install.ios.title') }}
+        </button>
+        <button
+          type="button"
+          :class="[
+            'flex items-center gap-2 px-4 py-3 font-medium text-sm border-b-2 transition-colors whitespace-nowrap shrink-0 snap-start',
+            activeInstallTab === 'android'
+              ? 'border-primary-600 text-primary-700 dark:text-primary-400'
+              : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+          ]"
+          @click="activeInstallTab = 'android'"
+        >
+          <TabletIcon class="w-4 h-4" />
+          {{ $t('views.about.install.android.title') }}
+        </button>
+        <button
+          type="button"
+          :class="[
+            'flex items-center gap-2 px-4 py-3 font-medium text-sm border-b-2 transition-colors whitespace-nowrap shrink-0 snap-start',
+            activeInstallTab === 'desktop'
+              ? 'border-primary-600 text-primary-700 dark:text-primary-400'
+              : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+          ]"
+          @click="activeInstallTab = 'desktop'"
+        >
+          <MonitorIcon class="w-4 h-4" />
+          {{ $t('views.about.install.desktop.title') }}
+        </button>
+      </div>
+
+      <!-- Tab Content -->
       <!-- iOS Instructions -->
-      <div v-if="userPlatform === 'ios'" class="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <div class="flex items-center gap-2 mb-3">
-          <SmartphoneIcon class="w-5 h-5 text-primary-700 dark:text-primary-400" />
-          <h3 class="font-semibold text-gray-900 dark:text-white">
-            {{ $t('views.about.install.ios.title') }}
-          </h3>
-        </div>
-        <ol class="space-y-3 text-gray-700 dark:text-gray-300">
-          <li class="flex items-start gap-2">
-            <span class="font-semibold shrink-0">1.</span>
-            <span>
-              {{ $t('views.about.install.ios.step1') }}
-              <ShareIcon class="w-4 h-4 inline-block mx-1" />
-              {{ $t('views.about.install.ios.step1b') }}
-            </span>
+      <div v-if="activeInstallTab === 'ios'">
+        <ol class="space-y-4 text-gray-700 dark:text-gray-300 mb-4">
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >1</span
+            >
+            <span>{{ $t('views.about.install.ios.step1') }}</span>
           </li>
-          <li class="flex items-start gap-2">
-            <span class="font-semibold shrink-0">2.</span>
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >2</span
+            >
             <span>
               {{ $t('views.about.install.ios.step2') }}
-              <PlusIcon class="w-4 h-4 inline-block mx-1" />
+              <ShareIcon class="w-4 h-4 inline-block mx-1" />
               {{ $t('views.about.install.ios.step2b') }}
             </span>
           </li>
-          <li class="flex items-start gap-2">
-            <span class="font-semibold shrink-0">3.</span>
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >3</span
+            >
             <span>{{ $t('views.about.install.ios.step3') }}</span>
           </li>
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >4</span
+            >
+            <span>{{ $t('views.about.install.ios.step4') }}</span>
+          </li>
         </ol>
+        <div class="flex items-start gap-2 p-3 bg-amber-50 dark:bg-amber-950 rounded-lg text-sm">
+          <InfoIcon class="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
+          <p class="text-amber-800 dark:text-amber-300">
+            {{ $t('views.about.install.ios.note') }}
+          </p>
+        </div>
       </div>
 
       <!-- Android Instructions -->
-      <div
-        v-else-if="userPlatform === 'android'"
-        class="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
-      >
-        <div class="flex items-center gap-2 mb-3">
-          <SmartphoneIcon class="w-5 h-5 text-primary-700 dark:text-primary-400" />
-          <h3 class="font-semibold text-gray-900 dark:text-white">
-            {{ $t('views.about.install.android.title') }}
-          </h3>
-        </div>
-        <ol class="space-y-3 text-gray-700 dark:text-gray-300">
-          <li class="flex items-start gap-2">
-            <span class="font-semibold shrink-0">1.</span>
-            <span>
-              {{ $t('views.about.install.android.step1') }}
-              <MoreVerticalIcon class="w-4 h-4 inline-block mx-1" />
-              {{ $t('views.about.install.android.step1b') }}
-            </span>
+      <div v-else-if="activeInstallTab === 'android'">
+        <ol class="space-y-4 text-gray-700 dark:text-gray-300 mb-4">
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >1</span
+            >
+            <span>{{ $t('views.about.install.android.step1') }}</span>
           </li>
-          <li class="flex items-start gap-2">
-            <span class="font-semibold shrink-0">2.</span>
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >2</span
+            >
             <span>{{ $t('views.about.install.android.step2') }}</span>
           </li>
-          <li class="flex items-start gap-2">
-            <span class="font-semibold shrink-0">3.</span>
-            <span>{{ $t('views.about.install.android.step3') }}</span>
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >3</span
+            >
+            <span>
+              {{ $t('views.about.install.android.step3') }}
+              <MoreVerticalIcon class="w-4 h-4 inline-block mx-1" />
+            </span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >4</span
+            >
+            <span>{{ $t('views.about.install.android.step4') }}</span>
           </li>
         </ol>
+        <div class="flex items-start gap-2 p-3 bg-amber-50 dark:bg-amber-950 rounded-lg text-sm">
+          <InfoIcon class="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
+          <p class="text-amber-800 dark:text-amber-300">
+            {{ $t('views.about.install.android.note') }}
+          </p>
+        </div>
       </div>
 
       <!-- Desktop Instructions -->
-      <div v-else class="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <div class="flex items-center gap-2 mb-3">
-          <MonitorIcon class="w-5 h-5 text-primary-700 dark:text-primary-400" />
-          <h3 class="font-semibold text-gray-900 dark:text-white">
-            {{ $t('views.about.install.desktop.title') }}
-          </h3>
-        </div>
-        <ol class="space-y-3 text-gray-700 dark:text-gray-300">
-          <li class="flex items-start gap-2">
-            <span class="font-semibold shrink-0">1.</span>
+      <div v-else-if="activeInstallTab === 'desktop'">
+        <ol class="space-y-4 text-gray-700 dark:text-gray-300 mb-4">
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >1</span
+            >
             <span>{{ $t('views.about.install.desktop.step1') }}</span>
           </li>
-          <li class="flex items-start gap-2">
-            <span class="font-semibold shrink-0">2.</span>
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >2</span
+            >
             <span>{{ $t('views.about.install.desktop.step2') }}</span>
           </li>
+          <li class="flex items-start gap-3">
+            <span
+              class="flex items-center justify-center w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-950 text-primary-700 dark:text-primary-400 font-semibold text-sm shrink-0"
+              >3</span
+            >
+            <span>{{ $t('views.about.install.desktop.step3') }}</span>
+          </li>
         </ol>
+        <div class="flex items-start gap-2 p-3 bg-amber-50 dark:bg-amber-950 rounded-lg text-sm">
+          <InfoIcon class="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
+          <p class="text-amber-800 dark:text-amber-300">
+            {{ $t('views.about.install.desktop.note') }}
+          </p>
+        </div>
       </div>
 
-      <div class="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950 rounded-lg text-sm">
+      <div class="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950 rounded-lg text-sm mt-6">
         <InfoIcon class="w-5 h-5 text-blue-700 dark:text-blue-400 shrink-0 mt-0.5" />
         <p class="text-blue-800 dark:text-blue-300">
           {{ $t('views.about.install.benefit') }}

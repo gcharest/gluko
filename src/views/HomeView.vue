@@ -57,8 +57,7 @@ const additionalFeatures = [
     <div class="text-center mb-12">
       <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">Gluko</h1>
       <p class="text-xl text-gray-600 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
-        A web application designed to help individuals and families more accurately calculate the
-        carbohydrate content in their meals for better diabetes management.
+        {{ $t('views.about.what.description') }}
       </p>
 
       <!-- Experimental Notice -->
