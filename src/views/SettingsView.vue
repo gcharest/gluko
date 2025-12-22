@@ -1,8 +1,13 @@
 <template>
   <div class="max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-      {{ $t('settings.title') }}
-    </h1>
+    <div class="flex items-center gap-3 mb-6">
+      <div class="p-3 bg-primary-100 dark:bg-primary-950 rounded-lg">
+        <SettingsIcon class="w-8 h-8 text-primary-700 dark:text-primary-400" />
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+        {{ $t('settings.title') }}
+      </h1>
+    </div>
 
     <!-- Application Update Section -->
     <section class="mb-8">
@@ -147,6 +152,7 @@ import BaseButton from '@/components/base/BaseButton.vue'
 import BaseAlert from '@/components/base/BaseAlert.vue'
 import StorageQuotaDisplay from '@/components/StorageQuotaDisplay.vue'
 import DatasetUpdateProgress from '@/components/DatasetUpdateProgress.vue'
+import { SettingsIcon } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const nutrientStore = useNutrientFileStore()
@@ -164,7 +170,7 @@ const latestVersion = ref<string>('')
 const updateCheckMessage = ref<string>('')
 
 // PWA Update state
-const appVersion = ref<string>(import.meta.env.VITE_APP_VERSION || '0.6.0')
+const appVersion = ref<string>(__APP_VERSION__ || '0.6.0')
 const isCheckingPWAUpdates = ref(false)
 const pwaUpdateMessage = ref<string>('')
 const hasPWAUpdate = computed(() => pwaUpdate.hasUpdate.value)

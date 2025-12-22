@@ -22,7 +22,7 @@ import ToastContainer from '@/components/base/ToastContainer.vue'
       id="content"
       class="min-h-screen transition-all duration-300"
       :class="[
-        'lg:ml-20', // Desktop: Add left margin for side rail
+        'lg:ml-24', // Desktop: Add left margin for side rail
         'pt-14 lg:pt-0', // Mobile: Add top padding for top bar
         'pb-20 lg:pb-4' // Mobile: Add bottom padding for bottom nav
       ]"

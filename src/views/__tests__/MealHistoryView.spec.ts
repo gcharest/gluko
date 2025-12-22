@@ -1,7 +1,24 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import MealHistoryView from '../MealHistoryView.vue'
 import { createPinia, setActivePinia } from 'pinia'
+
+const mockRouter = {
+  push: vi.fn(),
+  replace: vi.fn(),
+  go: vi.fn(),
+  back: vi.fn(),
+  forward: vi.fn()
+}
+
+const mockRoute = {
+  path: '/history',
+  name: 'history',
+  params: {},
+  query: {},
+  hash: '',
+  meta: {}
+}
 
 describe('MealHistoryView.vue', () => {
   beforeEach(() => {
@@ -21,7 +38,9 @@ describe('MealHistoryView.vue', () => {
           BaseInput: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -41,7 +60,9 @@ describe('MealHistoryView.vue', () => {
           // Don't stub BaseCard so we can see its slot content
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -61,7 +82,9 @@ describe('MealHistoryView.vue', () => {
           BaseInput: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -82,7 +105,9 @@ describe('MealHistoryView.vue', () => {
           // Don't stub BaseButton so we can see its content
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -107,7 +132,9 @@ describe('MealHistoryView.vue', () => {
           // Don't stub BaseButton so we can see its content
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -131,7 +158,9 @@ describe('MealHistoryView.vue', () => {
           // Don't stub BaseInput so we can see the input element
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -154,7 +183,9 @@ describe('MealHistoryView.vue', () => {
           BaseInput: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -176,7 +207,9 @@ describe('MealHistoryView.vue', () => {
           BaseInput: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -202,7 +235,9 @@ describe('MealHistoryView.vue', () => {
           BaseInput: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -222,7 +257,9 @@ describe('MealHistoryView.vue', () => {
           BaseInput: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -244,7 +281,9 @@ describe('MealHistoryView.vue', () => {
           BaseInput: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -266,7 +305,9 @@ describe('MealHistoryView.vue', () => {
           BaseInput: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -288,7 +329,9 @@ describe('MealHistoryView.vue', () => {
           BaseInput: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -307,7 +350,9 @@ describe('MealHistoryView.vue', () => {
           MealHistoryCard: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })
@@ -324,7 +369,9 @@ describe('MealHistoryView.vue', () => {
           MealHistoryCard: true
         },
         mocks: {
-          $t: (key: string) => key
+          $t: (key: string) => key,
+          $router: mockRouter,
+          $route: mockRoute
         }
       }
     })

@@ -102,7 +102,7 @@ describe('navigation Store', () => {
       expect(paths).toContain('/calculator')
       expect(paths).toContain('/history')
       expect(paths).toContain('/carb-factor')
-      // Settings was moved to the overflow menu
+      // Settings has been moved to the overflow menu, not in bottom nav
       expect(paths).not.toContain('/settings')
     })
 

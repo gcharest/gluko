@@ -14,7 +14,8 @@
       "cancel": "Cancel",
       "confirm": "Confirm",
       "close": "Close",
-      "search": "Search"
+      "search": "Search",
+      "open": "Open"
     },
     "navigation": {
       "backToHistory": "Back to history",
@@ -50,7 +51,15 @@
     "settings": "Settings",
     "toggleTheme": "Toggle theme",
     "changeLanguage": "Change language",
-    "menu": "Menu"
+    "menu": "Menu",
+    "short": {
+      "home": "Home",
+      "calculator": "Calc",
+      "history": "History",
+      "search": "Search",
+      "about": "About",
+      "settings": "Settings"
+    }
   },
   "theme": {
     "toggle": "Toggle theme",
@@ -225,6 +234,97 @@
     },
     "calculator": {
       "editingHistory": "Editing saved meal"
+    },
+    "about": {
+      "title": "About",
+      "what": {
+        "title": "What is Gluko?",
+        "description": "Gluko is a web application designed to help individuals and families more accurately calculate the carbohydrate content in their meals for better diabetes management.",
+        "source": "It leverages the official",
+        "cnf": "Canadian Nutrient File database"
+      },
+      "why": {
+        "title": "Why Gluko?",
+        "description": "Managing Type 1 Diabetes requires constant attention to carbohydrate intake to determine proper insulin dosing. Gluko aims to make this process easier by:",
+        "benefit1": "Providing quick access to reliable nutritional information",
+        "benefit2": "Enabling easy calculation of complex meals",
+        "benefit3": "Offering a user-friendly interface for daily use",
+        "benefit4": "Supporting families and caregivers with multi-subject management"
+      },
+      "features": {
+        "title": "Features",
+        "calculator": {
+          "title": "Meal Calculator",
+          "description": "Calculate total carbohydrates by combining ingredients"
+        },
+        "search": {
+          "title": "Carb Factor Search",
+          "description": "Quick access to carbohydrate content of foods"
+        },
+        "history": {
+          "title": "Meal History",
+          "description": "Save and track meals with advanced filtering"
+        },
+        "multiSubject": {
+          "title": "Multi-Subject Support",
+          "description": "Manage meal history for multiple family members"
+        },
+        "bilingual": {
+          "title": "Bilingual",
+          "description": "Available in English and French"
+        },
+        "darkMode": {
+          "title": "Dark Mode",
+          "description": "Comfortable viewing in any lighting condition"
+        }
+      },
+      "install": {
+        "title": "Install as an App",
+        "description": "Install Gluko on your device for a native app experience. You can access it offline and launch it from your home screen.",
+        "ios": {
+          "title": "iPhone or iPad",
+          "step1": "Open this page in Safari",
+          "step2": "Tap the Share button",
+          "step2b": "at the top or bottom of the screen",
+          "step3": "Scroll down and select \"Add to Home Screen\"",
+          "step4": "Confirm or edit the app name, then tap \"Add\"",
+          "note": "Note: iOS only supports installation through Safari. No automatic prompt will appear - you must install manually using these steps."
+        },
+        "android": {
+          "title": "Android Phone or Tablet",
+          "step1": "Open this page in Chrome, Samsung Internet, or your preferred browser",
+          "step2": "Look for an install banner or prompt (may appear automatically)",
+          "step3": "Alternatively, tap the menu button (⋮) and select \"Install app\" or \"Add to Home screen\"",
+          "step4": "Follow the prompts to complete installation",
+          "note": "Note: The installed app will appear in your app drawer alongside other apps. You can also find it through your device's app search."
+        },
+        "desktop": {
+          "title": "Desktop Computer",
+          "step1": "Look for the install icon in the address bar (Chrome and Edge show ⊕ or install badge)",
+          "step2": "Click the icon and select \"Install\" from the prompt",
+          "step3": "Gluko will open as a standalone app window",
+          "note": "Note: Once installed, you can launch Gluko from your Start menu (Windows), dock (macOS), or app launcher (Chrome OS/Linux). The app will also appear in your system search."
+        },
+        "benefit": "Once installed, Gluko works offline and provides a faster, more app-like experience with quick access from your home screen or app launcher."
+      },
+      "disclaimer": {
+        "title": "Important Disclaimer",
+        "notMedical": "Gluko is NOT a certified medical device or application.",
+        "point1": "Always consult with your healthcare provider before making any diabetes management decisions",
+        "point2": "Verify nutritional information against reliable sources",
+        "point3": "Exercise careful review of all calculations",
+        "point4": "Use this app only as a supplementary guide tool"
+      },
+      "opensource": {
+        "title": "Open Source",
+        "description": "This project is open source and available on GitHub. Contributions are welcome!",
+        "github": "View on GitHub"
+      },
+      "author": {
+        "title": "Author",
+        "name": "Created by Guillaume Charest",
+        "copyright": "© 2021-2025"
+      }
     }
   },
   "modals": {
@@ -426,5 +526,28 @@
       "title": "Storage Management",
       "info": "Persistent storage prevents the browser from automatically deleting your data when storage space is low. Enable it to ensure your nutrition dataset and meal history are preserved."
     }
+  },
+  "features": {
+    "calculator": {
+      "title": "Meal Calculator",
+      "description": "Calculate total carbohydrates in your meals by combining different ingredients with accurate nutritional data."
+    },
+    "search": {
+      "title": "Carb Factor Search",
+      "description": "Quick access to carbohydrate content and detailed nutritional information from the Canadian Nutrient File."
+    },
+    "history": {
+      "title": "Meal History",
+      "description": "Save, view, and filter past meals for easy tracking and review with advanced date and tag filtering."
+    },
+    "multiSubject": {
+      "title": "Multi-Subject Support",
+      "description": "Manage meal history for multiple subjects - perfect for families with multiple children living with Type 1 Diabetes."
+    },
+    "bilingual": "Bilingual Support (English & French)",
+    "darkMode": "Dark Mode",
+    "additionalTitle": "Additional Features",
+    "whyTitle": "Why Gluko?",
+    "whyDescription": "Managing Type 1 Diabetes requires constant attention to carbohydrate intake for proper insulin dosing. Gluko makes this easier by providing quick access to reliable nutritional information, enabling easy calculation of complex meals, and supporting families and caregivers with comprehensive meal tracking."
   }
 }

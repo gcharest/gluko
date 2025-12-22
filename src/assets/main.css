@@ -96,3 +96,13 @@ body {
   background-color: inherit;
   color: inherit;
 }
+
+/* Hide scrollbar while maintaining scroll functionality */
+@utility scrollbar-hide {
+  /* Firefox */
+  scrollbar-width: none;
+  /* Safari and Chrome */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

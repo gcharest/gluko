@@ -32,11 +32,22 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
   // Load initial data
   const loadInitialData = async () => {
     try {
-      if (!subjectStore.currentSubject) return
-
-      const subjectEntries = await db.getMealHistoryBySubject(subjectStore.currentSubject.id)
-      if (subjectEntries) {
-        entries.value = subjectEntries.sort((a, b) => b.date.getTime() - a.date.getTime())
+      if (subjectStore.activeSubjectId === null) {
+        // Load all entries when "All Subjects" is selected
+        const allEntries = await db.getAllMealHistory()
+        if (allEntries) {
+          entries.value = allEntries.sort(
+            (a: MealHistoryEntry, b: MealHistoryEntry) => b.date.getTime() - a.date.getTime()
+          )
+        }
+      } else if (subjectStore.currentSubject) {
+        // Load entries for specific subject
+        const subjectEntries = await db.getMealHistoryBySubject(subjectStore.currentSubject.id)
+        if (subjectEntries) {
+          entries.value = subjectEntries.sort(
+            (a: MealHistoryEntry, b: MealHistoryEntry) => b.date.getTime() - a.date.getTime()
+          )
+        }
       }
     } catch (err) {
       console.error('Failed to load meal history:', err)
@@ -47,12 +58,8 @@ export const useMealHistoryStore = defineStore('mealHistoryStore', () => {
   // Watch for subject changes and reload data
   watch(
     () => subjectStore.activeSubjectId,
-    async (newId: string | null) => {
-      if (newId) {
-        await loadInitialData()
-      } else {
-        entries.value = []
-      }
+    async () => {
+      await loadInitialData()
     }
   )
 

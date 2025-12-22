@@ -1,8 +1,13 @@
 <template>
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-      {{ $t('navigation.history') }}
-    </h1>
+    <div class="flex items-center gap-3 mb-6">
+      <div class="p-3 bg-primary-100 dark:bg-primary-950 rounded-lg">
+        <HistoryIcon class="w-8 h-8 text-primary-700 dark:text-primary-400" />
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+        {{ $t('navigation.history') }}
+      </h1>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
       <!-- Filters Sidebar -->
       <div class="md:col-span-1">
@@ -256,7 +261,8 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronDownIcon,
-  TagIcon
+  TagIcon,
+  HistoryIcon
 } from 'lucide-vue-next'
 
 const router = useRouter()
@@ -318,7 +324,11 @@ const dateRange = computed({
 const selectedSubjectId = computed({
   get: () => subjectStore.activeSubjectId,
   set: (val: string | null) => {
-    if (val) subjectStore.setActiveSubject(val)
+    if (val === null) {
+      subjectStore.activeSubjectId = null
+    } else {
+      subjectStore.setActiveSubject(val)
+    }
   }
 })
 const selectedTagIds = computed({

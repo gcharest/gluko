@@ -32,7 +32,7 @@ export const useNavigationStore = defineStore('navigation', () => {
     {
       to: '/',
       label: t('navigation.home'),
-      shortLabel: 'Home',
+      shortLabel: t('navigation.short.home'),
       icon: HomeIcon,
       showInBottomNav: false,
       showInSideRail: true
@@ -40,7 +40,7 @@ export const useNavigationStore = defineStore('navigation', () => {
     {
       to: '/calculator',
       label: t('components.mealCalculator.title'),
-      shortLabel: 'Calc',
+      shortLabel: t('navigation.short.calculator'),
       icon: CalculatorIcon,
       showInBottomNav: true,
       showInSideRail: true
@@ -48,7 +48,7 @@ export const useNavigationStore = defineStore('navigation', () => {
     {
       to: '/history',
       label: t('navigation.history'),
-      shortLabel: 'History',
+      shortLabel: t('navigation.short.history'),
       icon: HistoryIcon,
       showInBottomNav: true,
       showInSideRail: true
@@ -56,7 +56,7 @@ export const useNavigationStore = defineStore('navigation', () => {
     {
       to: '/carb-factor',
       label: t('navigation.carbFactor'),
-      shortLabel: 'Search',
+      shortLabel: t('navigation.short.search'),
       icon: SearchIcon,
       showInBottomNav: true,
       showInSideRail: true
@@ -64,7 +64,7 @@ export const useNavigationStore = defineStore('navigation', () => {
     {
       to: '/about',
       label: t('navigation.about'),
-      shortLabel: 'About',
+      shortLabel: t('navigation.short.about'),
       icon: InfoIcon,
       showInBottomNav: false,
       showInSideRail: true
@@ -72,7 +72,7 @@ export const useNavigationStore = defineStore('navigation', () => {
     {
       to: '/settings',
       label: t('navigation.settings'),
-      shortLabel: 'Settings',
+      shortLabel: t('navigation.short.settings'),
       icon: SettingsIcon,
       showInBottomNav: false, // Now in menu dropdown instead
       showInSideRail: true,

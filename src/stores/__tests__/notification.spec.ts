@@ -2,28 +2,51 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useNotificationStore } from '../notification'
 
-describe('notification Store', () => {
+describe('Notification Store', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
 
-  describe('Notification Management', () => {
+  describe('addNotification', () => {
     it('adds a notification', () => {
       const store = useNotificationStore()
-      const id = store.addNotification('Test message', 'info', {
+      const id = store.addNotification('Test message', 'info')
+
+      expect(store.notifications.length).toBe(1)
+      expect(store.notifications[0].id).toBe(id)
+      expect(store.notifications[0].message).toBe('Test message')
+      expect(store.notifications[0].variant).toBe('info')
+      expect(store.notifications[0].seen).toBe(false)
+    })
+
+    it('adds a notification with context', () => {
+      const store = useNotificationStore()
+      store.addNotification('Settings updated', 'success', {
         viewPath: '/settings',
+        section: 'dataset',
         clearOnVisit: true
       })
 
-      expect(id).toBeDefined()
       expect(store.notifications.length).toBe(1)
-      expect(store.notifications[0].message).toBe('Test message')
-      expect(store.notifications[0].variant).toBe('info')
+      expect(store.notifications[0].context?.viewPath).toBe('/settings')
+      expect(store.notifications[0].context?.section).toBe('dataset')
+      expect(store.notifications[0].context?.clearOnVisit).toBe(true)
     })
 
-    it('removes a notification', () => {
+    it('generates unique IDs for multiple notifications', () => {
       const store = useNotificationStore()
-      const id = store.addNotification('Test message', 'info')
+      const id1 = store.addNotification('First', 'info')
+      const id2 = store.addNotification('Second', 'warning')
+
+      expect(id1).not.toBe(id2)
+      expect(store.notifications.length).toBe(2)
+    })
+  })
+
+  describe('removeNotification', () => {
+    it('removes a notification by ID', () => {
+      const store = useNotificationStore()
+      const id = store.addNotification('Test', 'info')
 
       expect(store.notifications.length).toBe(1)
 
@@ -32,9 +55,20 @@ describe('notification Store', () => {
       expect(store.notifications.length).toBe(0)
     })
 
-    it('marks notification as seen', () => {
+    it('does nothing when removing non-existent ID', () => {
       const store = useNotificationStore()
-      const id = store.addNotification('Test message', 'info')
+      store.addNotification('Test', 'info')
+
+      store.removeNotification('non-existent-id')
+
+      expect(store.notifications.length).toBe(1)
+    })
+  })
+
+  describe('markAsSeen', () => {
+    it('marks a notification as seen', () => {
+      const store = useNotificationStore()
+      const id = store.addNotification('Test', 'info')
 
       expect(store.notifications[0].seen).toBe(false)
 
@@ -43,63 +77,156 @@ describe('notification Store', () => {
       expect(store.notifications[0].seen).toBe(true)
     })
 
-    it('clears notifications for a view', () => {
+    it('does nothing when marking non-existent ID', () => {
       const store = useNotificationStore()
-      store.addNotification('Test 1', 'info', {
+      store.addNotification('Test', 'info')
+
+      store.markAsSeen('non-existent-id')
+
+      expect(store.notifications[0].seen).toBe(false)
+    })
+  })
+
+  describe('clearNotificationsForView', () => {
+    it('clears notifications with clearOnVisit for the view', () => {
+      const store = useNotificationStore()
+      store.addNotification('Update available', 'info', {
         viewPath: '/settings',
         clearOnVisit: true
       })
-      store.addNotification('Test 2', 'info', {
+      store.addNotification('Persistent message', 'warning', {
         viewPath: '/settings',
-        clearOnVisit: true
-      })
-      store.addNotification('Test 3', 'info', {
-        viewPath: '/about',
-        clearOnVisit: true
+        clearOnVisit: false
       })
 
-      expect(store.notifications.length).toBe(3)
+      expect(store.notifications.length).toBe(2)
 
       store.clearNotificationsForView('/settings')
 
       expect(store.notifications.length).toBe(1)
-      expect(store.notifications[0].message).toBe('Test 3')
+      expect(store.notifications[0].message).toBe('Persistent message')
     })
 
-    it('checks if view has unseen notifications', () => {
+    it('does not clear notifications for other views', () => {
+      const store = useNotificationStore()
+      store.addNotification('Settings notification', 'info', {
+        viewPath: '/settings',
+        clearOnVisit: true
+      })
+      store.addNotification('History notification', 'info', {
+        viewPath: '/history',
+        clearOnVisit: true
+      })
+
+      store.clearNotificationsForView('/settings')
+
+      expect(store.notifications.length).toBe(1)
+      expect(store.notifications[0].message).toBe('History notification')
+    })
+  })
+
+  describe('getNotificationsForView', () => {
+    it('returns notifications for a specific view', () => {
+      const store = useNotificationStore()
+      store.addNotification('Settings notification', 'info', {
+        viewPath: '/settings'
+      })
+      store.addNotification('History notification', 'info', {
+        viewPath: '/history'
+      })
+
+      const settingsNotifications = store.getNotificationsForView('/settings')
+
+      expect(settingsNotifications.length).toBe(1)
+      expect(settingsNotifications[0].message).toBe('Settings notification')
+    })
+
+    it('returns empty array when no notifications for view', () => {
+      const store = useNotificationStore()
+      const notifications = store.getNotificationsForView('/settings')
+
+      expect(notifications.length).toBe(0)
+    })
+  })
+
+  describe('getUnseenNotificationsForView', () => {
+    it('returns only unseen notifications for a view', () => {
+      const store = useNotificationStore()
+      const id1 = store.addNotification('Unseen', 'info', {
+        viewPath: '/settings'
+      })
+      const id2 = store.addNotification('Seen', 'info', {
+        viewPath: '/settings'
+      })
+
+      store.markAsSeen(id2)
+
+      const unseenNotifications = store.getUnseenNotificationsForView('/settings')
+
+      expect(unseenNotifications.length).toBe(1)
+      expect(unseenNotifications[0].id).toBe(id1)
+    })
+  })
+
+  describe('hasUnseenNotifications', () => {
+    it('returns true when view has unseen notifications', () => {
       const store = useNotificationStore()
       store.addNotification('Test', 'info', {
         viewPath: '/settings'
       })
 
       expect(store.hasUnseenNotifications('/settings')).toBe(true)
-      expect(store.hasUnseenNotifications('/about')).toBe(false)
     })
 
-    it('gets unseen count for a view', () => {
+    it('returns false when view has no unseen notifications', () => {
       const store = useNotificationStore()
-      store.addNotification('Test 1', 'info', {
+      const id = store.addNotification('Test', 'info', {
         viewPath: '/settings'
       })
-      store.addNotification('Test 2', 'info', {
-        viewPath: '/settings'
-      })
-      const id = store.addNotification('Test 3', 'info', {
-        viewPath: '/settings'
-      })
-
-      expect(store.getUnseenCount('/settings')).toBe(3)
 
       store.markAsSeen(id)
+
+      expect(store.hasUnseenNotifications('/settings')).toBe(false)
+    })
+
+    it('returns false when view has no notifications', () => {
+      const store = useNotificationStore()
+
+      expect(store.hasUnseenNotifications('/settings')).toBe(false)
+    })
+  })
+
+  describe('getUnseenCount', () => {
+    it('returns count of unseen notifications for a view', () => {
+      const store = useNotificationStore()
+      store.addNotification('First', 'info', {
+        viewPath: '/settings'
+      })
+      store.addNotification('Second', 'info', {
+        viewPath: '/settings'
+      })
+      const id3 = store.addNotification('Third', 'info', {
+        viewPath: '/settings'
+      })
+
+      store.markAsSeen(id3)
 
       expect(store.getUnseenCount('/settings')).toBe(2)
     })
 
+    it('returns 0 when no unseen notifications', () => {
+      const store = useNotificationStore()
+
+      expect(store.getUnseenCount('/settings')).toBe(0)
+    })
+  })
+
+  describe('clearAll', () => {
     it('clears all notifications', () => {
       const store = useNotificationStore()
-      store.addNotification('Test 1', 'info')
-      store.addNotification('Test 2', 'error')
-      store.addNotification('Test 3', 'warning')
+      store.addNotification('First', 'info')
+      store.addNotification('Second', 'warning')
+      store.addNotification('Third', 'error')
 
       expect(store.notifications.length).toBe(3)
 
@@ -107,18 +234,19 @@ describe('notification Store', () => {
 
       expect(store.notifications.length).toBe(0)
     })
+  })
 
-    it('tracks total unseen count', () => {
+  describe('totalUnseenCount', () => {
+    it('returns total count of unseen notifications across all views', () => {
       const store = useNotificationStore()
-      store.addNotification('Test 1', 'info')
-      store.addNotification('Test 2', 'info')
-      const id = store.addNotification('Test 3', 'info')
+      store.addNotification('Settings 1', 'info', { viewPath: '/settings' })
+      store.addNotification('Settings 2', 'info', { viewPath: '/settings' })
+      store.addNotification('History 1', 'info', { viewPath: '/history' })
+      const id4 = store.addNotification('History 2', 'info', { viewPath: '/history' })
+
+      store.markAsSeen(id4)
 
       expect(store.totalUnseenCount).toBe(3)
-
-      store.markAsSeen(id)
-
-      expect(store.totalUnseenCount).toBe(2)
     })
   })
 })
