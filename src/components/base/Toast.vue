@@ -21,7 +21,12 @@
       </div>
 
       <!-- Action button (optional) -->
-      <button v-if="toast.action" type="button" :class="actionButtonClasses" @click.stop="handleAction">
+      <button
+        v-if="toast.action"
+        type="button"
+        :class="actionButtonClasses"
+        @click.stop="handleAction"
+      >
         {{ toast.action.label }}
       </button>
 

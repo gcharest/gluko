@@ -132,12 +132,7 @@ import { useNavigationStore } from '@/stores/navigation'
 import { useDarkMode } from '@/composables/useDarkMode'
 import { useI18n } from 'vue-i18n'
 import BaseModal from './BaseModal.vue'
-import {
-  MoreHorizontalIcon,
-  SunIcon,
-  MoonIcon,
-  LanguagesIcon
-} from 'lucide-vue-next'
+import { MoreHorizontalIcon, SunIcon, MoonIcon, LanguagesIcon } from 'lucide-vue-next'
 
 const route = useRoute()
 const navigationStore = useNavigationStore()
@@ -157,9 +152,7 @@ const overflowItems = computed(() =>
 )
 
 // Check if any overflow item has a badge (for menu button badge inheritance)
-const hasOverflowBadge = computed(() =>
-  overflowItems.value.some((item) => item.showBadge)
-)
+const hasOverflowBadge = computed(() => overflowItems.value.some((item) => item.showBadge))
 
 const navClasses = computed(() => [
   'bg-white dark:bg-gray-900',
