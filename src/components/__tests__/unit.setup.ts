@@ -59,29 +59,3 @@ config.global.stubs = {
     props: ['to']
   }
 }
-config.global.mocks = {
-  // Router mocks
-  $router: {
-    push: vi.fn(),
-    replace: vi.fn(),
-    go: vi.fn(),
-    back: vi.fn(),
-    forward: vi.fn()
-  },
-  $route: {
-    path: '/',
-    name: 'home',
-    params: {},
-    query: {},
-    hash: '',
-    meta: {}
-  }
-}
-
-// Stub router-link component
-config.global.stubs = {
-  RouterLink: {
-    template: '<a><slot/></a>',
-    props: ['to']
-  }
-}

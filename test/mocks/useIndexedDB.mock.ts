@@ -3,6 +3,7 @@ import { vi } from 'vitest'
 
 export const mockSessions = new Map()
 export const mockMealHistory = new Map()
+export const mockTags = new Map()
 
 export const createMockIndexedDB = () => ({
   getAllByIndex: vi.fn().mockResolvedValue([]),
@@ -33,6 +34,24 @@ export const createMockIndexedDB = () => ({
     mockSessions.delete(id)
     return Promise.resolve()
   }),
+  // Draft session methods
+  saveDraftSession: vi.fn((session: { id: string }) => {
+    mockSessions.set(session.id, session)
+    return Promise.resolve()
+  }),
+  getDraftSession: vi.fn((id: string) => {
+    return Promise.resolve(mockSessions.get(id) || null)
+  }),
+  getDraftSessionsBySubject: vi.fn((subjectId: string) => {
+    const sessions = Array.from(mockSessions.values()).filter(
+      (s: { subjectId: string }) => s.subjectId === subjectId
+    )
+    return Promise.resolve(sessions)
+  }),
+  deleteDraftSession: vi.fn((id: string) => {
+    mockSessions.delete(id)
+    return Promise.resolve()
+  }),
   // Meal history mock
   saveMealHistory: vi.fn((entry: { id: string }) => {
     mockMealHistory.set(entry.id, entry)
@@ -47,10 +66,49 @@ export const createMockIndexedDB = () => ({
     )
     return Promise.resolve(entries)
   }),
+  getAllMealHistory: vi.fn(() => {
+    return Promise.resolve(Array.from(mockMealHistory.values()))
+  }),
   removeMealHistory: vi.fn((id: string) => {
     mockMealHistory.delete(id)
     return Promise.resolve()
   }),
+  addMealHistory: vi.fn((entry: { id: string }) => {
+    mockMealHistory.set(entry.id, entry)
+    return Promise.resolve()
+  }),
+  updateMealHistory: vi.fn((entry: { id: string }) => {
+    mockMealHistory.set(entry.id, entry)
+    return Promise.resolve()
+  }),
+  deleteMealHistory: vi.fn((id: string) => {
+    mockMealHistory.delete(id)
+    return Promise.resolve()
+  }),
+  // Tag methods
+  getAllTags: vi.fn(() => {
+    return Promise.resolve(Array.from(mockTags.values()))
+  }),
+  addTag: vi.fn((tag: { id: string }) => {
+    mockTags.set(tag.id, tag)
+    return Promise.resolve()
+  }),
+  updateTag: vi.fn((tag: { id: string }) => {
+    mockTags.set(tag.id, tag)
+    return Promise.resolve()
+  }),
+  deleteTag: vi.fn((id: string) => {
+    mockTags.delete(id)
+    return Promise.resolve()
+  }),
+  // IndexedDB utility methods
+  isSupported: true,
+  isLoading: false,
+  error: null,
+  add: vi.fn().mockResolvedValue(1),
+  update: vi.fn().mockResolvedValue(1),
+  delete: vi.fn().mockResolvedValue(undefined),
+  getAll: vi.fn().mockResolvedValue([]),
 })
 
 // Provide a global mock for the composable

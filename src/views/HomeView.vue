@@ -2,24 +2,63 @@
 import { useRouter } from 'vue-router'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
-import { CalculatorIcon, SearchIcon, AlertCircleIcon } from 'lucide-vue-next'
+import {
+  CalculatorIcon,
+  SearchIcon,
+  AlertCircleIcon,
+  HistoryIcon,
+  UsersIcon,
+  LanguagesIcon,
+  MoonIcon
+} from 'lucide-vue-next'
 
 const router = useRouter()
 
 const navigateTo = (route: string) => {
   router.push(route)
 }
+
+const features = [
+  {
+    icon: CalculatorIcon,
+    title: 'features.calculator.title',
+    description: 'features.calculator.description',
+    route: '/calculator'
+  },
+  {
+    icon: SearchIcon,
+    title: 'features.search.title',
+    description: 'features.search.description',
+    route: '/carb-factor'
+  },
+  {
+    icon: HistoryIcon,
+    title: 'features.history.title',
+    description: 'features.history.description',
+    route: '/history'
+  },
+  {
+    icon: UsersIcon,
+    title: 'features.multiSubject.title',
+    description: 'features.multiSubject.description',
+    route: '/history'
+  }
+]
+
+const additionalFeatures = [
+  { icon: LanguagesIcon, text: 'features.bilingual' },
+  { icon: MoonIcon, text: 'features.darkMode' }
+]
 </script>
 
 <template>
   <div class="max-w-6xl mx-auto">
     <!-- Hero Section -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-        {{ $t('navigation.home') }}
-      </h1>
-      <p class="text-xl text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-        {{ $t('aboutText.para1') }}
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">Gluko</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
+        A web application designed to help individuals and families more accurately calculate the
+        carbohydrate content in their meals for better diabetes management.
       </p>
 
       <!-- Experimental Notice -->
@@ -31,55 +70,61 @@ const navigateTo = (route: string) => {
       </div>
     </div>
 
-    <!-- Feature Cards -->
-    <div class="grid md:grid-cols-2 gap-6 mb-12">
-      <!-- Calculator Card -->
-      <BaseCard variant="elevated" class="hover:shadow-lg transition-shadow duration-200">
-        <template #header>
-          <div class="flex items-center gap-3">
-            <div class="p-2 bg-primary-100 dark:bg-primary-950 rounded-lg">
-              <CalculatorIcon class="w-6 h-6 text-primary-700 dark:text-primary-400" />
-            </div>
-            <h2 class="text-2xl font-bold">{{ $t('components.mealCalculator.title') }}</h2>
+    <!-- Main Features Grid -->
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <BaseCard
+        v-for="feature in features"
+        :key="feature.route"
+        variant="elevated"
+        class="hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+        @click="navigateTo(feature.route)"
+      >
+        <div class="flex items-start gap-4">
+          <div class="p-3 bg-primary-100 dark:bg-primary-950 rounded-lg shrink-0">
+            <component :is="feature.icon" class="w-7 h-7 text-primary-700 dark:text-primary-400" />
           </div>
-        </template>
-
-        <p class="text-gray-600 dark:text-gray-300 mb-6">
-          {{ $t('aboutText.para2') }}
-        </p>
-
-        <BaseButton variant="primary" class="w-full" @click="navigateTo('/calculator')">
-          {{ $t('components.mealCalculator.title') }}
-        </BaseButton>
-      </BaseCard>
-
-      <!-- Search Card -->
-      <BaseCard variant="elevated" class="hover:shadow-lg transition-shadow duration-200">
-        <template #header>
-          <div class="flex items-center gap-3">
-            <div class="p-2 bg-primary-100 dark:bg-primary-950 rounded-lg">
-              <SearchIcon class="w-6 h-6 text-primary-700 dark:text-primary-400" />
-            </div>
-            <h2 class="text-2xl font-bold">{{ $t('components.search.title') }}</h2>
+          <div class="flex-1">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              {{ $t(feature.title) }}
+            </h2>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+              {{ $t(feature.description) }}
+            </p>
+            <BaseButton variant="secondary" size="sm" class="w-full">
+              {{ $t('common.actions.open') }}
+            </BaseButton>
           </div>
-        </template>
-
-        <p class="text-gray-600 dark:text-gray-300 mb-2">
-          {{ $t('aboutText.para3') }}
-          <a
-            :href="$t('aboutText.url')"
-            target="_blank"
-            rel="noopener"
-            class="text-primary-700 dark:text-primary-400 underline hover:no-underline"
-          >
-            {{ $t('aboutText.CNF') }} </a
-          >.
-        </p>
-
-        <BaseButton variant="secondary" class="w-full mt-4" @click="navigateTo('/carb-factor')">
-          {{ $t('navigation.carbFactor') }}
-        </BaseButton>
+        </div>
       </BaseCard>
     </div>
+
+    <!-- Additional Features -->
+    <BaseCard variant="elevated" class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        {{ $t('features.additionalTitle') }}
+      </h3>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div
+          v-for="feature in additionalFeatures"
+          :key="feature.text"
+          class="flex items-center gap-3"
+        >
+          <div class="p-2 bg-primary-100 dark:bg-primary-950 rounded-lg">
+            <component :is="feature.icon" class="w-5 h-5 text-primary-700 dark:text-primary-400" />
+          </div>
+          <span class="text-gray-700 dark:text-gray-300">{{ $t(feature.text) }}</span>
+        </div>
+      </div>
+    </BaseCard>
+
+    <!-- Why Gluko Section -->
+    <BaseCard variant="elevated">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+        {{ $t('features.whyTitle') }}
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300">
+        {{ $t('features.whyDescription') }}
+      </p>
+    </BaseCard>
   </div>
 </template>

@@ -506,6 +506,7 @@ export const useIndexedDB = () => {
 
   // Meal history methods
   const getMealHistory = (id: string) => get('mealHistory', id)
+  const getAllMealHistory = () => getAll('mealHistory')
   const getMealHistoryBySubject = (subjectId: string) =>
     getAllByIndex('mealHistory', 'by-subject', subjectId)
   const getMealHistoryByDate = (date: Date) => getAllByIndex('mealHistory', 'by-date', date)
@@ -570,6 +571,7 @@ export const useIndexedDB = () => {
 
     // Meal history operations
     getMealHistory,
+    getAllMealHistory,
     getMealHistoryBySubject,
     getMealHistoryByDate,
     getMealHistoryByTag,

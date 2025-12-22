@@ -14,7 +14,8 @@
       "cancel": "Annuler",
       "confirm": "Confirmer",
       "close": "Fermer",
-      "search": "Chercher"
+      "search": "Chercher",
+      "open": "Ouvrir"
     },
     "navigation": {
       "backToHistory": "Retour à l'historique",
@@ -420,5 +421,28 @@
       "title": "Gestion du stockage",
       "info": "Le stockage persistant empêche le navigateur de supprimer automatiquement vos données lorsque l'espace de stockage est faible. Activez-le pour garantir que votre base de données nutritionnelles et votre historique de repas soient préservés."
     }
+  },
+  "features": {
+    "calculator": {
+      "title": "Calculateur de repas",
+      "description": "Calculez les glucides totaux de vos repas en combinant différents ingrédients avec des données nutritionnelles précises."
+    },
+    "search": {
+      "title": "Recherche de facteur glucidique",
+      "description": "Accès rapide au contenu en glucides et informations nutritionnelles détaillées du Fichier canadien sur les éléments nutritifs."
+    },
+    "history": {
+      "title": "Historique des repas",
+      "description": "Sauvegardez, consultez et filtrez vos repas passés pour un suivi facile avec filtrage avancé par date et étiquettes."
+    },
+    "multiSubject": {
+      "title": "Support multi-sujets",
+      "description": "Gérez l'historique des repas pour plusieurs sujets - idéal pour les familles avec plusieurs enfants vivant avec le diabète de type 1."
+    },
+    "bilingual": "Support bilingue (anglais et français)",
+    "darkMode": "Mode sombre",
+    "additionalTitle": "Fonctionnalités additionnelles",
+    "whyTitle": "Pourquoi Gluko?",
+    "whyDescription": "La gestion du diabète de type 1 nécessite une attention constante à l'apport en glucides pour un dosage approprié de l'insuline. Gluko facilite cela en fournissant un accès rapide à des informations nutritionnelles fiables, en permettant le calcul facile de repas complexes et en soutenant les familles et les soignants avec un suivi complet des repas."
   }
 }

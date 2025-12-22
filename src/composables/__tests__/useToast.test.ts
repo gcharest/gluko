@@ -1,8 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { setActivePinia, createPinia } from 'pinia'
 import { useToast } from '@/composables/useToast'
 
 describe('useToast', () => {
   beforeEach(() => {
+    setActivePinia(createPinia())
     vi.clearAllTimers()
     vi.useFakeTimers()
   })

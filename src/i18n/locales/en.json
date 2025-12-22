@@ -14,7 +14,8 @@
       "cancel": "Cancel",
       "confirm": "Confirm",
       "close": "Close",
-      "search": "Search"
+      "search": "Search",
+      "open": "Open"
     },
     "navigation": {
       "backToHistory": "Back to history",
@@ -426,5 +427,28 @@
       "title": "Storage Management",
       "info": "Persistent storage prevents the browser from automatically deleting your data when storage space is low. Enable it to ensure your nutrition dataset and meal history are preserved."
     }
+  },
+  "features": {
+    "calculator": {
+      "title": "Meal Calculator",
+      "description": "Calculate total carbohydrates in your meals by combining different ingredients with accurate nutritional data."
+    },
+    "search": {
+      "title": "Carb Factor Search",
+      "description": "Quick access to carbohydrate content and detailed nutritional information from the Canadian Nutrient File."
+    },
+    "history": {
+      "title": "Meal History",
+      "description": "Save, view, and filter past meals for easy tracking and review with advanced date and tag filtering."
+    },
+    "multiSubject": {
+      "title": "Multi-Subject Support",
+      "description": "Manage meal history for multiple subjects - perfect for families with multiple children living with Type 1 Diabetes."
+    },
+    "bilingual": "Bilingual Support (English & French)",
+    "darkMode": "Dark Mode",
+    "additionalTitle": "Additional Features",
+    "whyTitle": "Why Gluko?",
+    "whyDescription": "Managing Type 1 Diabetes requires constant attention to carbohydrate intake for proper insulin dosing. Gluko makes this easier by providing quick access to reliable nutritional information, enabling easy calculation of complex meals, and supporting families and caregivers with comprehensive meal tracking."
   }
 }

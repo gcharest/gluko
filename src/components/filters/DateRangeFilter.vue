@@ -11,7 +11,7 @@
         :id="startInputId"
         v-model="startDate"
         type="date"
-        class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+        class="w-full max-w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 overflow-hidden"
         :max="maxStartDate"
         @change="handleStartDateChange"
       />
@@ -28,7 +28,7 @@
         :id="endInputId"
         v-model="endDate"
         type="date"
-        class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+        class="w-full max-w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 overflow-hidden"
         :min="minEndDate"
         :max="todayFormatted"
         @change="handleEndDateChange"
@@ -95,6 +95,10 @@ const minEndDate = computed(() => startDate.value || undefined)
 
 // Event handlers
 function handleStartDateChange() {
+  // If start date is after end date, adjust end date
+  if (startDate.value && endDate.value && startDate.value > endDate.value) {
+    endDate.value = startDate.value
+  }
   emit('update:modelValue', {
     start: startDate.value,
     end: endDate.value
@@ -102,6 +106,10 @@ function handleStartDateChange() {
 }
 
 function handleEndDateChange() {
+  // If end date is before start date, adjust start date
+  if (startDate.value && endDate.value && endDate.value < startDate.value) {
+    startDate.value = endDate.value
+  }
   emit('update:modelValue', {
     start: startDate.value,
     end: endDate.value
