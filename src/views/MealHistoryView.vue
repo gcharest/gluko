@@ -324,7 +324,11 @@ const dateRange = computed({
 const selectedSubjectId = computed({
   get: () => subjectStore.activeSubjectId,
   set: (val: string | null) => {
-    if (val) subjectStore.setActiveSubject(val)
+    if (val === null) {
+      subjectStore.activeSubjectId = null
+    } else {
+      subjectStore.setActiveSubject(val)
+    }
   }
 })
 const selectedTagIds = computed({
