@@ -21,7 +21,7 @@ describe('Notification Store', () => {
 
     it('adds a notification with context', () => {
       const store = useNotificationStore()
-      const id = store.addNotification('Settings updated', 'success', {
+      store.addNotification('Settings updated', 'success', {
         viewPath: '/settings',
         section: 'dataset',
         clearOnVisit: true
