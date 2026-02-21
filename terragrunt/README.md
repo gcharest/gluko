@@ -1,28 +1,17 @@
 # Terragrunt/Terraform Infrastructure for Gluko PWA
 
-> **⚠️ Updated to v6.0**: This infrastructure now uses AWS Provider 6.x with S3 lockfile backend (no DynamoDB). See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for migration details.
-
 This directory contains Infrastructure as Code (IaC) for deploying Gluko to AWS using Terragrunt and Terraform.
 
 ## Quick Links
 
 - **[Setup Guide](./SETUP_GUIDE.md)**: Detailed setup instructions for GitHub Actions deployment
 - **[Architecture](#architecture-overview)**: System design and services
-- **[Cost](#total-monthly-cost)**: Pricing breakdown (~$0.50/month)
-
-## What's New in v6.0
-
-- ✅ AWS Provider updated from `~> 5.0` to `~> 6.0`
-- ✅ Backend changed from DynamoDB locks to S3 native lockfile
-- ✅ Region standardized to `us-east-1` (required for CloudFront)
-- ✅ CloudFront logging disabled (free tier optimization)
-- ✅ Security response headers policy added
-- ✅ GitHub Actions workflows for automated deployment
+- **[Cost](#cost-estimation)**: Pricing breakdown (~$0.50/month)
 
 ## Architecture Overview
 
 ```
-Custom Domain (Gandi.net)
+Custom Domain (registrar)
         ↓
    Route 53 DNS
         ↓
@@ -35,7 +24,7 @@ Custom Domain (Gandi.net)
 
 ## Services Deployed
 
-- **S3**: Static file hosting with versioning and encryption
+- **S3**: Static file hosting with versioning and encryption (private, accessed via CloudFront only)
 - **CloudFront**: Global CDN with DDoS protection, HTTPS, intelligent caching
 - **Route 53**: DNS management with alias records to CloudFront
 - **ACM**: Free SSL/TLS certificate with auto-renewal
@@ -57,8 +46,7 @@ brew install terraform terragrunt aws-cli
 ### AWS Account Setup
 
 1. Create AWS account: https://aws.amazon.com/
-2. Receive $200 free credits
-3. Configure AWS credentials:
+2. Configure AWS credentials:
 
 ```bash
 # Option 1: Interactive
@@ -75,12 +63,12 @@ aws_access_key_id = your-access-key
 aws_secret_access_key = your-secret-key
 ```
 
-### Domain Setup (Gandi.net)
+### Domain Setup (Registrar)
 
-1. You already own domain at Gandi.net
-2. We'll create Route 53 hosted zone
-3. You'll point nameservers at Gandi.net to Route 53 nameservers
-4. ACM will auto-validate certificate via DNS
+1. Domain is managed at an external registrar
+2. Route 53 hosted zone is created in AWS
+3. Nameservers at the registrar are updated to the Route 53 nameservers
+4. ACM validates the certificate via DNS records in Route 53
 
 ## Project Structure
 
@@ -114,7 +102,7 @@ locals {
 }
 ```
 
-Replace `your-actual-domain.com` with your Gandi.net domain.
+Replace `your-actual-domain.com` with the production domain.
 
 ### 2. AWS Region
 
@@ -148,12 +136,12 @@ terragrunt plan -chdir acm/
 
 ```bash
 # Apply all changes
-terrg run-all apply
+terragrunt run-all apply
 
 # Or apply modules in order (with dependencies):
-terragrunt apply -chdir acm/
-terragrunt apply -chdir route53/  # Needs ACM zone ID
 terragrunt apply -chdir s3/
+terragrunt apply -chdir route53/
+terragrunt apply -chdir acm/  # Uses Route 53 for DNS validation
 terragrunt apply -chdir cloudfront/  # Needs S3 + ACM
 ```
 
@@ -176,13 +164,13 @@ terragrunt output -chdir route53/ nameservers
 # ns-012.awsdns-34.org.
 ```
 
-### Step 5: Update Gandi.net Nameservers
+### Step 5: Update Registrar Nameservers
 
-1. Login to Gandi.net
-2. Go to Domain Settings → Name Servers
-3. Select "Use external name servers"
+1. Login to the registrar
+2. Go to domain settings → name servers
+3. Select external name servers
 4. Enter the 4 Route 53 nameservers from Step 4
-5. Save (takes 5-24 hours to propagate)
+5. Save (propagation varies by registrar)
 
 ### Step 6: Verify CloudFront & Certificate
 
@@ -251,10 +239,10 @@ terragrunt run-all validate
 
 ## Terraform State Management
 
-State files are stored in S3 with DynamoDB locking:
+State files are stored in S3 with native lockfiles:
 
 - **S3 Bucket**: `gluko-terraform-state-{ACCOUNT_ID}`
-- **DynamoDB Table**: `terraform-locks`
+- **Locking**: S3 lockfile (`use_lockfile = true`)
 - **Encryption**: Enabled by default
 - **Versioning**: Enabled for recovery
 
@@ -262,14 +250,16 @@ State files are stored in S3 with DynamoDB locking:
 
 ## GitHub Actions Deployment (CI/CD)
 
-See `.github/workflows/deploy-aws.yml` for automated deployments on git push.
+See the Terragrunt workflows for automated deployments:
+- `.github/workflows/terragrunt-plan.yml` (PR plans)
+- `.github/workflows/terragrunt-apply.yml` (apply on main)
 
 Setup:
 
-1. Create IAM role for GitHub with S3 + CloudFront permissions
+1. Create IAM role for GitHub with Terragrunt permissions
 2. Configure OIDC trust between GitHub and AWS
-3. Add secrets to GitHub Actions
-4. Push to `main` branch → automatic deployment
+3. Add `AWS_ACCOUNT_ID` secret to GitHub Actions
+4. Push to `main` branch triggers apply workflow
 
 ## Cost Estimation
 
@@ -281,7 +271,7 @@ Setup:
 | ACM        | $0            | Non-exportable cert (free) |
 | **Total**  | **~$0.50/mo** | ✅ Essentially free         |
 
-Your $200 AWS credit lasts ~400 months!
+Free tier usage is expected to cover S3, CloudFront, and ACM. Route 53 hosted zone cost remains.
 
 ## Monitoring & Debugging
 
@@ -328,7 +318,7 @@ aws s3 ls s3://gluko-pwa/ --recursive --summarize
 
 ### "Certificate validation pending" (ACM)
 
-Ensure Route 53 hosted zone is active and nameservers are updated at Gandi.net. Validation can take 5-60 minutes.
+Ensure Route 53 hosted zone is active and nameservers are updated at the registrar. Validation can take 5-60 minutes.
 
 ### CloudFront returns 403 (Forbidden)
 
@@ -351,8 +341,8 @@ aws cloudfront create-invalidation --distribution-id DIST_ID --paths "/index.htm
 
 ### Nameservers not updating at registrar
 
-- **Gandi.net** propagation: 5 minutes - 24 hours (typically < 2 hours)
-- Verify you're updating the right domain
+- Propagation time varies by registrar (often 5 minutes to 24 hours)
+- Verify the correct domain is being updated
 - Check DNS with: `dig NS your-domain.com`
 
 ### Terraform lock timeout
@@ -360,11 +350,9 @@ aws cloudfront create-invalidation --distribution-id DIST_ID --paths "/index.htm
 If another deployment is running:
 
 ```bash
-# View lock
-aws dynamodb scan --table-name terraform-locks --region us-east-1
-
-# Force unlock (use with caution!)
-terragrunt force-unlock LOCK_ID
+# Inspect and remove stale lockfile in S3 (use with caution)
+aws s3 ls s3://gluko-terraform-state-{ACCOUNT_ID}/
+aws s3 rm s3://gluko-terraform-state-{ACCOUNT_ID}/path/to/terraform.tfstate.lock
 ```
 
 ## Security Best Practices
@@ -388,7 +376,7 @@ terragrunt force-unlock LOCK_ID
 1. **Update domain name** in `region.hcl`
 2. **Run `terragrunt run-all plan`** to review
 3. **Deploy infrastructure** with `terragrunt run-all apply`
-4. **Update Gandi.net nameservers** (get from Route 53 output)
+4. **Update registrar nameservers** (get from Route 53 output)
 5. **Wait 24h for propagation**
 6. **Test HTTPS** at your domain
 7. **Deploy app files** to S3
