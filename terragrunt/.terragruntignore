@@ -1,0 +1,17 @@
+# Terragrunt ignore patterns
+# Don't include these in terraform operations
+
+.git
+.gitignore
+.terraform
+.terragrunt-cache
+terraform.tfvars
+*.tfstate
+*.tfstate.*
+*.backup
+*.swp
+*.swo
+*~
+.DS_Store
+node_modules
+dist
