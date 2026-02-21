@@ -1,0 +1,137 @@
+name: Build & Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual trigger
+
+env:
+  AWS_REGION: us-east-1
+  TERRAGRUNT_VERSION: v0.55.1
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run type check
+        run: npm run type-check
+
+      - name: Build application
+        run: npm run build
+        env:
+          VERSION: ${{ github.sha }}
+          BUILD_DATE: ${{ github.event.head_commit.timestamp }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/gluko-github-actions
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get S3 bucket name
+        id: s3-bucket
+        run: |
+          BUCKET=$(aws s3 ls | grep gluko-pwa | awk '{print $3}')
+          echo "bucket=$BUCKET" >> $GITHUB_OUTPUT
+          echo "Using S3 bucket: $BUCKET"
+
+      - name: Upload to S3
+        run: |
+          # Sync all files with default cache (1 year for hashed files)
+          aws s3 sync dist/ s3://${{ steps.s3-bucket.outputs.bucket }}/ \
+            --delete \
+            --cache-control "public, max-age=31536000"
+        if: steps.s3-bucket.outputs.bucket != ''
+
+      - name: Update index.html cache (1 hour)
+        run: |
+          if [ -f dist/index.html ]; then
+            aws s3 cp dist/index.html s3://${{ steps.s3-bucket.outputs.bucket }}/index.html \
+              --content-type "text/html; charset=utf-8" \
+              --cache-control "public, max-age=3600"
+          fi
+        if: steps.s3-bucket.outputs.bucket != ''
+
+      - name: Update manifest.json cache (no cache)
+        run: |
+          if [ -f dist/manifest.json ]; then
+            aws s3 cp dist/manifest.json s3://${{ steps.s3-bucket.outputs.bucket }}/manifest.json \
+              --content-type "application/json" \
+              --cache-control "public, max-age=0, must-revalidate"
+          fi
+        if: steps.s3-bucket.outputs.bucket != ''
+
+      - name: Get CloudFront distribution ID
+        id: cloudfront-id
+        run: |
+          DIST_ID=$(aws cloudfront list-distributions \
+            --query "Distributions[?Origins[0].DomainName=='${{ steps.s3-bucket.outputs.bucket }}.s3.${{ env.AWS_REGION }}.amazonaws.com'].Id" \
+            --output text)
+          echo "distribution_id=$DIST_ID" >> $GITHUB_OUTPUT
+          echo "CloudFront Distribution ID: $DIST_ID"
+        if: steps.s3-bucket.outputs.bucket != ''
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ steps.cloudfront-id.outputs.distribution_id }} \
+            --paths "/index.html" "/manifest.json"
+          echo "⏳ CloudFront invalidation initiated..."
+        if: steps.cloudfront-id.outputs.distribution_id != ''
+
+      - name: Wait for CloudFront invalidation
+        run: |
+          DIST_ID=${{ steps.cloudfront-id.outputs.distribution_id }}
+          # CloudFront invalidation typically takes 1-5 minutes
+          echo "⏳ Waiting for CloudFront to clear cache..."
+          sleep 10
+          echo "✅ Deployment complete! Changes will be visible in 1-5 minutes"
+        if: steps.cloudfront-id.outputs.distribution_id != ''
+
+      - name: Deployment Summary
+        run: |
+          echo "## ✅ Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **S3 Bucket**: ${{ steps.s3-bucket.outputs.bucket }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **CloudFront Distribution**: ${{ steps.cloudfront-id.outputs.distribution_id }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Changes will be live in 1-5 minutes once CloudFront cache is invalidated." >> $GITHUB_STEP_SUMMARY
+
+      - name: Notify Slack (optional)
+        uses: slackapi/slack-github-action@v1.25
+        if: always()
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "text": "🚀 Gluko deployment ${{ job.status }} - ${{ github.sha }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Gluko Deployment ${{ job.status }}*\n<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>\nBranch: ${{ github.ref_name }}"
+                  }
+                }
+              ]
+            }
+        continue-on-error: true
