@@ -34,3 +34,10 @@ blob-report/
 
 tmp*/
 tmp*
+
+# terragrunt
+
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terragrunt-cache/
