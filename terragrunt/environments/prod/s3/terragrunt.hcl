@@ -1,5 +1,5 @@
 include {
-  path = find_in_parent_folders()
+  path = find_in_parent_folders("root.hcl")
 }
 
 locals {
@@ -7,7 +7,7 @@ locals {
 }
 
 inputs = {
-  bucket_name = "${local.env_vars.locals.project_name}-pwa"
+  bucket_name = "${local.env_vars.locals.project_name}"
   domain_name = local.env_vars.locals.domain_name
   tags        = local.env_vars.locals.tags
 }
