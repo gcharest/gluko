@@ -1,10 +1,11 @@
 variable "domain_name" {
-  description = "Primary domain name for Route 53 hosted zone"
+  description = "Primary domain name for DNS records"
   type        = string
-  validation {
-    condition     = can(regex("^[a-z0-9][a-z0-9-]*[a-z0-9]+\\.[a-z]{2,}$", var.domain_name))
-    error_message = "Domain name must be a valid domain."
-  }
+}
+
+variable "route53_zone_id" {
+  description = "Route 53 hosted zone ID where records will be created"
+  type        = string
 }
 
 variable "cloudfront_domain_name" {
