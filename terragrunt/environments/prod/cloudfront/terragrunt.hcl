@@ -1,5 +1,5 @@
 include {
-  path = find_in_parent_folders()
+  path = find_in_parent_folders("root.hcl")
 }
 
 dependency "s3" {
@@ -29,7 +29,7 @@ locals {
 }
 
 inputs = {
-  distribution_name               = "${local.env_vars.locals.project_name}-pwa"
+  distribution_name               = "${local.env_vars.locals.project_name}"
   s3_bucket_id                    = dependency.s3.outputs.bucket_id
   s3_bucket_arn                   = dependency.s3.outputs.bucket_arn
   s3_bucket_regional_domain_name  = dependency.s3.outputs.bucket_regional_domain_name

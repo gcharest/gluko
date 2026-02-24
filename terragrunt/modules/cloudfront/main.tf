@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 6.0"
-    }
-  }
-}
-
 resource "aws_cloudfront_origin_access_control" "s3" {
   name                              = "${var.distribution_name}-oac"
   description                       = "OAC for ${var.distribution_name}"
@@ -16,45 +7,6 @@ resource "aws_cloudfront_origin_access_control" "s3" {
   signing_protocol = "sigv4"
 }
 
-resource "aws_s3_bucket_policy" "cloudfront_access" {
-  bucket = var.s3_bucket_id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "CloudFrontAccess"
-        Effect = "Allow"
-        Principal = {
-          Service = "cloudfront.amazonaws.com"
-        }
-        Action   = "s3:GetObject"
-        Resource = "${var.s3_bucket_arn}/*"
-        Condition = {
-          StringEquals = {
-            "AWS:SourceArn" = "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/${aws_cloudfront_distribution.website.id}"
-          }
-        }
-      },
-      {
-        Sid    = "ListBucketAccess"
-        Effect = "Allow"
-        Principal = {
-          Service = "cloudfront.amazonaws.com"
-        }
-        Action   = "s3:ListBucket"
-        Resource = var.s3_bucket_arn
-        Condition = {
-          StringEquals = {
-            "AWS:SourceArn" = "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/${aws_cloudfront_distribution.website.id}"
-          }
-        }
-      }
-    ]
-  })
-}
-
-data "aws_caller_identity" "current" {}
 
 resource "aws_cloudfront_distribution" "website" {
   origin {
@@ -67,6 +19,8 @@ resource "aws_cloudfront_distribution" "website" {
   is_ipv6_enabled     = true
   comment             = "Gluko PWA CDN"
   default_root_object = "index.html"
+
+  aliases = [var.domain_name, "www.${var.domain_name}"]
 
   custom_error_response {
     error_code         = 404
@@ -152,6 +106,61 @@ resource "aws_cloudfront_distribution" "website" {
   )
 
   depends_on = [aws_s3_bucket_policy.cloudfront_access]
+}
+
+data "aws_iam_policy_document" "cloudfront_oac" {
+  statement {
+    sid    = "CloudFrontAccess"
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+
+    actions = [
+      "s3:GetObject",
+    ]
+
+    resources = [
+      "${var.s3_bucket_arn}/*",
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [aws_cloudfront_distribution.website.arn]
+    }
+  }
+
+  statement {
+    sid    = "ListBucketAccess"
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+
+    actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      var.s3_bucket_arn,
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [aws_cloudfront_distribution.website.arn]
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "cloudfront_access" {
+  bucket = var.s3_bucket_id
+  policy = data.aws_iam_policy_document.cloudfront_oac.json
 }
 
 resource "aws_cloudfront_cache_policy" "immutable_assets" {
