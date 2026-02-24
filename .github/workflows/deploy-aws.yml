@@ -115,23 +115,3 @@ jobs:
           echo "- **CloudFront Distribution**: ${{ steps.cloudfront-id.outputs.distribution_id }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Changes will be live in 1-5 minutes once CloudFront cache is invalidated." >> $GITHUB_STEP_SUMMARY
-
-      - name: Notify Slack (optional)
-        uses: slackapi/slack-github-action@v1.25
-        if: always()
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          payload: |
-            {
-              "text": "🚀 Gluko deployment ${{ job.status }} - ${{ github.sha }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Gluko Deployment ${{ job.status }}*\n<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>\nBranch: ${{ github.ref_name }}"
-                  }
-                }
-              ]
-            }
-        continue-on-error: true
