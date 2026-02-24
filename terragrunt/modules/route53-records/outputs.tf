@@ -1,24 +1,9 @@
-output "hosted_zone_id" {
-  description = "Route 53 Hosted Zone ID"
-  value       = aws_route53_zone.main.zone_id
+output "apex_record_name" {
+  description = "The apex domain record name"
+  value       = aws_route53_record.cloudfront.name
 }
 
-output "hosted_zone_name" {
-  description = "Route 53 Hosted Zone name"
-  value       = aws_route53_zone.main.name
-}
-
-output "nameservers" {
-  description = "Route 53 nameservers (use these at your registrar)"
-  value       = aws_route53_zone.main.name_servers
-}
-
-output "nameservers_string" {
-  description = "Route 53 nameservers as a formatted string for copy-paste"
-  value       = join("\n", aws_route53_zone.main.name_servers)
-}
-
-output "primary_nameserver" {
-  description = "Primary Route 53 nameserver"
-  value       = aws_route53_zone.main.name_servers[0]
+output "www_record_name" {
+  description = "The www subdomain record name"
+  value       = var.create_www_subdomain ? aws_route53_record.www[0].name : null
 }

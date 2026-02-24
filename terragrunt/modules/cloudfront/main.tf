@@ -104,8 +104,6 @@ resource "aws_cloudfront_distribution" "website" {
       Name = var.distribution_name
     }
   )
-
-  depends_on = [aws_s3_bucket_policy.cloudfront_access]
 }
 
 data "aws_iam_policy_document" "cloudfront_oac" {
