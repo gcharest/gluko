@@ -17,7 +17,7 @@ output "validation_options" {
   description = "Certificate validation options"
   value = [
     for option in aws_acm_certificate.website.domain_validation_options : {
-      domain_name = option.domain
+      domain_name = option.domain_name
       record_name = option.resource_record_name
       record_type = option.resource_record_type
       record_value = option.resource_record_value

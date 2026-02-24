@@ -42,3 +42,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "project_name" {
+  description = "Project name for resource naming"
+  type        = string
+  default     = "gcharest"
+}

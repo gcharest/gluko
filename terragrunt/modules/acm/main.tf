@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 6.0"
-    }
-  }
-}
-
 # ACM certificates for CloudFront must be created in us-east-1
 provider "aws" {
   alias  = "us_east_1"
@@ -22,7 +13,7 @@ resource "aws_acm_certificate" "website" {
   tags = merge(
     var.tags,
     {
-      Name = "gluko-certificate"
+      Name = "${var.project_name}-certificate"
     }
   )
 
@@ -33,7 +24,7 @@ resource "aws_acm_certificate" "website" {
 
 resource "aws_route53_record" "cert_validation" {
   for_each = var.create_route53_records ? {
-    for dvo in aws_acm_certificate.website.domain_validation_options : dvo.domain => {
+    for dvo in aws_acm_certificate.website.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
