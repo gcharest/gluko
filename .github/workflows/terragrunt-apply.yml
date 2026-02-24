@@ -1,0 +1,61 @@
+name: Terragrunt Apply
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "terragrunt/**"
+      - ".github/workflows/terragrunt-apply.yml"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  TERRAFORM_VERSION: 1.8.0
+  TERRAGRUNT_VERSION: 0.59.6
+
+concurrency:
+  group: terragrunt-apply
+  cancel-in-progress: false
+
+jobs:
+  terragrunt-apply:
+    name: Terragrunt Apply
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform and Terragrunt
+        uses: cds-snc/terraform-tools-setup@v1
+        with:
+          terraform-version: ${{ env.TERRAFORM_VERSION }}
+          terragrunt-version: ${{ env.TERRAGRUNT_VERSION }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-terragrunt-role
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: github-terragrunt-apply
+
+      - name: Terragrunt Apply All Modules
+        working-directory: terragrunt/environments/prod
+        run: |
+          terragrunt run-all apply -auto-approve
+
+      - name: Output Route53 Nameservers
+        if: success()
+        working-directory: terragrunt/environments/prod/route53
+        run: |
+          echo "## ✅ Infrastructure Deployed Successfully" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Update your domain registrar with these nameservers:**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          terragrunt output -raw nameservers_string >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY

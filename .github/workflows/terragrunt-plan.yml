@@ -1,0 +1,59 @@
+name: Terragrunt Plan
+
+on:
+    pull_request:
+        branches:
+            - main
+        paths:
+            - "terragrunt/**"
+            - ".github/workflows/terragrunt-plan.yml"
+    workflow_dispatch:
+
+permissions:
+    id-token: write
+    contents: read
+    pull-requests: write
+
+env:
+    AWS_REGION: us-east-1
+    TERRAFORM_VERSION: 1.14.5
+    TERRAGRUNT_VERSION: 0.99.4
+
+jobs:
+    plan:
+        name: Terragrunt Plan All Modules
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-terragrunt-role
+                  aws-region: ${{ env.AWS_REGION }}
+                  role-session-name: github-terragrunt-plan
+
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v3
+              with:
+                  terraform_version: ${{ env.TERRAFORM_VERSION }}
+                  terraform_wrapper: false
+
+            - name: Setup Terragrunt
+              run: |
+                  wget -q https://github.com/gruntwork-io/terragrunt/releases/download/v${{ env.TERRAGRUNT_VERSION }}/terragrunt_linux_amd64
+                  chmod +x terragrunt_linux_amd64
+                  sudo mv terragrunt_linux_amd64 /usr/local/bin/terragrunt
+                  terragrunt --version
+
+            - name: Terragrunt Init All
+              working-directory: terragrunt/environments/prod
+              run: |
+                  terragrunt run  --non-interactive --all init
+
+            - name: Terragrunt Plan All
+              working-directory: terragrunt/environments/prod
+              run: |
+                  terragrunt run --non-interactive --all plan -- -no-color 2>&1 | tee plan.txt
