@@ -48,3 +48,13 @@ variable "project_name" {
   type        = string
   default     = "gcharest"
 }
+
+variable "aws_region" {
+  description = "AWS region for resources"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment name"
+  type        = string
+}
