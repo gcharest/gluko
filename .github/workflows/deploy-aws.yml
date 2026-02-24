@@ -24,8 +24,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
-          cache: "npm"
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -39,6 +39,18 @@ jobs:
           VERSION: ${{ github.sha }}
           BUILD_DATE: ${{ github.event.head_commit.timestamp }}
 
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Error: dist/ directory not found after build!"
+            exit 1
+          fi
+          echo "✅ Build successful. Files in dist/:"
+          ls -lha dist/
+          echo ""
+          echo "Total files:"
+          find dist -type f | wc -l
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -49,61 +61,91 @@ jobs:
         id: s3-bucket
         run: |
           BUCKET=$(aws s3 ls | grep gluko-pwa | awk '{print $3}')
+          if [ -z "$BUCKET" ]; then
+            echo "❌ Error: Could not find S3 bucket matching 'gluko-pwa'"
+            echo "Available buckets:"
+            aws s3 ls
+            exit 1
+          fi
           echo "bucket=$BUCKET" >> $GITHUB_OUTPUT
-          echo "Using S3 bucket: $BUCKET"
+          echo "✅ Using S3 bucket: $BUCKET"
 
       - name: Upload to S3
         run: |
-          # Sync all files with default cache (1 year for hashed files)
-          aws s3 sync dist/ s3://${{ steps.s3-bucket.outputs.bucket }}/ \
+          BUCKET="${{ steps.s3-bucket.outputs.bucket }}"
+          if [ -z "$BUCKET" ]; then
+            echo "❌ Error: BUCKET variable is empty!"
+            exit 1
+          fi
+          echo "📤 Uploading to S3 bucket: $BUCKET"
+          aws s3 sync dist/ s3://$BUCKET/ \
             --delete \
             --cache-control "public, max-age=31536000"
-        if: steps.s3-bucket.outputs.bucket != ''
+          echo "✅ S3 sync completed"
 
       - name: Update index.html cache (1 hour)
         run: |
-          if [ -f dist/index.html ]; then
-            aws s3 cp dist/index.html s3://${{ steps.s3-bucket.outputs.bucket }}/index.html \
-              --content-type "text/html; charset=utf-8" \
-              --cache-control "public, max-age=3600"
+          BUCKET="${{ steps.s3-bucket.outputs.bucket }}"
+          if [ ! -f dist/index.html ]; then
+            echo "❌ Error: dist/index.html not found!"
+            exit 1
           fi
-        if: steps.s3-bucket.outputs.bucket != ''
+          echo "📄 Updating index.html cache headers..."
+          aws s3 cp dist/index.html s3://$BUCKET/index.html \
+            --content-type "text/html; charset=utf-8" \
+            --cache-control "public, max-age=3600"
+          echo "✅ index.html updated"
 
       - name: Update manifest.json cache (no cache)
         run: |
-          if [ -f dist/manifest.json ]; then
-            aws s3 cp dist/manifest.json s3://${{ steps.s3-bucket.outputs.bucket }}/manifest.json \
-              --content-type "application/json" \
-              --cache-control "public, max-age=0, must-revalidate"
+          BUCKET="${{ steps.s3-bucket.outputs.bucket }}"
+          if [ ! -f dist/manifest.json ]; then
+            echo "❌ Error: dist/manifest.json not found!"
+            exit 1
           fi
-        if: steps.s3-bucket.outputs.bucket != ''
+          echo "📦 Updating manifest.json cache headers..."
+          aws s3 cp dist/manifest.json s3://$BUCKET/manifest.json \
+            --content-type "application/json" \
+            --cache-control "public, max-age=0, must-revalidate"
+          echo "✅ manifest.json updated"
 
       - name: Get CloudFront distribution ID
         id: cloudfront-id
         run: |
+          BUCKET="${{ steps.s3-bucket.outputs.bucket }}"
+          echo "🔍 Looking for CloudFront distribution for bucket: $BUCKET"
           DIST_ID=$(aws cloudfront list-distributions \
-            --query "Distributions[?Origins[0].DomainName=='${{ steps.s3-bucket.outputs.bucket }}.s3.${{ env.AWS_REGION }}.amazonaws.com'].Id" \
+            --query "Distributions[?Origins[0].DomainName=='$BUCKET.s3.${{ env.AWS_REGION }}.amazonaws.com'].Id" \
             --output text)
+          if [ -z "$DIST_ID" ] || [ "$DIST_ID" == "None" ]; then
+            echo "❌ Error: Could not find CloudFront distribution for bucket $BUCKET"
+            echo "Available distributions:"
+            aws cloudfront list-distributions --query 'Distributions[*].[Id,Origins[0].DomainName]' --output table
+            exit 1
+          fi
           echo "distribution_id=$DIST_ID" >> $GITHUB_OUTPUT
-          echo "CloudFront Distribution ID: $DIST_ID"
-        if: steps.s3-bucket.outputs.bucket != ''
+          echo "✅ CloudFront Distribution ID: $DIST_ID"
 
       - name: Invalidate CloudFront cache
         run: |
+          DIST_ID="${{ steps.cloudfront-id.outputs.distribution_id }}"
+          if [ -z "$DIST_ID" ]; then
+            echo "❌ Error: DIST_ID is empty!"
+            exit 1
+          fi
+          echo "🔄 Invalidating CloudFront cache for distribution: $DIST_ID"
           aws cloudfront create-invalidation \
-            --distribution-id ${{ steps.cloudfront-id.outputs.distribution_id }} \
+            --distribution-id $DIST_ID \
             --paths "/index.html" "/manifest.json"
-          echo "⏳ CloudFront invalidation initiated..."
-        if: steps.cloudfront-id.outputs.distribution_id != ''
+          echo "✅ CloudFront invalidation initiated..."
 
       - name: Wait for CloudFront invalidation
         run: |
-          DIST_ID=${{ steps.cloudfront-id.outputs.distribution_id }}
+          DIST_ID="${{ steps.cloudfront-id.outputs.distribution_id }}"
           # CloudFront invalidation typically takes 1-5 minutes
           echo "⏳ Waiting for CloudFront to clear cache..."
           sleep 10
           echo "✅ Deployment complete! Changes will be visible in 1-5 minutes"
-        if: steps.cloudfront-id.outputs.distribution_id != ''
 
       - name: Deployment Summary
         run: |
