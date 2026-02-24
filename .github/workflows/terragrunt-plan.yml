@@ -1,71 +1,59 @@
 name: Terragrunt Plan
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "terragrunt/**"
-      - ".github/workflows/terragrunt-plan.yml"
+    pull_request:
+        branches:
+            - main
+        paths:
+            - "terragrunt/**"
+            - ".github/workflows/terragrunt-plan.yml"
+    workflow_dispatch:
 
 permissions:
-  id-token: write
-  contents: read
-  pull-requests: write
+    id-token: write
+    contents: read
+    pull-requests: write
 
 env:
-  AWS_REGION: us-east-1
-  TERRAFORM_VERSION: 1.8.0
-  TERRAGRUNT_VERSION: 0.59.6
+    AWS_REGION: us-east-1
+    TERRAFORM_VERSION: 1.14.5
+    TERRAGRUNT_VERSION: 0.99.4
 
 jobs:
-  plan:
-    name: Terragrunt Plan
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        module:
-          - s3
-          - acm
-          - cloudfront
-          - route53
+    plan:
+        name: Terragrunt Plan All Modules
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-terragrunt-role
-          aws-region: ${{ env.AWS_REGION }}
-          role-session-name: github-terragrunt-plan-${{ matrix.module }}
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-terragrunt-role
+                  aws-region: ${{ env.AWS_REGION }}
+                  role-session-name: github-terragrunt-plan
 
-      - name: Setup Terraform and Terragrunt
-        uses: cds-snc/terraform-tools-setup@v1
-        with:
-          terraform-version: ${{ env.TERRAFORM_VERSION }}
-          terragrunt-version: ${{ env.TERRAGRUNT_VERSION }}
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v3
+              with:
+                  terraform_version: ${{ env.TERRAFORM_VERSION }}
+                  terraform_wrapper: false
 
-      - name: Terragrunt Plan
-        uses: cds-snc/terraform-plan@v4
-        with:
-          directory: terragrunt/environments/prod/${{ matrix.module }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          terragrunt: true
-          comment-title: "Terragrunt Plan: `${{ matrix.module }}`"
-          allow-failure: false
+            - name: Setup Terragrunt
+              run: |
+                  wget -q https://github.com/gruntwork-io/terragrunt/releases/download/v${{ env.TERRAGRUNT_VERSION }}/terragrunt_linux_amd64
+                  chmod +x terragrunt_linux_amd64
+                  sudo mv terragrunt_linux_amd64 /usr/local/bin/terragrunt
+                  terragrunt --version
 
-  summary:
-    name: Plan Summary
-    runs-on: ubuntu-latest
-    needs: plan
-    if: always()
-    steps:
-      - name: Check overall status
-        run: |
-          if [ "${{ needs.plan.result }}" == "failure" ]; then
-            echo "One or more Terragrunt plans failed"
-            exit 1
-          fi
-          echo "All Terragrunt plans completed successfully"
+            - name: Terragrunt Init All
+              working-directory: terragrunt/environments/prod
+              run: |
+                  terragrunt run  --non-interactive --all init
+
+            - name: Terragrunt Plan All
+              working-directory: terragrunt/environments/prod
+              run: |
+                  terragrunt run --non-interactive --all plan -- -no-color 2>&1 | tee plan.txt
