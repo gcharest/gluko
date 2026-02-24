@@ -57,26 +57,9 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-terragrunt-role
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Get S3 bucket name
-        id: s3-bucket
-        run: |
-          BUCKET=$(aws s3 ls | grep gluko-pwa | awk '{print $3}')
-          if [ -z "$BUCKET" ]; then
-            echo "❌ Error: Could not find S3 bucket matching 'gluko-pwa'"
-            echo "Available buckets:"
-            aws s3 ls
-            exit 1
-          fi
-          echo "bucket=$BUCKET" >> $GITHUB_OUTPUT
-          echo "✅ Using S3 bucket: $BUCKET"
-
       - name: Upload to S3
         run: |
-          BUCKET="${{ steps.s3-bucket.outputs.bucket }}"
-          if [ -z "$BUCKET" ]; then
-            echo "❌ Error: BUCKET variable is empty!"
-            exit 1
-          fi
+          BUCKET="gluko-pwa"
           echo "📤 Uploading to S3 bucket: $BUCKET"
           aws s3 sync dist/ s3://$BUCKET/ \
             --delete \
