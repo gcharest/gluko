@@ -14,9 +14,19 @@ const packageJson = JSON.parse(
 const appVersion = packageJson.version
 const buildDate = new Date().toISOString()
 
-// https://vitejs.dev/config/
+// Allow overriding the base path via env var `VITE_BASE`.
+// Default to '/' for root-hosted deployments. Normalize to ensure
+// it always starts and ends with a slash for consistent path joins.
+const rawBase = process.env.VITE_BASE ?? '/'
+function normalizeBase(b: string) {
+  if (!b.startsWith('/')) b = '/' + b
+  if (!b.endsWith('/')) b = b + '/'
+  return b
+}
+const base = normalizeBase(rawBase)
+
 export default defineConfig({
-  base: '/gluko/',
+  base: base,
   define: {
     __APP_VERSION__: JSON.stringify(appVersion),
     __BUILD_DATE__: JSON.stringify(buildDate),
@@ -40,8 +50,8 @@ export default defineConfig({
         runtimeCaching: [
           {
             // Cache app data JSON files with network-first strategy
-            // Only cache requests to /data/ endpoints for app-specific data
-            urlPattern: ({ url }) => url.pathname.startsWith('/gluko/data/') && url.pathname.endsWith('.json'),
+            // Only cache requests to <base>/data/ endpoints for app-specific data
+            urlPattern: ({ url }) => url.pathname.startsWith(`${base}data/`) && url.pathname.endsWith('.json'),
             handler: 'NetworkFirst',
             options: {
               cacheName: 'data-cache',
@@ -80,7 +90,7 @@ export default defineConfig({
       devOptions: {
         enabled: true, // Enable SW in dev mode for testing
         type: 'module',
-        navigateFallback: 'index.html'
+        navigateFallback: `${base}index.html`
       }
     })
   ],

@@ -45,14 +45,14 @@ jobs:
           PORT: 4173
 
       - name: Wait for server
-        run: npx wait-on -t 30000 http://localhost:4173/gluko/
+        run: npx wait-on -t 30000 http://localhost:4173/
 
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v11
         with:
           configPath: ./lighthouse-budget.json
           urls: |
-            http://localhost:4173/gluko/
+            http://localhost:4173/
           temporaryPublicStorage: true
           uploadArtifacts: true
 
