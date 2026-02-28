@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2025-12-17T22:58:02.402Z",
+  "generatedAt": "2026-02-28T19:56:02.168Z",
   "shardKey": "FoodID_range",
   "shardSize": 10000,
   "compression": [
@@ -9,76 +9,76 @@
   "shards": [
     {
       "file": "shard-0000.ndjson",
-      "count": 859,
-      "bytes": 1048268,
-      "uncompressedBytes": 1048268,
-      "sha256": "51915d0dce42da43e3f1911e9b85961163e46cf77d6c9f278c262df53e9bfe9b",
+      "count": 860,
+      "bytes": 1048442,
+      "uncompressedBytes": 1048442,
+      "sha256": "4f0c74711f26cd1bf319a97efdb3adccd704723850f5dbcd72e955b4732823b6",
       "firstFoodID": "2",
-      "lastFoodID": "1512",
+      "lastFoodID": "1524",
       "minFoodID": 2,
-      "maxFoodID": 1512
+      "maxFoodID": 1524
     },
     {
       "file": "shard-0001.ndjson",
       "count": 944,
-      "bytes": 1048507,
-      "uncompressedBytes": 1048507,
-      "sha256": "48d9cf84794301e1f8d2ec1425bb4a2c7589abb6f7a04a2abdd110bdba0a67d0",
+      "bytes": 1048436,
+      "uncompressedBytes": 1048436,
+      "sha256": "3e86cf3fe993aa729ca85b11ecfa16f94b287ede15488d8169c3cf4ad13b1037",
       "firstFoodID": "1513",
-      "lastFoodID": "2525",
+      "lastFoodID": "2797",
       "minFoodID": 1513,
-      "maxFoodID": 2525
+      "maxFoodID": 2797
     },
     {
       "file": "shard-0002.ndjson",
-      "count": 893,
-      "bytes": 1048543,
-      "uncompressedBytes": 1048543,
-      "sha256": "6ad703e826955628bbd5d1db18ea9232a15f8b5cd86ebe411fdab28f1f7b026d",
+      "count": 892,
+      "bytes": 1048320,
+      "uncompressedBytes": 1048320,
+      "sha256": "67154bc553d72b695ea12f90a7a017c30b72434a9a293c2d510feba0b792dd3c",
       "firstFoodID": "2526",
-      "lastFoodID": "4075",
+      "lastFoodID": "3640",
       "minFoodID": 2526,
-      "maxFoodID": 4075
+      "maxFoodID": 3640
     },
     {
       "file": "shard-0003.ndjson",
-      "count": 924,
-      "bytes": 1048537,
-      "uncompressedBytes": 1048537,
-      "sha256": "6ea9596e6db68958600b6d03ba0a78fbe7461b2c6b4e217deafd38e61c33b9d6",
-      "firstFoodID": "3640",
-      "lastFoodID": "4875",
-      "minFoodID": 3640,
-      "maxFoodID": 4875
+      "count": 925,
+      "bytes": 1048571,
+      "uncompressedBytes": 1048571,
+      "sha256": "67c68f8b3f69794a88c9ba5b84c9c025f8bc08458e75fc0d285362b5ea2f1ff3",
+      "firstFoodID": "3641",
+      "lastFoodID": "4873",
+      "minFoodID": 3641,
+      "maxFoodID": 4873
     },
     {
       "file": "shard-0004.ndjson",
-      "count": 958,
-      "bytes": 1033805,
-      "uncompressedBytes": 1033805,
-      "sha256": "ddc6fd93a8db898e7632a8ac3eebc74a1a10aa3dbaa553a205c64d0439d3ef0b",
-      "firstFoodID": "4872",
+      "count": 957,
+      "bytes": 1032284,
+      "uncompressedBytes": 1032284,
+      "sha256": "72e6dad68dc218d46d4973f5dabc8f547f052c67be13bad21761c9e057cb6db5",
+      "firstFoodID": "4874",
       "lastFoodID": "6298",
-      "minFoodID": 4872,
+      "minFoodID": 4874,
       "maxFoodID": 6298
     },
     {
       "file": "shard-0050.ndjson",
-      "count": 899,
-      "bytes": 1048495,
-      "uncompressedBytes": 1048495,
-      "sha256": "7f2768db7601a0aafa264d50b63d4c7d468d79466bc28ef273067b9fdce3db4e",
+      "count": 900,
+      "bytes": 1048253,
+      "uncompressedBytes": 1048253,
+      "sha256": "e1450235c0fb82d16f6af95c7c92521eaa2d7467cc88d76a2a6299c97601be04",
       "firstFoodID": "501097",
-      "lastFoodID": "502574",
+      "lastFoodID": "502693",
       "minFoodID": 501097,
-      "maxFoodID": 502574
+      "maxFoodID": 502693
     },
     {
       "file": "shard-0051.ndjson",
-      "count": 213,
-      "bytes": 271301,
-      "uncompressedBytes": 271301,
-      "sha256": "5aaeb5bdaf5c6877d25653ee7145c96a751671b6bb22840e306d9108967a6d20",
+      "count": 212,
+      "bytes": 269983,
+      "uncompressedBytes": 269983,
+      "sha256": "656456b341b5262bbecefc84a97bf45c0407e01515b251d8268d05d7bac278be",
       "firstFoodID": "502575",
       "lastFoodID": "503380",
       "minFoodID": 502575,
@@ -86,5 +86,5 @@
     }
   ],
   "totalRecords": 5690,
-  "totalBytes": 6547456
+  "totalBytes": 6544289
 }

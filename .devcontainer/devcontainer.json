@@ -20,7 +20,8 @@
         "lokalise.i18n-ally",
         "ms-playwright.playwright",
         "DavidAnson.vscode-markdownlint",
-        "yzhang.markdown-all-in-one"
+        "yzhang.markdown-all-in-one",
+        "github.vscode-github-actions"
       ],
       // Essential settings for Vue.js development
       "settings": {
