@@ -2,19 +2,7 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ['main']
-    paths:
-      - 'src/**'
-      - 'public/**'
-      - 'package.json'
-      - 'vite.config.*'
-      - 'tsconfig.*'
-      - 'index.html'
-      - 'env.d.ts'
-
-  # Allows you to run this workflow manually from the Actions tab
+  # Manual trigger only (main is AWS deploy)
   workflow_dispatch:
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
