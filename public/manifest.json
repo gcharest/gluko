@@ -2,8 +2,8 @@
   "name": "Gluko - Carb Calculator",
   "short_name": "Gluko",
   "description": "Offline-first carbohydrate calculator and nutrient tracker for diabetes management using the Canadian Nutrient File",
-  "start_url": "/gluko/",
-  "scope": "/gluko/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#0ea5e9",
@@ -16,19 +16,19 @@
   "lang": "en-CA",
   "icons": [
     {
-      "src": "/gluko/icons/icon-maskable-192x192.png",
+      "src": "/icons/icon-maskable-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/gluko/icons/icon-maskable-512x512.png",
+      "src": "/icons/icon-maskable-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/gluko/icons/icon-1024x1024.png",
+      "src": "/icons/icon-1024x1024.png",
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any"
