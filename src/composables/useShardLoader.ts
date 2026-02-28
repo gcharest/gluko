@@ -9,8 +9,8 @@ import type {
 } from '@/types/shard-loading'
 import type { NutrientFile } from '@/stores/nutrientsFile'
 
-const MANIFEST_URL = '/gluko/data/canadian_nutrient_file.manifest.json'
-const SHARD_BASE_URL = '/gluko/data/shards/'
+const MANIFEST_URL = '/data/canadian_nutrient_file.manifest.json'
+const SHARD_BASE_URL = '/data/shards/'
 
 export const useShardLoader = () => {
   const db = useIndexedDB()

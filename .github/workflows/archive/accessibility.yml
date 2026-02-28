@@ -51,7 +51,7 @@ jobs:
           SERVER_PID=$!
 
           # Wait for the server to be ready (timeout after 60s)
-          wait-on -t 60000 http://localhost:4173/gluko/ || {
+          wait-on -t 60000 http://localhost:4173/ || {
             echo "Server failed to start"
             kill $SERVER_PID
             exit 1

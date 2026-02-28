@@ -28,7 +28,7 @@ test.describe('Accessibility Tests', () => {
   test('Home page should not have any automatically detectable accessibility issues', async ({
     page
   }) => {
-    await page.goto('/gluko/', { waitUntil: 'networkidle' })
+    await page.goto('/', { waitUntil: 'networkidle' })
     await page.waitForSelector('main', { state: 'visible' })
     await dismissUpdateDialogs(page)
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
@@ -39,7 +39,7 @@ test.describe('Accessibility Tests', () => {
     page
   }) => {
     // Use the configured base URL and wait for navigation
-    await page.goto('/gluko/calculator', { waitUntil: 'networkidle' })
+    await page.goto('/calculator', { waitUntil: 'networkidle' })
     // Add a small wait to ensure dynamic content is loaded
     await page.waitForSelector('main', { state: 'visible' })
     await dismissUpdateDialogs(page)
@@ -50,7 +50,7 @@ test.describe('Accessibility Tests', () => {
   test('Carb Factor page should not have any automatically detectable accessibility issues', async ({
     page
   }) => {
-    await page.goto('/gluko/carb-factor', { waitUntil: 'networkidle' })
+    await page.goto('/carb-factor', { waitUntil: 'networkidle' })
     await page.waitForSelector('main', { state: 'visible' })
     await dismissUpdateDialogs(page)
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
@@ -60,7 +60,7 @@ test.describe('Accessibility Tests', () => {
   test('History page should not have any automatically detectable accessibility issues', async ({
     page
   }) => {
-    await page.goto('/gluko/history', { waitUntil: 'networkidle' })
+    await page.goto('/history', { waitUntil: 'networkidle' })
     await page.waitForSelector('main', { state: 'visible' })
     await dismissUpdateDialogs(page)
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
@@ -70,7 +70,7 @@ test.describe('Accessibility Tests', () => {
   test('About page should not have any automatically detectable accessibility issues', async ({
     page
   }) => {
-    await page.goto('/gluko/about', { waitUntil: 'networkidle' })
+    await page.goto('/about', { waitUntil: 'networkidle' })
     await page.waitForSelector('main', { state: 'visible' })
     await dismissUpdateDialogs(page)
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
@@ -84,7 +84,7 @@ test.describe('Component-specific Accessibility Tests', () => {
   // test('Navigation menu should be keyboard accessible', async ({ page }) => {
   //   // Set mobile viewport to ensure navigation button is visible
   //   await page.setViewportSize({ width: 390, height: 844 }) // iPhone 12 dimensions
-  //   await page.goto('/gluko/', { waitUntil: 'networkidle' })
+  //   await page.goto('/', { waitUntil: 'networkidle' })
   //   await page.waitForLoadState('domcontentloaded')
 
   //   // Check if the skip link is the first focusable element
@@ -124,7 +124,7 @@ test.describe('Component-specific Accessibility Tests', () => {
   // })
 
   test('Language toggler should be properly labeled', async ({ page }) => {
-    await page.goto('/gluko/', { waitUntil: 'networkidle' })
+    await page.goto('/', { waitUntil: 'networkidle' })
     const languageToggler = await page.getByRole('button', {
       name: /Change language|Changer la langue/
     })
@@ -132,13 +132,13 @@ test.describe('Component-specific Accessibility Tests', () => {
   })
 
   test('Theme toggler should be properly labeled', async ({ page }) => {
-    await page.goto('/gluko/', { waitUntil: 'networkidle' })
+    await page.goto('/', { waitUntil: 'networkidle' })
     const themeToggler = await page.getByRole('button', { name: /Toggle theme|Changer le thème/ })
     expect(await themeToggler.isVisible()).toBeTruthy()
   })
 
   test('Calculator form controls should be properly labeled', async ({ page }) => {
-    await page.goto('/gluko/calculator', { waitUntil: 'networkidle' })
+    await page.goto('/calculator', { waitUntil: 'networkidle' })
 
     // Check if nutrient inputs are properly labeled
     const nutrientInputs = await page.getByRole('textbox')
