@@ -84,12 +84,32 @@ html {
   color-scheme: light;
   background-color: #f9fafb; /* gray-50 */
   color: #111827; /* gray-900 */
+
+  /* Component theme variables - light mode */
+  --color-background: #ffffff;
+  --color-background-soft: #f3f4f6; /* gray-100 */
+  --color-heading: #111827; /* gray-900 */
+  --color-text: #374151; /* gray-700 */
+  --color-text-secondary: #6b7280; /* gray-500 */
+  --color-border: #e5e7eb; /* gray-200 */
+  --color-primary: #0ea5e9;
+  --color-primary-light: #7dd3fc; /* primary-300 */
 }
 
 html.dark {
   color-scheme: dark;
   background-color: #030712; /* gray-950 */
   color: #f9fafb; /* gray-100 */
+
+  /* Component theme variables - dark mode */
+  --color-background: #1f2937; /* gray-800 */
+  --color-background-soft: #111827; /* gray-900 */
+  --color-heading: #f9fafb; /* gray-100 */
+  --color-text: #d1d5db; /* gray-300 */
+  --color-text-secondary: #9ca3af; /* gray-400 */
+  --color-border: #374151; /* gray-700 */
+  --color-primary: #0ea5e9;
+  --color-primary-light: #7dd3fc; /* primary-300 */
 }
 
 body {
