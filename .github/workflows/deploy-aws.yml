@@ -10,6 +10,7 @@ env:
   AWS_REGION: us-east-1
   TERRAGRUNT_VERSION: v0.55.1
   BUCKET: ${{ secrets.S3_BUCKET }}
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
 
 jobs:
   build-and-deploy:
@@ -108,19 +109,40 @@ jobs:
       - name: Get CloudFront distribution ID
         id: cloudfront-id
         run: |
+          if [ -n "${{ env.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
+            DIST_ID="${{ env.CLOUDFRONT_DISTRIBUTION_ID }}"
+            echo "Using CloudFront distribution ID from secret override"
+            echo "distribution_id=$DIST_ID" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
           BUCKET="${{ env.BUCKET }}"
           if [ -z "$BUCKET" ]; then
             echo "❌ Error: BUCKET secret is not set"
             exit 1
           fi
           echo "🔍 Looking for CloudFront distribution for bucket: $BUCKET"
+
+          REGIONAL_DOMAIN="$BUCKET.s3.${{ env.AWS_REGION }}.amazonaws.com"
+          GLOBAL_DOMAIN="$BUCKET.s3.amazonaws.com"
+          WEBSITE_DOMAIN="$BUCKET.s3-website-${{ env.AWS_REGION }}.amazonaws.com"
+
           DIST_ID=$(aws cloudfront list-distributions \
-            --query "Distributions[?Origins[0].DomainName=='$BUCKET.s3.${{ env.AWS_REGION }}.amazonaws.com'].Id" \
+            --no-paginate \
+            --query "DistributionList.Items[?contains(Origins.Items[].DomainName, '$REGIONAL_DOMAIN') || contains(Origins.Items[].DomainName, '$GLOBAL_DOMAIN') || contains(Origins.Items[].DomainName, '$WEBSITE_DOMAIN')].Id | [0]" \
             --output text)
+
           if [ -z "$DIST_ID" ] || [ "$DIST_ID" == "None" ]; then
             echo "❌ Error: Could not find CloudFront distribution for bucket $BUCKET"
+            echo "Tried origin domains:"
+            echo "- $REGIONAL_DOMAIN"
+            echo "- $GLOBAL_DOMAIN"
+            echo "- $WEBSITE_DOMAIN"
             echo "Available distributions:"
-            aws cloudfront list-distributions --query 'Distributions[*].[Id,Origins[0].DomainName]' --output table
+            aws cloudfront list-distributions \
+              --no-paginate \
+              --query 'DistributionList.Items[*].[Id, Origins.Items[0].DomainName, DomainName]' \
+              --output table
             exit 1
           fi
           echo "distribution_id=$DIST_ID" >> $GITHUB_OUTPUT
