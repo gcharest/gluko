@@ -9,6 +9,7 @@ on:
 env:
   AWS_REGION: us-east-1
   TERRAGRUNT_VERSION: v0.55.1
+  BUCKET: ${{ secrets.S3_BUCKET }}
 
 jobs:
   build-and-deploy:
@@ -59,7 +60,11 @@ jobs:
 
       - name: Upload to S3
         run: |
-          BUCKET="gluko-pwa"
+          BUCKET="${{ env.BUCKET }}"
+          if [ -z "$BUCKET" ]; then
+            echo "❌ Error: BUCKET secret is not set"
+            exit 1
+          fi
           echo "📤 Uploading to S3 bucket: $BUCKET"
           aws s3 sync dist/ s3://$BUCKET/ \
             --delete \
@@ -68,7 +73,11 @@ jobs:
 
       - name: Update index.html cache (1 hour)
         run: |
-          BUCKET="${{ steps.s3-bucket.outputs.bucket }}"
+          BUCKET="${{ env.BUCKET }}"
+          if [ -z "$BUCKET" ]; then
+            echo "❌ Error: BUCKET secret is not set"
+            exit 1
+          fi
           if [ ! -f dist/index.html ]; then
             echo "❌ Error: dist/index.html not found!"
             exit 1
@@ -81,7 +90,11 @@ jobs:
 
       - name: Update manifest.json cache (no cache)
         run: |
-          BUCKET="${{ steps.s3-bucket.outputs.bucket }}"
+          BUCKET="${{ env.BUCKET }}"
+          if [ -z "$BUCKET" ]; then
+            echo "❌ Error: BUCKET secret is not set"
+            exit 1
+          fi
           if [ ! -f dist/manifest.json ]; then
             echo "❌ Error: dist/manifest.json not found!"
             exit 1
@@ -95,7 +108,11 @@ jobs:
       - name: Get CloudFront distribution ID
         id: cloudfront-id
         run: |
-          BUCKET="${{ steps.s3-bucket.outputs.bucket }}"
+          BUCKET="${{ env.BUCKET }}"
+          if [ -z "$BUCKET" ]; then
+            echo "❌ Error: BUCKET secret is not set"
+            exit 1
+          fi
           echo "🔍 Looking for CloudFront distribution for bucket: $BUCKET"
           DIST_ID=$(aws cloudfront list-distributions \
             --query "Distributions[?Origins[0].DomainName=='$BUCKET.s3.${{ env.AWS_REGION }}.amazonaws.com'].Id" \
@@ -136,7 +153,6 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **S3 Bucket**: ${{ steps.s3-bucket.outputs.bucket }}" >> $GITHUB_STEP_SUMMARY
           echo "- **CloudFront Distribution**: ${{ steps.cloudfront-id.outputs.distribution_id }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Changes will be live in 1-5 minutes once CloudFront cache is invalidated." >> $GITHUB_STEP_SUMMARY
