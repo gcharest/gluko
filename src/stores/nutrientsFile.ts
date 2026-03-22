@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed, shallowRef } from 'vue'
 import { useIndexedDB } from '@/composables/useIndexedDB'
 import { useShardLoader } from '@/composables/useShardLoader'
-import Fuse from 'fuse.js'
+import MiniSearch from 'minisearch'
 
 export interface NutrientFile {
   FoodID: number
@@ -31,6 +31,19 @@ export interface SearchResult {
   }>
 }
 
+// MiniSearch instance for full-text search (initialized when data loads)
+let miniSearch: MiniSearch<NutrientFile> | null = null
+
+// Tokenizer with French accent normalization for bilingual support
+const tokenizeWithAccents = (str: string) => {
+  return str
+    .toLowerCase()
+    .normalize('NFD') // Decompose accented characters
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics (é → e, ç → c, etc.)
+    .split(/[\s\-\.\/,]+/) // Split on whitespace and common separators
+    .filter((token) => token.length > 0)
+}
+
 export const useNutrientFileStore = defineStore('nutrientsFile', () => {
   const db = useIndexedDB()
   const shardLoader = useShardLoader()
@@ -39,10 +52,27 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
   // for every property access during rendering. Always replace via assignment, never mutate.
   const nutrientsFile = shallowRef<NutrientFile[]>([])
   const favoriteNutrients = ref<number[]>([])
-  const searchCache = new Map<string, SearchResult[]>()
   const isLoadingDataset = computed(() => shardLoader.isLoading.value)
   const datasetLoadError = computed(() => shardLoader.error.value)
   const loadProgress = computed(() => shardLoader.progress.value)
+
+  // Initialize MiniSearch index when data is available
+  const initializeSearch = () => {
+    miniSearch = new MiniSearch<NutrientFile>({
+      fields: ['FoodDescription', 'FoodDescriptionF'],
+      storeFields: ['FoodID', 'FoodDescription', 'FoodDescriptionF', 'FoodGroupName', 'FoodGroupNameF'],
+      idField: 'FoodID',
+      tokenize: tokenizeWithAccents,
+      processTerm: (term: string) => term || null,
+      // Allow fuzzy search with 20% edit distance for typo tolerance
+      searchOptions: {
+        prefix: true, // 'from' matches 'fromage'
+        fuzzy: 0.2, // 20% character difference tolerance (Levenshtein distance)
+        boost: { FoodDescriptionF: 1.5 } // Slight boost for French field
+      }
+    })
+    miniSearch.addAll(nutrientsFile.value)
+  }
 
   const loadInitialData = async () => {
     try {
@@ -82,6 +112,9 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
       if (storedFavorites) {
         favoriteNutrients.value = storedFavorites
       }
+
+      // Initialize search index after dataset is loaded
+      initializeSearch()
     } catch (error) {
       console.error('Failed to load initial data:', error)
       throw error // Re-throw to let the app handle the error
@@ -99,16 +132,6 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
   const totalNutrients = computed(() => nutrientsFile.value.length)
   const favoriteCount = computed(() => favoriteNutrients.value.length)
   const isDataLoaded = computed(() => nutrientsFile.value.length > 0)
-  const searchOptions = {
-    keys: ['FoodDescriptionF', 'FoodDescription'],
-    location: 0,
-    distance: 200,
-    threshold: 0.2,
-    isCaseSensitive: false,
-    includeMatches: true,
-    includeScore: true,
-    minMatchCharLength: 2
-  }
 
   // Actions
   function searchNutrients(search: string): SearchResult[] {
@@ -117,11 +140,9 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
         return []
       }
 
-      const searchKey = search.toLowerCase().trim()
-
-      // Check cache first
-      if (searchCache.has(searchKey)) {
-        return searchCache.get(searchKey)!
+      if (!miniSearch) {
+        console.warn('Search index not initialized')
+        return []
       }
 
       if (nutrientsFile.value.length === 0) {
@@ -129,15 +150,19 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
         return []
       }
 
-      const fuse = new Fuse(nutrientsFile.value, searchOptions)
-      const results = fuse.search(searchKey) as SearchResult[]
+      // Perform search with fuzzy matching and prefix search enabled
+      const searchResults = miniSearch.search(search)
 
-      // Cache results for performance
-      if (results.length > 0) {
-        searchCache.set(searchKey, results)
-      }
-
-      return results
+      // Convert MiniSearch results back to SearchResult format compatible with UI
+      // MiniSearch returns { id, score, terms }, we need to look up the full NutrientFile
+      return searchResults.map((searchResult) => {
+        const nutrient = nutrientsFile.value.find((n) => n.FoodID === searchResult.id)
+        return {
+          item: nutrient || ({} as NutrientFile),
+          refIndex: 0,
+          score: searchResult.score
+        }
+      })
     } catch (error) {
       console.error('Failed to search nutrients:', error)
       return []
@@ -213,21 +238,14 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
     }
   }
 
-  function clearSearchCache(): void {
-    try {
-      searchCache.clear()
-    } catch (error) {
-      console.error('Failed to clear search cache:', error)
-    }
-  }
-
   async function reloadData(): Promise<boolean> {
     try {
       // Re-download shards from GitHub
       await shardLoader.loadDataset()
       const nutrients = await shardLoader.getAllNutrients()
       nutrientsFile.value = nutrients
-      clearSearchCache()
+      // Reinitialize search index with new data
+      initializeSearch()
       return true
     } catch (error) {
       console.error('Failed to reload data:', error)
@@ -242,6 +260,10 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
         await shardLoader.loadDataset()
         const nutrients = await shardLoader.getAllNutrients()
         nutrientsFile.value = nutrients
+      }
+      // Initialize search index if data exists
+      if (nutrientsFile.value.length > 0) {
+        initializeSearch()
       }
       return true
     } catch (error) {
@@ -261,7 +283,8 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
       const nutrients = await shardLoader.getAllNutrients()
       nutrientsFile.value = nutrients
 
-      clearSearchCache()
+      // Reinitialize search index with fresh data
+      initializeSearch()
       return true
     } catch (error) {
       console.error('Failed to reset nutrient file store:', error)
@@ -293,7 +316,8 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
       // Reload nutrients from shards
       const nutrients = await shardLoader.getAllNutrients()
       nutrientsFile.value = nutrients
-      clearSearchCache()
+      // Reinitialize search index with updated data
+      initializeSearch()
       return true
     } catch (error) {
       console.error('Failed to update dataset:', error)
@@ -320,7 +344,6 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
     toggleFavorite,
     isFavorite,
     getFavoriteNutrients,
-    clearSearchCache,
     initializeData,
     reloadData,
     loadInitialData,

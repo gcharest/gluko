@@ -163,17 +163,6 @@ describe('nutrientsFile Store', () => {
       expect(results1).toEqual(results2)
     })
 
-    it('clears search cache', () => {
-      const store = useNutrientFileStore()
-
-      store.searchNutrients('cheese')
-      store.clearSearchCache()
-
-      // Cache should be cleared (can't directly verify, but ensure it doesn't error)
-      const results = store.searchNutrients('cheese')
-      expect(results.length).toBeGreaterThan(0)
-    })
-
     it('handles search with trimmed whitespace', () => {
       const store = useNutrientFileStore()
       const results = store.searchNutrients('  banana  ')
