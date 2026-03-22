@@ -1,40 +1,35 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useNotificationStore } from '@/stores/notification'
-import HomeView from '../views/HomeView.vue'
-import CarbFactor from '@/views/CarbFactor.vue'
-import CalculatorView from '@/views/CalculatorView.vue'
-import MealHistoryView from '@/views/MealHistoryView.vue'
 
+// All route components are lazy-loaded so they are excluded from the initial bundle.
+// The SW precaches all chunks, so on cached visits these loads are instant.
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/calculator',
       name: 'calculator',
-      component: CalculatorView
+      component: () => import('../views/CalculatorView.vue')
     },
     {
       path: '/carb-factor',
       name: 'carb-factor',
-      component: CarbFactor
+      component: () => import('../views/CarbFactor.vue')
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
     {
       path: '/history',
       name: 'meal-history',
-      component: MealHistoryView
+      component: () => import('../views/MealHistoryView.vue')
     },
     {
       path: '/settings',

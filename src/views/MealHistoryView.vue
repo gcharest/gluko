@@ -233,7 +233,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, defineAsyncComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useMealHistoryStore } from '@/stores/mealHistory'
@@ -252,9 +252,10 @@ import SubjectSelector from '@/components/filters/SubjectSelector.vue'
 import TagSelector from '@/components/filters/TagSelector.vue'
 import MealHistoryCard from '@/components/history/MealHistoryCard.vue'
 import UnsavedChangesModal from '@/components/modals/UnsavedChangesModal.vue'
-import ImportConfirmModal from '@/components/modals/ImportConfirmModal.vue'
-import SubjectManagementModal from '@/components/modals/SubjectManagementModal.vue'
-import TagManagementModal from '@/components/modals/TagManagementModal.vue'
+
+const ImportConfirmModal = defineAsyncComponent(() => import('@/components/modals/ImportConfirmModal.vue'))
+const SubjectManagementModal = defineAsyncComponent(() => import('@/components/modals/SubjectManagementModal.vue'))
+const TagManagementModal = defineAsyncComponent(() => import('@/components/modals/TagManagementModal.vue'))
 import {
   DownloadIcon,
   UploadIcon,

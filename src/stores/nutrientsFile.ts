@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, shallowRef } from 'vue'
 import { useIndexedDB } from '@/composables/useIndexedDB'
 import { useShardLoader } from '@/composables/useShardLoader'
 import Fuse from 'fuse.js'
@@ -34,7 +34,10 @@ export interface SearchResult {
 export const useNutrientFileStore = defineStore('nutrientsFile', () => {
   const db = useIndexedDB()
   const shardLoader = useShardLoader()
-  const nutrientsFile = ref<NutrientFile[]>([])
+  // shallowRef: Vue tracks only the array reference, not individual item properties.
+  // The CNF dataset has thousands of records; deep reactivity would create proxy traps
+  // for every property access during rendering. Always replace via assignment, never mutate.
+  const nutrientsFile = shallowRef<NutrientFile[]>([])
   const favoriteNutrients = ref<number[]>([])
   const searchCache = new Map<string, SearchResult[]>()
   const isLoadingDataset = computed(() => shardLoader.isLoading.value)
@@ -84,8 +87,6 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
       throw error // Re-throw to let the app handle the error
     }
   }
-
-  loadInitialData()
 
   const saveFavorites = async () => {
     try {
@@ -322,6 +323,7 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
     clearSearchCache,
     initializeData,
     reloadData,
+    loadInitialData,
     $reset,
     // v0.3 shard-based dataset actions
     checkForDatasetUpdates,

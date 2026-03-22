@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, type Ref } from 'vue'
+import { ref, defineAsyncComponent, type Ref } from 'vue'
 import NutrientListItem from './NutrientListItem.vue'
-import NutrientModal from '../modals/NutrientModal.vue'
 import CalculatorSummary from '../calculator/CalculatorSummary.vue'
 import CalculatorControls from '../calculator/CalculatorControls.vue'
 import { useMealStore } from '@/stores/meal'
 import type { Nutrient } from '@/stores/meal'
+
+const NutrientModal = defineAsyncComponent(() => import('../modals/NutrientModal.vue'))
 
 const props = defineProps<{
   nutrients: Nutrient[]

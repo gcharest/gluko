@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, defineAsyncComponent } from 'vue'
 import type { PropType } from 'vue'
 import { useMealStore, type Nutrient } from '@/stores/meal'
-import ConfirmationModal from '@/components/modals/ConfirmationModal.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { EditIcon, TrashIcon } from 'lucide-vue-next'
+
+const ConfirmationModal = defineAsyncComponent(() => import('@/components/modals/ConfirmationModal.vue'))
 
 const mealStore = useMealStore()
 const props = defineProps({

@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, defineAsyncComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 import NutrientList from '@/components/nutrients/NutrientList.vue'
-import ConfirmationModal from '@/components/modals/ConfirmationModal.vue'
-import SaveMealModal from '@/components/modals/SaveMealModal.vue'
-import TagManagementModal from '@/components/modals/TagManagementModal.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { useMealStore } from '@/stores/meal'
 import { useToast } from '@/composables/useToast'
 import type { Nutrient } from '@/types/meal-history'
 import { BookPlusIcon } from 'lucide-vue-next'
+
+const ConfirmationModal = defineAsyncComponent(() => import('@/components/modals/ConfirmationModal.vue'))
+const SaveMealModal = defineAsyncComponent(() => import('@/components/modals/SaveMealModal.vue'))
+const TagManagementModal = defineAsyncComponent(() => import('@/components/modals/TagManagementModal.vue'))
 
 const store = useMealStore()
 const toast = useToast()

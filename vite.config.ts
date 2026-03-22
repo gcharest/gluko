@@ -106,9 +106,38 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['vue', 'vue-router', 'pinia'],
-          utilities: ['@vueuse/core', 'fuse.js']
+        manualChunks(id) {
+          // Core Vue runtime — must be in the initial bundle for the app shell
+          if (
+            id.includes('node_modules/vue/') ||
+            id.includes('node_modules/@vue/') ||
+            id.includes('node_modules/vue-router/') ||
+            id.includes('node_modules/pinia/')
+          ) {
+            return 'vendor'
+          }
+          // i18n — large but needed at startup; own chunk so it can be prefetched
+          if (
+            id.includes('node_modules/vue-i18n/') ||
+            id.includes('node_modules/@intlify/')
+          ) {
+            return 'i18n'
+          }
+          // Icon library — tree-shakeable but large; separate chunk
+          if (id.includes('node_modules/lucide-vue-next/')) {
+            return 'icons'
+          }
+          // UI primitives
+          if (id.includes('node_modules/reka-ui/')) {
+            return 'ui'
+          }
+          // Search and utility helpers — only needed after dataset loads
+          if (
+            id.includes('node_modules/fuse.js/') ||
+            id.includes('node_modules/@vueuse/')
+          ) {
+            return 'utilities'
+          }
         }
       }
     }
