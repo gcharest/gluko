@@ -1,4 +1,3 @@
-/* eslint-env node */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import fs from 'fs'
 import path from 'path'

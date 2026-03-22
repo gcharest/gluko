@@ -6,7 +6,9 @@ import BaseCard from '@/components/base/BaseCard.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { EditIcon, TrashIcon } from 'lucide-vue-next'
 
-const ConfirmationModal = defineAsyncComponent(() => import('@/components/modals/ConfirmationModal.vue'))
+const ConfirmationModal = defineAsyncComponent(
+  () => import('@/components/modals/ConfirmationModal.vue')
+)
 
 const mealStore = useMealStore()
 const props = defineProps({

@@ -12,8 +12,10 @@ const deployDate = new Date(__DEPLOY_DATE__).toISOString().slice(0, 10)
           <span class="text-muted small">
             Gluko © Guillaume Charest 2021-2023
             <br class="d-sm-none" />
-            <span class="d-none d-sm-inline">| </span>ver. {{ version }} ({{ $t('settings.app.buildDate') }} {{
-            buildDate }}, {{ $t('settings.app.deployDate') }} {{ deployDate }})
+            <span class="d-none d-sm-inline">| </span>ver. {{ version }} ({{
+              $t('settings.app.buildDate')
+            }}
+            {{ buildDate }}, {{ $t('settings.app.deployDate') }} {{ deployDate }})
           </span>
         </div>
       </div>

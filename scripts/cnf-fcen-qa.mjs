@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-/* eslint-env node */
-// 'use strict' removed to allow usage of global 'console'
 /* global process */
+// 'use strict' removed to allow usage of global 'console'
 
 import fs from 'fs'
 import path from 'path'

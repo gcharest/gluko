@@ -34,11 +34,14 @@ onMounted(() => {
 
     <!-- Main Content -->
     <main
-      id="content" class="min-h-screen transition-all duration-300" :class="[
-      'lg:ml-24', // Desktop: Add left margin for side rail
-      'pt-14 lg:pt-0', // Mobile: Add top padding for top bar
-      'pb-20 lg:pb-4' // Mobile: Add bottom padding for bottom nav
-    ]">
+      id="content"
+      class="min-h-screen transition-all duration-300"
+      :class="[
+        'lg:ml-24', // Desktop: Add left margin for side rail
+        'pt-14 lg:pt-0', // Mobile: Add top padding for top bar
+        'pb-20 lg:pb-4' // Mobile: Add bottom padding for bottom nav
+      ]"
+    >
       <div class="container mx-auto px-4 py-3">
         <!-- KeepAlive preserves component instances for stateful views (active session,
              active filters) across navigation, avoiding costly re-mounts. -->

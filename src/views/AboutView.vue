@@ -29,7 +29,6 @@ const version = __APP_VERSION__
 const buildDate = new Date(__BUILD_DATE__).toISOString().slice(0, 10)
 const deployDate = new Date(__DEPLOY_DATE__).toISOString().slice(0, 10)
 
-
 // Detect user platform to set default tab
 const detectPlatform = (): InstallTab => {
   const ua = navigator.userAgent.toLowerCase()

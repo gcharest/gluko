@@ -40,7 +40,7 @@ const tokenizeWithAccents = (str: string) => {
     .toLowerCase()
     .normalize('NFD') // Decompose accented characters
     .replace(/[\u0300-\u036f]/g, '') // Remove diacritics (é → e, ç → c, etc.)
-    .split(/[\s\-\.\/,]+/) // Split on whitespace and common separators
+    .split(/[\s\-.,/]+/) // Split on whitespace and common separators
     .filter((token) => token.length > 0)
 }
 
@@ -60,7 +60,13 @@ export const useNutrientFileStore = defineStore('nutrientsFile', () => {
   const initializeSearch = () => {
     miniSearch = new MiniSearch<NutrientFile>({
       fields: ['FoodDescription', 'FoodDescriptionF'],
-      storeFields: ['FoodID', 'FoodDescription', 'FoodDescriptionF', 'FoodGroupName', 'FoodGroupNameF'],
+      storeFields: [
+        'FoodID',
+        'FoodDescription',
+        'FoodDescriptionF',
+        'FoodGroupName',
+        'FoodGroupNameF'
+      ],
       idField: 'FoodID',
       tokenize: tokenizeWithAccents,
       processTerm: (term: string) => term || null,

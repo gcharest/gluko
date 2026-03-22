@@ -8,9 +8,13 @@ import { useToast } from '@/composables/useToast'
 import type { Nutrient } from '@/types/meal-history'
 import { BookPlusIcon } from 'lucide-vue-next'
 
-const ConfirmationModal = defineAsyncComponent(() => import('@/components/modals/ConfirmationModal.vue'))
+const ConfirmationModal = defineAsyncComponent(
+  () => import('@/components/modals/ConfirmationModal.vue')
+)
 const SaveMealModal = defineAsyncComponent(() => import('@/components/modals/SaveMealModal.vue'))
-const TagManagementModal = defineAsyncComponent(() => import('@/components/modals/TagManagementModal.vue'))
+const TagManagementModal = defineAsyncComponent(
+  () => import('@/components/modals/TagManagementModal.vue')
+)
 
 const store = useMealStore()
 const toast = useToast()
