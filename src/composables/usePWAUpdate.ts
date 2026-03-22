@@ -7,7 +7,7 @@ import { useI18n } from 'vue-i18n'
 const pwaUpdateState = {
   offlineReady: ref(false),
   needRefresh: ref(false),
-  updateServiceWorker: null as (() => Promise<void>) | null,
+  updateServiceWorker: null as ReturnType<typeof useRegisterSW>['updateServiceWorker'] | null,
   hasBeenNotified: ref(false),
   registration: null as ServiceWorkerRegistration | null
 }
@@ -97,10 +97,25 @@ export function usePWAUpdate() {
    * Apply the update by reloading the page with the new service worker
    */
   async function applyUpdate() {
-    if (pwaUpdateState.updateServiceWorker) {
-      await pwaUpdateState.updateServiceWorker()
-      // The page will reload automatically
+    if (!pwaUpdateState.updateServiceWorker) return
+
+    let reloaded = false
+    const reloadOnce = () => {
+      if (reloaded || typeof window === 'undefined') return
+      reloaded = true
+      window.location.reload()
     }
+
+    // Reload only after the new service worker takes control to avoid blank-screen races.
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', reloadOnce, { once: true })
+    }
+
+    // Ask the waiting service worker to activate now. We handle reload explicitly above.
+    await pwaUpdateState.updateServiceWorker(false)
+
+    // Fallback: if controllerchange doesn't fire quickly, force a single reload.
+    setTimeout(reloadOnce, 2000)
   }
 
   /**

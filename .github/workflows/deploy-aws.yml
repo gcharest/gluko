@@ -36,9 +36,13 @@ jobs:
         id: meta
         run: |
           NOW_UTC=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          VERSION=$(jq -r '.version' package.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "build_date=$NOW_UTC" >> $GITHUB_OUTPUT
           echo "deploy_date=$NOW_UTC" >> $GITHUB_OUTPUT
-          echo "version=$GITHUB_SHA" >> $GITHUB_OUTPUT
+          echo "commit_sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo "run_id=${{ github.run_id }}" >> $GITHUB_OUTPUT
+          echo "run_number=${{ github.run_number }}" >> $GITHUB_OUTPUT
 
       - name: Run type check
         run: npm run type-check
@@ -46,24 +50,19 @@ jobs:
       - name: Build application
         run: npm run build
         env:
-          VERSION: ${{ steps.meta.outputs.version }}
           BUILD_DATE: ${{ steps.meta.outputs.build_date }}
           DEPLOY_DATE: ${{ steps.meta.outputs.deploy_date }}
 
       - name: Generate build metadata file
-        env:
-          VERSION: ${{ steps.meta.outputs.version }}
-          BUILD_DATE: ${{ steps.meta.outputs.build_date }}
-          DEPLOY_DATE: ${{ steps.meta.outputs.deploy_date }}
         run: |
           cat > dist/build-info.json << EOF
           {
-            "version": "$VERSION",
-            "buildDate": "$BUILD_DATE",
-            "deployDate": "$DEPLOY_DATE",
-            "commitSha": "${{ github.sha }}",
-            "runId": "${{ github.run_id }}",
-            "runNumber": "${{ github.run_number }}"
+            "version": "${{ steps.meta.outputs.version }}",
+            "buildDate": "${{ steps.meta.outputs.build_date }}",
+            "deployDate": "${{ steps.meta.outputs.deploy_date }}",
+            "commitSha": "${{ steps.meta.outputs.commit_sha }}",
+            "runId": "${{ steps.meta.outputs.run_id }}",
+            "runNumber": "${{ steps.meta.outputs.run_number }}"
           }
           EOF
 
