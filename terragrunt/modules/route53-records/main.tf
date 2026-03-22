@@ -59,6 +59,16 @@ resource "aws_route53_record" "spf" {
   records = [var.spf_record_value]
 }
 
+resource "aws_route53_record" "null_mx" {
+  count   = var.enable_null_mx_record ? 1 : 0
+  zone_id = var.route53_zone_id
+  name    = var.domain_name
+  type    = "MX"
+  ttl     = var.txt_ttl
+
+  records = [var.null_mx_record_value]
+}
+
 resource "aws_route53_record" "dmarc" {
   count   = var.enable_dmarc_record ? 1 : 0
   zone_id = var.route53_zone_id

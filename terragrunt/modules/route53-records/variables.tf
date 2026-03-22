@@ -43,6 +43,18 @@ variable "spf_record_value" {
   default     = "v=spf1 -all"
 }
 
+variable "enable_null_mx_record" {
+  description = "Whether to publish a null MX record (RFC7505) indicating the domain does not accept email"
+  type        = bool
+  default     = true
+}
+
+variable "null_mx_record_value" {
+  description = "MX record value for null MX (RFC7505); keep as '0 .' unless you need normal mail routing"
+  type        = string
+  default     = "0 ."
+}
+
 variable "enable_dmarc_record" {
   description = "Whether to create a DMARC TXT record"
   type        = bool
