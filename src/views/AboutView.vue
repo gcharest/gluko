@@ -24,6 +24,12 @@ type InstallTab = 'ios' | 'android' | 'desktop'
 // Active tab for installation instructions
 const activeInstallTab = ref<InstallTab>('ios')
 
+// Access build-time constants
+const version = __APP_VERSION__
+const buildDate = new Date(__BUILD_DATE__).toISOString().slice(0, 10)
+const deployDate = new Date(__DEPLOY_DATE__).toISOString().slice(0, 10)
+
+
 // Detect user platform to set default tab
 const detectPlatform = (): InstallTab => {
   const ua = navigator.userAgent.toLowerCase()
@@ -431,6 +437,9 @@ onMounted(() => {
           {{ $t('views.about.author.title') }}
         </h2>
         <p class="text-gray-600 dark:text-gray-300">{{ $t('views.about.author.name') }}</p>
+        <p class="text-xs">ver. {{ version }}</p>
+        <p class="text-xs">{{ $t('settings.app.buildDate') }} {{ buildDate }}</p>
+        <p class="text-xs">{{ $t('settings.app.deployDate') }} {{ deployDate }}</p>
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
           {{ $t('views.about.author.copyright') }}
         </p>

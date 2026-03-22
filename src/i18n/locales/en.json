@@ -498,6 +498,8 @@
     "app": {
       "title": "Application",
       "currentVersion": "App Version",
+      "buildDate": "Build Date",
+      "deployDate": "Deploy Date",
       "checkForUpdates": "Check for Updates",
       "updateAvailable": "Update available",
       "installUpdate": "Install Update",

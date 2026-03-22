@@ -32,14 +32,40 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Capture build metadata
+        id: meta
+        run: |
+          NOW_UTC=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          echo "build_date=$NOW_UTC" >> $GITHUB_OUTPUT
+          echo "deploy_date=$NOW_UTC" >> $GITHUB_OUTPUT
+          echo "version=$GITHUB_SHA" >> $GITHUB_OUTPUT
+
       - name: Run type check
         run: npm run type-check
 
       - name: Build application
         run: npm run build
         env:
-          VERSION: ${{ github.sha }}
-          BUILD_DATE: ${{ github.event.head_commit.timestamp }}
+          VERSION: ${{ steps.meta.outputs.version }}
+          BUILD_DATE: ${{ steps.meta.outputs.build_date }}
+          DEPLOY_DATE: ${{ steps.meta.outputs.deploy_date }}
+
+      - name: Generate build metadata file
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+          BUILD_DATE: ${{ steps.meta.outputs.build_date }}
+          DEPLOY_DATE: ${{ steps.meta.outputs.deploy_date }}
+        run: |
+          cat > dist/build-info.json << EOF
+          {
+            "version": "$VERSION",
+            "buildDate": "$BUILD_DATE",
+            "deployDate": "$DEPLOY_DATE",
+            "commitSha": "${{ github.sha }}",
+            "runId": "${{ github.run_id }}",
+            "runNumber": "${{ github.run_number }}"
+          }
+          EOF
 
       - name: Verify build output
         run: |
@@ -69,10 +95,10 @@ jobs:
           echo "📤 Uploading to S3 bucket: $BUCKET"
           aws s3 sync dist/ s3://$BUCKET/ \
             --delete \
-            --cache-control "public, max-age=31536000"
+            --cache-control "public, max-age=31536000, immutable"
           echo "✅ S3 sync completed"
 
-      - name: Update index.html cache (1 hour)
+      - name: Update index.html cache (no-cache)
         run: |
           BUCKET="${{ env.BUCKET }}"
           if [ -z "$BUCKET" ]; then
@@ -86,7 +112,7 @@ jobs:
           echo "📄 Updating index.html cache headers..."
           aws s3 cp dist/index.html s3://$BUCKET/index.html \
             --content-type "text/html; charset=utf-8" \
-            --cache-control "public, max-age=3600"
+            --cache-control "public, max-age=0, must-revalidate"
           echo "✅ index.html updated"
 
       - name: Update manifest.json cache (no cache)
@@ -105,6 +131,40 @@ jobs:
             --content-type "application/json" \
             --cache-control "public, max-age=0, must-revalidate"
           echo "✅ manifest.json updated"
+
+      - name: Update service worker cache (no cache)
+        run: |
+          BUCKET="${{ env.BUCKET }}"
+          if [ -z "$BUCKET" ]; then
+            echo "❌ Error: BUCKET secret is not set"
+            exit 1
+          fi
+          if [ ! -f dist/sw.js ]; then
+            echo "❌ Error: dist/sw.js not found!"
+            exit 1
+          fi
+          echo "🛠️ Updating sw.js cache headers..."
+          aws s3 cp dist/sw.js s3://$BUCKET/sw.js \
+            --content-type "application/javascript; charset=utf-8" \
+            --cache-control "public, max-age=0, must-revalidate"
+          echo "✅ sw.js updated"
+
+      - name: Update build metadata cache (no cache)
+        run: |
+          BUCKET="${{ env.BUCKET }}"
+          if [ -z "$BUCKET" ]; then
+            echo "❌ Error: BUCKET secret is not set"
+            exit 1
+          fi
+          if [ ! -f dist/build-info.json ]; then
+            echo "❌ Error: dist/build-info.json not found!"
+            exit 1
+          fi
+          echo "📌 Updating build-info.json cache headers..."
+          aws s3 cp dist/build-info.json s3://$BUCKET/build-info.json \
+            --content-type "application/json" \
+            --cache-control "public, max-age=0, must-revalidate"
+          echo "✅ build-info.json updated"
 
       - name: Get CloudFront distribution ID
         id: cloudfront-id
@@ -158,7 +218,7 @@ jobs:
           echo "🔄 Invalidating CloudFront cache for distribution: $DIST_ID"
           aws cloudfront create-invalidation \
             --distribution-id $DIST_ID \
-            --paths "/index.html" "/manifest.json"
+            --paths "/index.html" "/manifest.json" "/sw.js" "/build-info.json"
           echo "✅ CloudFront invalidation initiated..."
 
       - name: Wait for CloudFront invalidation

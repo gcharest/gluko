@@ -11,8 +11,10 @@ import { VitePWA } from 'vite-plugin-pwa'
 const packageJson = JSON.parse(
   readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), './package.json'), 'utf-8')
 )
-const appVersion = packageJson.version
-const buildDate = new Date().toISOString()
+const rawVersion = process.env.VERSION ?? packageJson.version
+const appVersion = /^[0-9a-f]{40}$/i.test(rawVersion) ? rawVersion.slice(0, 7) : rawVersion
+const buildDate = process.env.BUILD_DATE ?? new Date().toISOString()
+const deployDate = process.env.DEPLOY_DATE ?? buildDate
 
 // Allow overriding the base path via env var `VITE_BASE`.
 // Default to '/' for root-hosted deployments. Normalize to ensure
@@ -30,6 +32,7 @@ export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(appVersion),
     __BUILD_DATE__: JSON.stringify(buildDate),
+    __DEPLOY_DATE__: JSON.stringify(deployDate),
   },
   plugins: [
     vue(),
@@ -51,7 +54,7 @@ export default defineConfig({
           {
             // Cache app data JSON files with network-first strategy
             // Only cache requests to <base>/data/ endpoints for app-specific data
-            urlPattern: ({ url }) => url.pathname.startsWith(`${base}data/`) && url.pathname.endsWith('.json'),
+            urlPattern: new RegExp(`^${base}data/.*\\.json$`),
             handler: 'NetworkFirst',
             options: {
               cacheName: 'data-cache',
@@ -63,7 +66,7 @@ export default defineConfig({
           },
           {
             // Cache images with cache-first strategy
-            urlPattern: ({ url }) => /\.(png|jpg|jpeg|svg|gif|webp)$/.test(url.pathname),
+            urlPattern: /\.(png|jpg|jpeg|svg|gif|webp)$/,
             handler: 'CacheFirst',
             options: {
               cacheName: 'image-cache',

@@ -492,6 +492,8 @@
     "app": {
       "title": "Application",
       "currentVersion": "Version de l'application",
+      "buildDate": "Date de compilation",
+      "deployDate": "Date de déploiement",
       "checkForUpdates": "Vérifier les mises à jour",
       "updateAvailable": "Mise à jour disponible",
       "installUpdate": "Installer la mise à jour",

@@ -8,12 +8,17 @@ import vue from '@vitejs/plugin-vue'
 const packageJson = JSON.parse(
   readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), './package.json'), 'utf-8')
 )
+const rawVersion = process.env.VERSION ?? packageJson.version
+const appVersion = /^[0-9a-f]{40}$/i.test(rawVersion) ? rawVersion.slice(0, 7) : rawVersion
+const buildDate = process.env.BUILD_DATE ?? new Date().toISOString()
+const deployDate = process.env.DEPLOY_DATE ?? buildDate
 
 export default defineConfig({
   plugins: [vue()],
   define: {
-    __APP_VERSION__: JSON.stringify(packageJson.version),
-    __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+    __APP_VERSION__: JSON.stringify(appVersion),
+    __BUILD_DATE__: JSON.stringify(buildDate),
+    __DEPLOY_DATE__: JSON.stringify(deployDate),
   },
   test: {
     // enable jest-like global test APIs
