@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "terragrunt/**"
+      - ".github/workflows/**"
   workflow_dispatch: # Allow manual trigger
 
 env:

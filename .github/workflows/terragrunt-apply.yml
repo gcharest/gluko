@@ -15,12 +15,8 @@ permissions:
 
 env:
   AWS_REGION: us-east-1
-  TERRAFORM_VERSION: 1.8.0
-  TERRAGRUNT_VERSION: 0.59.6
-
-concurrency:
-  group: terragrunt-apply
-  cancel-in-progress: false
+  TERRAFORM_VERSION: 1.14.5
+  TERRAGRUNT_VERSION: 0.99.4
 
 jobs:
   terragrunt-apply:
@@ -30,12 +26,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Terraform and Terragrunt
-        uses: cds-snc/terraform-tools-setup@v1
-        with:
-          terraform-version: ${{ env.TERRAFORM_VERSION }}
-          terragrunt-version: ${{ env.TERRAGRUNT_VERSION }}
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -43,19 +33,25 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: github-terragrunt-apply
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+
+      - name: Setup Terragrunt
+        run: |
+          wget -q https://github.com/gruntwork-io/terragrunt/releases/download/v${{ env.TERRAGRUNT_VERSION }}/terragrunt_linux_amd64
+          chmod +x terragrunt_linux_amd64
+          sudo mv terragrunt_linux_amd64 /usr/local/bin/terragrunt
+          terragrunt --version
+
+      - name: Terragrunt Init All
+        working-directory: terragrunt/environments/prod
+        run: |
+          terragrunt run  --non-interactive --all init
+
       - name: Terragrunt Apply All Modules
         working-directory: terragrunt/environments/prod
         run: |
-          terragrunt run-all apply -auto-approve
-
-      - name: Output Route53 Nameservers
-        if: success()
-        working-directory: terragrunt/environments/prod/route53
-        run: |
-          echo "## ✅ Infrastructure Deployed Successfully" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Update your domain registrar with these nameservers:**" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          terragrunt output -raw nameservers_string >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          terragrunt run  --non-interactive --all apply
